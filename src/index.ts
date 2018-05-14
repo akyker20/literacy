@@ -4,6 +4,8 @@ import { BookService } from './routes/books';
 import { MongoUserData } from './data/users';
 import { UserService } from './routes/users';
 import { MongoGenreData } from './data/genres';
+import { QuizService } from './routes/quizzes';
+import { MongoQuizData } from './data/quizzes';
 
 const dbHost = process.env.MONGO_HOST || 'localhost';
 const dbPort = process.env.MONGO_PORT || '27017';
@@ -14,24 +16,37 @@ const connectionStr = `mongodb://${dbHost}:${dbPort}/${dbName}`;
 const mongoBookData = new MongoBookData(connectionStr);
 const mongoUserData = new MongoUserData(connectionStr);
 const mongoGenreData = new MongoGenreData(connectionStr);
+const mongoQuizData = new MongoQuizData(connectionStr);
 
-const bookService = BookService(mongoGenreData, mongoBookData);
+const bookService = BookService(mongoGenreData, mongoBookData, mongoUserData);
 const userService = UserService(mongoUserData);
+const quizService = QuizService(mongoQuizData)
 
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
 
 server.post('/genres', bookService.createGenre);
 server.get('/genres', bookService.getGenres);
+server.put('/genres/:genreId', bookService.updateGenre);
 server.del('/genres/:genreId', bookService.deleteGenre);
-server.get('/genres/:genreId/books', bookService.getBooksOfGenre);
 
 server.post('/books', bookService.createBook);
 server.get('/books', bookService.getAllBooks);
-server.get('/books/:isbn', bookService.getBook);
-server.del('/books/:isbn', bookService.deleteBook);
+server.put('/books/:bookId', bookService.updateBook);
+server.get('/books/:bookId', bookService.getBook);
+server.del('/books/:bookId', bookService.deleteBook);
+server.get('/books/:bookId/quiz', quizService.getQuizForBook);
 
-server.post('/users/signin', userService.signin);
+server.post('/quizzes', quizService.createQuiz);
+server.del('/quizzes/:quizId', quizService.deleteQuiz);
+server.put('/quizzes/:quizId', quizService.updateQuiz);
+
+server.get('/whoami', userService.whoami);
+server.post('/students', userService.createUser);
+server.post('/students/signin', userService.signin);
+server.post('/students/:userId/genre_interests', userService.createGenreInterests);
+server.put('/students/:userId/genre_interests/:genreId', userService.editGenreInterest);
+server.get('/students/:userId/books', bookService.getBooksForStudent);
 
 server.listen(8080, function() {
   console.log('%s listening at %s', server.name, server.url);

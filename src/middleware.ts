@@ -73,6 +73,46 @@ export function authorize(permittedUserTypes: UserType[]) {
 }
 
 /**
+ * This middleware prohibits certain users from making requests on 
+ * behalf of other users.
+ * 
+ * For users who do not have a role in permittedAgentRoles that are making
+ * the request (their id is in the request auth token), they must be updating
+ * their own resources (userId in /users/:userId/... is their id).
+ * 
+ * This only applies to requests with userId in request url params.
+ * 
+ * @param permittedAgentRoles list of roles that can always make the request on
+ * behalf of other users.
+ */
+export function authorizeAgents(permittedAgentRoles: UserType[]) {
+
+  return (req: IRequest<any>, res: Response, next: Next) => {
+
+    const { authToken } = req;
+
+    if (_.isEmpty(authToken) || _.isEmpty(req.params.userId)) {
+      return next();
+    }
+
+    if (_.includes(permittedAgentRoles, authToken.type)) {
+      return next();
+    }
+
+    const agentUserId = authToken._id;
+
+    if (agentUserId !== req.params.userId) {
+      const errMsg = `User ${agentUserId} cannot act as an agent for user ${req.params.userId}`;
+      return next(new Err.ForbiddenError(errMsg));
+    }
+
+    return next();
+
+  };
+
+}
+
+/**
  * Validates JSON body is in correct schema. Schema is defined
  * as a JOI object. This should be used after authentication/authorization
  * middlewares and before the route handler. Used in routes that create

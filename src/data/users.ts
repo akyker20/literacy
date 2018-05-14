@@ -7,6 +7,7 @@ export enum UserType {
 
 export interface IUser {
   _id?: string;
+  date_joined: string;
   type: UserType;
   first_name: string;
   last_name: string;
@@ -14,8 +15,16 @@ export interface IUser {
   password: string;
 }
 
+export interface IStudent extends IUser {
+  initial_lexile_measure: number;
+  genre_interests: {
+    [genreId: string]: 1|2|3|4;
+  }
+}
+
 export interface IUserData {
   createUser: (user: IUser) => Promise<IUser>;
+  updateUser: (user: IUser) => Promise<IUser>;
   getUserById: (id: string) => Promise<IUser>;
   getUserByEmail: (email: string) => Promise<IUser>;
 }
@@ -26,19 +35,23 @@ export class MongoUserData implements IUserData {
 
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
-    this.users = db.get('users');
+    this.users = db.get('users', { castIds: false });
   }
 
   getUserById(userId: string): Promise<IUser> {
-    return this.users.findOne({ _id: userId }, { castIds: false });
+    return this.users.findOne({ _id: userId });
   }
 
   getUserByEmail(email: string): Promise<IUser> {
-    return this.users.findOne({ email }, { castIds: false });
+    return this.users.findOne({ email });
   }
 
   createUser(user: IUser): Promise<IUser> {
     return this.users.insert(user);
+  }
+
+  updateUser(user: IUser): Promise<IUser> {
+    return this.users.findOneAndUpdate({ _id: user._id }, user)
   }
 
 }

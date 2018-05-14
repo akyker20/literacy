@@ -1,6 +1,9 @@
 import * as monk from 'monk';
+import _ = require('lodash');
+import { ILexileRange } from '../models';
 
 export interface IBook {
+  _id?: string;
   title: string;
   author: string;
   isbn: string;
@@ -11,10 +14,16 @@ export interface IBook {
 
 export interface IBookData {
   createBook: (book: IBook) => Promise<IBook>;
-  getBooksOfGenre: (genreId: string) => Promise<IBook[]>;
-  getBooks: () => Promise<IBook[]>;
-  getBook: (isbn: string) => Promise<IBook>;
-  deleteBook: (isbn: string) => Promise<IBook>;
+  getMatchingBooks: (query: IBookQuery) => Promise<IBook[]>;
+  getAllBooks: () => Promise<IBook[]>;
+  getBook: (bookId: string) => Promise<IBook>;
+  updateBook: (book: IBook) => Promise<IBook>;
+  deleteBook: (bookId: string) => Promise<IBook>;
+}
+
+export interface IBookQuery {
+  genres?: string[];
+  lexile_range?: ILexileRange;
 }
 
 export class MongoBookData implements IBookData {
@@ -23,27 +32,39 @@ export class MongoBookData implements IBookData {
 
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
-    this.books = db.get('books');
+    this.books = db.get('books', { castIds: false });
   }
 
   createBook(book: IBook): Promise<IBook> {
     return this.books.insert(book);
   }
 
-  getBooks(): Promise<IBook[]> {
-    return this.books.find({}, { castIds: false });
+  getAllBooks(): Promise<IBook[]> {
+    return this.books.find({});
   }
 
-  getBooksOfGenre(genreId: string): Promise<IBook[]> {
-    return this.books.find({ genres: genreId });
+  getMatchingBooks(query: IBookQuery): Promise<IBook[]> {
+    const queryObj: any = {};
+    if (!_.isEmpty(query.lexile_range)) {
+      const { min, max } = query.lexile_range;
+      queryObj.lexile_measure = { $gt: min, $lt: max };
+    }
+    if (!_.isEmpty(query.genres)) {
+      queryObj.genres = { $in: query.genres };
+    }
+    return this.books.find(queryObj)
   }
 
-  getBook(isbn: string): Promise<IBook> {
-    return this.books.findOne({ isbn }, { castIds: false })
+  getBook(bookId: string): Promise<IBook> {
+    return this.books.findOne({ _id: bookId })
   }
 
-  deleteBook(isbn: string): Promise<IBook> {
-    return this.books.findOneAndDelete({ isbn });
+  updateBook(book: IBook): Promise<IBook> {
+    return this.books.findOneAndUpdate({ _id: book._id }, book);
+  }
+
+  deleteBook(bookId: string): Promise<IBook> {
+    return this.books.findOneAndDelete({ _id: bookId });
   }
 
 }

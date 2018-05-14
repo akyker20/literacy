@@ -1,4 +1,5 @@
 import * as restify from 'restify';
+import * as joi from 'joi';
 import { UserType } from './data/users';
 
 export interface IRequest<T> extends restify.Request {
@@ -9,3 +10,5 @@ export interface IRequest<T> extends restify.Request {
     type: UserType
   };
 }
+
+export const lexileMeasureSchema = joi.number().min(0).max(2000).required();
