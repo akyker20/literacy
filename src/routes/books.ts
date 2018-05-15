@@ -144,13 +144,19 @@ export function BookService(
       },
       Middle.handlePromise
     ],
-    getAllBooks: [
+    getBooks: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
-      (req: IRequest<IBook>, res: Response, next: Next) => {
-        req.promise = bookData.getAllBooks();
-        next();
-      },
+      unwrapData(async (req: IRequest<IBook>) => {
+
+        const searchQuery = req.query.q;
+
+        if (!_.isEmpty(searchQuery)) {
+          return bookData.searchBooks(searchQuery);
+        }
+
+        return bookData.getAllBooks();
+
+      }),
       Middle.handlePromise
     ],
     getBooksForStudent: [

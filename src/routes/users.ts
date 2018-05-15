@@ -47,6 +47,24 @@ export function UserService(
   genreData: IGenreData
 ) {
 
+  async function getStudentDTO(user: IUser) {
+    const student = user as IStudent;
+
+    const quizSubmissions = await quizData.getSubmissionsForStudent(student._id);
+    const idsOfBooksRead = quizSubmissions.map(s => s.book_id);
+    const booksRead = await Promise.all(idsOfBooksRead.map(bookId => bookData.getBook(bookId)));
+    
+    const currentLexileMeasure = computeCurrentLexileMeasure(
+      student.initial_lexile_measure,
+      quizSubmissions
+    )
+    
+    return _.assign({}, user, { 
+      current_lexile_measure: currentLexileMeasure,
+      books_read: booksRead
+    })
+  }
+
   return {
     whoami: [
       Middle.authenticate,
@@ -61,23 +79,7 @@ export function UserService(
         }
 
         if (user.type === UserType.USER) {
-
-          const student = user as IStudent;
-
-          const quizSubmissions = await quizData.getSubmissionsForStudent(student._id);
-          const idsOfBooksRead = quizSubmissions.map(s => s.book_id);
-          const booksRead = await Promise.all(idsOfBooksRead.map(bookId => bookData.getBook(bookId)));
-          
-          const currentLexileMeasure = computeCurrentLexileMeasure(
-            student.initial_lexile_measure,
-            quizSubmissions
-          )
-          
-          return _.assign({}, user, { 
-            books_read: booksRead,
-            current_lexile_measure: currentLexileMeasure
-          })
-
+          return getStudentDTO(user);
         }
 
         return user;
@@ -205,6 +207,8 @@ export function UserService(
           throw new BadRequestError('Invalid email/password combination');
         }
 
+        const userDTO = await getStudentDTO(user);
+
         const claims = {
           _id: user._id,
           type: user.type
@@ -214,7 +218,7 @@ export function UserService(
 
         return {
           auth_token: token,
-          user
+          user: userDTO
         }
 
       }),

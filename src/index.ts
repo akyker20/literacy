@@ -43,7 +43,7 @@ server
 
 // Temporary
 
-server.get('/books', bookService.getAllBooks);
+server.get('/books', bookService.getBooks);
 server.get('/quizzes', quizService.getAllQuizzes);
 server.get('/users', userService.getAllUsers);
 

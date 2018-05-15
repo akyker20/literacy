@@ -1,7 +1,20 @@
 import * as monk from 'monk';
 import * as shortid from 'shortid';
 import * as _ from 'lodash';
+import * as fuse from 'fuse.js';
 import { ILexileRange } from '../models';
+
+const searchBooksOptions = {
+  shouldSort: true,
+  threshold: 0.6,
+  location: 0,
+  maxPatternLength: 64,
+  minMatchCharLength: 1,
+  keys: [
+    "title",
+    "author"
+  ]
+};
 
 export interface IBook {
   _id?: string;
@@ -21,6 +34,7 @@ export interface IBookData {
   getBook: (bookId: string) => Promise<IBook>;
   updateBook: (book: IBook) => Promise<IBook>;
   deleteBook: (bookId: string) => Promise<IBook>;
+  searchBooks: (query: string) => Promise<IBook[]>
 }
 
 export interface IBookQuery {
@@ -30,7 +44,7 @@ export interface IBookQuery {
 
 export class MongoBookData implements IBookData {
 
-  private books: monk.ICollection; 
+  private books: monk.ICollection;
 
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
@@ -41,6 +55,12 @@ export class MongoBookData implements IBookData {
     const copy = _.cloneDeep(book);
     copy._id = shortid.generate();
     return this.books.insert(copy);
+  }
+
+  async searchBooks(query: string): Promise<IBook[]> {
+    const allBooks = await this.getAllBooks();
+    const fuseUnit = new fuse(allBooks, searchBooksOptions);
+    return _.slice(fuseUnit.search(query), 0, 30);
   }
 
   getAllBooks(): Promise<IBook[]> {
