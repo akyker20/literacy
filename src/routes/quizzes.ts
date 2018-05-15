@@ -23,8 +23,8 @@ const createdQuizSchema = inputQuizSchema.keys({
 export const quizSubmissionSchema = joi.object({
   date_submitted: joi.string().isoDate().required().error(genFieldErr('date_submitted')),
   quiz_id: shortidSchema.required().error(genFieldErr('quiz_id')),
-  student_id: shortidSchema.required().error(genFieldErr('quiz_id')),
-  book_id: shortidSchema.optional().error(genFieldErr('book_id')),
+  student_id: shortidSchema.required().error(genFieldErr('student_id')),
+  book_id: shortidSchema.required().error(genFieldErr('book_id')),
   answers: joi.any()
 }).required();
 
@@ -108,6 +108,7 @@ export function QuizService(
       }),
       Middle.handlePromise
     ],
+
     getAllQuizzes: [
       Middle.authenticate,
       Middle.authorize([UserType.ADMIN]),
@@ -116,16 +117,22 @@ export function QuizService(
         next();
       },
       Middle.handlePromise
-    ]
+    ],
 
     // Quiz Submission Related Routes
 
     submitQuiz: [
       Middle.authenticate,
       Middle.valBody<IQuizSubmissionBody>(quizSubmissionSchema),
+      (req: IRequest<IQuizSubmissionBody>, res: Response, next: Next) => {
+        if ((req.authToken.type === UserType.USER) && (req.authToken._id !== req.body.student_id)) {
+          return next(new BadRequestError(`Students cannot submit quizzes for other students`))
+        }
+        next();
+      },
       unwrapData(async (req: IRequest<IQuizSubmissionBody>) => {
 
-        const submissions = await quizData.getSubmissionsForUser(req.authToken._id);
+        const submissions = await quizData.getSubmissionsForStudent(req.body.student_id);
 
         const booksAlreadyRead = submissions.map(s => s.book_id);
         
@@ -137,6 +144,12 @@ export function QuizService(
 
         if (book === null) {
           throw new BadRequestError(`No book with id ${req.body.book_id} exists`)
+        }
+
+        const quiz = await quizData.getQuizById(req.body.quiz_id);
+
+        if (quiz === null) {
+          throw new BadRequestError(`No quiz with id ${req.body.quiz_id} exists`)
         }
 
         const quizSubmission: IQuizSubmission = _.assign({}, req.body, {
@@ -181,6 +194,10 @@ export function QuizService(
 
         if (_.isNull(submission)) {
           throw new ResourceNotFoundError(`Quiz submission with id ${submissionId} does not exist.`)
+        }
+
+        if ((req.authToken.type === UserType.USER) && (req.authToken._id !== submission.student_id)) {
+          throw new BadRequestError(`Students cannot update comprehension for submissions by other students`)
         }
 
         const updatedSubmission: IQuizSubmission = _.assign({}, submission, {

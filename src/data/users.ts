@@ -29,6 +29,7 @@ export interface IUserData {
   updateUser: (user: IUser) => Promise<IUser>;
   getUserById: (id: string) => Promise<IUser>;
   getUserByEmail: (email: string) => Promise<IUser>;
+  getAllUsers: () => Promise<IUser[]>;
 }
 
 export class MongoUserData implements IUserData {
@@ -56,6 +57,10 @@ export class MongoUserData implements IUserData {
 
   updateUser(user: IUser): Promise<IUser> {
     return this.users.findOneAndUpdate({ _id: user._id }, user)
+  }
+
+  getAllUsers(): Promise<IUser[]> {
+    return this.users.find({});
   }
 
 }

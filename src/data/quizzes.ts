@@ -51,6 +51,7 @@ export interface IQuizData {
   createQuiz: (quiz: IQuizBody) => Promise<IQuiz>;
   getQuizForBook: (bookId: string) => Promise<IQuiz>;
   getGenericQuiz: () => Promise<IQuiz>;
+  getQuizById: (quizId: string) => Promise<IQuiz>;
   deleteQuiz: (quizId: string) => Promise<IQuiz>;
   updateQuiz: (quiz: IQuiz) => Promise<IQuiz>;
   getAllQuizzes: () => Promise<IQuiz[]>;
@@ -58,12 +59,12 @@ export interface IQuizData {
   submitQuiz: (quizSubmission: IQuizSubmission) => Promise<IQuizSubmission>;
   updateQuizSubmission: (quizSubmission: IQuizSubmission) => Promise<IQuizSubmission>;
   getSubmissionsForQuiz: (quizId: string) => Promise<IQuizSubmission[]>;
-  getSubmissionsForUser: (userId: string) => Promise<IQuizSubmission[]>;
+  getSubmissionsForStudent: (userId: string) => Promise<IQuizSubmission[]>;
   getSubmissionById: (submissionId: string) => Promise<IQuizSubmission>;
 }
 
 export class MongoQuizData implements IQuizData {
-
+  
   private quizzes: monk.ICollection;
   private quizSubmissions: monk.ICollection; 
 
@@ -77,6 +78,10 @@ export class MongoQuizData implements IQuizData {
 
   getAllQuizzes(): Promise<IQuiz[]> {
     return this.quizzes.find({});
+  }
+
+  getQuizById(quizId: string): Promise<IQuiz> {
+    return this.quizzes.findOne({ _id: quizId })
   }
 
   createQuiz(quiz: IQuizBody): Promise<IQuiz> {
@@ -119,8 +124,8 @@ export class MongoQuizData implements IQuizData {
     return this.quizSubmissions.find({ quiz_id: quizId });
   }
 
-  getSubmissionsForUser(userId: string): Promise<IQuizSubmission[]> {
-    return this.quizSubmissions.find({ user_id: userId });
+  getSubmissionsForStudent(studentId: string): Promise<IQuizSubmission[]> {
+    return this.quizSubmissions.find({ student_id: studentId });
   }
 
   getSubmissionById(submissionId: string): Promise<IQuizSubmission> {

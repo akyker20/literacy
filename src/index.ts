@@ -28,7 +28,7 @@ const mongoGenreData = new MongoGenreData(connectionStr);
 const mongoQuizData = new MongoQuizData(connectionStr);
 
 const bookService = BookService(mongoGenreData, mongoBookData, mongoUserData, mongoQuizData);
-const userService = UserService(mongoUserData, mongoQuizData, mongoBookData);
+const userService = UserService(mongoUserData, mongoQuizData, mongoBookData, mongoGenreData);
 const quizService = QuizService(mongoQuizData, mongoBookData);
 
 const server = restify.createServer({
@@ -45,6 +45,7 @@ server
 
 server.get('/books', bookService.getAllBooks);
 server.get('/quizzes', quizService.getAllQuizzes);
+server.get('/users', userService.getAllUsers);
 
 // Routes
 
@@ -55,6 +56,9 @@ server.post('/students', userService.createUser);
 server.post('/students/:userId/genre_interests', userService.createGenreInterests);
 server.put('/students/:userId/genre_interests/:genreId', userService.editGenreInterest);
 server.get('/students/:userId/books', bookService.getBooksForStudent);
+
+server.post('/quiz_submissions', quizService.submitQuiz);
+server.put('/quiz_submissions/:submissionId/comprehension', quizService.setComprehensionForSubmission);
 
 server.post('/genres', bookService.createGenre);
 server.get('/genres', bookService.getGenres);
@@ -70,9 +74,6 @@ server.get('/books/:bookId/quiz', quizService.getQuizForBook);
 server.post('/quizzes', quizService.createQuiz);
 server.del('/quizzes/:quizId', quizService.deleteQuiz);
 server.put('/quizzes/:quizId', quizService.updateQuiz);
-
-server.post('/quizzes/:quizId/submissions', quizService.submitQuiz);
-server.put('/quizzes/:quizId/submissions/:submissionId/comprehension', quizService.updateQuiz);
 
 // audit logging except when testing
 

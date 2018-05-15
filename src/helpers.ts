@@ -45,7 +45,7 @@ export function computeCurrentLexileMeasure(
   submissions: IQuizSubmission[]
 ): number {
 
-  const submissionsWComp = submissions.filter(s => !_.isEmpty(s.comprehension))
+  const submissionsWComp = submissions.filter(s => _.isNumber(s.comprehension));
 
   // if user has less than 3 submitted quizzes with comprehension scores
   // just use the initial lexile measure
@@ -59,8 +59,9 @@ export function computeCurrentLexileMeasure(
     .value();
 
   return _.reduce(recentSubmissions, (total, submission) => {
-    return submission.book_lexile_score + 50 * (submission.comprehension - 4)
-  }, 0)
+    const adjustedLexileSignal = submission.book_lexile_score + 50 * (submission.comprehension - 4);
+    return total + adjustedLexileSignal;
+  }, 0) / recentSubmissions.length;
 
 }
 

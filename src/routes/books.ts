@@ -158,7 +158,7 @@ export function BookService(
       Middle.authorizeAgents([UserType.ADMIN]),
       unwrapData(async (req: IRequest<IBook>) => {
 
-        const userId = req.params.userId;
+        const { userId } = req.params;
         
         const user = await userData.getUserById(userId) as IStudent;
 
@@ -170,9 +170,12 @@ export function BookService(
           throw new ForbiddenError(`Student ${userId} has not provided genre interests`)
         }
 
-        const userQuizSubmissions = await quizData.getSubmissionsForUser(userId);
+        const userQuizSubmissions = await quizData.getSubmissionsForStudent(userId);
         
-        const currentLexileMeasure = computeCurrentLexileMeasure(user.initial_lexile_measure, userQuizSubmissions);
+        const currentLexileMeasure = computeCurrentLexileMeasure(
+          user.initial_lexile_measure, 
+          userQuizSubmissions
+        );
         const currentLexileRange = getLexileRange(currentLexileMeasure);
 
         const booksInRange = await bookData.getMatchingBooks({ lexile_range: currentLexileRange });
