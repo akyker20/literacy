@@ -1,4 +1,6 @@
 import * as restify from 'restify';
+import * as bunyan from 'bunyan';
+
 import { MongoBookData } from './data/books';
 import { BookService } from './routes/books';
 import { MongoUserData } from './data/users';
@@ -6,6 +8,13 @@ import { UserService } from './routes/users';
 import { MongoGenreData } from './data/genres';
 import { QuizService } from './routes/quizzes';
 import { MongoQuizData } from './data/quizzes';
+
+// logger setup
+
+const logger = bunyan.createLogger({
+  name: 'mainstream_backend',
+  serializers: bunyan.stdSerializers
+});
 
 const dbHost = process.env.MONGO_HOST || 'localhost';
 const dbPort = process.env.MONGO_PORT || '27017';
@@ -22,18 +31,27 @@ const bookService = BookService(mongoGenreData, mongoBookData, mongoUserData, mo
 const userService = UserService(mongoUserData, mongoQuizData, mongoBookData);
 const quizService = QuizService(mongoQuizData, mongoBookData);
 
-const server = restify.createServer();
-server.use(restify.plugins.bodyParser());
+const server = restify.createServer({
+  name: 'literacy_api',
+  log: logger
+});
+
+server
+  .use(restify.plugins.bodyParser())
+  .use(restify.plugins.queryParser())
+  .use(restify.plugins.requestLogger());
 
 // Temporary
 
 server.get('/books', bookService.getAllBooks);
+server.get('/quizzes', quizService.getAllQuizzes);
 
 // Routes
 
 server.get('/whoami', userService.whoami);
+server.post('/users/signin', userService.signin);
+
 server.post('/students', userService.createUser);
-server.post('/students/signin', userService.signin);
 server.post('/students/:userId/genre_interests', userService.createGenreInterests);
 server.put('/students/:userId/genre_interests/:genreId', userService.editGenreInterest);
 server.get('/students/:userId/books', bookService.getBooksForStudent);
@@ -56,6 +74,16 @@ server.put('/quizzes/:quizId', quizService.updateQuiz);
 server.post('/quizzes/:quizId/submissions', quizService.submitQuiz);
 server.put('/quizzes/:quizId/submissions/:submissionId/comprehension', quizService.updateQuiz);
 
-server.listen(8080, function() {
+// audit logging except when testing
+
+// if (process.env.NODE_ENV !== 'test') {
+//   server.on('after', restify.plugins.auditLogger({
+//     event: 'after',
+//     log: logger,
+//     // body: true
+//   }));
+// }
+
+server.listen(3000, function() {
   console.log('%s listening at %s', server.name, server.url);
 });

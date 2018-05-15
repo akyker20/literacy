@@ -1,7 +1,9 @@
 {
+  "_id": "admin_user_id",
   "type": "ADMIN",
   "email": "akyker20@gmail.com",
   "password": "austinkykerpassword",
   "first_name": "Austin",
-  "last_name": "Kyker"
+  "last_name": "Kyker",
+  "date_joined": "2018-05-15T12:02:21.868Z"
 }

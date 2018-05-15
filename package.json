@@ -18,12 +18,15 @@
     "@types/lodash": "^4.14.108",
     "@types/restify": "^5.0.7",
     "@types/restify-errors": "^4.3.2",
+    "@types/shortid": "0.0.29",
+    "bunyan": "^1.8.12",
     "joi": "^13.3.0",
     "jsonwebtoken": "^8.2.1",
     "lodash": "^4.17.10",
     "monk": "^6.0.6",
     "restify": "^7.1.1",
     "restify-errors": "^6.0.0",
+    "shortid": "^2.2.8",
     "typescript": "^2.8.3"
   }
 }

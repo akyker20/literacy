@@ -1,4 +1,6 @@
 import * as monk from 'monk';
+import * as shortid from 'shortid';
+import _ = require('lodash');
 
 export enum UserType {
   USER = 'USER',
@@ -47,7 +49,9 @@ export class MongoUserData implements IUserData {
   }
 
   createUser(user: IUser): Promise<IUser> {
-    return this.users.insert(user);
+    const copy = _.cloneDeep(user);
+    copy._id = shortid.generate();
+    return this.users.insert(copy);
   }
 
   updateUser(user: IUser): Promise<IUser> {

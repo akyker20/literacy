@@ -1,24 +1,30 @@
-import { IRequest } from '../Extensions';
-import * as Middle from '../middleware';
 import * as joi from 'joi';
+import * as _ from 'lodash';
+import { Next, Response } from 'restify';
+import { ForbiddenError, ResourceNotFoundError, BadRequestError } from 'restify-errors';
+
+import { IRequest, shortidSchema } from '../Extensions';
+import * as Middle from '../middleware';
 import { genFieldErr, unwrapData } from '../helpers';
 import { UserType } from '../data/users';
-import { IQuizData, IQuiz, IQuizSubmissionBody, IQuizSubmission } from '../data/quizzes';
-import _ = require('lodash');
-import { ForbiddenError, ResourceNotFoundError, BadRequestError } from 'restify-errors';
+import { IQuizData, IQuiz, IQuizSubmissionBody, IQuizSubmission, IQuizBody } from '../data/quizzes';
 import { IBookData } from '../data/books';
 
-export const quizSchema = joi.object({
+export const inputQuizSchema = joi.object({
   questions: joi.array().items(joi.any()).min(5).max(10).required().error(genFieldErr('questions')),
-  book: joi.string().optional().error(genFieldErr('book')),
-  date_created: joi.string().isoDate().required().error(genFieldErr('date_created')),
+  book_id: shortidSchema.optional().error(genFieldErr('book'))
 }).required()
+
+const createdQuizSchema = inputQuizSchema.keys({
+  _id: shortidSchema.required().error(genFieldErr('_id')),
+  date_created: joi.string().isoDate().required().error(genFieldErr('date_created')),
+}).required();
 
 export const quizSubmissionSchema = joi.object({
   date_submitted: joi.string().isoDate().required().error(genFieldErr('date_submitted')),
-  quiz_id: joi.string().required().error(genFieldErr('quiz_id')),
-  student_id: joi.string().required().error(genFieldErr('quiz_id')),
-  book_id: joi.string().optional().error(genFieldErr('book_id')),
+  quiz_id: shortidSchema.required().error(genFieldErr('quiz_id')),
+  student_id: shortidSchema.required().error(genFieldErr('quiz_id')),
+  book_id: shortidSchema.optional().error(genFieldErr('book_id')),
   answers: joi.any()
 }).required();
 
@@ -35,6 +41,14 @@ export function QuizService(
   bookData: IBookData
 ) {
 
+  async function isBookValid(quiz: IQuizBody): Promise<boolean> {
+    if (quiz.book_id) {
+      const book = await bookData.getBook(quiz.book_id);
+      return !_.isNull(book);
+    }
+    return true;
+  }
+
   return {
 
     // Quiz Related Routes
@@ -42,30 +56,67 @@ export function QuizService(
     createQuiz: [
       Middle.authenticate,
       Middle.authorize([UserType.ADMIN]),
-      Middle.valBody(quizSchema),
-      (req: IRequest<IQuiz>) => {
-        req.promise = quizData.createQuiz(req.body)
-      },
+      Middle.valBody(inputQuizSchema),
+      unwrapData(async (req: IRequest<IQuizBody>) => {
+
+        const candidateQuiz = req.body;
+
+        if (!(await isBookValid(candidateQuiz))) {
+          throw new BadRequestError(`No book with id ${candidateQuiz.book_id} exists`);
+        }
+
+        return await quizData.createQuiz(candidateQuiz);
+
+      }),
       Middle.handlePromise
     ],
     updateQuiz: [
       Middle.authenticate,
       Middle.authorize([UserType.ADMIN]),
-      Middle.valBody(quizSchema),
-      (req: IRequest<IQuiz>) => {
-        req.promise = quizData.updateQuiz(req.body)
-      },
+      Middle.valBody(createdQuizSchema),
+      Middle.valIdsSame('quizId'),
+      unwrapData(async (req: IRequest<IQuiz>) => {
+
+        if (!(await isBookValid(req.body))) {
+          throw new BadRequestError(`No book with id ${req.body.book_id} exists`);
+        }
+
+        const updatedQuiz = await quizData.updateQuiz(req.body);
+
+        if (_.isEmpty(updatedQuiz)) {
+          throw new ResourceNotFoundError('No quiz was updated') 
+        }
+        
+        return { updatedQuiz };
+
+      }),
       Middle.handlePromise
     ],
     deleteQuiz: [
       Middle.authenticate,
       Middle.authorize([UserType.ADMIN]),
-      Middle.valBody(quizSchema),
-      (req: IRequest<null>) => {
-        req.promise = quizData.deleteQuiz(req.params.quizId);
-      },
+      unwrapData(async (req: IRequest<IQuiz>) => {
+
+        const deletedQuiz = await quizData.deleteQuiz(req.params.quizId);
+
+        if (_.isNull(deletedQuiz)) {
+          throw new ResourceNotFoundError('No quiz was deleted')
+        }
+
+        return { deletedQuiz };
+
+      }),
       Middle.handlePromise
     ],
+    getAllQuizzes: [
+      Middle.authenticate,
+      Middle.authorize([UserType.ADMIN]),
+      (req: IRequest<null>, res: Response, next: Next) => {
+        req.promise = quizData.getAllQuizzes();
+        next();
+      },
+      Middle.handlePromise
+    ]
 
     // Quiz Submission Related Routes
 

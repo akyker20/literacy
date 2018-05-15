@@ -1,4 +1,5 @@
 import * as monk from 'monk';
+import * as shortid from 'shortid';
 import * as _ from 'lodash';
 
 export enum QuestionTypes {
@@ -21,11 +22,14 @@ export interface ILongAnswerQuestion extends IQuestion {
   type: QuestionTypes.LongAnswer;
 }
 
-export interface IQuiz {
-  _id?: string;
-  book?: string;
-  date_created: string;
+export interface IQuizBody {
   questions: IQuestion[];
+  book_id?: string;
+}
+
+export interface IQuiz extends IQuizBody {
+  _id?: string;
+  date_created: string;
 }
 
 export interface IQuizSubmissionBody {
@@ -44,11 +48,12 @@ export interface IQuizSubmission extends IQuizSubmissionBody {
 }
 
 export interface IQuizData {
-  createQuiz: (quiz: IQuiz) => Promise<IQuiz>;
+  createQuiz: (quiz: IQuizBody) => Promise<IQuiz>;
   getQuizForBook: (bookId: string) => Promise<IQuiz>;
   getGenericQuiz: () => Promise<IQuiz>;
   deleteQuiz: (quizId: string) => Promise<IQuiz>;
   updateQuiz: (quiz: IQuiz) => Promise<IQuiz>;
+  getAllQuizzes: () => Promise<IQuiz[]>;
 
   submitQuiz: (quizSubmission: IQuizSubmission) => Promise<IQuizSubmission>;
   updateQuizSubmission: (quizSubmission: IQuizSubmission) => Promise<IQuizSubmission>;
@@ -70,16 +75,23 @@ export class MongoQuizData implements IQuizData {
 
   // Quiz Related
 
-  createQuiz(quiz: IQuiz): Promise<IQuiz> {
-    return this.quizzes.insert(quiz);
+  getAllQuizzes(): Promise<IQuiz[]> {
+    return this.quizzes.find({});
+  }
+
+  createQuiz(quiz: IQuizBody): Promise<IQuiz> {
+    return this.quizzes.insert(_.assign({}, quiz, {
+      _id: shortid.generate(),
+      date_created: new Date().toISOString()
+    }))
   }
 
   getQuizForBook(bookId: string): Promise<IQuiz> {
-    return this.quizzes.findOne({ book: bookId })
+    return this.quizzes.findOne({ book_id: bookId })
   }
   
   async getGenericQuiz (): Promise<IQuiz> {
-    const genericQuizzes = this.quizzes.find({ book: { $exists: false }});
+    const genericQuizzes = await this.quizzes.find({ book: { $exists: false }});
     return _.sample(genericQuizzes);
   }
   
@@ -94,7 +106,9 @@ export class MongoQuizData implements IQuizData {
   // Quiz Submission Related
 
   submitQuiz(quizSubmission: IQuizSubmission): Promise<IQuizSubmission> {
-    return this.quizSubmissions.insert(quizSubmission);
+    const copy = _.cloneDeep(quizSubmission);
+    copy._id = shortid.generate();
+    return this.quizSubmissions.insert(copy);
   }
 
   updateQuizSubmission(quizSubmission: IQuizSubmission): Promise<IQuizSubmission> {

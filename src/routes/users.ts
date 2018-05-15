@@ -51,6 +51,7 @@ export function UserService(
       unwrapData(async (req: IRequest<{ [genreId: string]: number }>) => {
 
         const { _id: userId } = req.authToken;
+        console.log(userId);
         const user = await userData.getUserById(userId);
 
         if (_.isNull(user)) {

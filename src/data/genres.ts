@@ -1,4 +1,6 @@
 import * as monk from 'monk';
+import * as _ from 'lodash';
+import * as shortid from 'shortid';
 
 export interface IGenre {
   _id?: string;
@@ -24,7 +26,9 @@ export class MongoGenreData implements IGenreData {
   }
 
   createGenre(genre: IGenre): Promise<IGenre> {
-    return this.genres.insert(genre);
+    const copy = _.cloneDeep(genre);
+    copy._id = shortid.generate();
+    return this.genres.insert(copy);
   }
 
   getGenreById(genreId: string): Promise<IGenre> {

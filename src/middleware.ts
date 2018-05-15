@@ -1,7 +1,7 @@
 // external dependencies
 
 import * as Err from 'restify-errors';
-import { Request, Response, Next, RequestHandler } from 'restify';
+import { Response, Next } from 'restify';
 import * as _ from 'lodash';
 import * as joi from 'joi';
 import * as jwt from 'jsonwebtoken';
@@ -134,6 +134,26 @@ export function valBody<T>(schema: joi.Schema) {
 
     if (error) {
       return next(new Err.BadRequestError(error.message));
+    }
+
+    return next();
+
+  };
+}
+
+export function valIdsSame(paramKey: string) {
+  return (req: IRequest<any>, res: Response, next: Next) => {
+
+    if (_.isEmpty(req.body)) {
+      return next(new Err.BadRequestError('No body was sent in request.'));
+    }
+
+    if (_.isEmpty(req.body._id)) {
+      return next(new Err.BadRequestError('No _id present in request body.'));
+    }
+
+    if (req.params[paramKey] !== req.body._id) {
+      return next(new Err.BadRequestError('id in url is different than _id in body.'));
     }
 
     return next();

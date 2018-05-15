@@ -1,6 +1,6 @@
 import { BadRequestError } from 'restify-errors';
 import { ILexileRange } from './models';
-import { IStudent, GenreInterestMap } from './data/users';
+import { GenreInterestMap } from './data/users';
 import { IBook } from './data/books';
 import { IQuizSubmission } from './data/quizzes';
 import { IRequest } from './Extensions';

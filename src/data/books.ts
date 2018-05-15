@@ -1,5 +1,6 @@
 import * as monk from 'monk';
-import _ = require('lodash');
+import * as shortid from 'shortid';
+import * as _ from 'lodash';
 import { ILexileRange } from '../models';
 
 export interface IBook {
@@ -37,7 +38,9 @@ export class MongoBookData implements IBookData {
   }
 
   createBook(book: IBook): Promise<IBook> {
-    return this.books.insert(book);
+    const copy = _.cloneDeep(book);
+    copy._id = shortid.generate();
+    return this.books.insert(copy);
   }
 
   getAllBooks(): Promise<IBook[]> {
@@ -48,7 +51,7 @@ export class MongoBookData implements IBookData {
     const queryObj: any = {};
     if (!_.isEmpty(query.lexile_range)) {
       const { min, max } = query.lexile_range;
-      queryObj.lexile_measure = { $gt: min, $lt: max };
+      queryObj.lexile_measure = { $gte: min, $lte: max };
     }
     if (!_.isEmpty(query.genres)) {
       queryObj.genres = { $in: query.genres };

@@ -12,3 +12,7 @@ export interface IRequest<T> extends restify.Request {
 }
 
 export const lexileMeasureSchema = joi.number().min(0).max(2000).required();
+
+const shortidRegexPattern = /[A-Za-z0-9_-]{7,14}/;
+
+export const shortidSchema = joi.string().regex(shortidRegexPattern).required();
