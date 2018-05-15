@@ -1,7 +1,7 @@
 // external dependencies
 
 import * as Err from 'restify-errors';
-import { Response, Next } from 'restify';
+import { Request, Response, Next, RequestHandler } from 'restify';
 import * as _ from 'lodash';
 import * as joi from 'joi';
 import * as jwt from 'jsonwebtoken';
@@ -139,4 +139,24 @@ export function valBody<T>(schema: joi.Schema) {
     return next();
 
   };
+}
+
+/**
+ * Middleware that looks for a promise attached to request object.
+ * If the promise resolves, the value is sent to the client.
+ * If the promise rejects, call the error middleware.
+ */
+export function handlePromise(req: IRequest<any>, res: Response, next: Next): void {
+
+  if (_.isUndefined(req.promise)) {
+    return next(new Err.InternalServerError('No req.promise in handlePromise middleware.'));
+  }
+
+  req.promise
+    .then(result => {
+      res.send(result);
+      return next();
+    })
+    .catch(err => next(err));
+
 }

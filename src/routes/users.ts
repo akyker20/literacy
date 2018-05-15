@@ -1,13 +1,14 @@
-import { Response, Next } from 'restify';
 import { IRequest, lexileMeasureSchema } from '../Extensions';
 import * as Middle from '../middleware';
 import * as joi from 'joi';
-import { genFieldErr } from '../helpers';
+import { genFieldErr, unwrapData } from '../helpers';
 import { IUserData, IUser, UserType, IStudent } from '../data/users';
-import { BadRequestError, InternalServerError, ResourceNotFoundError, UnauthorizedError } from 'restify-errors';
+import { BadRequestError, ResourceNotFoundError, UnauthorizedError } from 'restify-errors';
 import * as jwt from 'jsonwebtoken';
 import * as Constants from '../constants';
 import _ = require('lodash');
+import { IQuizData } from '../data/quizzes';
+import { IBookData } from '../data/books';
 
 interface IUserLoginCredentials {
   email: string;
@@ -38,117 +39,132 @@ interface IUpdateGenreInterestBody {
   interest_value: number;
 }
 
-export function UserService(userData: IUserData) {
+export function UserService(
+  userData: IUserData,
+  quizData: IQuizData,
+  bookData: IBookData
+) {
 
   return {
     whoami: [
       Middle.authenticate,
-      (req: IRequest<{ [genreId: string]: number }>, res: Response, next: Next) => {
+      unwrapData(async (req: IRequest<{ [genreId: string]: number }>) => {
+
         const { _id: userId } = req.authToken;
-        userData.getUserById(userId)
-          .then(user => {
-            if (_.isNull(user)) {
-              throw new UnauthorizedError('Valid token, but user no longer exists.');
-            }
-            res.send(user)
-          })
-          .catch(err => next(err))
-      }
+        const user = await userData.getUserById(userId);
+
+        if (_.isNull(user)) {
+          throw new UnauthorizedError('Valid token, but user no longer exists.');
+        }
+
+        if (user.type === UserType.USER) {
+
+          const quizSubmissions = await quizData.getSubmissionsForUser(user._id);
+          const idsOfBooksRead = quizSubmissions.map(s => s.book_id);
+          const booksRead = await Promise.all(idsOfBooksRead.map(bookData.getBook));
+          return _.assign({}, user, { booksRead })
+
+        }
+
+        return user;
+
+      }),
+      Middle.handlePromise
     ],
     createGenreInterests: [
       Middle.authenticate,
       Middle.authorizeAgents([UserType.ADMIN]),
       Middle.valBody(createGenreInterestSchema),
-      (req: IRequest<{ [genreId: string]: number }>, res: Response, next: Next) => {
-        userData.getUserById(req.authToken._id)
-          .then(user => {
-            const updatedUser = _.assign({}, user, {
-              genre_interests: req.body
-            })
-            return userData.updateUser(updatedUser)
-          })
-          .then(update => res.send(update))
-          .catch(err => next(err))
-      }
+      unwrapData(async (req: IRequest<{ [genreId: string]: number }>) => {
+
+        const user = await userData.getUserById(req.authToken._id);
+
+        const updatedUser = _.assign({}, user, {
+          genre_interests: req.body
+        })
+
+        return await userData.updateUser(updatedUser);
+
+      }),
+      Middle.handlePromise
     ],
     editGenreInterest: [
       Middle.authenticate,
       Middle.authorizeAgents([UserType.ADMIN]),
       Middle.valBody(editGenreInterestSchema),
-      (req: IRequest<IUpdateGenreInterestBody>, res: Response, next: Next) => {
-        
+      unwrapData(async (req: IRequest<IUpdateGenreInterestBody>) => {
+
         const { userId, genreId } = req.params;
-        
-        userData.getUserById(userId)
-          .then((user: IStudent) => {
-            if (_.isNull(user)) {
-              throw new ResourceNotFoundError(`No user with id ${userId}`);
-            }
-            if (_.isEmpty(user.genre_interests)) {
-              throw new BadRequestError('User cannot edit genre interests, until they have been created.');
-            }
-            const updatedUser = _.assign({}, user, {
-              genre_interests: _.assign({}, user.genre_interests, {
-                [genreId]: req.body.interest_value
-              })
-            })
-            return userData.updateUser(updatedUser)
+        const user = await userData.getUserById(userId) as IStudent;
+
+        if (_.isNull(user)) {
+          throw new ResourceNotFoundError(`No user with id ${userId}`);
+        }
+
+        if (_.isEmpty(user.genre_interests)) {
+          throw new BadRequestError('User cannot edit genre interests, until they have been created.');
+        }
+
+        const updatedUser = _.assign({}, user, {
+          genre_interests: _.assign({}, user.genre_interests, {
+            [genreId]: req.body.interest_value
           })
-          .then(update => res.send(update))
-          .catch(err => next(err))
-      }
+        })
+
+        return await userData.updateUser(updatedUser)
+
+      }),
+      Middle.handlePromise
     ],
+
     createUser: [
       Middle.valBody(studentSchema),
-      (req: IRequest<IUser>, res: Response, next: Next) => {
-        const user = req.body;
-        userData.getUserByEmail(user.email)
-          .then(user => {
-            if (user !== null) {
-              throw(new BadRequestError(`User with email ${user.email} already exists.`))
-            }
-            return userData.createUser(user);
-          })
-          .then(createdUser => res.send(201, createdUser))
-          .catch(err => next(err))
-      }
+      unwrapData(async (req: IRequest<IUser>) => {
+
+        const newUser = req.body;
+
+        const existingUserWithEmail = await userData.getUserByEmail(newUser.email);
+
+        if (existingUserWithEmail !== null) {
+          throw new BadRequestError(`User with email ${newUser.email} already exists.`);
+        }
+
+        return await userData.createUser(newUser);
+
+      }),
+      Middle.handlePromise
     ],
+
     signin: [
       Middle.valBody(userAuthSchema),
-      (req: IRequest<IUserLoginCredentials>, res: Response, next: Next) => {
+      unwrapData(async (req: IRequest<IUserLoginCredentials>) => {
 
         const { email, password } = req.body;
 
-        userData.getUserByEmail(email)
-          .then(user => {
+        const user = await userData.getUserByEmail(email);
 
-            if (user === null) {
-              return next(new BadRequestError(`No user with email ${email}`))
-            }
+        if (user === null) {
+          throw new BadRequestError(`No user with email ${email}`);
+        }
 
-            if (user.password !== password) {
-              return next(new BadRequestError('Invalid email/password combination'));
-            }
-            
-            // what will exist in the token.
-            const claims = {
-              _id: user._id,
-              type: user.type
-            };
-      
-            jwt.sign(claims, Constants.JWTSecret, {expiresIn: '1y'}, (err, token) => {
-              if (err) {
-                return next(new InternalServerError('Problem generating auth token'))
-              }
-              return res.send({
-                auth_token: token,
-                user
-              })
-            });
+        if (user.password !== password) {
+          throw new BadRequestError('Invalid email/password combination');
+        }
 
-          })
-          .catch(err => next(err))
-      }
+        const claims = {
+          _id: user._id,
+          type: user.type
+        };
+
+        const token = jwt.sign(claims, Constants.JWTSecret, { expiresIn: '1y' });
+
+        return {
+          auth_token: token,
+          user
+        }
+
+      }),
+      Middle.handlePromise
     ]
   }
 

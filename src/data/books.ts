@@ -8,6 +8,7 @@ export interface IBook {
   author: string;
   isbn: string;
   lexile_measure: number;
+  amazon_popularity: number;
   num_pages: number;
   genres: string[];
 }

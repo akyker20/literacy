@@ -15,11 +15,11 @@ export interface IUser {
   password: string;
 }
 
+export type GenreInterestMap = { [genreId: string]: 1|2|3|4 };
+
 export interface IStudent extends IUser {
   initial_lexile_measure: number;
-  genre_interests: {
-    [genreId: string]: 1|2|3|4;
-  }
+  genre_interests: GenreInterestMap
 }
 
 export interface IUserData {
