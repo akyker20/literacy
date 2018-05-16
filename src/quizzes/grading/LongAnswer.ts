@@ -1,8 +1,9 @@
-import { IQuestion } from "../../data/quizzes";
 import { IQuestionGradingStrategy } from ".";
+import { ILongAnswerQuestion } from "../question_schemas/long_answer";
+import { ILongAnswerAnswer } from "../answer_schemas/long_answer";
 
 export class LongAnswerQuestionGradingStrategy implements IQuestionGradingStrategy {
-  grade(question: IQuestion, answer: any): boolean {
+  grade(question: ILongAnswerQuestion, answer: ILongAnswerAnswer): boolean {
     return true;
   }
 }

@@ -42,6 +42,11 @@ export type GenreInterestMap = { [genreId: string]: 1|2|3|4 };
 export interface IStudent extends IUser {
   initial_lexile_measure: number;
   genre_interests: GenreInterestMap;
+  books_read: {
+    book_id: string;
+    book_lexile_measure: string;
+    comprehension: 1|2|3|4|5;
+  }[];
 }
 
 export interface IEducator extends IUser {

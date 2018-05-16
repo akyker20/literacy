@@ -13,17 +13,6 @@ export interface IQuestion {
   prompt: string;
 }
 
-
-export interface IMultipleChoiceQuestion extends IQuestion {
-  type: QuestionTypes.MultipleChoice;
-  correct_answer_index: number;
-  possible_answers: string[];
-}
-
-export interface ILongAnswerQuestion extends IQuestion {
-  type: QuestionTypes.LongAnswer;
-}
-
 export interface IQuizBody {
   questions: IQuestion[];
   book_id?: string;
@@ -43,10 +32,9 @@ export interface IQuizSubmissionBody {
 
 export interface IQuizSubmission extends IQuizSubmissionBody {
   _id?: string;
+  score: number;
   passed: boolean;
   date_submitted: string;
-  book_lexile_score: number;
-  comprehension?: 1|2|3|4|5;
 }
 
 export interface IQuizData {

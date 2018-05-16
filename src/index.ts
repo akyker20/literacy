@@ -8,6 +8,7 @@ import { UserService } from './routes/users';
 import { MongoGenreData } from './data/genres';
 import { QuizService } from './routes/quizzes';
 import { MongoQuizData } from './data/quizzes';
+import { MongoBookReviewData } from './data/book_reviews';
 
 // logger setup
 
@@ -26,9 +27,10 @@ const mongoBookData = new MongoBookData(connectionStr);
 const mongoUserData = new MongoUserData(connectionStr);
 const mongoGenreData = new MongoGenreData(connectionStr);
 const mongoQuizData = new MongoQuizData(connectionStr);
+const mongoBookReviewData = new MongoBookReviewData(connectionStr);
 
-const bookService = BookService(mongoGenreData, mongoBookData, mongoUserData, mongoQuizData);
-const userService = UserService(mongoUserData, mongoQuizData, mongoBookData, mongoGenreData);
+const bookService = BookService(mongoGenreData, mongoBookData, mongoBookReviewData, mongoUserData, mongoQuizData);
+const userService = UserService(mongoUserData, mongoQuizData, mongoBookData, mongoBookReviewData, mongoGenreData);
 const quizService = QuizService(mongoQuizData, mongoBookData);
 
 const server = restify.createServer({
@@ -60,8 +62,10 @@ server.get('/students/:userId/books', bookService.getBooksForStudent);
 server.post('/educators', userService.createEducator);
 server.put('/educator/:userId/students', userService.updateStudentsForEducator);
 
+server.post('/book_reviews', bookService.createBookReview);
+
 server.post('/quiz_submissions', quizService.submitQuiz);
-server.put('/quiz_submissions/:submissionId/comprehension', quizService.setComprehensionForSubmission);
+server.get('/students/:userId/quiz_submissions', quizService.getQuizSubmissionsForStudent);
 
 server.post('/genres', bookService.createGenre);
 server.get('/genres', bookService.getGenres);

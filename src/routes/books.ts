@@ -9,6 +9,14 @@ import { ResourceNotFoundError, BadRequestError, ForbiddenError } from 'restify-
 import { UserType, IUserData, IStudent } from '../data/users';
 import { IGenre, IGenreData } from '../data/genres';
 import { IQuizData } from '../data/quizzes';
+import { IBookReview, IBookReviewData, IBookReviewBody } from '../data/book_reviews';
+
+const inputBookReview = joi.object({
+  comprehension: joi.number().integer().valid([1, 2, 3, 4, 5]).required().error(genFieldErr('comprehension')),
+  review: joi.string().max(300).optional().error(genFieldErr('review')),
+  book_id: shortidSchema.required().error(genFieldErr('book_id')),
+  student_id: shortidSchema.required().error(genFieldErr('student_id'))
+}).required()
 
 const inputBookSchema = joi.object({
   cover_photo_url: joi.string().required().error(genFieldErr('cover_photo_url')),
@@ -38,6 +46,7 @@ const createdGenreSchema = inputGenreSchema.keys({
 export function BookService(
   genreData: IGenreData,
   bookData: IBookData,
+  bookReviewData: IBookReviewData,
   userData: IUserData,
   quizData: IQuizData
 ) {
@@ -56,6 +65,36 @@ export function BookService(
   }
 
   return {
+
+    createBookReview: [
+      Middle.authenticate,
+      Middle.authorize([UserType.STUDENT, UserType.ADMIN]),
+      (req: IRequest<IBookReviewBody>, res: Response, next: Next) => {
+        const { type, _id: userId } = req.authToken;
+        if ((type !== UserType.ADMIN) && (userId !== req.body.student_id)) {
+          return next(new ForbiddenError(`User ${userId} cannot write book review for user ${req.body.student_id}`));
+        }
+        next();
+      },
+      Middle.valBody<IBookReviewBody>(inputBookReview),
+      unwrapData(async (req: IRequest<IBookReviewBody>) => {
+
+        const book = await bookData.getBook(req.body.book_id);
+
+        if (_.isNull(book)) {
+          throw new BadRequestError(`Book ${req.body._id} does not exist`);
+        }
+
+        const bookReview: IBookReview = _.assign({}, req.body, {
+          date_created: new Date().toISOString(),
+          book_lexile_measure: book.lexile_measure
+        })
+        
+        return bookReviewData.createBookReview(bookReview);
+        
+      }),
+      Middle.handlePromise
+    ],
 
     /**
      * Genre Routes
@@ -176,11 +215,11 @@ export function BookService(
           throw new ForbiddenError(`Student ${userId} has not provided genre interests`)
         }
 
-        const userQuizSubmissions = await quizData.getSubmissionsForStudent(userId);
+        const studentBookReviews = await bookReviewData.getBookReviewsForStudent(user._id);
         
         const currentLexileMeasure = computeCurrentLexileMeasure(
           user.initial_lexile_measure, 
-          userQuizSubmissions
+          studentBookReviews
         );
         const currentLexileRange = getLexileRange(currentLexileMeasure);
 

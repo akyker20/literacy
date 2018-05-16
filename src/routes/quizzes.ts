@@ -1,5 +1,6 @@
 import * as joi from 'joi';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { Next, Response } from 'restify';
 import { ForbiddenError, ResourceNotFoundError, BadRequestError } from 'restify-errors';
 
@@ -10,10 +11,11 @@ import { UserType } from '../data/users';
 import { IQuizData, IQuiz, IQuizSubmissionBody, IQuizSubmission, IQuizBody } from '../data/quizzes';
 import { IBookData } from '../data/books';
 import { QuizGraderInstance } from '../quizzes';
-import { QuizGraderInstance } from '../quizzes/index';
+import { PassingQuizGrade, MaxNumQuizAttempts, MinHoursBetweenBookQuizAttempt, MinQuestionsInQuiz, MaxQuestionsInQuiz } from '../constants';
+import { QuestionSchema } from '../quizzes/question_schemas';
 
 export const inputQuizSchema = joi.object({
-  questions: joi.array().items(joi.any()).min(5).max(10).required().error(genFieldErr('questions')),
+  questions: joi.array().items(QuestionSchema.unknown(true)).min(MinQuestionsInQuiz).max(MaxQuestionsInQuiz).required(),
   book_id: shortidSchema.optional().error(genFieldErr('book'))
 }).required()
 
@@ -23,7 +25,6 @@ const createdQuizSchema = inputQuizSchema.keys({
 }).required();
 
 export const quizSubmissionSchema = joi.object({
-  date_submitted: joi.string().isoDate().required().error(genFieldErr('date_submitted')),
   quiz_id: shortidSchema.required().error(genFieldErr('quiz_id')),
   student_id: shortidSchema.required().error(genFieldErr('student_id')),
   book_id: shortidSchema.required().error(genFieldErr('book_id')),
@@ -73,8 +74,9 @@ export function QuizService(
 
         for (let i = 0; i < candidateQuiz.questions.length; i++) {
           const question = candidateQuiz.questions[i];
-          if (!QuizGraderInstance.isQuestionSchemaValid(question)) {
-            throw new BadRequestError(`Question with prompt '${question.prompt}' is not a valid ${question.type} question.`);
+          const errorMsg = QuizGraderInstance.isQuestionSchemaValid(question);
+          if (!_.isNull(errorMsg)) {
+            throw new BadRequestError(`Question with prompt '${question.prompt}' is not a valid ${question.type} question. Error: ${errorMsg}`);
           }
         }
 
@@ -134,6 +136,16 @@ export function QuizService(
 
     // Quiz Submission Related Routes
 
+    getQuizSubmissionsForStudent: [
+      Middle.authenticate,
+      Middle.authorizeAgents([UserType.ADMIN]),
+      (req: IRequest<null>, res: Response, next: Next) => {
+        req.promise = quizData.getSubmissionsForStudent(req.params.userId);
+        next();
+      },
+      Middle.handlePromise
+    ],
+
     submitQuiz: [
       Middle.authenticate,
       Middle.valBody<IQuizSubmissionBody>(quizSubmissionSchema),
@@ -147,12 +159,38 @@ export function QuizService(
 
         const submissions = await quizData.getSubmissionsForStudent(req.body.student_id);
 
+        // check user did not recently submit a quiz.
+        
+        if (submissions.length) {
+
+          const mostRecentSubmission = _.orderBy(submissions, 'date_submitted', 'desc')[0];
+
+          const mustWaitTill = moment(mostRecentSubmission.date_submitted).add(MinHoursBetweenBookQuizAttempt, 'h');
+
+          if (moment().isBefore(mustWaitTill)) {
+            throw new ForbiddenError(`User must wait till ${mustWaitTill.toISOString()} to attempt another quiz.`);
+          }
+
+        }
+
         // verify user has not already submitted quiz for book
-        
-        const booksAlreadyRead = submissions.map(s => s.book_id);
-        
-        if (_.includes(booksAlreadyRead, req.body.book_id)) {
-          throw new ForbiddenError(`User has already taken quiz for book ${req.body.book_id}`)
+
+        const prevSubmissionsForBook = submissions.filter(s => s.book_id === req.body.book_id);
+
+        // verification if there are previous submissions
+
+        if (prevSubmissionsForBook.length) {
+
+          const prevPassedSubmissions = _.find(prevSubmissionsForBook, { passed: true });
+
+          if (!_.isUndefined(prevPassedSubmissions)) {
+            throw new ForbiddenError(`User has already passed quiz for book ${req.body.book_id}`);
+          }
+
+          if (prevSubmissionsForBook.length >= MaxNumQuizAttempts) {
+            throw new ForbiddenError(`User has exhausted all attempts to pass quiz for book ${req.body.book_id}`);
+          }
+
         }
 
         // verify book actually exists
@@ -185,21 +223,23 @@ export function QuizService(
         for (let i = 0; i < quiz.questions.length; i++) {
           const question = quiz.questions[i];
           const answer = req.body.answers[i];
-          if (!QuizGraderInstance.isAnswerSchemaValid(question.type, answer)) {
-            throw new BadRequestError(`The answer to question '${question.prompt}' of type ${question.type} has invalid schema`)
+          const errorMsg = QuizGraderInstance.isAnswerSchemaValid(question.type, answer);
+          if (!_.isNull(errorMsg)) {
+            throw new BadRequestError(`The answer to question '${question.prompt}' of type ${question.type} has invalid schema. Error: ${errorMsg}`)
           }
         }
 
         // build submission and save to database
 
+        const quizScore = QuizGraderInstance.gradeQuiz(quiz, req.body.answers);
+
         const quizSubmission: IQuizSubmission = _.assign({}, req.body, {
           date_submitted: new Date().toISOString(),
-          book_lexile_score: book.lexile_measure,
-          passed: QuizGraderInstance.gradeQuiz(quiz, req.body.answers)
+          score: quizScore,
+          passed: quizScore >= PassingQuizGrade
         })
 
-        return await quizData.submitQuiz(quizSubmission);
-
+        return quizData.submitQuiz(quizSubmission);
 
       }),
       Middle.handlePromise

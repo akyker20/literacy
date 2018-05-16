@@ -32,6 +32,7 @@ export interface IBookData {
   getMatchingBooks: (query: IBookQuery) => Promise<IBook[]>;
   getAllBooks: () => Promise<IBook[]>;
   getBook: (bookId: string) => Promise<IBook>;
+  getBooksWithIds: (ids: string[]) => Promise<IBook[]>;
   updateBook: (book: IBook) => Promise<IBook>;
   deleteBook: (bookId: string) => Promise<IBook>;
   searchBooks: (query: string) => Promise<IBook[]>
@@ -65,6 +66,10 @@ export class MongoBookData implements IBookData {
 
   getAllBooks(): Promise<IBook[]> {
     return this.books.find({});
+  }
+
+  getBooksWithIds(ids: string[]): Promise<IBook[]> {
+    return this.books.find({ _id: { $in: ids }});
   }
 
   getMatchingBooks(query: IBookQuery): Promise<IBook[]> {

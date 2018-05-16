@@ -34,27 +34,39 @@ class QuizGrader {
     });
   }
 
-  isQuestionSchemaValid(question: IQuestion): boolean {
+  /**
+   * Returns an error message, null if no error exists.
+   * @param question 
+   */
+  isQuestionSchemaValid(question: IQuestion): string {
+    assert.isTrue(this.strategyMap.has(question.type), `Question type ${question.type} not accounted for.`)
     const schema = this.strategyMap.get(question.type).questionSchema;
     const { error } = joi.validate(question, schema);
-    return _.isEmpty(error);
+    if (_.isEmpty(error)) {
+      return null;
+    }
+    return error.message;
   }
 
-  isAnswerSchemaValid(questionType: QuestionTypes, answer: any): boolean {
+  isAnswerSchemaValid(questionType: QuestionTypes, answer: any): string {
     const schema = this.strategyMap.get(questionType).answerSchema;
     const { error } = joi.validate(answer, schema);
-    return _.isEmpty(error);
+    if (_.isEmpty(error)) {
+      return null;
+    }
+    return error.message;
   }
 
   /**
    * Assumptions: the number of quiz questions and answers are the same.
    */
 
-  gradeQuiz(quiz: IQuiz, answers: any[]) {
+  gradeQuiz(quiz: IQuiz, answers: any[]): number {
 
     assert.isTrue(quiz.questions.length === answers.length, 'Must be the same amount of answers as questions');
     const maxPossiblePoints = _.chain(quiz.questions).map('points').sum().value();
-    
+    console.log(quiz.questions.map(q => q.points));
+
     let pointsEarned = 0;
     
     for (let i = 0; i < quiz.questions.length; i++) {

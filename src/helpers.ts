@@ -2,10 +2,10 @@ import { BadRequestError } from 'restify-errors';
 import { ILexileRange } from './models';
 import { GenreInterestMap } from './data/users';
 import { IBook } from './data/books';
-import { IQuizSubmission } from './data/quizzes';
 import { IRequest } from './Extensions';
 import { Next, Request, RequestHandler, Response } from 'restify';
 import _ = require('lodash');
+import { IBookReview } from './data/book_reviews';
 
 export type PromiseHandler = (req: Request) => Promise<any>;
 
@@ -42,26 +42,24 @@ export function getLexileRange(measure: number): ILexileRange {
 
 export function computeCurrentLexileMeasure(
   initialLexileMeasure: number,
-  submissions: IQuizSubmission[]
+  bookReviews: IBookReview[]
 ): number {
-
-  const submissionsWComp = submissions.filter(s => _.isNumber(s.comprehension));
 
   // if user has less than 3 submitted quizzes with comprehension scores
   // just use the initial lexile measure
-  if (submissionsWComp.length < 3) {
+  if (bookReviews.length < 3) {
     return initialLexileMeasure;
   }
 
-  const recentSubmissions = _.chain(submissionsWComp)
+  const recentReviews = _.chain(bookReviews)
     .orderBy('date_submitted', 'desc')
     .slice(0, 3)
     .value();
 
-  return _.reduce(recentSubmissions, (total, submission) => {
-    const adjustedLexileSignal = submission.book_lexile_score + 50 * (submission.comprehension - 4);
+  return _.reduce(recentReviews, (total, review) => {
+    const adjustedLexileSignal = review.book_lexile_measure + 50 * (review.comprehension - 4);
     return total + adjustedLexileSignal;
-  }, 0) / recentSubmissions.length;
+  }, 0) / recentReviews.length;
 
 }
 

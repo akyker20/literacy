@@ -6,7 +6,7 @@ import * as jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
 
 import { genFieldErr, unwrapData, computeCurrentLexileMeasure } from '../helpers';
-import { IUserData, IUser, UserType, IStudent, IEducator, IUserBody, IStudentBody, IEducatorBody } from '../data/users';
+import { IUserData, IUser, UserType, IStudent, IEducator, IStudentBody, IEducatorBody } from '../data/users';
 import { BadRequestError, ResourceNotFoundError, UnauthorizedError, ForbiddenError } from 'restify-errors';
 import * as Constants from '../constants';
 import { IQuizData } from '../data/quizzes';
@@ -14,6 +14,7 @@ import { IBookData } from '../data/books';
 import { IGenreData } from '../data/genres';
 import { Next, Response } from 'restify';
 import { shortidSchema } from '../extensions';
+import { IBookReviewData } from '../data/book_reviews';
 
 interface IUserLoginCredentials {
   email: string;
@@ -54,6 +55,7 @@ export function UserService(
   userData: IUserData,
   quizData: IQuizData,
   bookData: IBookData,
+  bookReviewData: IBookReviewData,
   genreData: IGenreData
 ) {
 
@@ -65,18 +67,25 @@ export function UserService(
   async function getStudentDTO(user: IUser) {
     const student = user as IStudent;
 
-    const quizSubmissions = await quizData.getSubmissionsForStudent(student._id);
-    const idsOfBooksRead = quizSubmissions.map(s => s.book_id);
-    const booksRead = await Promise.all(idsOfBooksRead.map(bookId => bookData.getBook(bookId)));
+    const studentBookReviews = await bookReviewData.getBookReviewsForStudent(student._id);
+    const studentQuizSubmissions = await quizData.getSubmissionsForStudent(student._id);
+
+    const idsOfBooksRead = _.chain(studentQuizSubmissions)
+      .filter(s => s.passed)
+      .map('book_id')
+      .value();
+
+    const booksRead = await bookData.getBooksWithIds(idsOfBooksRead);
     
     const currentLexileMeasure = computeCurrentLexileMeasure(
       student.initial_lexile_measure,
-      quizSubmissions
+      studentBookReviews
     )
     
     return _.assign({}, user, { 
       current_lexile_measure: currentLexileMeasure,
-      books_read: booksRead
+      books_read: booksRead, // based on passed submissions, not book reviews
+      quiz_submissions: studentQuizSubmissions
     })
   }
 
@@ -102,6 +111,7 @@ export function UserService(
       }),
       Middle.handlePromise
     ],
+
     createGenreInterests: [
       Middle.authenticate,
       Middle.authorizeAgents([UserType.ADMIN]),
@@ -146,6 +156,7 @@ export function UserService(
       }),
       Middle.handlePromise
     ],
+
     editGenreInterest: [
       Middle.authenticate,
       Middle.authorizeAgents([UserType.ADMIN]),
@@ -192,13 +203,19 @@ export function UserService(
           hashed_password: hashedPassword,
           date_joined: new Date().toISOString(),
           type: UserType.STUDENT,
-          genre_interests: null
+          genre_interests: null,
+          books_read: []
         });
 
         return await userData.createUser(newStudent);
 
       }),
       Middle.handlePromise
+    ],
+
+    updateBooksReadForStudent: [
+      Middle.authenticate,
+
     ],
 
     createEducator: [
@@ -307,7 +324,7 @@ export function UserService(
           throw new BadRequestError(`No user with email ${email}`);
         }
 
-        const isPasswordCorrect = await bcrypt.compare(password, user.hashed_pass);
+        const isPasswordCorrect = await bcrypt.compare(password, user.hashed_password);
 
         if (!isPasswordCorrect) {
           throw new BadRequestError('Invalid email/password combination.');
