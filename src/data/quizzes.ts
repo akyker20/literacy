@@ -9,8 +9,10 @@ export enum QuestionTypes {
 
 export interface IQuestion {
   type: QuestionTypes;
-  question: string;
+  points: number;
+  prompt: string;
 }
+
 
 export interface IMultipleChoiceQuestion extends IQuestion {
   type: QuestionTypes.MultipleChoice;

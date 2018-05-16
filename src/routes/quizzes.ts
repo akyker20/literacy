@@ -9,6 +9,8 @@ import { genFieldErr, unwrapData } from '../helpers';
 import { UserType } from '../data/users';
 import { IQuizData, IQuiz, IQuizSubmissionBody, IQuizSubmission, IQuizBody } from '../data/quizzes';
 import { IBookData } from '../data/books';
+import { QuizGraderInstance } from '../quizzes';
+import { QuizGraderInstance } from '../quizzes/index';
 
 export const inputQuizSchema = joi.object({
   questions: joi.array().items(joi.any()).min(5).max(10).required().error(genFieldErr('questions')),
@@ -61,8 +63,19 @@ export function QuizService(
 
         const candidateQuiz = req.body;
 
+        // ensure book is valid
+
         if (!(await isBookValid(candidateQuiz))) {
           throw new BadRequestError(`No book with id ${candidateQuiz.book_id} exists`);
+        }
+
+        // validate question schemas
+
+        for (let i = 0; i < candidateQuiz.questions.length; i++) {
+          const question = candidateQuiz.questions[i];
+          if (!QuizGraderInstance.isQuestionSchemaValid(question)) {
+            throw new BadRequestError(`Question with prompt '${question.prompt}' is not a valid ${question.type} question.`);
+          }
         }
 
         return await quizData.createQuiz(candidateQuiz);
@@ -134,11 +147,15 @@ export function QuizService(
 
         const submissions = await quizData.getSubmissionsForStudent(req.body.student_id);
 
+        // verify user has not already submitted quiz for book
+        
         const booksAlreadyRead = submissions.map(s => s.book_id);
         
         if (_.includes(booksAlreadyRead, req.body.book_id)) {
           throw new ForbiddenError(`User has already taken quiz for book ${req.body.book_id}`)
         }
+
+        // verify book actually exists
 
         const book = await bookData.getBook(req.body.book_id);
 
@@ -146,16 +163,39 @@ export function QuizService(
           throw new BadRequestError(`No book with id ${req.body.book_id} exists`)
         }
 
+        // verify quiz actually exists
+
         const quiz = await quizData.getQuizById(req.body.quiz_id);
 
         if (quiz === null) {
           throw new BadRequestError(`No quiz with id ${req.body.quiz_id} exists`)
         }
 
+        // should be the same number of questions as answers
+
+        if (quiz.questions.length !== req.body.answers.length) {
+          throw new BadRequestError(
+            `There are ${quiz.questions.length} quiz questions, 
+            yet ${req.body.answers.length} answers were submitted`
+          );
+        }
+
+        // verify answer schema based on question types
+
+        for (let i = 0; i < quiz.questions.length; i++) {
+          const question = quiz.questions[i];
+          const answer = req.body.answers[i];
+          if (!QuizGraderInstance.isAnswerSchemaValid(question.type, answer)) {
+            throw new BadRequestError(`The answer to question '${question.prompt}' of type ${question.type} has invalid schema`)
+          }
+        }
+
+        // build submission and save to database
+
         const quizSubmission: IQuizSubmission = _.assign({}, req.body, {
           date_submitted: new Date().toISOString(),
           book_lexile_score: book.lexile_measure,
-          passed: true // TODO: have grading system
+          passed: QuizGraderInstance.gradeQuiz(quiz, req.body.answers)
         })
 
         return await quizData.submitQuiz(quizSubmission);
