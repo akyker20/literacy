@@ -4,15 +4,20 @@ import * as joi from 'joi';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
+import { Next, Response } from 'restify';
+import { 
+  BadRequestError,
+  ResourceNotFoundError, 
+  UnauthorizedError, 
+  ForbiddenError 
+} from 'restify-errors';
 
+import * as Constants from '../constants';
 import { genFieldErr, unwrapData, computeCurrentLexileMeasure } from '../helpers';
 import { IUserData, IUser, UserType, IStudent, IEducator, IStudentBody, IEducatorBody } from '../data/users';
-import { BadRequestError, ResourceNotFoundError, UnauthorizedError, ForbiddenError } from 'restify-errors';
-import * as Constants from '../constants';
 import { IQuizData } from '../data/quizzes';
 import { IBookData } from '../data/books';
 import { IGenreData } from '../data/genres';
-import { Next, Response } from 'restify';
 import { shortidSchema } from '../extensions';
 import { IBookReviewData } from '../data/book_reviews';
 
@@ -51,7 +56,7 @@ interface IUpdateGenreInterestBody {
   interest_value: number;
 }
 
-export function UserService(
+export function UserRoutes(
   userData: IUserData,
   quizData: IQuizData,
   bookData: IBookData,
@@ -85,7 +90,8 @@ export function UserService(
     return _.assign({}, user, { 
       current_lexile_measure: currentLexileMeasure,
       books_read: booksRead, // based on passed submissions, not book reviews
-      quiz_submissions: studentQuizSubmissions
+      quiz_submissions: studentQuizSubmissions,
+      book_reviews: studentBookReviews
     })
   }
 

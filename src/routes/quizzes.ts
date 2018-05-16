@@ -7,7 +7,7 @@ import { ForbiddenError, ResourceNotFoundError, BadRequestError } from 'restify-
 import { IRequest, shortidSchema } from '../Extensions';
 import * as Middle from '../middleware';
 import { genFieldErr, unwrapData } from '../helpers';
-import { UserType } from '../data/users';
+import { UserType, IUserData } from '../data/users';
 import { IQuizData, IQuiz, IQuizSubmissionBody, IQuizSubmission, IQuizBody } from '../data/quizzes';
 import { IBookData } from '../data/books';
 import { QuizGraderInstance } from '../quizzes';
@@ -39,7 +39,8 @@ interface IQuizSubmissionComprehensionBody {
   comprehension: 1|2|3|4|5;
 }
 
-export function QuizService(
+export function QuizRoutes(
+  userData: IUserData,
   quizData: IQuizData,
   bookData: IBookData
 ) {
@@ -156,6 +157,16 @@ export function QuizService(
         next();
       },
       unwrapData(async (req: IRequest<IQuizSubmissionBody>) => {
+
+        // verify user exists
+
+        const user = await userData.getUserById(req.body.student_id);
+
+        if (_.isNull(user)) {
+          throw new BadRequestError(`User ${req.body.student_id} does not exist.`)
+        } else if (user.type !== UserType.STUDENT) {
+          throw new BadRequestError(`User ${req.body.student_id} is not a student.`)
+        }
 
         const submissions = await quizData.getSubmissionsForStudent(req.body.student_id);
 

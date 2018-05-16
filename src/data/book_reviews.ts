@@ -18,6 +18,7 @@ export interface IBookReview extends IBookReviewBody {
 export interface IBookReviewData {
   createBookReview: (review: IBookReview) => Promise<IBookReview>;
   getBookReviewsForStudent: (studentId: string) => Promise<IBookReview[]>;
+  getBookReview: (studentId: string, bookId: string) => Promise<IBookReview>;
 }
 
 export class MongoBookReviewData implements IBookReviewData {
@@ -37,6 +38,13 @@ export class MongoBookReviewData implements IBookReviewData {
 
   getBookReviewsForStudent(studentId: string): Promise<IBookReview[]> {
     return this.bookReviews.find({ student_id: studentId });
+  }
+
+  getBookReview(studentId: string, bookId: string): Promise<IBookReview> {
+    return this.bookReviews.findOne({ 
+      student_id: studentId,
+      book_id: bookId
+    })
   }
 
 }

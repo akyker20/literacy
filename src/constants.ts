@@ -10,5 +10,5 @@ export const MaxQuestionPromptChars = 200;
 export const MaxLongAnswerReponseChars = 1000;
 
 export const MaxNumQuizAttempts = 3;
-export const MinHoursBetweenBookQuizAttempt = 24;
+export const MinHoursBetweenBookQuizAttempt = 0; // TODO: update to 24
 export const PassingQuizGrade = 70.0;

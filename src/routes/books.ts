@@ -12,7 +12,7 @@ import { IQuizData } from '../data/quizzes';
 import { IBookReview, IBookReviewData, IBookReviewBody } from '../data/book_reviews';
 
 const inputBookReview = joi.object({
-  comprehension: joi.number().integer().valid([1, 2, 3, 4, 5]).required().error(genFieldErr('comprehension')),
+  comprehension: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required().error(genFieldErr('comprehension')),
   review: joi.string().max(300).optional().error(genFieldErr('review')),
   book_id: shortidSchema.required().error(genFieldErr('book_id')),
   student_id: shortidSchema.required().error(genFieldErr('student_id'))
@@ -43,7 +43,7 @@ const createdGenreSchema = inputGenreSchema.keys({
   _id: shortidSchema.required().error(genFieldErr('_id'))
 }).required();
 
-export function BookService(
+export function BookRoutes(
   genreData: IGenreData,
   bookData: IBookData,
   bookReviewData: IBookReviewData,
@@ -79,11 +79,34 @@ export function BookService(
       Middle.valBody<IBookReviewBody>(inputBookReview),
       unwrapData(async (req: IRequest<IBookReviewBody>) => {
 
-        const book = await bookData.getBook(req.body.book_id);
+        const { student_id, book_id } = req.body;
+
+        // verify the book actually exists
+
+        const book = await bookData.getBook(book_id);
 
         if (_.isNull(book)) {
-          throw new BadRequestError(`Book ${req.body._id} does not exist`);
+          throw new BadRequestError(`Book ${book_id} does not exist`);
         }
+
+        // verify the student already passed the quiz.
+
+        const studentSubmissions = await quizData.getSubmissionsForStudent(student_id);
+        const passedSubmissionForBook = _.find(studentSubmissions, { passed: true, book_id });
+
+        if (_.isUndefined(passedSubmissionForBook)) {
+          throw new ForbiddenError(`User has not passed a quiz for book ${book_id}. The user must do this before posting a review.`)
+        }
+
+        // verify the student has not already reviewed the book.
+
+        const existingBookReview = await bookReviewData.getBookReview(student_id, book_id);
+        
+        if (!_.isNull(existingBookReview)) {
+          throw new ForbiddenError(`Student ${student_id} has already posted a book review for book ${book_id}`);
+        }
+
+        // build book review and save it to database.
 
         const bookReview: IBookReview = _.assign({}, req.body, {
           date_created: new Date().toISOString(),
@@ -91,7 +114,7 @@ export function BookService(
         })
         
         return bookReviewData.createBookReview(bookReview);
-        
+
       }),
       Middle.handlePromise
     ],
@@ -208,7 +231,7 @@ export function BookService(
         const user = await userData.getUserById(userId) as IStudent;
 
         if (user === null) {
-          throw new ResourceNotFoundError(`User with id ${req.params.id} does not exist.`);
+          throw new ResourceNotFoundError(`User with id ${req.params.userId} does not exist.`);
         }
 
         if (_.isEmpty(user.genre_interests)) {

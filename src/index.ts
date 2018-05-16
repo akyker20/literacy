@@ -1,97 +1,131 @@
 import * as restify from 'restify';
 import * as bunyan from 'bunyan';
 
-import { MongoBookData } from './data/books';
-import { BookService } from './routes/books';
-import { MongoUserData } from './data/users';
-import { UserService } from './routes/users';
-import { MongoGenreData } from './data/genres';
-import { QuizService } from './routes/quizzes';
-import { MongoQuizData } from './data/quizzes';
-import { MongoBookReviewData } from './data/book_reviews';
+import * as Routes from './routes';
+import { IBookData } from './data/books';
+import { IUserData } from './data/users';
+import { IGenreData } from './data/genres';
+import { IQuizData } from './data/quizzes';
+import { IBookReviewData } from './data/book_reviews';
 
-// logger setup
+// setup logger
 
 const logger = bunyan.createLogger({
-  name: 'mainstream_backend',
+  name: 'literacy_backend',
   serializers: bunyan.stdSerializers
 });
 
-const dbHost = process.env.MONGO_HOST || 'localhost';
-const dbPort = process.env.MONGO_PORT || '27017';
-const dbName = process.env.MONGO_DB_NAME || 'local';
+export default class App {
 
-const connectionStr = `mongodb://${dbHost}:${dbPort}/${dbName}`;
+  server: restify.Server;
 
-const mongoBookData = new MongoBookData(connectionStr);
-const mongoUserData = new MongoUserData(connectionStr);
-const mongoGenreData = new MongoGenreData(connectionStr);
-const mongoQuizData = new MongoQuizData(connectionStr);
-const mongoBookReviewData = new MongoBookReviewData(connectionStr);
+  constructor(
+    bookData: IBookData,
+    userData: IUserData,
+    genreData: IGenreData,
+    quizData: IQuizData,
+    bookReviewData: IBookReviewData
+  ) {
 
-const bookService = BookService(mongoGenreData, mongoBookData, mongoBookReviewData, mongoUserData, mongoQuizData);
-const userService = UserService(mongoUserData, mongoQuizData, mongoBookData, mongoBookReviewData, mongoGenreData);
-const quizService = QuizService(mongoQuizData, mongoBookData);
+    this.server = restify.createServer({
+      name: 'literacy_api',
+      log: logger
+    });
 
-const server = restify.createServer({
-  name: 'literacy_api',
-  log: logger
-});
+    this.server
+      .use(restify.plugins.bodyParser())
+      .use(restify.plugins.queryParser())
+      .use(restify.plugins.requestLogger());
 
-server
-  .use(restify.plugins.bodyParser())
-  .use(restify.plugins.queryParser())
-  .use(restify.plugins.requestLogger());
+    // configure user routes
 
-// Temporary
+    const userRoutes = Routes.UserRoutes(
+      userData,
+      quizData,
+      bookData,
+      bookReviewData,
+      genreData
+    );
 
-server.get('/books', bookService.getBooks);
-server.get('/quizzes', quizService.getAllQuizzes);
-server.get('/users', userService.getAllUsers);
+    this.server.get('/users', userRoutes.getAllUsers); // TODO: remove
 
-// Routes
+    this.server.get('/whoami', userRoutes.whoami);
+    this.server.post('/users/signin', userRoutes.signin);
 
-server.get('/whoami', userService.whoami);
-server.post('/users/signin', userService.signin);
+    this.server.post('/students', userRoutes.createStudent);
+    this.server.post('/students/:userId/genre_interests', userRoutes.createGenreInterests);
+    this.server.put('/students/:userId/genre_interests/:genreId', userRoutes.editGenreInterest);
 
-server.post('/students', userService.createStudent);
-server.post('/students/:userId/genre_interests', userService.createGenreInterests);
-server.put('/students/:userId/genre_interests/:genreId', userService.editGenreInterest);
-server.get('/students/:userId/books', bookService.getBooksForStudent);
+    this.server.post('/educators', userRoutes.createEducator);
+    this.server.put('/educator/:userId/students', userRoutes.updateStudentsForEducator);
 
-server.post('/educators', userService.createEducator);
-server.put('/educator/:userId/students', userService.updateStudentsForEducator);
+    // configure book routes
 
-server.post('/book_reviews', bookService.createBookReview);
+    const bookRoutes = Routes.BookRoutes(
+      genreData,
+      bookData,
+      bookReviewData,
+      userData,
+      quizData
+    );
 
-server.post('/quiz_submissions', quizService.submitQuiz);
-server.get('/students/:userId/quiz_submissions', quizService.getQuizSubmissionsForStudent);
+    this.server.get('/books', bookRoutes.getBooks);
 
-server.post('/genres', bookService.createGenre);
-server.get('/genres', bookService.getGenres);
-server.put('/genres/:genreId', bookService.updateGenre);
-server.del('/genres/:genreId', bookService.deleteGenre);
+    this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent);
+    this.server.post('/book_reviews', bookRoutes.createBookReview);
 
-server.post('/books', bookService.createBook);
-server.put('/books/:bookId', bookService.updateBook);
-server.get('/books/:bookId', bookService.getBook);
-server.del('/books/:bookId', bookService.deleteBook);
-server.get('/books/:bookId/quiz', quizService.getQuizForBook);
+    this.server.post('/genres', bookRoutes.createGenre);
+    this.server.get('/genres', bookRoutes.getGenres);
+    this.server.put('/genres/:genreId', bookRoutes.updateGenre);
+    this.server.del('/genres/:genreId', bookRoutes.deleteGenre);
 
-server.post('/quizzes', quizService.createQuiz);
-server.del('/quizzes/:quizId', quizService.deleteQuiz);
-server.put('/quizzes/:quizId', quizService.updateQuiz);
+    this.server.post('/books', bookRoutes.createBook);
+    this.server.put('/books/:bookId', bookRoutes.updateBook);
+    this.server.get('/books/:bookId', bookRoutes.getBook);
+    this.server.del('/books/:bookId', bookRoutes.deleteBook);
 
-// audit logging except when testing
+    // configure quiz routes
 
-// if (process.env.NODE_ENV !== 'test') {
-//   server.on('after', restify.plugins.auditLogger({
-//     event: 'after',
-//     log: logger,
-//     // body: true
-//   }));
-// }
+    const quizRoutes = Routes.QuizRoutes(
+      userData,
+      quizData,
+      bookData
+    )
 
-server.listen(3000, function() {
-  console.log('%s listening at %s', server.name, server.url);
-});
+    this.server.get('/quizzes', quizRoutes.getAllQuizzes); // TODO: remove
+
+    this.server.post('/quiz_submissions', quizRoutes.submitQuiz);
+    this.server.get('/students/:userId/quiz_submissions', quizRoutes.getQuizSubmissionsForStudent);
+
+    this.server.post('/quizzes', quizRoutes.createQuiz);
+    this.server.del('/quizzes/:quizId', quizRoutes.deleteQuiz);
+    this.server.put('/quizzes/:quizId', quizRoutes.updateQuiz);
+
+
+    /**
+     * Audit logging of requests when not being tested.
+     */
+    // if (process.env.NODE_ENV !== 'test') {
+    //   this.server.on('after', restify.plugins.auditLogger({
+    //     event: 'after',
+    //     log: logger
+    //   }));
+    // }
+
+    /**
+     * Log internal server errors.
+     * TODO: Email me when this happens.
+     */
+    this.server.on('InternalServer', function (req: restify.Request, res, err, callback) {
+      req.log.error({ err }, 'INTERNAL SERVER ERR');
+      return callback();
+    });
+
+  }
+
+  listen(port: number) {
+    console.log(`Starting app on port ${port}`);
+    this.server.listen(port);
+  }
+
+}
