@@ -1,12 +1,14 @@
 import { IRequest, lexileMeasureSchema } from '../Extensions';
 import * as Middle from '../middleware';
 import * as joi from 'joi';
-import { genFieldErr, unwrapData, computeCurrentLexileMeasure } from '../helpers';
-import { IUserData, IUser, UserType, IStudent, IEducator } from '../data/users';
-import { BadRequestError, ResourceNotFoundError, UnauthorizedError, ForbiddenError } from 'restify-errors';
+import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import * as _ from 'lodash';
+
+import { genFieldErr, unwrapData, computeCurrentLexileMeasure } from '../helpers';
+import { IUserData, IUser, UserType, IStudent, IEducator, IUserBody, IStudentBody, IEducatorBody } from '../data/users';
+import { BadRequestError, ResourceNotFoundError, UnauthorizedError, ForbiddenError } from 'restify-errors';
 import * as Constants from '../constants';
-import _ = require('lodash');
 import { IQuizData } from '../data/quizzes';
 import { IBookData } from '../data/books';
 import { IGenreData } from '../data/genres';
@@ -177,18 +179,23 @@ export function UserService(
       Middle.authenticate,
       Middle.authorize([UserType.ADMIN]),
       Middle.valBody(studentSchema),
-      unwrapData(async (req: IRequest<IUser>) => {
+      unwrapData(async (req: IRequest<IStudentBody>) => {
 
         if (await userExistsWithEmail(req.body.email)) {
           throw new BadRequestError(`User with email ${req.body.email} already exists.`);
         }
 
-        const newUser: IUser = _.assign({}, req.body, {
+        const hashedPassword = await bcrypt.hash(req.body.password, 8);
+        delete req.body.password;
+
+        const newStudent: IStudent = _.assign({}, req.body, {
+          hashed_password: hashedPassword,
           date_joined: new Date().toISOString(),
-          type: UserType.STUDENT
+          type: UserType.STUDENT,
+          genre_interests: null
         });
 
-        return await userData.createUser(newUser);
+        return await userData.createUser(newStudent);
 
       }),
       Middle.handlePromise
@@ -198,13 +205,17 @@ export function UserService(
       Middle.authenticate,
       Middle.authorize([UserType.ADMIN]),
       Middle.valBody(userSchema),
-      unwrapData(async (req: IRequest<IUser>) => {
+      unwrapData(async (req: IRequest<IEducatorBody>) => {
 
         if (await userExistsWithEmail(req.body.email)) {
           throw new BadRequestError(`User with email ${req.body.email} already exists.`);
         }
 
+        const hashedPassword = await bcrypt.hash(req.body.password, 8);
+        delete req.body.password;
+
         const educator: IEducator = _.assign({}, req.body, {
+          hashed_password: hashedPassword,
           date_joined: new Date().toISOString(),
           type: UserType.EDUCATOR,
           student_ids: []
@@ -296,8 +307,10 @@ export function UserService(
           throw new BadRequestError(`No user with email ${email}`);
         }
 
-        if (user.password !== password) {
-          throw new BadRequestError('Invalid email/password combination');
+        const isPasswordCorrect = await bcrypt.compare(password, user.hashed_pass);
+
+        if (!isPasswordCorrect) {
+          throw new BadRequestError('Invalid email/password combination.');
         }
 
         const userDTO = await getStudentDTO(user);
