@@ -52,7 +52,7 @@ export function computeCurrentLexileMeasure(
   }
 
   const recentReviews = _.chain(bookReviews)
-    .orderBy('date_submitted', 'desc')
+    .orderBy('date_created', 'desc')
     .slice(0, 3)
     .value();
 

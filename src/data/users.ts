@@ -32,7 +32,7 @@ export interface IEducatorBody extends IUserBody {
 // interface for created users.
 
 export interface IUser extends IUserCore {
-  date_joined: string;
+  date_created: string;
   type: UserType;
   hashed_password: string;
 }
@@ -42,11 +42,6 @@ export type GenreInterestMap = { [genreId: string]: 1|2|3|4 };
 export interface IStudent extends IUser {
   initial_lexile_measure: number;
   genre_interests: GenreInterestMap;
-  books_read: {
-    book_id: string;
-    book_lexile_measure: string;
-    comprehension: 1|2|3|4|5;
-  }[];
 }
 
 export interface IEducator extends IUser {

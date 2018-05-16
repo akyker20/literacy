@@ -1,0 +1,41 @@
+[
+  {
+    "_id": "admin-id",
+    "type": "ADMIN",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "first_name": "Austin",
+    "last_name": "Kyker",
+    "email": "akyker20@gmail.com",
+    "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG"
+  },
+  {
+    "_id": "chase-malik",
+    "type": "STUDENT",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "first_name": "Chase",
+    "last_name": "Malik",
+    "email": "cmalik@gmail.com",
+    "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
+    "books_read": [],
+    "book_genres": null,
+    "initial_lexile_measure": 800
+  },
+  {
+    "_id": "katelynn-kyker",
+    "type": "STUDENT",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "first_name": "Katelynn",
+    "last_name": "Kyker",
+    "email": "kkyker@gmail.com",
+    "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
+    "book_genres": {
+      "science-id": 4,
+      "history-id": 2,
+      "mystery-id": 3,
+      "fantasy-id": 1,
+      "poetry-id": 1,
+      "adventure-id": 1
+    },
+    "initial_lexile_measure": 600
+  }
+]

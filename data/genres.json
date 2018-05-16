@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "science-id",
+    "title": "Science",
+    "description": "Mock Description"
+  },
+  {
+    "_id": "history-id",
+    "title": "History",
+    "description": "Mock Description"
+  },
+  {
+    "_id": "mystery-id",
+    "title": "Mystery",
+    "description": "Mock Description"
+  },
+  {
+    "_id": "fantasy-id",
+    "title": "Fantasy",
+    "description": "Mock Description"
+  },
+  {
+    "_id": "poetry-id",
+    "title": "Poetry",
+    "description": "Mock Description"
+  },
+  {
+    "_id": "adventure-id",
+    "title": "Adventure",
+    "description": "Mock Description"
+  }
+]

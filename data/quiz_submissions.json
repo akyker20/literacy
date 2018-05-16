@@ -1,0 +1,106 @@
+[
+  {
+    "_id": "submission-1",
+    "student_id": "katelynn-kyker",
+    "book_id": "harry-potter-id",
+    "quiz_id": "quiz-harry",
+    "date_created": "2018-05-16T17:55:56.479Z",
+    "score": 100,
+    "passed": true,
+    "answers": [
+      {
+        "response": "Some response"
+      },
+      {
+        "answer_index": 2
+      },
+      {
+        "prompt": "Some response"
+      },
+      {
+        "prompt": "Some response"
+      },
+      {
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "submission-2",
+    "student_id": "katelynn-kyker",
+    "book_id": "exchange-student-id",
+    "quiz_id": "quiz1",
+    "date_created": "2018-05-10T17:55:56.479Z",
+    "score": 60,
+    "passed": false,
+    "answers": [
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 1
+      },
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "submission-3",
+    "student_id": "katelynn-kyker",
+    "book_id": "exchange-student-id",
+    "quiz_id": "quiz1",
+    "date_created": "2018-05-11T17:55:56.479Z",
+    "score": 60,
+    "passed": false,
+    "answers": [
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 1
+      },
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "submission-3",
+    "student_id": "katelynn-kyker",
+    "book_id": "exchange-student-id",
+    "quiz_id": "quiz1",
+    "date_created": "2018-05-12T17:55:56.479Z",
+    "score": 60,
+    "passed": false,
+    "answers": [
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 1
+      },
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 0
+      }
+    ]
+  }
+]

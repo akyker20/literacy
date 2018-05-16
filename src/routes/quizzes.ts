@@ -174,9 +174,9 @@ export function QuizRoutes(
         
         if (submissions.length) {
 
-          const mostRecentSubmission = _.orderBy(submissions, 'date_submitted', 'desc')[0];
+          const mostRecentSubmission = _.orderBy(submissions, 'date_created', 'desc')[0];
 
-          const mustWaitTill = moment(mostRecentSubmission.date_submitted).add(MinHoursBetweenBookQuizAttempt, 'h');
+          const mustWaitTill = moment(mostRecentSubmission.date_created).add(MinHoursBetweenBookQuizAttempt, 'h');
 
           if (moment().isBefore(mustWaitTill)) {
             throw new ForbiddenError(`User must wait till ${mustWaitTill.toISOString()} to attempt another quiz.`);
@@ -245,7 +245,7 @@ export function QuizRoutes(
         const quizScore = QuizGraderInstance.gradeQuiz(quiz, req.body.answers);
 
         const quizSubmission: IQuizSubmission = _.assign({}, req.body, {
-          date_submitted: new Date().toISOString(),
+          date_created: new Date().toISOString(),
           score: quizScore,
           passed: quizScore >= PassingQuizGrade
         })

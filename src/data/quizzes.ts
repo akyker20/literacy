@@ -34,7 +34,7 @@ export interface IQuizSubmission extends IQuizSubmissionBody {
   _id?: string;
   score: number;
   passed: boolean;
-  date_submitted: string;
+  date_created: string;
 }
 
 export interface IQuizData {

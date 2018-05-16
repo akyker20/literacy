@@ -207,10 +207,9 @@ export function UserRoutes(
 
         const newStudent: IStudent = _.assign({}, req.body, {
           hashed_password: hashedPassword,
-          date_joined: new Date().toISOString(),
+          date_created: new Date().toISOString(),
           type: UserType.STUDENT,
-          genre_interests: null,
-          books_read: []
+          genre_interests: null
         });
 
         return await userData.createUser(newStudent);
@@ -239,7 +238,7 @@ export function UserRoutes(
 
         const educator: IEducator = _.assign({}, req.body, {
           hashed_password: hashedPassword,
-          date_joined: new Date().toISOString(),
+          date_created: new Date().toISOString(),
           type: UserType.EDUCATOR,
           student_ids: []
         });

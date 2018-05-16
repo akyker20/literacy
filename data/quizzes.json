@@ -1,0 +1,111 @@
+[
+  {
+    "_id": "quiz1",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "questions": [
+      {
+        "type": "mc",
+        "prompt": "some mock prompt 1",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "prompt": "some mock prompt 2",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "prompt": "some mock prompt 3",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "prompt": "some mock prompt 4",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "prompt": "some mock prompt 5",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "quiz-harry",
+    "date_created": "2018-05-16T17:55:56.479Z",
+    "book_id": "harry-potter-id",
+    "questions": [
+      {
+        "type": "la",
+        "prompt": "some mock prompt 1"
+      },
+      {
+        "type": "mc",
+        "prompt": "some mock prompt 2",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "la",
+        "prompt": "some mock prompt 3"
+      },
+      {
+        "type": "la",
+        "prompt": "some mock prompt 4"
+      },
+      {
+        "type": "mc",
+        "prompt": "some mock prompt 5",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 0
+      }
+    ]
+  }
+]

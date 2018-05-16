@@ -1,0 +1,114 @@
+[
+  {
+    "_id": "harry-potter-id",
+    "title": "Harry Potter and Sorcerest Stone",
+    "cover_photo_url": "http://someurl.com",
+    "amazon_popularity": 4.2,
+    "num_pages": 309,
+    "summary": "Harry Potter's life is miserable. His parents are dead and he's stuck with his heartless relatives, who force him to live in a tiny closet under the stairs. But his fortune changes when he receives a letter that tells him the truth about himself: he's a wizard. A mysterious visitor rescues him from his relatives and takes him to his new home, Hogwarts.",
+    "isbn": "9780439708180",
+    "lexile_measure": 880,
+    "author": "JK Rowling",
+    "genres": [
+      "some-genre4"
+    ]
+  },
+  {
+    "_id": "exchange-student-id",
+    "title": "The Exchange Student",
+    "cover_photo_url": "http://someurl.com",
+    "amazon_popularity": 4.5,
+    "num_pages": 222,
+    "isbn": "9780618689484",
+    "summary": "What a time for an exchange student to arrive, Daria thought, especially one from another planet! Daria is one of Earth's youngest licensed breeders of endangered species, and she has enough to do caring for her menagerie without having to cope with Fen.",
+    "lexile_measure": 950,
+    "author": "Kate Gilmore",
+    "genres": [
+      "some-genre3"
+    ]
+  },
+  {
+    "_id": "little-goat-id",
+    "title": "The Little Apple Goat",
+    "cover_photo_url": "http://someurl.com",
+    "amazon_popularity": 4.2,
+    "num_pages": 28,
+    "isbn": "9780618689484",
+    "summary": "Little Apple Goat is ordinary in every way -- except for one. Instead of munching on oats or grass or laundry left on the line, she prefers to eat fruit from the orchard.",
+    "lexile_measure": 670,
+    "author": "Caroline Jayne Church",
+    "genres": [
+      "some-genre3"
+    ]
+  },
+  {
+    "_id": "amelia-id",
+    "title": "Who Was Amelia Earhart?",
+    "cover_photo_url": "http://someurl.com",
+    "amazon_popularity": 4.2,
+    "num_pages": 102,
+    "isbn": "9780618689484",
+    "summary": "Amelia Earhart was a woman of many 'firsts.' In 1932, she became the first woman to fly solo across the Atlantic Ocean. In 1935, she also became the first woman to fly across the Pacific. From her early years to her mysterious 1937 disappearance while attempting a flight around the world, readers will find Amelia Earhart's life a fascinating story.",
+    "lexile_measure": 610,
+    "author": "Kate Boehm",
+    "genres": [
+      "some-genre3"
+    ]
+  },
+  {
+    "_id": "ice-wreck-id",
+    "title": "Ice Wreck",
+    "cover_photo_url": "http://someurl.com",
+    "amazon_popularity": 4.4,
+    "num_pages": 48,
+    "isbn": "9780618689484",
+    "summary": "A hundred years ago, Ernest Shackleton and his crew set out for the South Pole. They never made it. Within sight of land, the ship ran into dangerous waters filled with chunks of ice. Then the sea froze around them! There was no hope of rescue. Could Shackleton find a way to save himself and his men?",
+    "lexile_measure": 610,
+    "author": "Lucille Recht",
+    "genres": [
+      "some-genre6"
+    ]
+  },
+  {
+    "_id": "quest-id",
+    "title": "Quest",
+    "cover_photo_url": "http://someurl.com",
+    "amazon_popularity": 4.7,
+    "num_pages": 256,
+    "isbn": "9781416933861",
+    "summary": "When seventeen-year-old John Hudson sets sail aboard the Discovery with his father, Henry Hudson, he is eager to explore the open seas and the New World. He is not, however, anxious to leave behind his girlfriend, Isabella Digges, a nobleman's daughter. But Isabella has adventures of her own in store as an undercover spy for the king. And while Richard Hudson simply wants his older brother, John, to come home to London, John's shipmate Seth Syms is desperate to avoid returning to the city any time soon.",
+    "lexile_measure": 820,
+    "author": "Kathleen Benner",
+    "genres": [
+      "some-genre1"
+    ]
+  },
+  {
+    "_id": "kings-fifth-id",
+    "title": "The King's Fifth",
+    "cover_photo_url": "http://someurl.com",
+    "amazon_popularity": 4.5,
+    "num_pages": 256,
+    "isbn": "9781456933861",
+    "summary": "While awaiting trial for murder and withholding from the king the obligatory fifth of the gold found in Cibola, Esteban, a seventeen-year-old cartographer, recalls his adventures with a band of conquistadors.",
+    "lexile_measure": 840,
+    "author": "Scott O'dell",
+    "genres": [
+      "some-genre1"
+    ]
+  },
+  {
+    "_id": "hobbit-id",
+    "title": "The Hobbit",
+    "cover_photo_url": "http://someurl.com",
+    "amazon_popularity": 4.7,
+    "num_pages": 384,
+    "isbn": "9780544174221",
+    "summary": "THE GREATEST FANTASY EPIC OF OUR TIME Bilbo Baggins was a hobbit who wanted to be left alone in quiet comfort. But the wizard Gandalf came along with a band of homeless dwarves. Soon Bilbo was drawn into their quest, facing evil orcs, savage wolves, giant spiders, and worse unknown dangers.",
+    "lexile_measure": 1000,
+    "author": "J.R.R Tolkien",
+    "genres": [
+      "some-genre1"
+    ]
+  }
+]
