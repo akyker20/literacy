@@ -52,10 +52,13 @@ server.get('/users', userService.getAllUsers);
 server.get('/whoami', userService.whoami);
 server.post('/users/signin', userService.signin);
 
-server.post('/students', userService.createUser);
+server.post('/students', userService.createStudent);
 server.post('/students/:userId/genre_interests', userService.createGenreInterests);
 server.put('/students/:userId/genre_interests/:genreId', userService.editGenreInterest);
 server.get('/students/:userId/books', bookService.getBooksForStudent);
+
+server.post('/educators', userService.createEducator);
+server.put('/educator/:userId/students', userService.updateStudentsForEducator);
 
 server.post('/quiz_submissions', quizService.submitQuiz);
 server.put('/quiz_submissions/:submissionId/comprehension', quizService.setComprehensionForSubmission);

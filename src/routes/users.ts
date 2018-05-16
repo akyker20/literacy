@@ -2,7 +2,7 @@ import { IRequest, lexileMeasureSchema } from '../Extensions';
 import * as Middle from '../middleware';
 import * as joi from 'joi';
 import { genFieldErr, unwrapData, computeCurrentLexileMeasure } from '../helpers';
-import { IUserData, IUser, UserType, IStudent } from '../data/users';
+import { IUserData, IUser, UserType, IStudent, IEducator } from '../data/users';
 import { BadRequestError, ResourceNotFoundError, UnauthorizedError, ForbiddenError } from 'restify-errors';
 import * as jwt from 'jsonwebtoken';
 import * as Constants from '../constants';
@@ -11,11 +11,16 @@ import { IQuizData } from '../data/quizzes';
 import { IBookData } from '../data/books';
 import { IGenreData } from '../data/genres';
 import { Next, Response } from 'restify';
+import { shortidSchema } from '../extensions';
 
 interface IUserLoginCredentials {
   email: string;
   password: string;
 }
+
+const updateStudentsForTeacherSchema = joi.object({
+  student_ids: joi.array().items(shortidSchema).max(100).unique().required().error(genFieldErr('students'))
+}).required();
 
 export const editGenreInterestSchema = joi.object({
   interest_value: joi.number().integer().valid([1, 2, 3, 4]).required().error(genFieldErr('interest_value'))
@@ -23,13 +28,16 @@ export const editGenreInterestSchema = joi.object({
 
 export const createGenreInterestSchema = joi.object().pattern(/.*/, joi.number().integer().valid([1, 2, 3, 4])).required().error(genFieldErr('create genre body'))
 
-export const studentSchema = joi.object({
+export const userSchema = joi.object({
   first_name: joi.string().required().error(genFieldErr('first_name')),
   last_name: joi.string().required().error(genFieldErr('last_name')),
   email: joi.string().required().error(genFieldErr('email')),
   password: joi.string().required().error(genFieldErr('password')),
+}).required();
+
+export const studentSchema = userSchema.keys({
   initial_lexile_measure: lexileMeasureSchema.error(genFieldErr('initial_lexile_measure')),
-}).required()
+}).required();
 
 export const userAuthSchema = joi.object({
   email: joi.string().required().error(genFieldErr('email')),
@@ -46,6 +54,11 @@ export function UserService(
   bookData: IBookData,
   genreData: IGenreData
 ) {
+
+  async function userExistsWithEmail(email: string): Promise<boolean> {
+    const existingUserWithEmail = await userData.getUserByEmail(email);
+    return !_.isNull(existingUserWithEmail);
+  }
 
   async function getStudentDTO(user: IUser) {
     const student = user as IStudent;
@@ -78,7 +91,7 @@ export function UserService(
           throw new UnauthorizedError('Valid token, but user no longer exists.');
         }
 
-        if (user.type === UserType.USER) {
+        if (user.type === UserType.STUDENT) {
           return getStudentDTO(user);
         }
 
@@ -99,7 +112,7 @@ export function UserService(
           throw new ResourceNotFoundError(`User ${req.params.userId} does not exist.`)
         }
 
-        if (user.type !== UserType.USER) {
+        if (user.type !== UserType.STUDENT) {
           throw new ForbiddenError('Can only post genre interests for student users');
         }
 
@@ -160,22 +173,102 @@ export function UserService(
       Middle.handlePromise
     ],
 
-    createUser: [
+    createStudent: [
+      Middle.authenticate,
+      Middle.authorize([UserType.ADMIN]),
       Middle.valBody(studentSchema),
       unwrapData(async (req: IRequest<IUser>) => {
 
-        const existingUserWithEmail = await userData.getUserByEmail(req.body.email);
-
-        if (existingUserWithEmail !== null) {
+        if (await userExistsWithEmail(req.body.email)) {
           throw new BadRequestError(`User with email ${req.body.email} already exists.`);
         }
 
         const newUser: IUser = _.assign({}, req.body, {
           date_joined: new Date().toISOString(),
-          type: UserType.USER
+          type: UserType.STUDENT
         });
 
         return await userData.createUser(newUser);
+
+      }),
+      Middle.handlePromise
+    ],
+
+    createEducator: [
+      Middle.authenticate,
+      Middle.authorize([UserType.ADMIN]),
+      Middle.valBody(userSchema),
+      unwrapData(async (req: IRequest<IUser>) => {
+
+        if (await userExistsWithEmail(req.body.email)) {
+          throw new BadRequestError(`User with email ${req.body.email} already exists.`);
+        }
+
+        const educator: IEducator = _.assign({}, req.body, {
+          date_joined: new Date().toISOString(),
+          type: UserType.EDUCATOR,
+          student_ids: []
+        });
+
+        return await userData.createUser(educator);
+
+      }),
+      Middle.handlePromise
+    ],
+
+    updateStudentsForEducator: [
+      Middle.authenticate,
+      Middle.authorize([UserType.EDUCATOR, UserType.ADMIN]),
+      Middle.authorizeAgents([UserType.ADMIN]),
+      Middle.valBody(updateStudentsForTeacherSchema),
+      unwrapData(async (req: IRequest<{ student_ids: string[] }>) => {
+
+        const { userId: educatorId } = req.params;
+        const { student_ids } = req.body;
+
+        // grab educator and verify.
+
+        const educator = await userData.getUserById(educatorId) as IEducator;
+
+        if (_.isNull(educator)) {
+          throw new ResourceNotFoundError(`Educator ${educatorId} does not exist.`)
+        }
+
+        if (educator.type !== UserType.EDUCATOR) {
+          throw new ForbiddenError(`User ${educatorId} is not an educator`)
+        }
+
+        // grab all users with _id in student_ids
+
+        const dbUsers = await userData.getUsersWithIds(student_ids);
+        const dbUserIds = _.map(dbUsers, '_id');
+
+        // check there is a user for each student_id provided.
+
+        const invalidIds = _.difference(student_ids, dbUserIds);
+        if (!_.isEmpty(invalidIds)) {
+          throw new BadRequestError(`User ids ${invalidIds.join(', ')} are invalid.`);
+        }
+
+        // check all the corresponding users are actually students.
+
+        const nonStudentIds = _.chain(dbUsers)
+          .filter(u => u.type !== UserType.STUDENT)
+          .map('_id')
+          .value();
+
+        if (!_.isEmpty(nonStudentIds)) {
+          throw new BadRequestError(`Users ${nonStudentIds} are not students.`)
+        }
+
+
+        // build updated educator object
+
+        const updatedEducator: IEducator = _.assign({}, educator, {
+          student_ids
+        });
+
+        return userData.updateUser(updatedEducator);
 
       }),
       Middle.handlePromise

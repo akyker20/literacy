@@ -125,7 +125,7 @@ export function QuizService(
       Middle.authenticate,
       Middle.valBody<IQuizSubmissionBody>(quizSubmissionSchema),
       (req: IRequest<IQuizSubmissionBody>, res: Response, next: Next) => {
-        if ((req.authToken.type === UserType.USER) && (req.authToken._id !== req.body.student_id)) {
+        if ((req.authToken.type === UserType.STUDENT) && (req.authToken._id !== req.body.student_id)) {
           return next(new BadRequestError(`Students cannot submit quizzes for other students`))
         }
         next();
@@ -196,7 +196,7 @@ export function QuizService(
           throw new ResourceNotFoundError(`Quiz submission with id ${submissionId} does not exist.`)
         }
 
-        if ((req.authToken.type === UserType.USER) && (req.authToken._id !== submission.student_id)) {
+        if ((req.authToken.type === UserType.STUDENT) && (req.authToken._id !== submission.student_id)) {
           throw new BadRequestError(`Students cannot update comprehension for submissions by other students`)
         }
 

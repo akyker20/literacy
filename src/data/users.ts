@@ -3,7 +3,8 @@ import * as shortid from 'shortid';
 import _ = require('lodash');
 
 export enum UserType {
-  USER = 'USER',
+  STUDENT = 'STUDENT',
+  EDUCATOR = 'EDUCATOR',
   ADMIN = 'ADMIN'
 }
 
@@ -24,10 +25,15 @@ export interface IStudent extends IUser {
   genre_interests: GenreInterestMap
 }
 
+export interface IEducator extends IUser {
+  student_ids: string[];
+}
+
 export interface IUserData {
   createUser: (user: IUser) => Promise<IUser>;
   updateUser: (user: IUser) => Promise<IUser>;
   getUserById: (id: string) => Promise<IUser>;
+  getUsersWithIds: (ids: string[]) => Promise<IUser[]>;
   getUserByEmail: (email: string) => Promise<IUser>;
   getAllUsers: () => Promise<IUser[]>;
 }
@@ -39,6 +45,10 @@ export class MongoUserData implements IUserData {
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
     this.users = db.get('users', { castIds: false });
+  }
+
+  getUsersWithIds(ids: string[]): Promise<IUser[]> {
+    return this.users.find({ _id: { $in: ids }});
   }
 
   getUserById(userId: string): Promise<IUser> {
