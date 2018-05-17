@@ -1,6 +1,6 @@
 import * as joi from 'joi';
-import { QuestionTypes, IQuestion } from '../../data/quizzes';
 import { QuestionSchema } from '.';
+import { QuestionTypes, IQuestion } from '../../models/quiz';
 
 export const LongAnswerQuestionSchema = QuestionSchema.keys({
   type: joi.string().valid([QuestionTypes.LongAnswer]).required(),

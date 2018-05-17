@@ -1,7 +1,7 @@
 import * as joi from 'joi';
-import { QuestionTypes, IQuestion } from '../../data/quizzes';
 import * as C from '../../constants';
 import { QuestionSchema } from '.';
+import { QuestionTypes, IQuestion } from '../../models/quiz';
 
 export const MultipleChoiceQuestionSchema = QuestionSchema.keys({
   type: joi.string().valid([QuestionTypes.MultipleChoice]).required(),

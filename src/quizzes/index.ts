@@ -2,7 +2,6 @@ import * as _ from 'lodash';
 import { assert } from 'chai';
 import * as joi from 'joi';
 
-import { QuestionTypes, IQuiz, IQuestion } from "../data/quizzes";
 import { LongAnswerQuestionSchema } from './question_schemas/long_answer';
 import { LongAnswerAnswerSchema } from './answer_schemas/long_answer';
 import { MultipleChoiceQuestionSchema } from './question_schemas/multiple_choice';
@@ -10,6 +9,7 @@ import { MultipleChoiceAnswerSchema } from './answer_schemas/multiple_choice';
 import { IQuestionGradingStrategy } from './grading';
 import { LongAnswerQuestionGradingStrategy } from './grading/LongAnswer';
 import { MultipleChoiceQuestionGradingStrategy } from './grading/MultipleChoiceGradingStrategy';
+import { QuestionTypes, IQuestion, IQuiz } from '../models/quiz';
 
 type QuestionStrategyMap = Map<QuestionTypes, {
   gradingStrategy: IQuestionGradingStrategy,

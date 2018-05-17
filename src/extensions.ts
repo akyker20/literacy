@@ -1,6 +1,6 @@
 import * as restify from 'restify';
 import * as joi from 'joi';
-import { UserType } from './data/users';
+import { UserType } from './models/user';
 
 export interface IRequest<T> extends restify.Request {
   body: T;

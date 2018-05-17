@@ -2,18 +2,7 @@ import * as monk from 'monk';
 import * as _ from 'lodash';
 import * as shortid from 'shortid';
 
-export interface IBookReviewBody {
-  _id?: string;
-  review?: string;
-  student_id: string;
-  book_id: string;
-  comprehension: 1|2|3|4|5;
-}
-
-export interface IBookReview extends IBookReviewBody {
-  date_created: string;
-  book_lexile_measure: number;
-}
+import { IBookReview } from '../models/book_review';
 
 export interface IBookReviewData {
   createBookReview: (review: IBookReview) => Promise<IBookReview>;

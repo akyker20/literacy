@@ -7,12 +7,15 @@ import { ForbiddenError, ResourceNotFoundError, BadRequestError } from 'restify-
 import { IRequest, shortidSchema } from '../Extensions';
 import * as Middle from '../middleware';
 import { genFieldErr, unwrapData } from '../helpers';
-import { UserType, IUserData } from '../data/users';
-import { IQuizData, IQuiz, IQuizSubmissionBody, IQuizSubmission, IQuizBody } from '../data/quizzes';
+import { IUserData } from '../data/users';
+import { IQuizData } from '../data/quizzes';
 import { IBookData } from '../data/books';
 import { QuizGraderInstance } from '../quizzes';
 import { PassingQuizGrade, MaxNumQuizAttempts, MinHoursBetweenBookQuizAttempt, MinQuestionsInQuiz, MaxQuestionsInQuiz } from '../constants';
 import { QuestionSchema } from '../quizzes/question_schemas';
+import { IQuizBody, IQuiz } from '../models/quiz';
+import { UserType } from '../models/user';
+import { IQuizSubmissionBody, IQuizSubmission } from '../models/quiz_submission';
 
 export const inputQuizSchema = joi.object({
   questions: joi.array().items(QuestionSchema.unknown(true)).min(MinQuestionsInQuiz).max(MaxQuestionsInQuiz).required(),
@@ -60,7 +63,7 @@ export function QuizRoutes(
     createQuiz: [
       Middle.authenticate,
       Middle.authorize([UserType.ADMIN]),
-      Middle.valBody(inputQuizSchema),
+      Middle.valBody<IQuizBody>(inputQuizSchema),
       unwrapData(async (req: IRequest<IQuizBody>) => {
 
         const candidateQuiz = req.body;
@@ -81,7 +84,11 @@ export function QuizRoutes(
           }
         }
 
-        return await quizData.createQuiz(candidateQuiz);
+        const newQuiz: IQuiz = _.assign({}, candidateQuiz, {
+          date_created: new Date().toISOString()
+        }) 
+
+        return await quizData.createQuiz(newQuiz);
 
       }),
       Middle.handlePromise

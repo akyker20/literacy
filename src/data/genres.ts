@@ -2,11 +2,7 @@ import * as monk from 'monk';
 import * as _ from 'lodash';
 import * as shortid from 'shortid';
 
-export interface IGenre {
-  _id?: string;
-  title: string;
-  description: string;
-}
+import { IGenre } from '../models/genre';
 
 export interface IGenreData {
   createGenre: (genre: IGenre) => Promise<IGenre>;

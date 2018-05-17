@@ -9,8 +9,8 @@ import * as jwt from 'jsonwebtoken';
 // internal dependencies
 
 import { IRequest } from './Extensions';
-import { UserType } from './data/users';
 import * as Constants from './constants';
+import { UserType } from './models/user';
 
 /**
  * Authentication, not authorization! Use authorize middleware

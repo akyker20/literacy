@@ -8,7 +8,8 @@
     "build": "./node_modules/.bin/tsc -p .",
     "watch": "./node_modules/.bin/tsc -w -p .",
     "clean": "./node_modules/.bin/rimraf dist",
-    "start": "nodemon -w ./dist ./dist/start.js"
+    "debug": "nodemon --inspect -w ./dist ./dist/start.js",
+    "start": "node ./dist/start.js"
   },
   "author": "Austin Kyker",
   "license": "ISC",
@@ -34,5 +35,14 @@
     "restify-errors": "^6.0.0",
     "shortid": "^2.2.8",
     "typescript": "^2.8.3"
+  },
+  "devDependencies": {
+    "@types/faker": "^4.1.2",
+    "@types/mocha": "^5.2.0",
+    "@types/supertest": "^2.0.4",
+    "faker": "^4.1.0",
+    "mocha": "^5.1.1",
+    "monk-middleware-debug": "^0.2.0",
+    "supertest": "^3.1.0"
   }
 }

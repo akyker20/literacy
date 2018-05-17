@@ -14,12 +14,13 @@ import {
 
 import * as Constants from '../constants';
 import { genFieldErr, unwrapData, computeCurrentLexileMeasure } from '../helpers';
-import { IUserData, IUser, UserType, IStudent, IEducator, IStudentBody, IEducatorBody } from '../data/users';
+import { IUserData } from '../data/users';
 import { IQuizData } from '../data/quizzes';
 import { IBookData } from '../data/books';
 import { IGenreData } from '../data/genres';
 import { shortidSchema } from '../extensions';
 import { IBookReviewData } from '../data/book_reviews';
+import { IStudent, IUser, UserType, IStudentBody, IEducator, IEducatorBody } from '../models/user';
 
 interface IUserLoginCredentials {
   email: string;

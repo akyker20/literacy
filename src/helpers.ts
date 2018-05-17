@@ -1,11 +1,12 @@
+import * as _ from 'lodash';
 import { BadRequestError } from 'restify-errors';
-import { ILexileRange } from './models';
-import { GenreInterestMap } from './data/users';
-import { IBook } from './data/books';
-import { IRequest } from './Extensions';
 import { Next, Request, RequestHandler, Response } from 'restify';
-import _ = require('lodash');
-import { IBookReview } from './data/book_reviews';
+
+import { ILexileRange } from './models';
+import { IRequest } from './Extensions';
+import { IBookReview } from './models/book_review';
+import { GenreInterestMap } from './models/user';
+import { IBook } from './models/book';
 
 export type PromiseHandler = (req: Request) => Promise<any>;
 

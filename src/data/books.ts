@@ -2,9 +2,11 @@ import * as monk from 'monk';
 import * as shortid from 'shortid';
 import * as _ from 'lodash';
 import * as fuse from 'fuse.js';
-import { ILexileRange } from '../models';
 
-const searchBooksOptions = {
+import { ILexileRange } from '../models';
+import { IBook } from '../models/book';
+
+const searchBooksOptions: fuse.FuseOptions = {
   shouldSort: true,
   threshold: 0.6,
   location: 0,
@@ -15,17 +17,6 @@ const searchBooksOptions = {
     "author"
   ]
 };
-
-export interface IBook {
-  _id?: string;
-  title: string;
-  author: string;
-  isbn: string;
-  lexile_measure: number;
-  amazon_popularity: number;
-  num_pages: number;
-  genres: string[];
-}
 
 export interface IBookData {
   createBook: (book: IBook) => Promise<IBook>;

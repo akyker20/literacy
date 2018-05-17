@@ -2,43 +2,11 @@ import * as monk from 'monk';
 import * as shortid from 'shortid';
 import * as _ from 'lodash';
 
-export enum QuestionTypes {
-  MultipleChoice = 'mc',
-  LongAnswer = 'la'
-}
-
-export interface IQuestion {
-  type: QuestionTypes;
-  points: number;
-  prompt: string;
-}
-
-export interface IQuizBody {
-  questions: IQuestion[];
-  book_id?: string;
-}
-
-export interface IQuiz extends IQuizBody {
-  _id?: string;
-  date_created: string;
-}
-
-export interface IQuizSubmissionBody {
-  quiz_id: string;
-  student_id: string;
-  book_id: string;
-  answers: any[];
-}
-
-export interface IQuizSubmission extends IQuizSubmissionBody {
-  _id?: string;
-  score: number;
-  passed: boolean;
-  date_created: string;
-}
+import { IQuiz } from '../models/quiz';
+import { IQuizSubmission } from '../models/quiz_submission';
 
 export interface IQuizData {
-  createQuiz: (quiz: IQuizBody) => Promise<IQuiz>;
+  createQuiz: (quiz: IQuiz) => Promise<IQuiz>;
   getQuizForBook: (bookId: string) => Promise<IQuiz>;
   getGenericQuiz: () => Promise<IQuiz>;
   getQuizById: (quizId: string) => Promise<IQuiz>;
@@ -74,11 +42,10 @@ export class MongoQuizData implements IQuizData {
     return this.quizzes.findOne({ _id: quizId })
   }
 
-  createQuiz(quiz: IQuizBody): Promise<IQuiz> {
-    return this.quizzes.insert(_.assign({}, quiz, {
-      _id: shortid.generate(),
-      date_created: new Date().toISOString()
-    }))
+  createQuiz(quiz: IQuiz): Promise<IQuiz> {
+    const copy: IQuiz = _.cloneDeep(quiz);
+    copy._id = shortid.generate();
+    return this.quizzes.insert(copy);
   }
 
   getQuizForBook(bookId: string): Promise<IQuiz> {

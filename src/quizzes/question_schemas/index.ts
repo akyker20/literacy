@@ -1,6 +1,6 @@
 import * as joi from 'joi';
-import { QuestionTypes } from '../../data/quizzes';
 import * as C from '../../constants';
+import { QuestionTypes } from '../../models/quiz';
 
 export const QuestionSchema = joi.object({
   type: joi.string().valid([

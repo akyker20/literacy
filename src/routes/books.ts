@@ -1,15 +1,19 @@
 import { Response, Next } from 'restify';
-import { IBookData, IBook } from '../data/books';
+import { IBookData } from '../data/books';
 import { IRequest, lexileMeasureSchema, shortidSchema } from '../Extensions';
 import * as Middle from '../middleware';
 import * as joi from 'joi';
 import { genFieldErr, getLexileRange, computeMatchScore, computeCurrentLexileMeasure, unwrapData } from '../helpers';
 import _ = require('lodash');
 import { ResourceNotFoundError, BadRequestError, ForbiddenError } from 'restify-errors';
-import { UserType, IUserData, IStudent } from '../data/users';
-import { IGenre, IGenreData } from '../data/genres';
+import { IUserData } from '../data/users';
+import { IGenreData } from '../data/genres';
 import { IQuizData } from '../data/quizzes';
-import { IBookReview, IBookReviewData, IBookReviewBody } from '../data/book_reviews';
+import { IBookReviewData } from '../data/book_reviews';
+import { IBookReviewBody, IBookReview } from '../models/book_review';
+import { UserType, IStudent } from '../models/user';
+import { IBook } from '../models/book';
+import { IGenre } from '../models/genre';
 
 const inputBookReview = joi.object({
   comprehension: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required().error(genFieldErr('comprehension')),
