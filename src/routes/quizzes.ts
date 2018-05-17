@@ -258,6 +258,12 @@ export function QuizRoutes(
       unwrapData(async (req: IRequest<IQuiz>) => {
 
         const { bookId } = req.params;
+
+        const book = await bookData.getBook(bookId);
+        if (_.isNull(book)) {
+          throw new ResourceNotFoundError(`Book ${bookId} does not exist.`)
+        }
+
         const bookQuiz = await quizData.getQuizForBook(bookId);
 
         if (!_.isNull(bookQuiz)) {

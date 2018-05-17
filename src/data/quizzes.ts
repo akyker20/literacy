@@ -53,7 +53,7 @@ export class MongoQuizData implements IQuizData {
   }
   
   async getGenericQuiz (): Promise<IQuiz> {
-    const genericQuizzes = await this.quizzes.find({ book: { $exists: false }});
+    const genericQuizzes = await this.quizzes.find({ book_id: { $exists: false }});
     return _.sample(genericQuizzes);
   }
   

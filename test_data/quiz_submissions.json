@@ -102,5 +102,31 @@
         "answer_index": 0
       }
     ]
+  },
+  {
+    "_id": "submission-5",
+    "student_id": "chase-malik",
+    "book_id": "hobbit-id",
+    "quiz_id": "quiz-id-2",
+    "date_created": "2018-05-12T17:55:56.479Z",
+    "score": 80,
+    "passed": true,
+    "answers": [
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 1
+      },
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 2
+      },
+      {
+        "answer_index": 0
+      }
+    ]
   }
 ]

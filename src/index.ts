@@ -91,6 +91,8 @@ export default class App {
       bookData
     )
 
+    this.server.get('/books/:bookId/quiz', quizRoutes.getQuizForBook);
+
     this.server.get('/quizzes', quizRoutes.getAllQuizzes); // TODO: remove
 
     this.server.post('/quiz_submissions', quizRoutes.submitQuiz);

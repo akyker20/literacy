@@ -28,7 +28,7 @@ export function mockBookReview(options: {
     book_id: options.book_id,
     student_id: options.student_id,
     date_created: options.date_created || new Date().toISOString(),
-    review: options.review || faker.lorem.paragraph(5),
+    review: options.review || faker.lorem.paragraph(1),
     comprehension: _.isNumber(options.comprehension) ? options.comprehension : _.random(1, 5) as 1|2|3|4|5,
     book_lexile_measure: _.random(300, 1800)
   }

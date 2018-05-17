@@ -1,3 +1,7 @@
+// Possible Reason for Flakes:
+
+// 1. Faker creates text that is too long and fails validation checks in route. See faker.lorem.paragraph(X)
+
 import * as fs from 'fs';
 import * as shortid from 'shortid';
 import * as jwt from 'jsonwebtoken';
@@ -18,17 +22,18 @@ import { IUser, UserType } from '../models/user';
 import { IGenre, mockGenre } from '../models/genre';
 import { mockBook, IBook } from '../models/book';
 import { mockQuiz, mockQuizQuestion, IQuiz } from '../models/quiz';
-import { IQuizSubmission, mockQuizSubmission } from '../models/quiz_submission';
+import { mockQuizSubmission } from '../models/quiz_submission';
 import { MinHoursBetweenBookQuizAttempt } from '../constants';
+import { mockBookReview, IBookReview } from '../models/book_review';
 
 // Load all the data
 
 const initialBooks: IBook[] = JSON.parse(fs.readFileSync('test_data/books.json', 'utf8'));
 const initialGenres: IGenre[] = JSON.parse(fs.readFileSync('test_data/genres.json', 'utf8'));
-const initialQuizzes = JSON.parse(fs.readFileSync('test_data/quizzes.json', 'utf8'));
+const initialQuizzes: IQuiz[] = JSON.parse(fs.readFileSync('test_data/quizzes.json', 'utf8'));
 const initialUsers: IUser[] = JSON.parse(fs.readFileSync('test_data/users.json', 'utf8'));
 const initialQuizSubmissions = JSON.parse(fs.readFileSync('test_data/quiz_submissions.json', 'utf8'));
-const initialBookReviews = JSON.parse(fs.readFileSync('test_data/book_reviews.json', 'utf8'));
+const initialBookReviews: IBookReview[] = JSON.parse(fs.readFileSync('test_data/book_reviews.json', 'utf8'));
 
 // convenience variables
 
@@ -433,6 +438,85 @@ describe('End to End tests', function() {
 
     })
 
+    describe('#createBookReview', function() {
+
+      // chase has not submitted a quiz for this book
+      const bookNotReadId = 'kings-fifth-id';
+      const reviewForBookNotRead = mockBookReview({
+        student_id: chase._id,
+        book_id: bookNotReadId
+      });
+      delete reviewForBookNotRead.book_lexile_measure;
+      delete reviewForBookNotRead.date_created;
+      delete reviewForBookNotRead._id;
+
+      const bookChaseReadId = 'hobbit-id';
+      const reviewForBookRead = mockBookReview({
+        student_id: chase._id,
+        book_id: bookChaseReadId
+      });
+      delete reviewForBookRead.book_lexile_measure;
+      delete reviewForBookRead.date_created;
+      delete reviewForBookRead._id;
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post(`/book_reviews`)
+          .expect(401);
+      });
+
+      it('should 403 if student has not submitted a quiz for book', function () {
+        return agent
+          .post(`/book_reviews`)
+          .set(Constants.AuthHeaderField, chaseToken)
+          .send(reviewForBookNotRead)
+          .expect(403)
+          .then(checkErrMsg(`User has not passed a quiz for book ${bookNotReadId}. The user must do this before posting a review.`))
+      });
+
+      it('should 403 if student submitting for another student', function () {
+        return agent
+          .post(`/book_reviews`)
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .send(reviewForBookRead)
+          .expect(403)
+          .then(checkErrMsg(`User ${katelynn._id} cannot write book review for user ${chase._id}`))
+      });
+
+      it('should 200 and create the review', function () {
+        return agent
+          .post(`/book_reviews`)
+          .set(Constants.AuthHeaderField, chaseToken)
+          .send(reviewForBookRead)
+          .expect(200)
+          .then(({ body }) => {
+            delete body.date_created;
+            delete body._id;
+            const expected = _.assign({}, reviewForBookRead, {
+              book_lexile_measure: 1000
+            })
+            assert.deepEqual(body, expected);
+          })
+      });
+
+      it('should 403 if submitting another review for same book', function () {
+        
+        // "student_id": "katelynn-kyker",
+        // "book_id": "harry-potter-id",
+        const copy = _.cloneDeep(initialBookReviews[0]);
+        delete copy._id;
+        delete copy.date_created;
+        
+        return agent
+          .post(`/book_reviews`)
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .send(copy)
+          .expect(403)
+          .then(checkErrMsg(`Student ${katelynn._id} has already posted a book review for book ${copy.book_id}`))
+      });
+
+    })
+
   })
 
   describe('Quiz Routes', function() {
@@ -742,7 +826,48 @@ describe('End to End tests', function() {
 
     })
 
+    describe('#getQuizForBook', function() {
 
+      const bookWithQuiz = _.find(initialBooks, { _id: 'harry-potter-id' });
+      const bookWithoutQuiz = _.find(initialBooks, { _id: 'hobbit-id' })
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .get(`/books/${bookWithQuiz._id}/quiz`)
+          .expect(401);
+      });
+
+      it('should 404 when book does not exist', function () {
+        const invalidId = shortid.generate();
+        return agent
+          .get(`/books/${invalidId}/quiz`)
+          .set(Constants.AuthHeaderField, chaseToken)
+          .expect(404)
+          .then(checkErrMsg(`Book ${invalidId} does not exist.`))
+      });
+
+      it('should 200 and return book specific quiz', function () {
+        const quizForHarryPotter = _.find(initialQuizzes, { book_id: bookWithQuiz._id })
+        return agent
+          .get(`/books/${bookWithQuiz._id}/quiz`)
+          .set(Constants.AuthHeaderField, chaseToken)
+          .expect(200)
+          .then(({body}) => assert.deepEqual(body, quizForHarryPotter))
+      });
+
+      it('should 200 and return generic book quiz', function () {
+        return agent
+          .get(`/books/${bookWithoutQuiz._id}/quiz`)
+          .set(Constants.AuthHeaderField, chaseToken)
+          .expect(200)
+          .then(({body}) => {
+            const genericQuizzes = _.filter(initialQuizzes, quiz => _.isUndefined(quiz.book_id));
+            const genericIds = _.map(genericQuizzes, '_id');
+            assert.isTrue(_.includes(genericIds, body._id));
+          })
+      });
+    
+    })
 
   })
 
