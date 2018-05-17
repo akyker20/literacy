@@ -283,7 +283,7 @@ export function BookRoutes(
           throw new ResourceNotFoundError('No book was updated');
         }
 
-        return updatedBook;
+        return { updatedBook };
 
       }),
       Middle.handlePromise

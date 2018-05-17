@@ -10,7 +10,7 @@
     "lexile_measure": 880,
     "author": "JK Rowling",
     "genres": [
-      "some-genre4"
+      "fantasy-id"
     ]
   },
   {
@@ -24,7 +24,7 @@
     "lexile_measure": 950,
     "author": "Kate Gilmore",
     "genres": [
-      "some-genre3"
+      "mystery-id"
     ]
   },
   {
@@ -38,7 +38,7 @@
     "lexile_measure": 670,
     "author": "Caroline Jayne Church",
     "genres": [
-      "some-genre3"
+      "mystery-id"
     ]
   },
   {
@@ -52,7 +52,7 @@
     "lexile_measure": 610,
     "author": "Kate Boehm",
     "genres": [
-      "some-genre3"
+      "mystery-id"
     ]
   },
   {
@@ -66,7 +66,7 @@
     "lexile_measure": 610,
     "author": "Lucille Recht",
     "genres": [
-      "some-genre6"
+      "adventure-id"
     ]
   },
   {
@@ -80,7 +80,7 @@
     "lexile_measure": 820,
     "author": "Kathleen Benner",
     "genres": [
-      "some-genre1"
+      "science-id"
     ]
   },
   {
@@ -94,7 +94,7 @@
     "lexile_measure": 840,
     "author": "Scott O'dell",
     "genres": [
-      "some-genre1"
+      "science-id"
     ]
   },
   {
@@ -108,7 +108,7 @@
     "lexile_measure": 1000,
     "author": "J.R.R Tolkien",
     "genres": [
-      "some-genre1"
+      "poetry-id"
     ]
   }
 ]

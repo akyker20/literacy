@@ -16,6 +16,7 @@ import App from '..';
 import _ = require('lodash');
 import { IUser, UserType } from '../models/user';
 import { IGenre, mockGenre } from '../models/genre';
+import { mockBook, IBook } from '../models/book';
 
 // Load all the data
 
@@ -203,34 +204,195 @@ describe('End to End tests', function() {
 
     describe('#updateGenres', function() {
 
-      const genreUpdate = _.sample(initialGenres);
+      const genreToUpdate = _.sample(initialGenres);
+      const genreId = genreToUpdate._id;
       const update: IGenre = mockGenre({
-        _id: genreUpdate._id
+        _id: genreToUpdate._id
       });
 
       it('should 401 when no auth token in header', function () {
         return agent
-          .put(`/genres/${genreUpdate._id}`)
+          .put(`/genres/${genreId}`)
           .expect(401);
       });
 
       it('should 403 if not admin user', function () {
         return agent
-          .put(`/genres/${genreUpdate._id}`)
+          .put(`/genres/${genreId}`)
           .set(Constants.AuthHeaderField, katelynnToken)
           .expect(403);
       });
 
       it('should update the genre', function() {
         return agent
-          .put(`/genres/${genreUpdate._id}`)
+          .put(`/genres/${genreId}`)
+          .set(Constants.AuthHeaderField, austinToken)
+          .send(update)
+          .expect(200)
+          .then(({ body }) => {
+            assert.deepEqual(body, { updatedGenre: update })
+            return genreCollection.findOne({ _id: genreId })
+          })
+          .then(genre => assert.deepEqual(genre, update))
+      })
+
+    })
+
+  })
+
+  describe('Book Routes', function() {
+
+    describe('#createBook', function() {
+
+      let validBookBody = mockBook({
+        genres: [initialGenres[0]._id]
+      });
+      delete validBookBody._id;
+
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post('/books')
+          .expect(401);
+      });
+
+      it('should 400 if invalid genres', function () {
+        const invalidBody = _.cloneDeep(validBookBody);
+        const invalidId = shortid.generate();
+        invalidBody.genres = [invalidId];
+
+        return agent
+          .post(`/books`)
+          .set(Constants.AuthHeaderField, austinToken)
+          .send(invalidBody)
+          .expect(400)
+          .then(checkErrMsg(`Genre ids ${invalidId} are invalid.`))
+      });
+
+      it('should 403 if non-admin making request', function () {
+        return agent
+          .post(`/books`)
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should save the book', function() {
+        return agent
+          .post('/books')
+          .set(Constants.AuthHeaderField, austinToken)
+          .send(validBookBody)
+          .expect(200)
+          .then(({ body }) => {
+            assert.containsAllKeys(body, ['_id', ... _.keys(validBookBody)]);
+            delete body._id;
+            assert.deepEqual(body, validBookBody);
+            return bookCollection.find({})
+          })
+          .then(allBooks => assert.lengthOf(allBooks, initialBooks.length + 1))
+      })
+
+    })
+
+    describe('#deleteBook', function() {
+
+      const idOfBookToDelete = initialBooks[0]._id;
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .del(`/books/${idOfBookToDelete}`)
+          .expect(401);
+      });
+
+      it('should 404 if book does not exist', function () {
+        return agent
+          .del(`/books/${shortid.generate()}`)
+          .set(Constants.AuthHeaderField, austinToken)
+          .expect(404)
+          .then(checkErrMsg('No book was deleted'))
+      });
+
+      it('should 403 if non-admin making request', function () {
+        return agent
+          .del(`/books/${idOfBookToDelete}`)
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should delete the book', function() {
+        return agent
+          .del(`/books/${idOfBookToDelete}`)
           .set(Constants.AuthHeaderField, austinToken)
           .expect(200)
           .then(({ body }) => {
-            assert.deepEqual(body, genreUpdate)
-            return genreCollection.findOne({ _id: genreUpdate._id })
+            assert.deepEqual(body, {
+              deletedBook: _.find(initialBooks, { _id: idOfBookToDelete })
+            })
+            return bookCollection.find({})
           })
-          .then(genre => assert.deepEqual(genre, genreUpdate))
+          .then(allBooks => assert.lengthOf(allBooks, initialBooks.length - 1))
+      })
+
+    })
+
+    describe('#getBooks', function() {
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .get('/books')
+          .expect(401);
+      });
+
+      it('should return all books when no query param provided', function() {
+        return agent
+          .get('/books')
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .expect(200)
+          .then(({ body }) => assert.sameDeepMembers(body, initialBooks))
+      })
+
+      it('should return books with matching titles to query', function() {
+        return agent
+          .get('/books?q=Harry+Potter')
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .expect(200)
+          .then(({ body }) => assert.sameDeepMembers(body, [_.find(initialBooks, { _id: "harry-potter-id" })]))
+      })
+
+    })
+
+    describe('#updateBook', function() {
+
+      const bookToUpdate = _.sample(initialBooks);
+      const bookId = bookToUpdate._id;
+      const update: IBook = mockBook({
+        _id: bookToUpdate._id,
+        genres: _.cloneDeep(bookToUpdate.genres)
+      });
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .put(`/books/${bookId}`)
+          .expect(401);
+      });
+
+      it('should 403 if not admin user', function () {
+        return agent
+        .put(`/books/${bookId}`)
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should update the book', function() {
+        return agent
+          .put(`/books/${bookId}`)
+          .set(Constants.AuthHeaderField, austinToken)
+          .send(update)
+          .expect(200)
+          .then(({ body }) => {
+            assert.deepEqual(body, { updatedBook: update })
+            return bookCollection.findOne({ _id: bookId })
+          })
+          .then(book => assert.deepEqual(book, update))
       })
 
     })
