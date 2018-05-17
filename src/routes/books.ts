@@ -204,10 +204,14 @@ export function BookRoutes(
       Middle.handlePromise
     ],
     getBook: [
-      (req: IRequest<IBook>, res: Response, next: Next) => {
-        req.promise = bookData.getBook(req.params.bookId);
-        next();
-      },
+      Middle.authenticate,
+      unwrapData(async (req: IRequest<IBook>) => {
+        const book = await bookData.getBook(req.params.bookId);
+        if (_.isNull(book)) {
+          throw new ResourceNotFoundError(`Book ${req.params.bookId} does not exist.`);
+        }
+        return book;
+      }),
       Middle.handlePromise
     ],
     getBooks: [

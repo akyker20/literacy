@@ -144,22 +144,12 @@ export function QuizRoutes(
 
     // Quiz Submission Related Routes
 
-    getQuizSubmissionsForStudent: [
-      Middle.authenticate,
-      Middle.authorizeAgents([UserType.ADMIN]),
-      (req: IRequest<null>, res: Response, next: Next) => {
-        req.promise = quizData.getSubmissionsForStudent(req.params.userId);
-        next();
-      },
-      Middle.handlePromise
-    ],
-
     submitQuiz: [
       Middle.authenticate,
       Middle.valBody<IQuizSubmissionBody>(quizSubmissionSchema),
       (req: IRequest<IQuizSubmissionBody>, res: Response, next: Next) => {
         if ((req.authToken.type === UserType.STUDENT) && (req.authToken._id !== req.body.student_id)) {
-          return next(new BadRequestError(`Students cannot submit quizzes for other students`))
+          return next(new ForbiddenError(`Students cannot submit quizzes for other students`))
         }
         next();
       },
@@ -191,7 +181,7 @@ export function QuizRoutes(
 
         }
 
-        // verify user has not already submitted quiz for book
+        // verify user has not already passed quiz for book
 
         const prevSubmissionsForBook = submissions.filter(s => s.book_id === req.body.book_id);
 

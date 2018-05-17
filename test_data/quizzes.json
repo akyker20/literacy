@@ -1,11 +1,12 @@
 [
   {
-    "_id": "quiz1",
+    "_id": "quiz-id-1",
     "date_created": "2018-05-16T18:55:56.479Z",
     "questions": [
       {
         "type": "mc",
         "prompt": "some mock prompt 1",
+        "points": 1,
         "options": [
           "some option a",
           "some option b",
@@ -17,6 +18,7 @@
       },
       {
         "type": "mc",
+        "points": 1,
         "prompt": "some mock prompt 2",
         "options": [
           "some option a",
@@ -29,6 +31,7 @@
       },
       {
         "type": "mc",
+        "points": 1,
         "prompt": "some mock prompt 3",
         "options": [
           "some option a",
@@ -41,6 +44,7 @@
       },
       {
         "type": "mc",
+        "points": 1,
         "prompt": "some mock prompt 4",
         "options": [
           "some option a",
@@ -53,6 +57,78 @@
       },
       {
         "type": "mc",
+        "points": 1,
+        "prompt": "some mock prompt 5",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "quiz-id-2",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "questions": [
+      {
+        "type": "mc",
+        "prompt": "some mock prompt 1",
+        "points": 1,
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 4
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "some mock prompt 2",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "some mock prompt 3",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 4
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "some mock prompt 4",
+        "options": [
+          "some option a",
+          "some option b",
+          "some option c",
+          "some option d",
+          "some option e"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
         "prompt": "some mock prompt 5",
         "options": [
           "some option a",
@@ -72,10 +148,12 @@
     "questions": [
       {
         "type": "la",
+        "points": 1,
         "prompt": "some mock prompt 1"
       },
       {
         "type": "mc",
+        "points": 1,
         "prompt": "some mock prompt 2",
         "options": [
           "some option a",
@@ -88,14 +166,17 @@
       },
       {
         "type": "la",
+        "points": 1,
         "prompt": "some mock prompt 3"
       },
       {
         "type": "la",
+        "points": 1,
         "prompt": "some mock prompt 4"
       },
       {
         "type": "mc",
+        "points": 1,
         "prompt": "some mock prompt 5",
         "options": [
           "some option a",

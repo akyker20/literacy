@@ -69,8 +69,6 @@ export default class App {
       quizData
     );
 
-    this.server.get('/books', bookRoutes.getBooks);
-
     this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent);
     this.server.post('/book_reviews', bookRoutes.createBookReview);
 
@@ -79,6 +77,7 @@ export default class App {
     this.server.put('/genres/:genreId', bookRoutes.updateGenre);
     this.server.del('/genres/:genreId', bookRoutes.deleteGenre);
 
+    this.server.get('/books', bookRoutes.getBooks);
     this.server.post('/books', bookRoutes.createBook);
     this.server.put('/books/:bookId', bookRoutes.updateBook);
     this.server.get('/books/:bookId', bookRoutes.getBook);
@@ -95,7 +94,6 @@ export default class App {
     this.server.get('/quizzes', quizRoutes.getAllQuizzes); // TODO: remove
 
     this.server.post('/quiz_submissions', quizRoutes.submitQuiz);
-    this.server.get('/students/:userId/quiz_submissions', quizRoutes.getQuizSubmissionsForStudent);
 
     this.server.post('/quizzes', quizRoutes.createQuiz);
     this.server.del('/quizzes/:quizId', quizRoutes.deleteQuiz);

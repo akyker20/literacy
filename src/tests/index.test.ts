@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as shortid from 'shortid';
 import * as jwt from 'jsonwebtoken';
-import * as faker from 'faker';
 import * as monk from 'monk';
+import * as moment from 'moment';
 import * as supertest from 'supertest';
 import { assert } from 'chai';
 
@@ -17,10 +17,13 @@ import _ = require('lodash');
 import { IUser, UserType } from '../models/user';
 import { IGenre, mockGenre } from '../models/genre';
 import { mockBook, IBook } from '../models/book';
+import { mockQuiz, mockQuizQuestion, IQuiz } from '../models/quiz';
+import { IQuizSubmission, mockQuizSubmission } from '../models/quiz_submission';
+import { MinHoursBetweenBookQuizAttempt } from '../constants';
 
 // Load all the data
 
-const initialBooks = JSON.parse(fs.readFileSync('test_data/books.json', 'utf8'));
+const initialBooks: IBook[] = JSON.parse(fs.readFileSync('test_data/books.json', 'utf8'));
 const initialGenres: IGenre[] = JSON.parse(fs.readFileSync('test_data/genres.json', 'utf8'));
 const initialQuizzes = JSON.parse(fs.readFileSync('test_data/quizzes.json', 'utf8'));
 const initialUsers: IUser[] = JSON.parse(fs.readFileSync('test_data/users.json', 'utf8'));
@@ -34,6 +37,9 @@ const austinToken = genAuthTokenForUser(austin);
 
 const katelynn = _.find(initialUsers, { _id: 'katelynn-kyker' });
 const katelynnToken = genAuthTokenForUser(katelynn);
+
+const chase = _.find(initialUsers, { _id: 'chase-malik' });
+const chaseToken = genAuthTokenForUser(chase);
 
 let dbHost = process.env.MONGO_HOST || 'localhost';
 let dbPort = process.env.MONGO_PORT || '27017';
@@ -360,6 +366,36 @@ describe('End to End tests', function() {
 
     })
 
+    describe('#getBook', function() {
+      
+      const idOfBookToFetch = _.sample(initialBooks);
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .get(`/books/${idOfBookToFetch}`)
+          .expect(401);
+      });
+
+      it('should 404 if book does not exist', function() {
+        const invalidId = shortid.generate();
+        return agent
+          .get(`/books/${invalidId}`)
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .expect(404)
+          .then(checkErrMsg(`Book ${invalidId} does not exist.`))
+      })
+
+      it('should 200 and return the book', function() {
+        const bookToFetch = _.sample(initialBooks);
+        return agent
+          .get(`/books/${bookToFetch._id}`)
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .expect(200)
+          .then(({ body }) => assert.deepEqual(bookToFetch, body))
+      })
+
+    })
+
     describe('#updateBook', function() {
 
       const bookToUpdate = _.sample(initialBooks);
@@ -396,6 +432,317 @@ describe('End to End tests', function() {
       })
 
     })
+
+  })
+
+  describe('Quiz Routes', function() {
+
+    describe('#createQuiz', function() {
+
+      let validQuiz = mockQuiz({
+        questions: _.times(5, () => mockQuizQuestion())
+      })
+      delete validQuiz._id;
+      delete validQuiz.date_created;
+      
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post(`/quizzes`)
+          .expect(401);
+      });
+
+      it('should 403 if non-admin making the request', function () {
+        return agent
+          .post(`/quizzes`)
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should create a new quiz', function () {
+        return agent
+          .post(`/quizzes`)
+          .set(Constants.AuthHeaderField, austinToken)
+          .send(validQuiz)
+          .expect(200)
+          .then(({ body }) => {
+            delete body._id;
+            delete body.date_created;
+            assert.deepEqual(body, validQuiz);
+            return quizCollection.find({})
+          })
+          .then(quizzes => assert.lengthOf(quizzes, initialQuizzes.length + 1))
+      });
+
+    });
+
+    describe('#deleteQuiz', function() {
+
+      const idOfQuizToDelete = initialQuizzes[0]._id;
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .del(`/genres/${idOfQuizToDelete}`)
+          .expect(401);
+      });
+
+      it('should 404 if quiz does not exist', function () {
+        return agent
+          .del(`/quizzes/${shortid.generate()}`)
+          .set(Constants.AuthHeaderField, austinToken)
+          .expect(404)
+          .then(checkErrMsg('No quiz was deleted'))
+      });
+
+      it('should 403 if non-admin making request', function () {
+        return agent
+          .del(`/quizzes/${idOfQuizToDelete}`)
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should delete the quiz', function() {
+        return agent
+          .del(`/quizzes/${idOfQuizToDelete}`)
+          .set(Constants.AuthHeaderField, austinToken)
+          .expect(200)
+          .then(({ body }) => {
+            assert.deepEqual(body, {
+              deletedQuiz: _.find(initialQuizzes, { _id: idOfQuizToDelete })
+            })
+            return quizCollection.find({})
+          })
+          .then(allQuizzes => assert.lengthOf(allQuizzes, initialQuizzes.length - 1))
+      })
+
+    })
+
+    describe('#updateQuiz', function() {
+
+      const quizToUpdate = _.sample(initialQuizzes);
+      const quizId = quizToUpdate._id;
+      const update: IQuiz = mockQuiz({
+        _id: quizToUpdate._id,
+        questions: _.times(5, () => mockQuizQuestion())
+      });
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .put(`/quizzes/${quizId}`)
+          .expect(401);
+      });
+
+      it('should 403 if not admin user', function () {
+        return agent
+          .put(`/quizzes/${quizId}`)
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should update the quiz', function() {
+        return agent
+          .put(`/quizzes/${quizId}`)
+          .set(Constants.AuthHeaderField, austinToken)
+          .send(update)
+          .expect(200)
+          .then(({ body }) => {
+            assert.deepEqual(body, { updatedQuiz: update })
+            return quizCollection.findOne({ _id: quizId })
+          })
+          .then(quiz => assert.deepEqual(quiz, update))
+      })
+
+    })
+
+    describe('#submitQuiz', function() {
+
+      const genericQuiz = _.find(initialQuizzes, { _id: "quiz-id-1" })
+
+      const passingValidSubmissionQuiz1Body = {
+        student_id: chase._id,
+        book_id: initialBooks[0]._id,
+        quiz_id: genericQuiz._id,
+        answers: [
+          { answer_index: 3 },
+          { answer_index: 2 },
+          { answer_index: 2 },
+          { answer_index: 2 },
+          { answer_index: 0 }
+        ]
+      }
+
+      const failingSubmissionQuiz1Body = {
+        student_id: chase._id,
+        book_id: initialBooks[0]._id,
+        quiz_id: genericQuiz._id,
+        answers: [
+          { answer_index: 4 },
+          { answer_index: 1 },
+          { answer_index: 2 },
+          { answer_index: 2 },
+          { answer_index: 0 }
+        ]
+      }
+
+      const quizUserAlreadyPassed = {
+        student_id: katelynn._id,
+        book_id: initialBooks[0]._id,
+        quiz_id: genericQuiz._id,
+        answers: [
+          { answer_index: 3 },
+          { answer_index: 2 },
+          { answer_index: 2 },
+          { answer_index: 2 },
+          { answer_index: 0 }
+        ]
+      }
+
+      const userExhaustedAllAttemptsSubmission = {
+        student_id: katelynn._id,
+        book_id: initialBooks[0]._id,
+        quiz_id: genericQuiz._id,
+        answers: [
+          { answer_index: 3 },
+          { answer_index: 2 },
+          { answer_index: 2 },
+          { answer_index: 2 },
+          { answer_index: 0 }
+        ]
+      }
+
+      // katelynn already failed quiz for exchange-student-id three times
+      // she failed quiz-id-1 twice and quiz-id-2 once
+      const quizForBookAlreadyFailedThreeTime = {
+        student_id: katelynn._id,
+        book_id: 'exchange-student-id',
+        quiz_id: genericQuiz._id,
+        answers: [
+          { answer_index: 3 },
+          { answer_index: 2 },
+          { answer_index: 2 },
+          { answer_index: 2 },
+          { answer_index: 0 }
+        ]
+      }
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post(`/quiz_submissions`)
+          .expect(401);
+      });
+
+      it('should 400 if quiz is invalid', function() {
+        const copy = _.cloneDeep(passingValidSubmissionQuiz1Body);
+        copy.quiz_id = shortid.generate();
+        return agent
+          .post('/quiz_submissions')
+          .set(Constants.AuthHeaderField, chaseToken)
+          .send(copy)
+          .expect(400)
+          .then(checkErrMsg(`No quiz with id ${copy.quiz_id} exists`))
+      })
+
+      it('should 400 if book is invalid', function() {
+        const copy = _.cloneDeep(passingValidSubmissionQuiz1Body);
+        copy.book_id = shortid.generate();
+        return agent
+          .post('/quiz_submissions')
+          .set(Constants.AuthHeaderField, chaseToken)
+          .send(copy)
+          .expect(400)
+          .then(checkErrMsg(`No book with id ${copy.book_id} exists`))
+      })
+
+      it('should 403 when students submits on behalf another student', function() {
+        return agent
+          .post('/quiz_submissions')
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .send(passingValidSubmissionQuiz1Body)
+          .expect(403)
+          .then(checkErrMsg('Students cannot submit quizzes for other students'))
+      })
+
+      it('should 403 if user has already passed quiz', function() {
+        return agent
+          .post('/quiz_submissions')
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .send(quizUserAlreadyPassed)
+          .expect(403)
+          .then(checkErrMsg(`User has already passed quiz for book ${quizUserAlreadyPassed.book_id}`))
+      })
+
+      it('should 403 if user has already failed three times', function() {
+        return agent
+          .post('/quiz_submissions')
+          .set(Constants.AuthHeaderField, katelynnToken)
+          .send(quizForBookAlreadyFailedThreeTime)
+          .expect(403)
+          .then(checkErrMsg(`User has exhausted all attempts to pass quiz for book ${quizForBookAlreadyFailedThreeTime.book_id}`))
+      })
+
+      it('should prevent user from attempting another quiz without waiting', function() {
+
+        const latestSubmissionDate = moment().subtract(MinHoursBetweenBookQuizAttempt, 'h').add(1, 'm').toISOString();
+        const nextPossibleSubmissionDate = moment(latestSubmissionDate).add(MinHoursBetweenBookQuizAttempt, 'h').toISOString();
+        
+        const recentSubmission = mockQuizSubmission({
+          quiz_id: 'quiz-id-1',
+          book_id: initialBooks[0]._id,
+          student_id: katelynn._id,
+          date_created: latestSubmissionDate,
+          answers: _.times(5, () => ({ answer_index: 2 }))
+        })
+
+        return quizSubmissionCollection.insert(recentSubmission)
+          .then(() => {
+
+            return agent
+              .post('/quiz_submissions')
+              .set(Constants.AuthHeaderField, katelynnToken)
+              .send(userExhaustedAllAttemptsSubmission)
+              .expect(403)
+              .then(checkErrMsg(`User must wait till ${nextPossibleSubmissionDate} to attempt another quiz.`))
+
+          })
+
+      })
+
+      it('should 200 and return passed quiz', function() {
+        return agent
+          .post('/quiz_submissions')
+          .set(Constants.AuthHeaderField, chaseToken)
+          .send(passingValidSubmissionQuiz1Body)
+          .expect(200)
+          .then(({ body }) => {
+            delete body._id;
+            delete body.date_created;
+            assert.deepEqual(body, _.assign({}, passingValidSubmissionQuiz1Body, {
+              passed: true,
+              score: 100
+            }))
+            return quizSubmissionCollection.find({})
+          })
+          .then(submissions => assert.lengthOf(submissions, initialQuizSubmissions.length + 1))
+      })
+
+      it('should 200 and return failed quiz', function() {
+        return agent
+          .post('/quiz_submissions')
+          .set(Constants.AuthHeaderField, chaseToken)
+          .send(failingSubmissionQuiz1Body)
+          .expect(200)
+          .then(({ body }) => {
+            delete body._id;
+            delete body.date_created;
+            assert.deepEqual(body, _.assign({}, failingSubmissionQuiz1Body, {
+              passed: false,
+              score: 60
+            }))
+          })
+      })
+
+    })
+
+
 
   })
 

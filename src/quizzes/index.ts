@@ -65,7 +65,6 @@ class QuizGrader {
 
     assert.isTrue(quiz.questions.length === answers.length, 'Must be the same amount of answers as questions');
     const maxPossiblePoints = _.chain(quiz.questions).map('points').sum().value();
-    console.log(quiz.questions.map(q => q.points));
 
     let pointsEarned = 0;
     
