@@ -7,6 +7,7 @@ import { IRequest } from './Extensions';
 import { IBookReview } from './models/book_review';
 import { GenreInterestMap } from './models/user';
 import { IBook } from './models/book';
+import { DefaultGenreInterestLevel, NumReviewsToBaseCLM } from './constants';
 
 export type PromiseHandler = (req: Request) => Promise<any>;
 
@@ -48,13 +49,13 @@ export function computeCurrentLexileMeasure(
 
   // if user has less than 3 submitted quizzes with comprehension scores
   // just use the initial lexile measure
-  if (bookReviews.length < 3) {
+  if (bookReviews.length < NumReviewsToBaseCLM) {
     return initialLexileMeasure;
   }
 
   const recentReviews = _.chain(bookReviews)
     .orderBy('date_created', 'desc')
-    .slice(0, 3)
+    .slice(0, NumReviewsToBaseCLM)
     .value();
 
   return _.reduce(recentReviews, (total, review) => {
@@ -75,7 +76,7 @@ export function computeMatchScore(
     if (genreId in genreInterests) {
       return genreInterests[genreId];
     }
-    return 3; // kinda like it.
+    return DefaultGenreInterestLevel; // kinda like it.
   });
 
   // take the average of these interest levels.

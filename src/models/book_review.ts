@@ -20,6 +20,7 @@ export function mockBookReview(options: {
   book_id: string,
   student_id: string,
   date_created?: string,
+  book_lexile_measure?: number;
   comprehension?: 1|2|3|4|5,
   review?: string,
 }): IBookReview {
@@ -30,6 +31,6 @@ export function mockBookReview(options: {
     date_created: options.date_created || new Date().toISOString(),
     review: options.review || faker.lorem.paragraph(1),
     comprehension: _.isNumber(options.comprehension) ? options.comprehension : _.random(1, 5) as 1|2|3|4|5,
-    book_lexile_measure: _.random(300, 1800)
+    book_lexile_measure: _.isNumber(options.book_lexile_measure) ? options.book_lexile_measure : _.random(300, 1800)
   }
 }

@@ -8,8 +8,8 @@ import { MultipleChoiceQuestionSchema } from './question_schemas/multiple_choice
 import { MultipleChoiceAnswerSchema } from './answer_schemas/multiple_choice';
 import { IQuestionGradingStrategy } from './grading';
 import { LongAnswerQuestionGradingStrategy } from './grading/LongAnswer';
-import { MultipleChoiceQuestionGradingStrategy } from './grading/MultipleChoiceGradingStrategy';
 import { QuestionTypes, IQuestion, IQuiz } from '../models/quiz';
+import { MultipleChoiceQuestionGradingStrategy } from './grading/MultipleChoice';
 
 type QuestionStrategyMap = Map<QuestionTypes, {
   gradingStrategy: IQuestionGradingStrategy,
