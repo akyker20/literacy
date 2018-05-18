@@ -1,6 +1,3 @@
-import * as faker from 'faker';
-import * as lodash from 'lodash';
-
 export enum UserType {
   STUDENT = 'STUDENT',
   EDUCATOR = 'EDUCATOR',
@@ -24,7 +21,7 @@ export interface IStudentBody extends IUserBody {
   initial_lexile_measure: number;
 }
 
-export interface IEducatorBody extends IUserBody {
+export interface IEducator extends IUserCore {
   student_ids: string[];
 }
 

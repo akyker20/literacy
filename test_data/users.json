@@ -9,6 +9,16 @@
     "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG"
   },
   {
+    "_id": "bonnie-stewart",
+    "type": "EDUCATOR",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "first_name": "Bonnie",
+    "last_name": "Stewart",
+    "email": "bstewart@parktudor.com",
+    "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
+    "student_ids": []
+  },
+  {
     "_id": "chase-malik",
     "type": "STUDENT",
     "date_created": "2018-05-16T18:55:56.479Z",

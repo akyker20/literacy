@@ -57,7 +57,7 @@ export default class App {
     this.server.put('/students/:userId/genre_interests/:genreId', userRoutes.editGenreInterest);
 
     this.server.post('/educators', userRoutes.createEducator);
-    this.server.put('/educator/:userId/students', userRoutes.updateStudentsForEducator);
+    this.server.put('/educators/:userId/students', userRoutes.updateStudentsForEducator);
 
     // configure book routes
 

@@ -20,7 +20,7 @@ import { IBookData } from '../data/books';
 import { IGenreData } from '../data/genres';
 import { shortidSchema } from '../extensions';
 import { IBookReviewData } from '../data/book_reviews';
-import { IStudent, IUser, UserType, IStudentBody, IEducator, IEducatorBody } from '../models/user';
+import { IStudent, IUser, UserType, IStudentBody, IEducator, IUserBody } from '../models/user';
 
 interface IUserLoginCredentials {
   email: string;
@@ -230,7 +230,7 @@ export function UserRoutes(
       Middle.authenticate,
       Middle.authorize([UserType.ADMIN]),
       Middle.valBody(userSchema),
-      unwrapData(async (req: IRequest<IEducatorBody>) => {
+      unwrapData(async (req: IRequest<IUserBody>) => {
 
         if (await userExistsWithEmail(req.body.email)) {
           throw new BadRequestError(`User with email ${req.body.email} already exists.`);
