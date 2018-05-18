@@ -16,8 +16,7 @@
     "last_name": "Malik",
     "email": "cmalik@gmail.com",
     "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
-    "books_read": [],
-    "book_genres": null,
+    "genre_interests": null,
     "initial_lexile_measure": 800
   },
   {
@@ -28,7 +27,7 @@
     "last_name": "Kyker",
     "email": "kkyker@gmail.com",
     "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
-    "book_genres": {
+    "genre_interests": {
       "science-id": 4,
       "history-id": 2,
       "mystery-id": 3,

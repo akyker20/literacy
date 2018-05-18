@@ -8,6 +8,7 @@ import * as jwt from 'jsonwebtoken';
 import * as monk from 'monk';
 import * as moment from 'moment';
 import * as supertest from 'supertest';
+import * as bcrypt from 'bcryptjs';
 import { assert } from 'chai';
 
 import * as Constants from '../constants';
@@ -18,7 +19,7 @@ import { MongoBookReviewData } from '../data/book_reviews';
 import { MongoGenreData } from '../data/genres';
 import App from '..';
 import _ = require('lodash');
-import { IUser, UserType } from '../models/user';
+import { IUser, UserType, IUserBody, IStudentBody, GenreInterestMap, IStudent } from '../models/user';
 import { IGenre, mockGenre } from '../models/genre';
 import { mockBook, IBook } from '../models/book';
 import { mockQuiz, mockQuizQuestion, IQuiz } from '../models/quiz';
@@ -40,10 +41,10 @@ const initialBookReviews: IBookReview[] = JSON.parse(fs.readFileSync('test_data/
 const austin = _.find(initialUsers, { _id: 'austin-kyker' });
 const austinToken = genAuthTokenForUser(austin);
 
-const katelynn = _.find(initialUsers, { _id: 'katelynn-kyker' });
+const katelynn = _.find(initialUsers, { _id: 'katelynn-kyker' }) as IStudent;
 const katelynnToken = genAuthTokenForUser(katelynn);
 
-const chase = _.find(initialUsers, { _id: 'chase-malik' });
+const chase = _.find(initialUsers, { _id: 'chase-malik' }) as IStudent;
 const chaseToken = genAuthTokenForUser(chase);
 
 let dbHost = process.env.MONGO_HOST || 'localhost';
@@ -867,6 +868,271 @@ describe('End to End tests', function() {
           })
       });
     
+    })
+
+    describe('User Routes', function() {
+
+      describe('#createStudent', function() {
+
+        const validReqBody: IStudentBody = {
+          first_name: 'Taylor',
+          last_name: 'Jones',
+          initial_lexile_measure: 400,
+          email: 'tjones@parktudor.org',
+          password: 'taylors_password'
+        }
+
+        it('should 401 when no auth token in header', function () {
+          return agent
+            .post(`/students`)
+            .expect(401);
+        });
+
+        it('should 403 if non-admin making request', function () {
+          return agent
+            .post('/students')
+            .set(Constants.AuthHeaderField, chaseToken)
+            .expect(403);
+        });
+
+        it('should 403 if non-admin making request', function () {
+          return agent
+            .post('/students')
+            .set(Constants.AuthHeaderField, chaseToken)
+            .expect(403);
+        });
+
+        it('should 200 and save the student', function() {
+
+          return agent
+            .post('/students')
+            .set(Constants.AuthHeaderField, austinToken)
+            .send(validReqBody)
+            .expect(200)
+            .then(({ body }) => {
+              
+              assert.hasAllKeys(body, [
+                '_id',
+                'date_created',
+                'email',
+                'first_name',
+                'genre_interests',
+                'hashed_password',
+                'initial_lexile_measure',
+                'last_name',
+                'type'
+              ])
+              
+              // bcrypt will produce different hashes for the same
+              // string. In other words, hash(validReqBody.password) !== body.hashed_password
+              assert.isTrue(bcrypt.compareSync(validReqBody.password, body.hashed_password));
+
+              delete body._id;
+              delete body.date_created;
+              delete body.hashed_password;
+              delete validReqBody.password;
+
+              const expected = _.assign({}, validReqBody, {
+                type: UserType.STUDENT,
+                genre_interests: null
+              });
+
+              assert.deepEqual(expected, body);
+              return usersCollection.find({});
+
+            })
+            .then(allUsers => assert.lengthOf(allUsers, initialUsers.length + 1))
+        })
+
+      })
+
+
+      describe('#createGenreInterests', function() {
+
+        const genreIds = _.map(initialGenres, '_id');
+
+        let validGenreMap: GenreInterestMap = {};
+        _.each(genreIds, id => validGenreMap[id] = _.random(1, 4) as 1|2|3|4)
+
+        it('should 401 when no auth token in header', function () {
+          return agent
+            .post(`/students/${chase._id}/genre_interests`)
+            .expect(401);
+        });
+
+        it('should 403 if student making request on behalf another student', function () {
+          return agent
+            .post(`/students/${chase._id}/genre_interests`)
+            .set(Constants.AuthHeaderField, katelynnToken)
+            .expect(403)
+            .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
+        });
+
+        it('should 400 if some genre ids are missing', function () {
+          
+          const copy  = _.cloneDeep(validGenreMap);
+          delete copy[initialGenres[0]._id];
+
+          return agent
+            .post(`/students/${chase._id}/genre_interests`)
+            .set(Constants.AuthHeaderField, chaseToken)
+            .send(copy)
+            .expect(400)
+            .then(checkErrMsg('There is a discrepancy between existing genres and genres user provided interest levels for.'))
+        
+        });
+
+        it('should 400 if values are not between 1 and 4', function () {
+          
+          const copy: any  = _.cloneDeep(validGenreMap);
+          copy[initialGenres[0]._id] = 5;
+
+          return agent
+            .post(`/students/${chase._id}/genre_interests`)
+            .set(Constants.AuthHeaderField, chaseToken)
+            .send(copy)
+            .expect(400)
+        
+        });
+
+        it('should 400 if same number of genre keys, but one is invalid', function () {
+          
+          const copy: any  = _.cloneDeep(validGenreMap);
+          const invalidGenreId = shortid.generate();
+          copy[invalidGenreId] = 4;
+          delete copy[initialGenres[0]._id];
+
+          return agent
+            .post(`/students/${chase._id}/genre_interests`)
+            .set(Constants.AuthHeaderField, chaseToken)
+            .send(copy)
+            .expect(400)
+            .then(checkErrMsg(`There is a discrepancy between existing genres and genres user provided interest levels for.`))
+        
+        });
+
+        it('should 404 if user does not exist', function () {
+
+          const invalidId = shortid.generate();
+          
+          return agent
+            .post(`/students/${invalidId}/genre_interests`)
+            .set(Constants.AuthHeaderField, austinToken)
+            .send(validGenreMap)
+            .expect(404)
+            .then(checkErrMsg(`User ${invalidId} does not exist.`))
+        
+        });
+
+        it('should 403 if user is not STUDENT', function () {
+
+          return agent
+            .post(`/students/${austin._id}/genre_interests`)
+            .set(Constants.AuthHeaderField, austinToken)
+            .send(validGenreMap)
+            .expect(403)
+            .then(checkErrMsg(`Can only post genre interests for student users`))
+        
+        });
+
+        it('should 403 if user has already posted genre interests', function () {
+
+          return agent
+            .post(`/students/${katelynn._id}/genre_interests`)
+            .set(Constants.AuthHeaderField, katelynnToken)
+            .send(validGenreMap)
+            .expect(403)
+            .then(checkErrMsg('User already has created genre interests'))
+        
+        });
+
+        it('should 200 and save genre interests', function () {
+
+          return agent
+            .post(`/students/${chase._id}/genre_interests`)
+            .set(Constants.AuthHeaderField, chaseToken)
+            .send(validGenreMap)
+            .expect(200)
+            .then(({ body }) => usersCollection.findOne({ _id: chase._id }))
+            .then(user => {
+              const expected = _.assign({}, chase, {
+                genre_interests: validGenreMap
+              })
+              assert.deepEqual(expected, user);
+            })
+        
+        });
+
+      });
+
+      describe.only('#editGenreInterest', function() {
+
+        const genreId = initialGenres[0]._id;
+
+        const validBody = {
+          interest_value: _.random(1, 4)
+        }
+
+        it('should 401 when no auth token in header', function () {
+          return agent
+            .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
+            .expect(401);
+        });
+
+        it('should 403 if student making request on behalf another student', function () {
+          return agent
+            .put(`/students/${chase._id}/genre_interests/${genreId}`)
+            .set(Constants.AuthHeaderField, katelynnToken)
+            .expect(403)
+            .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
+        });
+
+        it('should 400 if interest value is invalid', function () {
+          const copy = _.cloneDeep(validBody);
+          copy.interest_value = 5;
+          return agent
+            .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
+            .set(Constants.AuthHeaderField, katelynnToken)
+            .send(copy)
+            .expect(400);
+        });
+
+        it('should 403 if student has not created genre interests', function () {
+          return agent
+            .put(`/students/${chase._id}/genre_interests/${genreId}`)
+            .set(Constants.AuthHeaderField, chaseToken)
+            .send(validBody)
+            .expect(403)
+            .then(checkErrMsg('User cannot edit genre interests, until they have been created.'))
+        });
+
+        it('should 400 if genre id is invalid', function () {
+          const invalidGenreId = shortid.generate();
+          return agent
+            .put(`/students/${katelynn._id}/genre_interests/${invalidGenreId}`)
+            .set(Constants.AuthHeaderField, katelynnToken)
+            .send(validBody)
+            .expect(400)
+            .then(checkErrMsg(`Genre ${invalidGenreId} does not exist.`))
+        });
+
+        it('should 200 and update the genre interest', function () {
+          return agent
+            .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
+            .set(Constants.AuthHeaderField, katelynnToken)
+            .send(validBody)
+            .expect(200)
+            .then(() => usersCollection.findOne({ _id: katelynn._id }))
+            .then(user => {
+              const expectedGenreInterests = _.assign({}, katelynn.genre_interests, {
+                [genreId]: validBody.interest_value
+              })
+              assert.deepEqual(user.genre_interests, expectedGenreInterests);
+            })
+        });
+
+      })
+
     })
 
   })

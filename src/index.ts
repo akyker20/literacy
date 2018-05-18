@@ -49,8 +49,8 @@ export default class App {
 
     this.server.get('/users', userRoutes.getAllUsers); // TODO: remove
 
-    this.server.get('/whoami', userRoutes.whoami);
-    this.server.post('/users/signin', userRoutes.signin);
+    this.server.get('/whoami', userRoutes.whoami); // TEST
+    this.server.post('/users/signin', userRoutes.signin); // TEST
 
     this.server.post('/students', userRoutes.createStudent);
     this.server.post('/students/:userId/genre_interests', userRoutes.createGenreInterests);
@@ -69,7 +69,7 @@ export default class App {
       quizData
     );
 
-    this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent);
+    this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent); // TEST
     this.server.post('/book_reviews', bookRoutes.createBookReview);
 
     this.server.post('/genres', bookRoutes.createGenre);

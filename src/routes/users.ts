@@ -136,7 +136,7 @@ export function UserRoutes(
         }
 
         if (!_.isEmpty((user as IStudent).genre_interests)) {
-          throw new BadRequestError('User already has created genre interests');
+          throw new ForbiddenError('User already has created genre interests');
         }
 
         const existingGenres = await genreData.getGenres();
@@ -144,14 +144,10 @@ export function UserRoutes(
 
         const inputGenreKeys = _.keys(req.body);
 
-        if (existingGenres.length !== inputGenreKeys.length) {
+        const sameNumKeys = (existingGenres.length === inputGenreKeys.length);
+
+        if (!sameNumKeys || !_.isEmpty(_.xor(existingGenreIds, inputGenreKeys))) {
           throw new BadRequestError(`There is a discrepancy between existing genres and genres user provided interest levels for.`);
-        }
-
-        const invalidGenres = _.difference(inputGenreKeys, existingGenreIds);
-
-        if (!_.isEmpty(invalidGenres)) {
-          throw new BadRequestError(`Genres ${invalidGenres.join(', ')} are invalid.`)
         }
 
         const updatedUser = _.assign({}, user, {
@@ -178,7 +174,13 @@ export function UserRoutes(
         }
 
         if (_.isEmpty(user.genre_interests)) {
-          throw new BadRequestError('User cannot edit genre interests, until they have been created.');
+          throw new ForbiddenError('User cannot edit genre interests, until they have been created.');
+        }
+
+        const genre = await genreData.getGenreById(genreId);
+
+        if (_.isNull(genre)) {
+          throw new BadRequestError(`Genre ${genreId} does not exist.`)
         }
 
         const updatedUser = _.assign({}, user, {
@@ -203,7 +205,7 @@ export function UserRoutes(
           throw new BadRequestError(`User with email ${req.body.email} already exists.`);
         }
 
-        const hashedPassword = await bcrypt.hash(req.body.password, 8);
+        const hashedPassword = await bcrypt.hash(req.body.password, Constants.HashedPassSaltLen);
         delete req.body.password;
 
         const newStudent: IStudent = _.assign({}, req.body, {
@@ -234,7 +236,7 @@ export function UserRoutes(
           throw new BadRequestError(`User with email ${req.body.email} already exists.`);
         }
 
-        const hashedPassword = await bcrypt.hash(req.body.password, 8);
+        const hashedPassword = await bcrypt.hash(req.body.password, Constants.HashedPassSaltLen);
         delete req.body.password;
 
         const educator: IEducator = _.assign({}, req.body, {

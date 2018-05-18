@@ -1,3 +1,6 @@
+import * as faker from 'faker';
+import * as lodash from 'lodash';
+
 export enum UserType {
   STUDENT = 'STUDENT',
   EDUCATOR = 'EDUCATOR',
