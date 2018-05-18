@@ -1,6 +1,4 @@
 import * as shortid from 'shortid';
-import * as faker from 'faker';
-import * as _ from 'lodash';
 
 export enum QuestionTypes {
   MultipleChoice = 'mc',

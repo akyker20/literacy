@@ -17,7 +17,7 @@ type QuestionStrategyMap = Map<QuestionTypes, {
   answerSchema: joi.JoiObject
 }>
 
-class QuizGrader {
+export class QuizGrader {
 
   private strategyMap: QuestionStrategyMap = new Map();
 
