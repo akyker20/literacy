@@ -59,6 +59,8 @@ export default class App {
     this.server.post('/educators', userRoutes.createEducator);
     this.server.put('/educators/:userId/students', userRoutes.updateStudentsForEducator);
 
+    this.server.post('/students/:userId/bookmarked_books', userRoutes.bookmarkBook);
+
     // configure book routes
 
     const bookRoutes = Routes.BookRoutes(

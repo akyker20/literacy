@@ -27,6 +27,10 @@ interface IUserLoginCredentials {
   password: string;
 }
 
+const bookmarkBookSchema = joi.object({
+  bookId: shortidSchema.error(genFieldErr('bookId'))
+}).required()
+
 const updateStudentsForTeacherSchema = joi.object({
   student_ids: joi.array().items(shortidSchema).max(100).unique().required().error(genFieldErr('students'))
 }).required();
@@ -114,6 +118,50 @@ export function UserRoutes(
         }
 
         return user;
+
+      }),
+      Middle.handlePromise
+    ],
+
+    bookmarkBook: [
+      Middle.authenticate,
+      Middle.authorizeAgents([M.UserType.ADMIN]),
+      Middle.valBody(bookmarkBookSchema),
+      unwrapData(async (req: IRequest<{ bookId: string }>) => {
+
+        const { userId: studentId } = req.params;
+        const { bookId } = req.body;
+
+        const book = await bookData.getBook(bookId);
+
+        if (_.isNull(book)) {
+          return new BadRequestError(`Book ${bookId} does not exist.`)
+        }
+
+        const student = (await userData.getUserById(studentId)) as M.IStudent
+
+        if (_.isNull(student)) {
+          return new ResourceNotFoundError(`User ${studentId} does not exist.`)
+        }
+
+        if (student.type !== M.UserType.STUDENT) {
+          return new ForbiddenError(`User ${studentId} is not a student.`)
+        }
+
+        const idsOfBooksBookmarked = _.map(student.bookmarked_books, 'bookId');
+
+        if (_.includes(idsOfBooksBookmarked, bookId)) {
+          return new BadRequestError(`Student ${studentId} already bookmarked book ${bookId}.`)
+        }
+
+        const updatedStudent: M.IStudent = _.assign({}, student, {
+          bookmarked_books: [...student.bookmarked_books, {
+            bookId,
+            date: new Date().toISOString()
+          }]
+        })
+
+        return await userData.updateUser(updatedStudent);
 
       }),
       Middle.handlePromise
@@ -212,7 +260,8 @@ export function UserRoutes(
           hashed_password: hashedPassword,
           date_created: new Date().toISOString(),
           type: M.UserType.STUDENT,
-          genre_interests: null
+          genre_interests: null,
+          bookmarked_books: []
         });
 
         return await userData.createUser(newStudent);

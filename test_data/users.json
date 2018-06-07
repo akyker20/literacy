@@ -27,7 +27,8 @@
     "email": "cmalik@gmail.com",
     "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
     "genre_interests": null,
-    "initial_lexile_measure": 800
+    "initial_lexile_measure": 800,
+    "bookmarked_books": []
   },
   {
     "_id": "katelynn-kyker",
@@ -45,6 +46,12 @@
       "poetry-id": 1,
       "adventure-id": 1
     },
-    "initial_lexile_measure": 600
+    "initial_lexile_measure": 600,
+    "bookmarked_books": [
+      {
+        "bookId": "harry-potter-id",
+        "date": "2018-05-16T18:55:56.479Z"
+      }
+    ]
   }
 ]
