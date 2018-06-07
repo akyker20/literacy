@@ -60,6 +60,7 @@ export default class App {
     this.server.put('/educators/:userId/students', userRoutes.updateStudentsForEducator);
 
     this.server.post('/students/:userId/bookmarked_books', userRoutes.bookmarkBook);
+    this.server.del('/students/:userId/bookmarked_books/:bookId', userRoutes.unbookmarkBook)
 
     // configure book routes
 

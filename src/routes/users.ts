@@ -167,6 +167,45 @@ export function UserRoutes(
       Middle.handlePromise
     ],
 
+    unbookmarkBook: [
+      Middle.authenticate,
+      Middle.authorizeAgents([M.UserType.ADMIN]),
+      unwrapData(async (req: IRequest<null>) => {
+
+        const { userId: studentId, bookId } = req.params;
+
+        const book = await bookData.getBook(bookId);
+
+        if (_.isNull(book)) {
+          return new BadRequestError(`Book ${bookId} does not exist.`)
+        }
+
+        const student = (await userData.getUserById(studentId)) as M.IStudent
+
+        if (_.isNull(student)) {
+          return new ResourceNotFoundError(`User ${studentId} does not exist.`)
+        }
+
+        if (student.type !== M.UserType.STUDENT) {
+          return new ForbiddenError(`User ${studentId} is not a student.`)
+        }
+
+        const idsOfBooksBookmarked = _.map(student.bookmarked_books, 'bookId');
+
+        if (!_.includes(idsOfBooksBookmarked, bookId)) {
+          return new BadRequestError(`Student ${studentId} never bookmarked book ${bookId}.`)
+        }
+
+        const updatedStudent: M.IStudent = _.assign({}, student, {
+          bookmarked_books: _.filter(student.bookmarked_books, ({ bookId: existingId }) => existingId !== bookId)
+        })
+
+        return await userData.updateUser(updatedStudent);
+
+      }),
+      Middle.handlePromise
+    ],
+
     createGenreInterests: [
       Middle.authenticate,
       Middle.authorizeAgents([M.UserType.ADMIN]),
