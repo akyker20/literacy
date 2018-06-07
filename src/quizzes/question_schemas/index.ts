@@ -1,12 +1,11 @@
 import * as joi from 'joi';
-import * as C from '../../constants';
-import { QuestionTypes } from '../../models/quiz';
+import { Models as M, Constants as SC } from 'reading_rewards';
 
 export const QuestionSchema = joi.object({
   type: joi.string().valid([
-    QuestionTypes.MultipleChoice,
-    QuestionTypes.LongAnswer
+    M.QuestionTypes.MultipleChoice,
+    M.QuestionTypes.LongAnswer
   ]).required(),
-  points: joi.number().integer().strict().min(C.MinNumPointsPerQuestion).max(C.MaxNumPointsPerQuestion).required(),
-  prompt: joi.string().max(C.MaxQuestionPromptChars).required()
+  points: joi.number().integer().strict().min(SC.MinNumPointsPerQuestion).max(SC.MaxNumPointsPerQuestion).required(),
+  prompt: joi.string().max(SC.MaxQuestionPromptChars).required()
 }).required();

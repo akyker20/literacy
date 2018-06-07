@@ -1,13 +1,13 @@
 import * as restify from 'restify';
 import * as joi from 'joi';
-import { UserType } from './models/user';
+import { Models } from 'reading_rewards';
 
 export interface IRequest<T> extends restify.Request {
   body: T;
   promise: Promise<any>;
   authToken?: {
     _id: string,
-    type: UserType
+    type: Models.UserType
   };
 }
 

@@ -2,8 +2,10 @@ import * as monk from 'monk';
 import * as shortid from 'shortid';
 import * as _ from 'lodash';
 
-import { IQuiz } from '../models/quiz';
-import { IQuizSubmission } from '../models/quiz_submission';
+import { Models as M } from 'reading_rewards';
+
+type IQuizSubmission = M.IQuizSubmission;
+type IQuiz = M.IQuiz;
 
 export interface IQuizData {
   createQuiz: (quiz: IQuiz) => Promise<IQuiz>;

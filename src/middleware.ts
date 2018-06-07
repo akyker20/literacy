@@ -5,12 +5,12 @@ import { Response, Next } from 'restify';
 import * as _ from 'lodash';
 import * as joi from 'joi';
 import * as jwt from 'jsonwebtoken';
+import { Models as M, Constants as SC } from 'reading_rewards';
 
 // internal dependencies
 
 import { IRequest } from './Extensions';
 import * as Constants from './constants';
-import { UserType } from './models/user';
 
 /**
  * Authentication, not authorization! Use authorize middleware
@@ -22,7 +22,7 @@ import { UserType } from './models/user';
  */
 export function authenticate(req: IRequest<any>, res: Response, next: Next) {
 
-  const token = <string>req.headers[Constants.AuthHeaderField];
+  const token = <string>req.headers[SC.AuthHeaderField];
 
   if (_.isEmpty(token)) {
     return next(new Err.UnauthorizedError('No authorization token provided in header.'));
@@ -52,7 +52,7 @@ export function authenticate(req: IRequest<any>, res: Response, next: Next) {
  * 
  * @param permittedUserTypes list of types authorized to make request.
  */
-export function authorize(permittedUserTypes: UserType[]) {
+export function authorize(permittedUserTypes: M.UserType[]) {
 
   return (req: IRequest<any>, res: Response, next: Next) => {
 
@@ -85,7 +85,7 @@ export function authorize(permittedUserTypes: UserType[]) {
  * @param permittedAgentRoles list of roles that can always make the request on
  * behalf of other users.
  */
-export function authorizeAgents(permittedAgentRoles: UserType[]) {
+export function authorizeAgents(permittedAgentRoles: M.UserType[]) {
 
   return (req: IRequest<any>, res: Response, next: Next) => {
 

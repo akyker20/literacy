@@ -1,14 +1,17 @@
-// Possible Reason for Flakes:
+// PossModels.IBle Reason for Flakes:
 
 // 1. Faker creates text that is too long and fails validation checks in route. See faker.lorem.paragraph(X)
 
 import * as fs from 'fs';
+import * as Path from 'path';
 import * as shortid from 'shortid';
 import * as jwt from 'jsonwebtoken';
 import * as monk from 'monk';
 import * as moment from 'moment';
 import * as supertest from 'supertest';
 import * as bcrypt from 'bcryptjs';
+import * as _ from 'lodash';
+import { Models, Mockers, Constants as SC } from 'reading_rewards';
 import { assert } from 'chai';
 
 import * as Constants from '../constants';
@@ -18,36 +21,29 @@ import { MongoQuizData } from '../data/quizzes';
 import { MongoBookReviewData } from '../data/book_reviews';
 import { MongoGenreData } from '../data/genres';
 import App from '..';
-import _ = require('lodash');
-import { IUser, UserType, IStudentBody, GenreInterestMap, IStudent, IUserBody, IEducator } from '../models/user';
-import { IGenre, mockGenre } from '../models/genre';
-import { mockBook, IBook } from '../models/book';
-import { mockQuiz, mockQuizQuestion, IQuiz } from '../models/quiz';
-import { mockQuizSubmission } from '../models/quiz_submission';
-import { MinHoursBetweenBookQuizAttempt } from '../constants';
-import { mockBookReview, IBookReview } from '../models/book_review';
+
 
 // Load all the data
 
-const initialBooks: IBook[] = JSON.parse(fs.readFileSync('test_data/books.json', 'utf8'));
-const initialGenres: IGenre[] = JSON.parse(fs.readFileSync('test_data/genres.json', 'utf8'));
-const initialQuizzes: IQuiz[] = JSON.parse(fs.readFileSync('test_data/quizzes.json', 'utf8'));
-const initialUsers: IUser[] = JSON.parse(fs.readFileSync('test_data/users.json', 'utf8'));
-const initialQuizSubmissions = JSON.parse(fs.readFileSync('test_data/quiz_submissions.json', 'utf8'));
-const initialBookReviews: IBookReview[] = JSON.parse(fs.readFileSync('test_data/book_reviews.json', 'utf8'));
+const initialBooks: Models.IBook[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/books.json'), 'utf8'));
+const initialGenres: Models.IGenre[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/genres.json'), 'utf8'));
+const initialQuizzes: Models.IQuiz[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/quizzes.json'), 'utf8'));
+const initialUsers: Models.IUser[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/users.json'), 'utf8'));
+const initialQuizSubmissions = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/quiz_submissions.json'), 'utf8'));
+const initialBookReviews: Models.IBookReview[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/book_reviews.json'), 'utf8'));
 
 // convenience variables
 
 const austin = _.find(initialUsers, { _id: 'austin-kyker' });
 const austinToken = genAuthTokenForUser(austin);
 
-const bonnie = _.find(initialUsers, { _id: 'bonnie-stewart' }) as IEducator;
+const bonnie = _.find(initialUsers, { _id: 'bonnie-stewart' }) as Models.IEducator;
 const bonnieToken = genAuthTokenForUser(bonnie);
 
-const katelynn = _.find(initialUsers, { _id: 'katelynn-kyker' }) as IStudent;
+const katelynn = _.find(initialUsers, { _id: 'katelynn-kyker' }) as Models.IStudent;
 const katelynnToken = genAuthTokenForUser(katelynn);
 
-const chase = _.find(initialUsers, { _id: 'chase-malik' }) as IStudent;
+const chase = _.find(initialUsers, { _id: 'chase-malik' }) as Models.IStudent;
 const chaseToken = genAuthTokenForUser(chase);
 
 let dbHost = process.env.MONGO_HOST || 'localhost';
@@ -87,17 +83,17 @@ const app = new App(
 
 const agent = supertest(app.server);
 
-function genAuthToken(type: UserType, id?: string): string {
+function genAuthToken(type: Models.UserType, id?: string): string {
   return jwt.sign({ _id: id || shortid.generate(), type }, Constants.JWTSecret, { expiresIn: '1y' });
 }
 
-function genAuthTokenForUser(user: IUser): string {
+function genAuthTokenForUser(user: Models.IUser): string {
   return genAuthToken(user.type, user._id);
 }
 
-function decodeAuthToken(token: string): { _id: string, type: string } {
-  return <{ _id: string, type: string }>jwt.verify(token, Constants.JWTSecret);
-}
+// function decodeAuthToken(token: string): { _id: string, type: string } {
+//   return <{ _id: string, type: string }>jwt.verify(token, Constants.JWTSecret);
+// }
 
 function checkErrMsg(msg: string) {
   return ({ body }: any) => {
@@ -123,7 +119,7 @@ describe('End to End tests', function () {
 
     describe('#createGenre', function () {
 
-      const validGenreBody: IGenre = {
+      const validGenreBody: Models.IGenre = {
         title: 'Some genre title',
         description: 'Some genre description'
       };
@@ -137,14 +133,14 @@ describe('End to End tests', function () {
       it('should 403 if non-admin making request', function () {
         return agent
           .post(`/genres`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(403);
       });
 
       it('should save the genre', function () {
         return agent
           .post('/genres')
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .send(validGenreBody)
           .expect(200)
           .then(({ body }) => {
@@ -171,7 +167,7 @@ describe('End to End tests', function () {
       it('should 404 if genre does not exist', function () {
         return agent
           .del(`/genres/${shortid.generate()}`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .expect(404)
           .then(checkErrMsg('No genre was deleted'))
       });
@@ -179,14 +175,14 @@ describe('End to End tests', function () {
       it('should 403 if non-admin making request', function () {
         return agent
           .del(`/genres/${idOfGenreToDelete}`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(403);
       });
 
       it('should delete the genre', function () {
         return agent
           .del(`/genres/${idOfGenreToDelete}`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .expect(200)
           .then(({ body }) => {
             assert.deepEqual(body, {
@@ -210,7 +206,7 @@ describe('End to End tests', function () {
       it('should return all genres', function () {
         return agent
           .get('/genres')
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(200)
           .then(({ body }) => assert.sameDeepMembers(body, initialGenres))
       })
@@ -221,7 +217,7 @@ describe('End to End tests', function () {
 
       const genreToUpdate = _.sample(initialGenres);
       const genreId = genreToUpdate._id;
-      const update: IGenre = mockGenre({
+      const update: Models.IGenre = Mockers.mockGenre({
         _id: genreToUpdate._id
       });
 
@@ -234,14 +230,14 @@ describe('End to End tests', function () {
       it('should 403 if not admin user', function () {
         return agent
           .put(`/genres/${genreId}`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(403);
       });
 
       it('should update the genre', function () {
         return agent
           .put(`/genres/${genreId}`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .send(update)
           .expect(200)
           .then(({ body }) => {
@@ -259,7 +255,7 @@ describe('End to End tests', function () {
 
     describe('#createBook', function () {
 
-      let validBookBody = mockBook({
+      let validBookBody = Mockers.mockBook({
         genres: [initialGenres[0]._id]
       });
       delete validBookBody._id;
@@ -278,7 +274,7 @@ describe('End to End tests', function () {
 
         return agent
           .post(`/books`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .send(invalidBody)
           .expect(400)
           .then(checkErrMsg(`Genre ids ${invalidId} are invalid.`))
@@ -287,14 +283,14 @@ describe('End to End tests', function () {
       it('should 403 if non-admin making request', function () {
         return agent
           .post(`/books`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(403);
       });
 
       it('should save the book', function () {
         return agent
           .post('/books')
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .send(validBookBody)
           .expect(200)
           .then(({ body }) => {
@@ -321,7 +317,7 @@ describe('End to End tests', function () {
       it('should 404 if book does not exist', function () {
         return agent
           .del(`/books/${shortid.generate()}`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .expect(404)
           .then(checkErrMsg('No book was deleted'))
       });
@@ -329,14 +325,14 @@ describe('End to End tests', function () {
       it('should 403 if non-admin making request', function () {
         return agent
           .del(`/books/${idOfBookToDelete}`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(403);
       });
 
       it('should delete the book', function () {
         return agent
           .del(`/books/${idOfBookToDelete}`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .expect(200)
           .then(({ body }) => {
             assert.deepEqual(body, {
@@ -360,7 +356,7 @@ describe('End to End tests', function () {
       it('should return all books when no query param provided', function () {
         return agent
           .get('/books')
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(200)
           .then(({ body }) => assert.sameDeepMembers(body, initialBooks))
       })
@@ -368,7 +364,7 @@ describe('End to End tests', function () {
       it('should return books with matching titles to query', function () {
         return agent
           .get('/books?q=Harry+Potter')
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(200)
           .then(({ body }) => assert.sameDeepMembers(body, [_.find(initialBooks, { _id: "harry-potter-id" })]))
       })
@@ -389,7 +385,7 @@ describe('End to End tests', function () {
         const invalidId = shortid.generate();
         return agent
           .get(`/books/${invalidId}`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(404)
           .then(checkErrMsg(`Book ${invalidId} does not exist.`))
       })
@@ -398,7 +394,7 @@ describe('End to End tests', function () {
         const bookToFetch = _.sample(initialBooks);
         return agent
           .get(`/books/${bookToFetch._id}`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(200)
           .then(({ body }) => assert.deepEqual(bookToFetch, body))
       })
@@ -409,7 +405,7 @@ describe('End to End tests', function () {
 
       const bookToUpdate = _.sample(initialBooks);
       const bookId = bookToUpdate._id;
-      const update: IBook = mockBook({
+      const update: Models.IBook = Mockers.mockBook({
         _id: bookToUpdate._id,
         genres: _.cloneDeep(bookToUpdate.genres)
       });
@@ -423,14 +419,14 @@ describe('End to End tests', function () {
       it('should 403 if not admin user', function () {
         return agent
           .put(`/books/${bookId}`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(403);
       });
 
       it('should update the book', function () {
         return agent
           .put(`/books/${bookId}`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .send(update)
           .expect(200)
           .then(({ body }) => {
@@ -446,7 +442,7 @@ describe('End to End tests', function () {
 
       // chase has not submitted a quiz for this book
       const bookNotReadId = 'kings-fifth-id';
-      const reviewForBookNotRead = mockBookReview({
+      const reviewForBookNotRead = Mockers.mockBookReview({
         student_id: chase._id,
         book_id: bookNotReadId
       });
@@ -455,7 +451,7 @@ describe('End to End tests', function () {
       delete reviewForBookNotRead._id;
 
       const bookChaseReadId = 'hobbit-id';
-      const reviewForBookRead = mockBookReview({
+      const reviewForBookRead = Mockers.mockBookReview({
         student_id: chase._id,
         book_id: bookChaseReadId
       });
@@ -472,7 +468,7 @@ describe('End to End tests', function () {
       it('should 403 if student has not submitted a quiz for book', function () {
         return agent
           .post(`/book_reviews`)
-          .set(Constants.AuthHeaderField, chaseToken)
+          .set(SC.AuthHeaderField, chaseToken)
           .send(reviewForBookNotRead)
           .expect(403)
           .then(checkErrMsg(`User has not passed a quiz for book ${bookNotReadId}. The user must do this before posting a review.`))
@@ -481,7 +477,7 @@ describe('End to End tests', function () {
       it('should 403 if student submitting for another student', function () {
         return agent
           .post(`/book_reviews`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .send(reviewForBookRead)
           .expect(403)
           .then(checkErrMsg(`User ${katelynn._id} cannot write book review for user ${chase._id}`))
@@ -490,7 +486,7 @@ describe('End to End tests', function () {
       it('should 200 and create the review', function () {
         return agent
           .post(`/book_reviews`)
-          .set(Constants.AuthHeaderField, chaseToken)
+          .set(SC.AuthHeaderField, chaseToken)
           .send(reviewForBookRead)
           .expect(200)
           .then(({ body }) => {
@@ -513,7 +509,7 @@ describe('End to End tests', function () {
 
         return agent
           .post(`/book_reviews`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .send(copy)
           .expect(403)
           .then(checkErrMsg(`Student ${katelynn._id} has already posted a book review for book ${copy.book_id}`))
@@ -527,8 +523,8 @@ describe('End to End tests', function () {
 
     describe('#createQuiz', function () {
 
-      let validQuiz = mockQuiz({
-        questions: _.times(5, () => mockQuizQuestion())
+      let validQuiz = Mockers.mockQuiz({
+        questions: _.times(5, () => Mockers.mockQuizQuestion())
       })
       delete validQuiz._id;
       delete validQuiz.date_created;
@@ -542,14 +538,14 @@ describe('End to End tests', function () {
       it('should 403 if non-admin making the request', function () {
         return agent
           .post(`/quizzes`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(403);
       });
 
       it('should create a new quiz', function () {
         return agent
           .post(`/quizzes`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .send(validQuiz)
           .expect(200)
           .then(({ body }) => {
@@ -576,7 +572,7 @@ describe('End to End tests', function () {
       it('should 404 if quiz does not exist', function () {
         return agent
           .del(`/quizzes/${shortid.generate()}`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .expect(404)
           .then(checkErrMsg('No quiz was deleted'))
       });
@@ -584,14 +580,14 @@ describe('End to End tests', function () {
       it('should 403 if non-admin making request', function () {
         return agent
           .del(`/quizzes/${idOfQuizToDelete}`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(403);
       });
 
       it('should delete the quiz', function () {
         return agent
           .del(`/quizzes/${idOfQuizToDelete}`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .expect(200)
           .then(({ body }) => {
             assert.deepEqual(body, {
@@ -608,9 +604,9 @@ describe('End to End tests', function () {
 
       const quizToUpdate = _.sample(initialQuizzes);
       const quizId = quizToUpdate._id;
-      const update: IQuiz = mockQuiz({
+      const update: Models.IQuiz = Mockers.mockQuiz({
         _id: quizToUpdate._id,
-        questions: _.times(5, () => mockQuizQuestion())
+        questions: _.times(5, () => Mockers.mockQuizQuestion())
       });
 
       it('should 401 when no auth token in header', function () {
@@ -622,14 +618,14 @@ describe('End to End tests', function () {
       it('should 403 if not admin user', function () {
         return agent
           .put(`/quizzes/${quizId}`)
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .expect(403);
       });
 
       it('should update the quiz', function () {
         return agent
           .put(`/quizzes/${quizId}`)
-          .set(Constants.AuthHeaderField, austinToken)
+          .set(SC.AuthHeaderField, austinToken)
           .send(update)
           .expect(200)
           .then(({ body }) => {
@@ -723,7 +719,7 @@ describe('End to End tests', function () {
         copy.quiz_id = shortid.generate();
         return agent
           .post('/quiz_submissions')
-          .set(Constants.AuthHeaderField, chaseToken)
+          .set(SC.AuthHeaderField, chaseToken)
           .send(copy)
           .expect(400)
           .then(checkErrMsg(`No quiz with id ${copy.quiz_id} exists`))
@@ -734,7 +730,7 @@ describe('End to End tests', function () {
         copy.book_id = shortid.generate();
         return agent
           .post('/quiz_submissions')
-          .set(Constants.AuthHeaderField, chaseToken)
+          .set(SC.AuthHeaderField, chaseToken)
           .send(copy)
           .expect(400)
           .then(checkErrMsg(`No book with id ${copy.book_id} exists`))
@@ -743,7 +739,7 @@ describe('End to End tests', function () {
       it('should 403 when students submits on behalf another student', function () {
         return agent
           .post('/quiz_submissions')
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .send(passingValidSubmissionQuiz1Body)
           .expect(403)
           .then(checkErrMsg('Students cannot submit quizzes for other students'))
@@ -752,7 +748,7 @@ describe('End to End tests', function () {
       it('should 403 if user has already passed quiz', function () {
         return agent
           .post('/quiz_submissions')
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .send(quizUserAlreadyPassed)
           .expect(403)
           .then(checkErrMsg(`User has already passed quiz for book ${quizUserAlreadyPassed.book_id}`))
@@ -761,7 +757,7 @@ describe('End to End tests', function () {
       it('should 403 if user has already failed three times', function () {
         return agent
           .post('/quiz_submissions')
-          .set(Constants.AuthHeaderField, katelynnToken)
+          .set(SC.AuthHeaderField, katelynnToken)
           .send(quizForBookAlreadyFailedThreeTime)
           .expect(403)
           .then(checkErrMsg(`User has exhausted all attempts to pass quiz for book ${quizForBookAlreadyFailedThreeTime.book_id}`))
@@ -769,10 +765,10 @@ describe('End to End tests', function () {
 
       it('should prevent user from attempting another quiz without waiting', function () {
 
-        const latestSubmissionDate = moment().subtract(MinHoursBetweenBookQuizAttempt, 'h').add(1, 'm').toISOString();
-        const nextPossibleSubmissionDate = moment(latestSubmissionDate).add(MinHoursBetweenBookQuizAttempt, 'h').toISOString();
+        const latestSubmissionDate = moment().subtract(SC.MinHoursBetweenBookQuizAttempt, 'h').add(1, 'm').toISOString();
+        const nextPossibleSubmissionDate = moment(latestSubmissionDate).add(SC.MinHoursBetweenBookQuizAttempt, 'h').toISOString();
 
-        const recentSubmission = mockQuizSubmission({
+        const recentSubmission = Mockers.mockQuizSubmission({
           quiz_id: 'quiz-id-1',
           book_id: initialBooks[0]._id,
           student_id: katelynn._id,
@@ -785,7 +781,7 @@ describe('End to End tests', function () {
 
             return agent
               .post('/quiz_submissions')
-              .set(Constants.AuthHeaderField, katelynnToken)
+              .set(SC.AuthHeaderField, katelynnToken)
               .send(userExhaustedAllAttemptsSubmission)
               .expect(403)
               .then(checkErrMsg(`User must wait till ${nextPossibleSubmissionDate} to attempt another quiz.`))
@@ -797,7 +793,7 @@ describe('End to End tests', function () {
       it('should 200 and return passed quiz', function () {
         return agent
           .post('/quiz_submissions')
-          .set(Constants.AuthHeaderField, chaseToken)
+          .set(SC.AuthHeaderField, chaseToken)
           .send(passingValidSubmissionQuiz1Body)
           .expect(200)
           .then(({ body }) => {
@@ -815,7 +811,7 @@ describe('End to End tests', function () {
       it('should 200 and return failed quiz', function () {
         return agent
           .post('/quiz_submissions')
-          .set(Constants.AuthHeaderField, chaseToken)
+          .set(SC.AuthHeaderField, chaseToken)
           .send(failingSubmissionQuiz1Body)
           .expect(200)
           .then(({ body }) => {
@@ -845,7 +841,7 @@ describe('End to End tests', function () {
         const invalidId = shortid.generate();
         return agent
           .get(`/books/${invalidId}/quiz`)
-          .set(Constants.AuthHeaderField, chaseToken)
+          .set(SC.AuthHeaderField, chaseToken)
           .expect(404)
           .then(checkErrMsg(`Book ${invalidId} does not exist.`))
       });
@@ -854,7 +850,7 @@ describe('End to End tests', function () {
         const quizForHarryPotter = _.find(initialQuizzes, { book_id: bookWithQuiz._id })
         return agent
           .get(`/books/${bookWithQuiz._id}/quiz`)
-          .set(Constants.AuthHeaderField, chaseToken)
+          .set(SC.AuthHeaderField, chaseToken)
           .expect(200)
           .then(({ body }) => assert.deepEqual(body, quizForHarryPotter))
       });
@@ -862,7 +858,7 @@ describe('End to End tests', function () {
       it('should 200 and return generic book quiz', function () {
         return agent
           .get(`/books/${bookWithoutQuiz._id}/quiz`)
-          .set(Constants.AuthHeaderField, chaseToken)
+          .set(SC.AuthHeaderField, chaseToken)
           .expect(200)
           .then(({ body }) => {
             const genericQuizzes = _.filter(initialQuizzes, quiz => _.isUndefined(quiz.book_id));
@@ -877,7 +873,7 @@ describe('End to End tests', function () {
 
       describe('#createEducator', function () {
 
-        const validReqBody: IUserBody = {
+        const validReqBody: Models.IUserBody = {
           first_name: 'Bonnie',
           last_name: 'Stewart',
           email: 'tjones@parktudor.org',
@@ -893,7 +889,7 @@ describe('End to End tests', function () {
         it('should 403 if non-admin making request', function () {
           return agent
             .post('/educators')
-            .set(Constants.AuthHeaderField, chaseToken)
+            .set(SC.AuthHeaderField, chaseToken)
             .expect(403);
         });
 
@@ -901,7 +897,7 @@ describe('End to End tests', function () {
 
           return agent
             .post('/educators')
-            .set(Constants.AuthHeaderField, austinToken)
+            .set(SC.AuthHeaderField, austinToken)
             .send(validReqBody)
             .expect(200)
             .then(({ body }) => {
@@ -927,7 +923,7 @@ describe('End to End tests', function () {
               delete validReqBody.password;
 
               const expected = _.assign({}, validReqBody, {
-                type: UserType.EDUCATOR,
+                type: Models.UserType.EDUCATOR,
                 student_ids: []
               });
 
@@ -955,21 +951,21 @@ describe('End to End tests', function () {
         it('should 403 if non-admin making request', function () {
           return agent
             .put(`/educators/${bonnie._id}/students`)
-            .set(Constants.AuthHeaderField, chaseToken)
+            .set(SC.AuthHeaderField, chaseToken)
             .expect(403);
         });
 
         it('should 403 if educator making request on behalf another educator', function () {
           return agent
             .put(`/educators/${bonnie._id}/students`)
-            .set(Constants.AuthHeaderField, genAuthToken(UserType.EDUCATOR, shortid.generate()))
+            .set(SC.AuthHeaderField, genAuthToken(Models.UserType.EDUCATOR, shortid.generate()))
             .expect(403);
         });
 
         it('should 400 if invalid student ids in body', function () {
           return agent
             .put(`/educators/${bonnie._id}/students`)
-            .set(Constants.AuthHeaderField, bonnieToken)
+            .set(SC.AuthHeaderField, bonnieToken)
             .send({ student_ids: invalidWithBadStudent })
             .expect(400);
         });
@@ -977,7 +973,7 @@ describe('End to End tests', function () {
         it('should 400 if not all ids are for student users', function () {
           return agent
             .put(`/educators/${bonnie._id}/students`)
-            .set(Constants.AuthHeaderField, bonnieToken)
+            .set(SC.AuthHeaderField, bonnieToken)
             .send({ student_ids: invalidWithEducator })
             .expect(400);
         });
@@ -985,7 +981,7 @@ describe('End to End tests', function () {
         it('should 200 and save students on educator', function () {
           return agent
             .put(`/educators/${bonnie._id}/students`)
-            .set(Constants.AuthHeaderField, bonnieToken)
+            .set(SC.AuthHeaderField, bonnieToken)
             .send({ student_ids: validStudentIds })
             .expect(200)
             .then(() => usersCollection.findOne({ _id: bonnie._id }))
@@ -996,7 +992,7 @@ describe('End to End tests', function () {
 
       describe('#createStudent', function () {
 
-        const validReqBody: IStudentBody = {
+        const validReqBody: Models.IStudentBody = {
           first_name: 'Taylor',
           last_name: 'Jones',
           initial_lexile_measure: 400,
@@ -1013,7 +1009,7 @@ describe('End to End tests', function () {
         it('should 403 if non-admin making request', function () {
           return agent
             .post('/students')
-            .set(Constants.AuthHeaderField, chaseToken)
+            .set(SC.AuthHeaderField, chaseToken)
             .expect(403);
         });
 
@@ -1021,7 +1017,7 @@ describe('End to End tests', function () {
 
           return agent
             .post('/students')
-            .set(Constants.AuthHeaderField, austinToken)
+            .set(SC.AuthHeaderField, austinToken)
             .send(validReqBody)
             .expect(200)
             .then(({ body }) => {
@@ -1048,7 +1044,7 @@ describe('End to End tests', function () {
               delete validReqBody.password;
 
               const expected = _.assign({}, validReqBody, {
-                type: UserType.STUDENT,
+                type: Models.UserType.STUDENT,
                 genre_interests: null
               });
 
@@ -1066,7 +1062,7 @@ describe('End to End tests', function () {
 
         const genreIds = _.map(initialGenres, '_id');
 
-        let validGenreMap: GenreInterestMap = {};
+        let validGenreMap: Models.GenreInterestMap = {};
         _.each(genreIds, id => validGenreMap[id] = _.random(1, 4) as 1 | 2 | 3 | 4)
 
         it('should 401 when no auth token in header', function () {
@@ -1078,7 +1074,7 @@ describe('End to End tests', function () {
         it('should 403 if student making request on behalf another student', function () {
           return agent
             .post(`/students/${chase._id}/genre_interests`)
-            .set(Constants.AuthHeaderField, katelynnToken)
+            .set(SC.AuthHeaderField, katelynnToken)
             .expect(403)
             .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
         });
@@ -1090,7 +1086,7 @@ describe('End to End tests', function () {
 
           return agent
             .post(`/students/${chase._id}/genre_interests`)
-            .set(Constants.AuthHeaderField, chaseToken)
+            .set(SC.AuthHeaderField, chaseToken)
             .send(copy)
             .expect(400)
             .then(checkErrMsg('There is a discrepancy between existing genres and genres user provided interest levels for.'))
@@ -1104,7 +1100,7 @@ describe('End to End tests', function () {
 
           return agent
             .post(`/students/${chase._id}/genre_interests`)
-            .set(Constants.AuthHeaderField, chaseToken)
+            .set(SC.AuthHeaderField, chaseToken)
             .send(copy)
             .expect(400)
 
@@ -1119,7 +1115,7 @@ describe('End to End tests', function () {
 
           return agent
             .post(`/students/${chase._id}/genre_interests`)
-            .set(Constants.AuthHeaderField, chaseToken)
+            .set(SC.AuthHeaderField, chaseToken)
             .send(copy)
             .expect(400)
             .then(checkErrMsg(`There is a discrepancy between existing genres and genres user provided interest levels for.`))
@@ -1132,7 +1128,7 @@ describe('End to End tests', function () {
 
           return agent
             .post(`/students/${invalidId}/genre_interests`)
-            .set(Constants.AuthHeaderField, austinToken)
+            .set(SC.AuthHeaderField, austinToken)
             .send(validGenreMap)
             .expect(404)
             .then(checkErrMsg(`User ${invalidId} does not exist.`))
@@ -1143,7 +1139,7 @@ describe('End to End tests', function () {
 
           return agent
             .post(`/students/${austin._id}/genre_interests`)
-            .set(Constants.AuthHeaderField, austinToken)
+            .set(SC.AuthHeaderField, austinToken)
             .send(validGenreMap)
             .expect(403)
             .then(checkErrMsg(`Can only post genre interests for student users`))
@@ -1154,7 +1150,7 @@ describe('End to End tests', function () {
 
           return agent
             .post(`/students/${katelynn._id}/genre_interests`)
-            .set(Constants.AuthHeaderField, katelynnToken)
+            .set(SC.AuthHeaderField, katelynnToken)
             .send(validGenreMap)
             .expect(403)
             .then(checkErrMsg('User already has created genre interests'))
@@ -1165,7 +1161,7 @@ describe('End to End tests', function () {
 
           return agent
             .post(`/students/${chase._id}/genre_interests`)
-            .set(Constants.AuthHeaderField, chaseToken)
+            .set(SC.AuthHeaderField, chaseToken)
             .send(validGenreMap)
             .expect(200)
             .then(({ body }) => usersCollection.findOne({ _id: chase._id }))
@@ -1197,7 +1193,7 @@ describe('End to End tests', function () {
         it('should 403 if student making request on behalf another student', function () {
           return agent
             .put(`/students/${chase._id}/genre_interests/${genreId}`)
-            .set(Constants.AuthHeaderField, katelynnToken)
+            .set(SC.AuthHeaderField, katelynnToken)
             .expect(403)
             .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
         });
@@ -1207,7 +1203,7 @@ describe('End to End tests', function () {
           copy.interest_value = 5;
           return agent
             .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
-            .set(Constants.AuthHeaderField, katelynnToken)
+            .set(SC.AuthHeaderField, katelynnToken)
             .send(copy)
             .expect(400);
         });
@@ -1215,7 +1211,7 @@ describe('End to End tests', function () {
         it('should 403 if student has not created genre interests', function () {
           return agent
             .put(`/students/${chase._id}/genre_interests/${genreId}`)
-            .set(Constants.AuthHeaderField, chaseToken)
+            .set(SC.AuthHeaderField, chaseToken)
             .send(validBody)
             .expect(403)
             .then(checkErrMsg('User cannot edit genre interests, until they have been created.'))
@@ -1225,7 +1221,7 @@ describe('End to End tests', function () {
           const invalidGenreId = shortid.generate();
           return agent
             .put(`/students/${katelynn._id}/genre_interests/${invalidGenreId}`)
-            .set(Constants.AuthHeaderField, katelynnToken)
+            .set(SC.AuthHeaderField, katelynnToken)
             .send(validBody)
             .expect(400)
             .then(checkErrMsg(`Genre ${invalidGenreId} does not exist.`))
@@ -1234,7 +1230,7 @@ describe('End to End tests', function () {
         it('should 200 and update the genre interest', function () {
           return agent
             .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
-            .set(Constants.AuthHeaderField, katelynnToken)
+            .set(SC.AuthHeaderField, katelynnToken)
             .send(validBody)
             .expect(200)
             .then(() => usersCollection.findOne({ _id: katelynn._id }))

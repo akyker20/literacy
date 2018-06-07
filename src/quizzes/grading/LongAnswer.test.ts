@@ -1,14 +1,13 @@
-import { ILongAnswerQuestion } from "../question_schemas/long_answer";
 import { assert } from 'chai';
+import { Models as M } from 'reading_rewards';
 
-import { QuestionTypes } from "../../models/quiz";
 import { ILongAnswerAnswer } from "../answer_schemas/long_answer";
 import { LongAnswerQuestionGradingStrategy } from './LongAnswer';
 
 describe('Grading Long Answer', function () {
 
-  const question: ILongAnswerQuestion = {
-    type: QuestionTypes.LongAnswer,
+  const question: M.ILongAnswerQuestion = {
+    type: M.QuestionTypes.LongAnswer,
     points: 5,
     prompt: 'Some prompt'
   }

@@ -1,8 +1,8 @@
 import * as joi from 'joi';
-import { MaxLongAnswerReponseChars } from '../../constants';
+import { Constants } from 'reading_rewards';
 
 export const LongAnswerAnswerSchema = joi.object({
-  response: joi.string().max(MaxLongAnswerReponseChars).required()
+  response: joi.string().max(Constants.MaxLongAnswerReponseChars).required()
 }).required();
 
 export interface ILongAnswerAnswer {

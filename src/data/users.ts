@@ -1,8 +1,9 @@
 import * as monk from 'monk';
 import * as shortid from 'shortid';
 import * as _ from 'lodash';
+import { Models as M } from 'reading_rewards';
 
-import { IUser } from '../models/user';
+type IUser = M.IUser;
 
 export interface IUserData {
   createUser: (user: IUser) => Promise<IUser>;

@@ -1,8 +1,9 @@
 import * as monk from 'monk';
 import * as _ from 'lodash';
 import * as shortid from 'shortid';
+import { Models as M } from 'reading_rewards';
 
-import { IGenre } from '../models/genre';
+type IGenre = M.IGenre;
 
 export interface IGenreData {
   createGenre: (genre: IGenre) => Promise<IGenre>;

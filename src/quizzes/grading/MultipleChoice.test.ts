@@ -1,6 +1,6 @@
 import { assert } from 'chai';
+import { Models as M } from 'reading_rewards';
 
-import { QuestionTypes } from "../../models/quiz";
 import { IMultipleChoiceQuestion } from "../question_schemas/multiple_choice";
 import { IMultipleChoiceAnswer } from "../answer_schemas/multiple_choice";
 import { MultipleChoiceQuestionGradingStrategy } from './MultipleChoice';
@@ -8,7 +8,7 @@ import { MultipleChoiceQuestionGradingStrategy } from './MultipleChoice';
 describe('Grading Long Answer', function () {
 
   const question: IMultipleChoiceQuestion = {
-    type: QuestionTypes.MultipleChoice,
+    type: M.QuestionTypes.MultipleChoice,
     points: 5,
     prompt: 'Some prompt',
     options: ['option a', 'option b', 'option c', 'option d', 'option e'],

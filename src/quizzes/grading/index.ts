@@ -1,5 +1,5 @@
-import { IQuestion } from "../../models/quiz";
+import { Models as M } from 'reading_rewards';
 
 export interface IQuestionGradingStrategy {
-  grade: (question: IQuestion, answer: any) => boolean;
+  grade: (question: M.IQuestion, answer: any) => boolean;
 }

@@ -1,9 +1,9 @@
 import { assert } from 'chai';
 import * as faker from 'faker';
+import { Models as M, Mockers } from 'reading_rewards';
 
 import { QuizGrader } from '.';
-import { QuestionTypes, IQuiz, mockQuiz, IQuestion } from '../models/quiz';
-import { LongAnswerQuestionSchema, ILongAnswerQuestion } from './question_schemas/long_answer';
+import { LongAnswerQuestionSchema } from './question_schemas/long_answer';
 import { LongAnswerAnswerSchema, ILongAnswerAnswer } from './answer_schemas/long_answer';
 import { MultipleChoiceQuestionSchema, IMultipleChoiceQuestion } from './question_schemas/multiple_choice';
 import { MultipleChoiceAnswerSchema, IMultipleChoiceAnswer } from './answer_schemas/multiple_choice';
@@ -15,14 +15,14 @@ import { LongAnswerQuestionGradingStrategy } from './grading/LongAnswer';
 const quizGrader = new QuizGrader();
 
 quizGrader.register(
-  QuestionTypes.LongAnswer, 
+  M.QuestionTypes.LongAnswer, 
   new LongAnswerQuestionGradingStrategy(),
   LongAnswerQuestionSchema,
   LongAnswerAnswerSchema
 );
 
 quizGrader.register(
-  QuestionTypes.MultipleChoice,
+  M.QuestionTypes.MultipleChoice,
   new MultipleChoiceQuestionGradingStrategy(),
   MultipleChoiceQuestionSchema,
   MultipleChoiceAnswerSchema
@@ -30,39 +30,39 @@ quizGrader.register(
 
 // create some data
 
-const quiz: IQuiz = mockQuiz({
+const quiz: M.IQuiz = Mockers.mockQuiz({
   questions: [
     {
-      type: QuestionTypes.LongAnswer,
+      type: M.QuestionTypes.LongAnswer,
       points: 4,
       prompt: faker.lorem.sentence(20)
     },
     {
-      type: QuestionTypes.LongAnswer,
+      type: M.QuestionTypes.LongAnswer,
       points: 4,
       prompt: faker.lorem.sentence(20)
     },
     {
-      type: QuestionTypes.MultipleChoice,
+      type: M.QuestionTypes.MultipleChoice,
       points: 2,
       prompt: faker.lorem.sentence(20),
       options: ['option a', 'option b', 'option c', 'option d', 'option e'],
       answer_index: 1
-    } as IQuestion,
+    } as M.IQuestion,
     {
-      type: QuestionTypes.MultipleChoice,
+      type: M.QuestionTypes.MultipleChoice,
       points: 2,
       prompt: faker.lorem.sentence(20),
       options: ['option a', 'option b', 'option c', 'option d', 'option e'],
       answer_index: 2
-    } as IQuestion,
+    } as M.IQuestion,
     {
-      type: QuestionTypes.MultipleChoice,
+      type: M.QuestionTypes.MultipleChoice,
       points: 2,
       prompt: faker.lorem.sentence(20),
       options: ['option a', 'option b', 'option c', 'option d', 'option e'],
       answer_index: 2
-    } as IQuestion
+    } as M.IQuestion
   ]
 })
 
@@ -109,7 +109,7 @@ describe('QuizGrader', function() {
 
     it ('should return error for invalid MC', function() {
       const invalidMCQuestion = {
-        type: QuestionTypes.MultipleChoice,
+        type: M.QuestionTypes.MultipleChoice,
         prompt: 'Some Prompt',
         points: 4
       }
@@ -118,7 +118,7 @@ describe('QuizGrader', function() {
 
     it ('should return error for invalid MC', function() {
       const invalidLAQuestion = {
-        type: QuestionTypes.LongAnswer,
+        type: M.QuestionTypes.LongAnswer,
         prompt: 'Some Prompt',
         points: 4,
         options: ['option a', 'option b', 'option c', 'option d', 'option e'],
@@ -129,7 +129,7 @@ describe('QuizGrader', function() {
 
     it ('should return no error for valid mc question', function() {
       const validMCQuestion: IMultipleChoiceQuestion = {
-        type: QuestionTypes.MultipleChoice,
+        type: M.QuestionTypes.MultipleChoice,
         prompt: 'Some Prompt',
         points: 4,
         options: ['option a', 'option b', 'option c', 'option d', 'option e'],
@@ -139,8 +139,8 @@ describe('QuizGrader', function() {
     })
 
     it ('should return no error for valid la question', function() {
-      const validLAQuestion: ILongAnswerQuestion = {
-        type: QuestionTypes.LongAnswer,
+      const validLAQuestion: M.ILongAnswerQuestion = {
+        type: M.QuestionTypes.LongAnswer,
         prompt: 'Some Prompt',
         points: 4
       }
@@ -153,25 +153,25 @@ describe('QuizGrader', function() {
   describe('#isAnswerSchemaValid', function() {
 
     it ('should return error for invalid MC answer', function() {
-      assert.isNotEmpty(quizGrader.isAnswerSchemaValid(QuestionTypes.MultipleChoice, {
+      assert.isNotEmpty(quizGrader.isAnswerSchemaValid(M.QuestionTypes.MultipleChoice, {
         response: 'some response'
       }));
     })
 
     it ('should return error for invalid LA answer', function() {
-      assert.isNotEmpty(quizGrader.isAnswerSchemaValid(QuestionTypes.LongAnswer, {
+      assert.isNotEmpty(quizGrader.isAnswerSchemaValid(M.QuestionTypes.LongAnswer, {
         answer_index: 2
       }));
     })
 
     it ('should return no error for valid LA answer', function() {
-      assert.isNull(quizGrader.isAnswerSchemaValid(QuestionTypes.LongAnswer, {
+      assert.isNull(quizGrader.isAnswerSchemaValid(M.QuestionTypes.LongAnswer, {
         response: 'Some response'
       }));
     });
 
     it ('should return no error for valid MC answer', function() {
-      assert.isNull(quizGrader.isAnswerSchemaValid(QuestionTypes.MultipleChoice, {
+      assert.isNull(quizGrader.isAnswerSchemaValid(M.QuestionTypes.MultipleChoice, {
         answer_index: 4
       }));
     });

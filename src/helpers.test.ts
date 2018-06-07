@@ -2,17 +2,16 @@ import { assert } from 'chai';
 import * as moment from 'moment';
 import * as shortid from 'shortid';
 import * as _ from 'lodash';
+import { Mockers } from 'reading_rewards';
 
-import { mockBook } from "./models/book";
 import { DefaultGenreInterestLevel, NumReviewsToBaseCLM } from './constants';
 import { computeMatchScore, computeCurrentLexileMeasure } from "./helpers";
-import { mockBookReview } from './models/book_review';
 
 describe('#computeMatchScore', function() {
 
   const amazonPop = 4.2;
   
-  const book = mockBook({
+  const book = Mockers.mockBook({
     amazon_popularity: amazonPop,
     genres: ['some-genre1', 'some-genre2']
   });
@@ -41,7 +40,7 @@ describe('#computeMatchScore', function() {
 })
 
 
-describe.only('#computeCurrentLexileMeasure', function() {
+describe('#computeCurrentLexileMeasure', function() {
 
   it('should return initial lexile measure when no reviews exist', function() {
     const initialLexileMeasure = _.random(400, 200);
@@ -51,7 +50,7 @@ describe.only('#computeCurrentLexileMeasure', function() {
 
   it('should return initial lexile measure when too few reviews exist', function() {
     const initialLexileMeasure = _.random(400, 200);
-    const reviews = _.times(NumReviewsToBaseCLM - 1, () => mockBookReview({
+    const reviews = _.times(NumReviewsToBaseCLM - 1, () => Mockers.mockBookReview({
       book_id: shortid.generate(),
       student_id: shortid.generate(),
       comprehension: _.random(1, 5) as 1|2|3|4|5
@@ -65,19 +64,19 @@ describe.only('#computeCurrentLexileMeasure', function() {
     const initialLexileMeasure = _.random(400, 200);
 
     const reviews = [
-      mockBookReview({
+      Mockers.mockBookReview({
         book_id: shortid.generate(),
         student_id: shortid.generate(),
         book_lexile_measure: 600,
         comprehension: 4
       }),
-      mockBookReview({
+      Mockers.mockBookReview({
         book_id: shortid.generate(),
         student_id: shortid.generate(),
         book_lexile_measure: 640,
         comprehension: 5
       }),
-      mockBookReview({
+      Mockers.mockBookReview({
         book_id: shortid.generate(),
         student_id: shortid.generate(),
         book_lexile_measure: 615,
@@ -96,28 +95,28 @@ describe.only('#computeCurrentLexileMeasure', function() {
     const initialLexileMeasure = _.random(400, 200);
     
     const reviews = [
-      mockBookReview({
+      Mockers.mockBookReview({
         book_id: shortid.generate(),
         student_id: shortid.generate(),
         book_lexile_measure: 600,
         comprehension: 4,
         date_created: moment().subtract(10, 'd').toISOString()
       }),
-      mockBookReview({
+      Mockers.mockBookReview({
         book_id: shortid.generate(),
         student_id: shortid.generate(),
         book_lexile_measure: 640,
         comprehension: 5,
         date_created: moment().subtract(8, 'd').toISOString()
       }),
-      mockBookReview({
+      Mockers.mockBookReview({
         book_id: shortid.generate(),
         student_id: shortid.generate(),
         book_lexile_measure: 615,
         comprehension: 3,
         date_created: moment().subtract(6, 'd').toISOString()
       }),
-      mockBookReview({
+      Mockers.mockBookReview({
         book_id: shortid.generate(),
         student_id: shortid.generate(),
         book_lexile_measure: 620,

@@ -1,11 +1,7 @@
 import * as joi from 'joi';
 import { QuestionSchema } from '.';
-import { QuestionTypes, IQuestion } from '../../models/quiz';
+import { Models as M } from 'reading_rewards';
 
 export const LongAnswerQuestionSchema = QuestionSchema.keys({
-  type: joi.string().valid([QuestionTypes.LongAnswer]).required(),
+  type: joi.string().valid([M.QuestionTypes.LongAnswer]).required(),
 }).required()
-
-export interface ILongAnswerQuestion extends IQuestion {
-  type: QuestionTypes.LongAnswer;
-}

@@ -1,12 +1,9 @@
 import * as _ from 'lodash';
 import { BadRequestError } from 'restify-errors';
 import { Next, Request, RequestHandler, Response } from 'restify';
+import { Models } from 'reading_rewards';
 
-import { ILexileRange } from './models';
 import { IRequest } from './Extensions';
-import { IBookReview } from './models/book_review';
-import { GenreInterestMap } from './models/user';
-import { IBook } from './models/book';
 import { DefaultGenreInterestLevel, NumReviewsToBaseCLM } from './constants';
 
 export type PromiseHandler = (req: Request) => Promise<any>;
@@ -35,7 +32,7 @@ export function genFieldErr(fieldName: string): Error {
   return new BadRequestError(`Invalid/missing field ${fieldName}`);
 }
 
-export function getLexileRange(measure: number): ILexileRange {
+export function getLexileRange(measure: number): Models.ILexileRange {
   return {
     min: measure - 100,
     max: measure + 50
@@ -44,7 +41,7 @@ export function getLexileRange(measure: number): ILexileRange {
 
 export function computeCurrentLexileMeasure(
   initialLexileMeasure: number,
-  bookReviews: IBookReview[]
+  bookReviews: Models.IBookReview[]
 ): number {
 
   // if user has less than 3 submitted quizzes with comprehension scores
@@ -66,8 +63,8 @@ export function computeCurrentLexileMeasure(
 }
 
 export function computeMatchScore(
-  genreInterests: GenreInterestMap,
-  book: IBook
+  genreInterests: Models.GenreInterestMap,
+  book: Models.IBook
 ): number {
   
   // Map the book's genres to the user's interests in these genres.

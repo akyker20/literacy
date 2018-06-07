@@ -5,6 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
 import { Next, Response } from 'restify';
+import { Models as M } from 'reading_rewards';
 import { 
   BadRequestError,
   ResourceNotFoundError, 
@@ -20,7 +21,6 @@ import { IBookData } from '../data/books';
 import { IGenreData } from '../data/genres';
 import { shortidSchema } from '../extensions';
 import { IBookReviewData } from '../data/book_reviews';
-import { IStudent, IUser, UserType, IStudentBody, IEducator, IUserBody } from '../models/user';
 
 interface IUserLoginCredentials {
   email: string;
@@ -70,8 +70,8 @@ export function UserRoutes(
     return !_.isNull(existingUserWithEmail);
   }
 
-  async function getStudentDTO(user: IUser) {
-    const student = user as IStudent;
+  async function getStudentDTO(user: M.IUser) {
+    const student = user as M.IStudent;
 
     const studentBookReviews = await bookReviewData.getBookReviewsForStudent(student._id);
     const studentQuizSubmissions = await quizData.getSubmissionsForStudent(student._id);
@@ -109,7 +109,7 @@ export function UserRoutes(
           throw new UnauthorizedError('Valid token, but user no longer exists.');
         }
 
-        if (user.type === UserType.STUDENT) {
+        if (user.type === M.UserType.STUDENT) {
           return getStudentDTO(user);
         }
 
@@ -121,7 +121,7 @@ export function UserRoutes(
 
     createGenreInterests: [
       Middle.authenticate,
-      Middle.authorizeAgents([UserType.ADMIN]),
+      Middle.authorizeAgents([M.UserType.ADMIN]),
       Middle.valBody(createGenreInterestSchema),
       unwrapData(async (req: IRequest<{ [genreId: string]: number }>) => {
 
@@ -131,11 +131,11 @@ export function UserRoutes(
           throw new ResourceNotFoundError(`User ${req.params.userId} does not exist.`)
         }
 
-        if (user.type !== UserType.STUDENT) {
+        if (user.type !== M.UserType.STUDENT) {
           throw new ForbiddenError('Can only post genre interests for student users');
         }
 
-        if (!_.isEmpty((user as IStudent).genre_interests)) {
+        if (!_.isEmpty((user as M.IStudent).genre_interests)) {
           throw new ForbiddenError('User already has created genre interests');
         }
 
@@ -162,12 +162,12 @@ export function UserRoutes(
 
     editGenreInterest: [
       Middle.authenticate,
-      Middle.authorizeAgents([UserType.ADMIN]),
+      Middle.authorizeAgents([M.UserType.ADMIN]),
       Middle.valBody(editGenreInterestSchema),
       unwrapData(async (req: IRequest<IUpdateGenreInterestBody>) => {
 
         const { userId, genreId } = req.params;
-        const user = await userData.getUserById(userId) as IStudent;
+        const user = await userData.getUserById(userId) as M.IStudent;
 
         if (_.isNull(user)) {
           throw new ResourceNotFoundError(`No user with id ${userId}`);
@@ -197,9 +197,9 @@ export function UserRoutes(
 
     createStudent: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
+      Middle.authorize([M.UserType.ADMIN]),
       Middle.valBody(studentSchema),
-      unwrapData(async (req: IRequest<IStudentBody>) => {
+      unwrapData(async (req: IRequest<M.IStudentBody>) => {
 
         if (await userExistsWithEmail(req.body.email)) {
           throw new BadRequestError(`User with email ${req.body.email} already exists.`);
@@ -208,10 +208,10 @@ export function UserRoutes(
         const hashedPassword = await bcrypt.hash(req.body.password, Constants.HashedPassSaltLen);
         delete req.body.password;
 
-        const newStudent: IStudent = _.assign({}, req.body, {
+        const newStudent: M.IStudent = _.assign({}, req.body, {
           hashed_password: hashedPassword,
           date_created: new Date().toISOString(),
-          type: UserType.STUDENT,
+          type: M.UserType.STUDENT,
           genre_interests: null
         });
 
@@ -228,9 +228,9 @@ export function UserRoutes(
 
     createEducator: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
+      Middle.authorize([M.UserType.ADMIN]),
       Middle.valBody(userSchema),
-      unwrapData(async (req: IRequest<IUserBody>) => {
+      unwrapData(async (req: IRequest<M.IUserBody>) => {
 
         if (await userExistsWithEmail(req.body.email)) {
           throw new BadRequestError(`User with email ${req.body.email} already exists.`);
@@ -239,10 +239,10 @@ export function UserRoutes(
         const hashedPassword = await bcrypt.hash(req.body.password, Constants.HashedPassSaltLen);
         delete req.body.password;
 
-        const educator: IEducator = _.assign({}, req.body, {
+        const educator: M.IEducator = _.assign({}, req.body, {
           hashed_password: hashedPassword,
           date_created: new Date().toISOString(),
-          type: UserType.EDUCATOR,
+          type: M.UserType.EDUCATOR,
           student_ids: []
         });
 
@@ -254,8 +254,8 @@ export function UserRoutes(
 
     updateStudentsForEducator: [
       Middle.authenticate,
-      Middle.authorize([UserType.EDUCATOR, UserType.ADMIN]),
-      Middle.authorizeAgents([UserType.ADMIN]),
+      Middle.authorize([M.UserType.EDUCATOR, M.UserType.ADMIN]),
+      Middle.authorizeAgents([M.UserType.ADMIN]),
       Middle.valBody(updateStudentsForTeacherSchema),
       unwrapData(async (req: IRequest<{ student_ids: string[] }>) => {
 
@@ -264,13 +264,13 @@ export function UserRoutes(
 
         // grab educator and verify.
 
-        const educator = await userData.getUserById(educatorId) as IEducator;
+        const educator = await userData.getUserById(educatorId) as M.IEducator;
 
         if (_.isNull(educator)) {
           throw new ResourceNotFoundError(`Educator ${educatorId} does not exist.`)
         }
 
-        if (educator.type !== UserType.EDUCATOR) {
+        if (educator.type !== M.UserType.EDUCATOR) {
           throw new ForbiddenError(`User ${educatorId} is not an educator`)
         }
 
@@ -289,7 +289,7 @@ export function UserRoutes(
         // check all the corresponding users are actually students.
 
         const nonStudentIds = _.chain(dbUsers)
-          .filter(u => u.type !== UserType.STUDENT)
+          .filter(u => u.type !== M.UserType.STUDENT)
           .map('_id')
           .value();
 
@@ -300,7 +300,7 @@ export function UserRoutes(
 
         // build updated educator object
 
-        const updatedEducator: IEducator = _.assign({}, educator, {
+        const updatedEducator: M.IEducator = _.assign({}, educator, {
           student_ids
         });
 
@@ -312,7 +312,7 @@ export function UserRoutes(
 
     getAllUsers: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
+      Middle.authorize([M.UserType.ADMIN]),
       (req: IRequest<null>, res: Response, next: Next) => {
         req.promise = userData.getAllUsers();
         next();

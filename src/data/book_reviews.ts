@@ -1,13 +1,12 @@
 import * as monk from 'monk';
 import * as _ from 'lodash';
 import * as shortid from 'shortid';
-
-import { IBookReview } from '../models/book_review';
+import { Models as M } from 'reading_rewards';
 
 export interface IBookReviewData {
-  createBookReview: (review: IBookReview) => Promise<IBookReview>;
-  getBookReviewsForStudent: (studentId: string) => Promise<IBookReview[]>;
-  getBookReview: (studentId: string, bookId: string) => Promise<IBookReview>;
+  createBookReview: (review: M.IBookReview) => Promise<M.IBookReview>;
+  getBookReviewsForStudent: (studentId: string) => Promise<M.IBookReview[]>;
+  getBookReview: (studentId: string, bookId: string) => Promise<M.IBookReview>;
 }
 
 export class MongoBookReviewData implements IBookReviewData {
@@ -19,17 +18,17 @@ export class MongoBookReviewData implements IBookReviewData {
     this.bookReviews = db.get('book_reviews', { castIds: false });
   }
 
-  createBookReview(review: IBookReview): Promise<IBookReview> {
+  createBookReview(review: M.IBookReview): Promise<M.IBookReview> {
     const copy = _.cloneDeep(review);
     copy._id = shortid.generate();
     return this.bookReviews.insert(copy);
   }
 
-  getBookReviewsForStudent(studentId: string): Promise<IBookReview[]> {
+  getBookReviewsForStudent(studentId: string): Promise<M.IBookReview[]> {
     return this.bookReviews.find({ student_id: studentId });
   }
 
-  getBookReview(studentId: string, bookId: string): Promise<IBookReview> {
+  getBookReview(studentId: string, bookId: string): Promise<M.IBookReview> {
     return this.bookReviews.findOne({ 
       student_id: studentId,
       book_id: bookId

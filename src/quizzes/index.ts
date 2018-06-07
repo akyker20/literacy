@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { assert } from 'chai';
 import * as joi from 'joi';
+import { Models as M } from 'reading_rewards';
 
 import { LongAnswerQuestionSchema } from './question_schemas/long_answer';
 import { LongAnswerAnswerSchema } from './answer_schemas/long_answer';
@@ -8,10 +9,9 @@ import { MultipleChoiceQuestionSchema } from './question_schemas/multiple_choice
 import { MultipleChoiceAnswerSchema } from './answer_schemas/multiple_choice';
 import { IQuestionGradingStrategy } from './grading';
 import { LongAnswerQuestionGradingStrategy } from './grading/LongAnswer';
-import { QuestionTypes, IQuestion, IQuiz } from '../models/quiz';
 import { MultipleChoiceQuestionGradingStrategy } from './grading/MultipleChoice';
 
-type QuestionStrategyMap = Map<QuestionTypes, {
+type QuestionStrategyMap = Map<M.QuestionTypes, {
   gradingStrategy: IQuestionGradingStrategy,
   questionSchema: joi.JoiObject,
   answerSchema: joi.JoiObject
@@ -22,7 +22,7 @@ export class QuizGrader {
   private strategyMap: QuestionStrategyMap = new Map();
 
   register(
-    type: QuestionTypes,
+    type: M.QuestionTypes,
     gradingStrategy: IQuestionGradingStrategy,
     questionSchema: joi.JoiObject,
     answerSchema: joi.JoiObject
@@ -38,7 +38,7 @@ export class QuizGrader {
    * Returns an error message, null if no error exists.
    * @param question 
    */
-  isQuestionSchemaValid(question: IQuestion): string {
+  isQuestionSchemaValid(question: M.IQuestion): string {
     assert.isTrue(this.strategyMap.has(question.type), `Question type ${question.type} not accounted for.`)
     const schema = this.strategyMap.get(question.type).questionSchema;
     const { error } = joi.validate(question, schema);
@@ -48,7 +48,7 @@ export class QuizGrader {
     return error.message;
   }
 
-  isAnswerSchemaValid(questionType: QuestionTypes, answer: any): string {
+  isAnswerSchemaValid(questionType: M.QuestionTypes, answer: any): string {
     const schema = this.strategyMap.get(questionType).answerSchema;
     const { error } = joi.validate(answer, schema);
     if (_.isEmpty(error)) {
@@ -61,7 +61,7 @@ export class QuizGrader {
    * Assumptions: the number of quiz questions and answers are the same.
    */
 
-  gradeQuiz(quiz: IQuiz, answers: any[]): number {
+  gradeQuiz(quiz: M.IQuiz, answers: any[]): number {
 
     assert.isTrue(quiz.questions.length === answers.length, 'Must be the same amount of answers as questions');
     const maxPossiblePoints = _.chain(quiz.questions).map('points').sum().value();
@@ -85,14 +85,14 @@ export class QuizGrader {
 export const QuizGraderInstance = new QuizGrader();
 
 QuizGraderInstance.register(
-  QuestionTypes.LongAnswer, 
+  M.QuestionTypes.LongAnswer, 
   new LongAnswerQuestionGradingStrategy(),
   LongAnswerQuestionSchema,
   LongAnswerAnswerSchema
 );
 
 QuizGraderInstance.register(
-  QuestionTypes.MultipleChoice,
+  M.QuestionTypes.MultipleChoice,
   new MultipleChoiceQuestionGradingStrategy(),
   MultipleChoiceQuestionSchema,
   MultipleChoiceAnswerSchema

@@ -1,8 +1,8 @@
 import * as joi from 'joi';
-import { NumMultipleChoiceOptions } from '../../constants';
+import { Constants } from 'reading_rewards';
 
 export const MultipleChoiceAnswerSchema = joi.object({
-  answer_index: joi.number().integer().min(0).max(NumMultipleChoiceOptions - 1).required()
+  answer_index: joi.number().integer().min(0).max(Constants.NumMultipleChoiceOptions - 1).required()
 }).required()
 
 export interface IMultipleChoiceAnswer {

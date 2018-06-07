@@ -2,9 +2,7 @@ import * as monk from 'monk';
 import * as shortid from 'shortid';
 import * as _ from 'lodash';
 import * as fuse from 'fuse.js';
-
-import { ILexileRange } from '../models';
-import { IBook } from '../models/book';
+import { Models as M } from 'reading_rewards';
 
 const searchBooksOptions: fuse.FuseOptions = {
   shouldSort: true,
@@ -19,19 +17,19 @@ const searchBooksOptions: fuse.FuseOptions = {
 };
 
 export interface IBookData {
-  createBook: (book: IBook) => Promise<IBook>;
-  getMatchingBooks: (query: IBookQuery) => Promise<IBook[]>;
-  getAllBooks: () => Promise<IBook[]>;
-  getBook: (bookId: string) => Promise<IBook>;
-  getBooksWithIds: (ids: string[]) => Promise<IBook[]>;
-  updateBook: (book: IBook) => Promise<IBook>;
-  deleteBook: (bookId: string) => Promise<IBook>;
-  searchBooks: (query: string) => Promise<IBook[]>
+  createBook: (book: M.IBook) => Promise<M.IBook>;
+  getMatchingBooks: (query: IBookQuery) => Promise<M.IBook[]>;
+  getAllBooks: () => Promise<M.IBook[]>;
+  getBook: (bookId: string) => Promise<M.IBook>;
+  getBooksWithIds: (ids: string[]) => Promise<M.IBook[]>;
+  updateBook: (book: M.IBook) => Promise<M.IBook>;
+  deleteBook: (bookId: string) => Promise<M.IBook>;
+  searchBooks: (query: string) => Promise<M.IBook[]>
 }
 
 export interface IBookQuery {
   genres?: string[];
-  lexile_range?: ILexileRange;
+  lexile_range?: M.ILexileRange;
 }
 
 export class MongoBookData implements IBookData {
@@ -43,27 +41,27 @@ export class MongoBookData implements IBookData {
     this.books = db.get('books', { castIds: false });
   }
 
-  createBook(book: IBook): Promise<IBook> {
+  createBook(book: M.IBook): Promise<M.IBook> {
     const copy = _.cloneDeep(book);
     copy._id = shortid.generate();
     return this.books.insert(copy);
   }
 
-  async searchBooks(query: string): Promise<IBook[]> {
+  async searchBooks(query: string): Promise<M.IBook[]> {
     const allBooks = await this.getAllBooks();
     const fuseUnit = new fuse(allBooks, searchBooksOptions);
     return _.slice(fuseUnit.search(query), 0, 30);
   }
 
-  getAllBooks(): Promise<IBook[]> {
+  getAllBooks(): Promise<M.IBook[]> {
     return this.books.find({});
   }
 
-  getBooksWithIds(ids: string[]): Promise<IBook[]> {
+  getBooksWithIds(ids: string[]): Promise<M.IBook[]> {
     return this.books.find({ _id: { $in: ids }});
   }
 
-  getMatchingBooks(query: IBookQuery): Promise<IBook[]> {
+  getMatchingBooks(query: IBookQuery): Promise<M.IBook[]> {
     const queryObj: any = {};
     if (!_.isEmpty(query.lexile_range)) {
       const { min, max } = query.lexile_range;
@@ -75,15 +73,15 @@ export class MongoBookData implements IBookData {
     return this.books.find(queryObj)
   }
 
-  getBook(bookId: string): Promise<IBook> {
+  getBook(bookId: string): Promise<M.IBook> {
     return this.books.findOne({ _id: bookId })
   }
 
-  updateBook(book: IBook): Promise<IBook> {
+  updateBook(book: M.IBook): Promise<M.IBook> {
     return this.books.findOneAndUpdate({ _id: book._id }, book);
   }
 
-  deleteBook(bookId: string): Promise<IBook> {
+  deleteBook(bookId: string): Promise<M.IBook> {
     return this.books.findOneAndDelete({ _id: bookId });
   }
 

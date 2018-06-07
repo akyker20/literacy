@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import { Next, Response } from 'restify';
 import { ForbiddenError, ResourceNotFoundError, BadRequestError } from 'restify-errors';
+import { Models as M, Constants as SC } from 'reading_rewards';
 
 import { IRequest, shortidSchema } from '../Extensions';
 import * as Middle from '../middleware';
@@ -11,14 +12,10 @@ import { IUserData } from '../data/users';
 import { IQuizData } from '../data/quizzes';
 import { IBookData } from '../data/books';
 import { QuizGraderInstance } from '../quizzes';
-import { PassingQuizGrade, MaxNumQuizAttempts, MinHoursBetweenBookQuizAttempt, MinQuestionsInQuiz, MaxQuestionsInQuiz } from '../constants';
 import { QuestionSchema } from '../quizzes/question_schemas';
-import { IQuizBody, IQuiz } from '../models/quiz';
-import { UserType } from '../models/user';
-import { IQuizSubmissionBody, IQuizSubmission } from '../models/quiz_submission';
 
 export const inputQuizSchema = joi.object({
-  questions: joi.array().items(QuestionSchema.unknown(true)).min(MinQuestionsInQuiz).max(MaxQuestionsInQuiz).required(),
+  questions: joi.array().items(QuestionSchema.unknown(true)).min(SC.MinQuestionsInQuiz).max(SC.MaxQuestionsInQuiz).required(),
   book_id: shortidSchema.optional().error(genFieldErr('book'))
 }).required()
 
@@ -48,7 +45,7 @@ export function QuizRoutes(
   bookData: IBookData
 ) {
 
-  async function isBookValid(quiz: IQuizBody): Promise<boolean> {
+  async function isBookValid(quiz: M.IQuizBody): Promise<boolean> {
     if (quiz.book_id) {
       const book = await bookData.getBook(quiz.book_id);
       return !_.isNull(book);
@@ -62,9 +59,9 @@ export function QuizRoutes(
 
     createQuiz: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
-      Middle.valBody<IQuizBody>(inputQuizSchema),
-      unwrapData(async (req: IRequest<IQuizBody>) => {
+      Middle.authorize([M.UserType.ADMIN]),
+      Middle.valBody<M.IQuizBody>(inputQuizSchema),
+      unwrapData(async (req: IRequest<M.IQuizBody>) => {
 
         const candidateQuiz = req.body;
 
@@ -84,7 +81,7 @@ export function QuizRoutes(
           }
         }
 
-        const newQuiz: IQuiz = _.assign({}, candidateQuiz, {
+        const newQuiz: M.IQuiz = _.assign({}, candidateQuiz, {
           date_created: new Date().toISOString()
         }) 
 
@@ -95,10 +92,10 @@ export function QuizRoutes(
     ],
     updateQuiz: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
+      Middle.authorize([M.UserType.ADMIN]),
       Middle.valBody(createdQuizSchema),
       Middle.valIdsSame('quizId'),
-      unwrapData(async (req: IRequest<IQuiz>) => {
+      unwrapData(async (req: IRequest<M.IQuiz>) => {
 
         if (!(await isBookValid(req.body))) {
           throw new BadRequestError(`No book with id ${req.body.book_id} exists`);
@@ -117,8 +114,8 @@ export function QuizRoutes(
     ],
     deleteQuiz: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
-      unwrapData(async (req: IRequest<IQuiz>) => {
+      Middle.authorize([M.UserType.ADMIN]),
+      unwrapData(async (req: IRequest<M.IQuiz>) => {
 
         const deletedQuiz = await quizData.deleteQuiz(req.params.quizId);
 
@@ -134,7 +131,7 @@ export function QuizRoutes(
 
     getAllQuizzes: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
+      Middle.authorize([M.UserType.ADMIN]),
       (req: IRequest<null>, res: Response, next: Next) => {
         req.promise = quizData.getAllQuizzes();
         next();
@@ -146,14 +143,14 @@ export function QuizRoutes(
 
     submitQuiz: [
       Middle.authenticate,
-      Middle.valBody<IQuizSubmissionBody>(quizSubmissionSchema),
-      (req: IRequest<IQuizSubmissionBody>, res: Response, next: Next) => {
-        if ((req.authToken.type === UserType.STUDENT) && (req.authToken._id !== req.body.student_id)) {
+      Middle.valBody<M.IQuizSubmissionBody>(quizSubmissionSchema),
+      (req: IRequest<M.IQuizSubmissionBody>, res: Response, next: Next) => {
+        if ((req.authToken.type === M.UserType.STUDENT) && (req.authToken._id !== req.body.student_id)) {
           return next(new ForbiddenError(`Students cannot submit quizzes for other students`))
         }
         next();
       },
-      unwrapData(async (req: IRequest<IQuizSubmissionBody>) => {
+      unwrapData(async (req: IRequest<M.IQuizSubmissionBody>) => {
 
         // verify user exists
 
@@ -161,7 +158,7 @@ export function QuizRoutes(
 
         if (_.isNull(user)) {
           throw new BadRequestError(`User ${req.body.student_id} does not exist.`)
-        } else if (user.type !== UserType.STUDENT) {
+        } else if (user.type !== M.UserType.STUDENT) {
           throw new BadRequestError(`User ${req.body.student_id} is not a student.`)
         }
 
@@ -173,7 +170,7 @@ export function QuizRoutes(
 
           const mostRecentSubmission = _.orderBy(submissions, 'date_created', 'desc')[0];
 
-          const mustWaitTill = moment(mostRecentSubmission.date_created).add(MinHoursBetweenBookQuizAttempt, 'h');
+          const mustWaitTill = moment(mostRecentSubmission.date_created).add(SC.MinHoursBetweenBookQuizAttempt, 'h');
 
           if (moment().isBefore(mustWaitTill)) {
             throw new ForbiddenError(`User must wait till ${mustWaitTill.toISOString()} to attempt another quiz.`);
@@ -195,7 +192,7 @@ export function QuizRoutes(
             throw new ForbiddenError(`User has already passed quiz for book ${req.body.book_id}`);
           }
 
-          if (prevSubmissionsForBook.length >= MaxNumQuizAttempts) {
+          if (prevSubmissionsForBook.length >= SC.MaxNumQuizAttempts) {
             throw new ForbiddenError(`User has exhausted all attempts to pass quiz for book ${req.body.book_id}`);
           }
 
@@ -241,10 +238,10 @@ export function QuizRoutes(
 
         const quizScore = QuizGraderInstance.gradeQuiz(quiz, req.body.answers);
 
-        const quizSubmission: IQuizSubmission = _.assign({}, req.body, {
+        const quizSubmission: M.IQuizSubmission = _.assign({}, req.body, {
           date_created: new Date().toISOString(),
           score: quizScore,
-          passed: quizScore >= PassingQuizGrade
+          passed: quizScore >= SC.PassingQuizGrade
         })
 
         return quizData.submitQuiz(quizSubmission);
@@ -255,7 +252,7 @@ export function QuizRoutes(
 
     getQuizForBook: [
       Middle.authenticate,
-      unwrapData(async (req: IRequest<IQuiz>) => {
+      unwrapData(async (req: IRequest<M.IQuiz>) => {
 
         const { bookId } = req.params;
 
@@ -290,11 +287,11 @@ export function QuizRoutes(
           throw new ResourceNotFoundError(`Quiz submission with id ${submissionId} does not exist.`)
         }
 
-        if ((req.authToken.type === UserType.STUDENT) && (req.authToken._id !== submission.student_id)) {
+        if ((req.authToken.type === M.UserType.STUDENT) && (req.authToken._id !== submission.student_id)) {
           throw new BadRequestError(`Students cannot update comprehension for submissions by other students`)
         }
 
-        const updatedSubmission: IQuizSubmission = _.assign({}, submission, {
+        const updatedSubmission: M.IQuizSubmission = _.assign({}, submission, {
           comprehension
         })
 

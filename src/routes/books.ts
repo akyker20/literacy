@@ -1,19 +1,17 @@
 import { Response, Next } from 'restify';
+import { Models as M } from 'reading_rewards';
+import * as joi from 'joi';
+import * as _ from 'lodash';
+
 import { IBookData } from '../data/books';
 import { IRequest, lexileMeasureSchema, shortidSchema } from '../Extensions';
 import * as Middle from '../middleware';
-import * as joi from 'joi';
 import { genFieldErr, getLexileRange, computeMatchScore, computeCurrentLexileMeasure, unwrapData } from '../helpers';
-import _ = require('lodash');
 import { ResourceNotFoundError, BadRequestError, ForbiddenError } from 'restify-errors';
 import { IUserData } from '../data/users';
+import { IBookReviewData } from '../data/book_reviews';
 import { IGenreData } from '../data/genres';
 import { IQuizData } from '../data/quizzes';
-import { IBookReviewData } from '../data/book_reviews';
-import { IBookReviewBody, IBookReview } from '../models/book_review';
-import { UserType, IStudent } from '../models/user';
-import { IBook } from '../models/book';
-import { IGenre } from '../models/genre';
 
 const inputBookReview = joi.object({
   comprehension: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required().error(genFieldErr('comprehension')),
@@ -55,7 +53,7 @@ export function BookRoutes(
   quizData: IQuizData
 ) {
 
-  async function checkBookForInvalidGenres(candidate: IBook): Promise<string[]> {
+  async function checkBookForInvalidGenres(candidate: M.IBook): Promise<string[]> {
     
     const existingGenres = await genreData.getGenres();
     const existingGenreIds = _.map(existingGenres, '_id');
@@ -72,16 +70,16 @@ export function BookRoutes(
 
     createBookReview: [
       Middle.authenticate,
-      Middle.authorize([UserType.STUDENT, UserType.ADMIN]),
-      (req: IRequest<IBookReviewBody>, res: Response, next: Next) => {
+      Middle.authorize([M.UserType.STUDENT, M.UserType.ADMIN]),
+      (req: IRequest<M.IBookReviewBody>, res: Response, next: Next) => {
         const { type, _id: userId } = req.authToken;
-        if ((type !== UserType.ADMIN) && (userId !== req.body.student_id)) {
+        if ((type !== M.UserType.ADMIN) && (userId !== req.body.student_id)) {
           return next(new ForbiddenError(`User ${userId} cannot write book review for user ${req.body.student_id}`));
         }
         next();
       },
-      Middle.valBody<IBookReviewBody>(inputBookReview),
-      unwrapData(async (req: IRequest<IBookReviewBody>) => {
+      Middle.valBody<M.IBookReviewBody>(inputBookReview),
+      unwrapData(async (req: IRequest<M.IBookReviewBody>) => {
 
         const { student_id, book_id } = req.body;
 
@@ -112,7 +110,7 @@ export function BookRoutes(
 
         // build book review and save it to database.
 
-        const bookReview: IBookReview = _.assign({}, req.body, {
+        const bookReview: M.IBookReview = _.assign({}, req.body, {
           date_created: new Date().toISOString(),
           book_lexile_measure: book.lexile_measure
         })
@@ -129,9 +127,9 @@ export function BookRoutes(
 
     createGenre: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
-      Middle.valBody<IGenre>(inputGenreSchema),
-      (req: IRequest<IGenre>, res: Response, next: Next) => {
+      Middle.authorize([M.UserType.ADMIN]),
+      Middle.valBody<M.IGenre>(inputGenreSchema),
+      (req: IRequest<M.IGenre>, res: Response, next: Next) => {
         req.promise = genreData.createGenre(req.body);
         next();
       },
@@ -147,8 +145,8 @@ export function BookRoutes(
     ],
     updateGenre: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
-      Middle.valBody<IGenre>(createdGenreSchema),
+      Middle.authorize([M.UserType.ADMIN]),
+      Middle.valBody<M.IGenre>(createdGenreSchema),
       Middle.valIdsSame('genreId'),
       unwrapData(async (req: IRequest<null>) => {
         
@@ -165,7 +163,7 @@ export function BookRoutes(
     ],
     deleteGenre: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
+      Middle.authorize([M.UserType.ADMIN]),
       unwrapData(async (req: IRequest<null>) => {
 
         const deletedGenre = await genreData.deleteGenre(req.params.genreId);
@@ -186,9 +184,9 @@ export function BookRoutes(
 
     createBook: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
-      Middle.valBody<IBook>(inputBookSchema),
-      unwrapData(async (req: IRequest<IBook>) => {
+      Middle.authorize([M.UserType.ADMIN]),
+      Middle.valBody<M.IBook>(inputBookSchema),
+      unwrapData(async (req: IRequest<M.IBook>) => {
 
         const bookCandidate = req.body;
 
@@ -205,7 +203,7 @@ export function BookRoutes(
     ],
     getBook: [
       Middle.authenticate,
-      unwrapData(async (req: IRequest<IBook>) => {
+      unwrapData(async (req: IRequest<M.IBook>) => {
         const book = await bookData.getBook(req.params.bookId);
         if (_.isNull(book)) {
           throw new ResourceNotFoundError(`Book ${req.params.bookId} does not exist.`);
@@ -216,7 +214,7 @@ export function BookRoutes(
     ],
     getBooks: [
       Middle.authenticate,
-      unwrapData(async (req: IRequest<IBook>) => {
+      unwrapData(async (req: IRequest<M.IBook>) => {
 
         const searchQuery = req.query.q;
 
@@ -231,12 +229,12 @@ export function BookRoutes(
     ],
     getBooksForStudent: [
       Middle.authenticate,
-      Middle.authorizeAgents([UserType.ADMIN]),
-      unwrapData(async (req: IRequest<IBook>) => {
+      Middle.authorizeAgents([M.UserType.ADMIN]),
+      unwrapData(async (req: IRequest<M.IBook>) => {
 
         const { userId } = req.params;
         
-        const user = await userData.getUserById(userId) as IStudent;
+        const user = await userData.getUserById(userId) as M.IStudent;
 
         if (user === null) {
           throw new ResourceNotFoundError(`User with id ${req.params.userId} does not exist.`);
@@ -268,10 +266,10 @@ export function BookRoutes(
     ],
     updateBook: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
-      Middle.valBody<IBook>(createdBookSchema),
+      Middle.authorize([M.UserType.ADMIN]),
+      Middle.valBody<M.IBook>(createdBookSchema),
       Middle.valIdsSame('bookId'),
-      unwrapData(async (req: IRequest<IBook>) => {
+      unwrapData(async (req: IRequest<M.IBook>) => {
 
         const bookUpdate = req.body;
 
@@ -294,8 +292,8 @@ export function BookRoutes(
     ],
     deleteBook: [
       Middle.authenticate,
-      Middle.authorize([UserType.ADMIN]),
-      unwrapData(async (req: IRequest<IBook>) => {
+      Middle.authorize([M.UserType.ADMIN]),
+      unwrapData(async (req: IRequest<M.IBook>) => {
         
         const deletedBook = await bookData.deleteBook(req.params.bookId);
         
