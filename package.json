@@ -31,7 +31,7 @@
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
     "monk": "^6.0.6",
-    "reading_rewards": "0.0.13",
+    "reading_rewards": "0.0.19",
     "restify": "^7.1.1",
     "restify-errors": "^6.0.0",
     "shortid": "^2.2.8",

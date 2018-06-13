@@ -28,7 +28,8 @@
     "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
     "genre_interests": null,
     "initial_lexile_measure": 800,
-    "bookmarked_books": []
+    "bookmarked_books": [],
+    "parent_emails": []
   },
   {
     "_id": "katelynn-kyker",
@@ -52,6 +53,7 @@
         "bookId": "harry-potter-id",
         "date": "2018-05-16T18:55:56.479Z"
       }
-    ]
+    ],
+    "parent_emails": ["mkyker@gmail.com"]
   }
 ]

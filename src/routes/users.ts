@@ -5,7 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
 import { Next, Response } from 'restify';
-import { Models as M } from 'reading_rewards';
+import { Models as M, Constants as C } from 'reading_rewards';
 import { 
   BadRequestError,
   ResourceNotFoundError, 
@@ -41,21 +41,28 @@ export const editGenreInterestSchema = joi.object({
 
 export const createGenreInterestSchema = joi.object().pattern(/.*/, joi.number().integer().valid([1, 2, 3, 4])).required().error(genFieldErr('create genre body'))
 
+const parentEmailsSchema = joi.array().items(joi.string().email()).max(C.MaxParentEmailsPerStudent).unique().required().error(genFieldErr('parent_emails'));
+
 export const userSchema = joi.object({
   first_name: joi.string().required().error(genFieldErr('first_name')),
   last_name: joi.string().required().error(genFieldErr('last_name')),
-  email: joi.string().required().error(genFieldErr('email')),
+  email: joi.string().email().required().error(genFieldErr('email')),
   password: joi.string().required().error(genFieldErr('password')),
 }).required();
 
 export const studentSchema = userSchema.keys({
+  parent_emails: parentEmailsSchema,
   initial_lexile_measure: lexileMeasureSchema.error(genFieldErr('initial_lexile_measure')),
 }).required();
 
 export const userAuthSchema = joi.object({
-  email: joi.string().required().error(genFieldErr('email')),
+  email: joi.string().email().required().error(genFieldErr('email')),
   password: joi.string().required().error(genFieldErr('password')),
 }).required();
+
+export const updateParentEmailsSchema = joi.object({
+  parent_emails: parentEmailsSchema
+})
 
 interface IUpdateGenreInterestBody {
   interest_value: number;
@@ -74,11 +81,25 @@ export function UserRoutes(
     return !_.isNull(existingUserWithEmail);
   }
 
-  async function getStudentDTO(user: M.IUser) {
+  async function getStudentDTO(user: M.IUser): Promise<M.IStudentDTO> {
     const student = user as M.IStudent;
 
+    // get book reviews by student
+
     const studentBookReviews = await bookReviewData.getBookReviewsForStudent(student._id);
+
+    // current lexile measure
+
+    const currentLexileMeasure = computeCurrentLexileMeasure(
+      student.initial_lexile_measure,
+      studentBookReviews
+    )
+
+    // get quiz submissions by student
+
     const studentQuizSubmissions = await quizData.getSubmissionsForStudent(student._id);
+
+    // get books read
 
     const idsOfBooksRead = _.chain(studentQuizSubmissions)
       .filter(s => s.passed)
@@ -86,17 +107,24 @@ export function UserRoutes(
       .value();
 
     const booksRead = await bookData.getBooksWithIds(idsOfBooksRead);
+
+    // get bookmarked books
     
-    const currentLexileMeasure = computeCurrentLexileMeasure(
-      student.initial_lexile_measure,
-      studentBookReviews
-    )
+    const idsOfBookmarkedBooks = _.map(student.bookmarked_books, 'bookId');
+
+    const booksBookmarked = await bookData.getBooksWithIds(idsOfBookmarkedBooks);
+
+    const bookmarkedBooksDTO = booksBookmarked.map(book => ({
+      book,
+      date: _.find(student.bookmarked_books, { bookId: book._id }).date
+    }))
     
-    return _.assign({}, user, { 
+    return _.assign({}, student, { 
       current_lexile_measure: currentLexileMeasure,
       books_read: booksRead, // based on passed submissions, not book reviews
       quiz_submissions: studentQuizSubmissions,
-      book_reviews: studentBookReviews
+      book_reviews: studentBookReviews,
+      bookmarked_books: bookmarkedBooksDTO
     })
   }
 
@@ -118,6 +146,34 @@ export function UserRoutes(
         }
 
         return user;
+
+      }),
+      Middle.handlePromise
+    ],
+
+    updateStudentsParentsEmails: [
+      Middle.authenticate,
+      Middle.authorizeAgents([M.UserType.ADMIN]),
+      Middle.valBody(updateParentEmailsSchema),
+      unwrapData(async (req: IRequest<{ parent_emails: string[] }>) => {
+        const { userId } = req.params;
+        const { parent_emails } = req.body;
+
+        const user = await userData.getUserById(userId);
+
+        if (_.isNull(user)) {
+          return new BadRequestError(`User ${userId} does not exist.`)
+        }
+
+        if (user.type !== M.UserType.STUDENT) {
+          return new ForbiddenError(`User ${userId} is not a student.`)
+        }
+
+        const updatedStudent: M.IStudent = _.assign({}, user as M.IStudent, {
+          parent_emails
+        })
+
+        return await userData.updateUser(updatedStudent)
 
       }),
       Middle.handlePromise

@@ -7,6 +7,7 @@ import * as Path from 'path';
 import * as shortid from 'shortid';
 import * as jwt from 'jsonwebtoken';
 import * as monk from 'monk';
+import * as faker from 'faker';
 import * as moment from 'moment';
 import * as supertest from 'supertest';
 import * as bcrypt from 'bcryptjs';
@@ -989,6 +990,60 @@ describe('End to End tests', function () {
         });
 
       })
+      
+      describe.only('#updateStudentsParentsEmails', function() {
+
+        it('should 401 when no auth token in header', function () {
+          return agent
+            .put(`/students/${katelynn._id}/parent_emails`)
+            .expect(401);
+        });
+
+        it('should 403 if non-admin making request', function () {
+          return agent
+            .put(`/students/${katelynn._id}/parent_emails`)
+            .set(SC.AuthHeaderField, chaseToken)
+            .expect(403);
+        });
+
+        it('should 400 if too many emails provided', function () {
+          return agent
+            .put(`/students/${katelynn._id}/parent_emails`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send({
+              parent_emails: _.times(SC.MaxParentEmailsPerStudent + 1, () => faker.internet.email())
+            })
+            .expect(400)
+            .then(checkErrMsg('Invalid/missing field parent_emails'))
+        });
+
+        it('should 400 if duplicate emails provided', function () {
+          return agent
+            .put(`/students/${katelynn._id}/parent_emails`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send({
+              parent_emails: ["austin@gmail.com", "austin@gmail.com"]
+            })
+            .expect(400)
+            .then(checkErrMsg('Invalid/missing field parent_emails'));
+        });
+
+        it('should 200 and save emails', function () {
+          const updatedEmails = ["sam@gmail.com", "sarah@gmail.com"];
+          return agent
+            .put(`/students/${katelynn._id}/parent_emails`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send({
+              parent_emails: updatedEmails
+            })
+            .expect(200)
+            .then(() => mongoUserData.getUserById(katelynn._id))
+            .then((updatedStudent: Models.IStudent) => {
+              assert.sameMembers(updatedStudent.parent_emails, updatedEmails);
+            })
+        });
+
+      })
 
       describe('#createStudent', function () {
 
@@ -997,7 +1052,8 @@ describe('End to End tests', function () {
           last_name: 'Jones',
           initial_lexile_measure: 400,
           email: 'tjones@parktudor.org',
-          password: 'taylors_password'
+          password: 'taylors_password',
+          parent_emails: []
         }
 
         it('should 401 when no auth token in header', function () {
@@ -1032,7 +1088,8 @@ describe('End to End tests', function () {
                 'initial_lexile_measure',
                 'bookmarked_books',
                 'last_name',
-                'type'
+                'type',
+                'parent_emails'
               ])
 
               // bcrypt will produce different hashes for the same
