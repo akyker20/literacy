@@ -991,7 +991,7 @@ describe('End to End tests', function () {
 
       })
       
-      describe.only('#updateStudentsParentsEmails', function() {
+      describe('#updateStudentsParentsEmails', function() {
 
         it('should 401 when no auth token in header', function () {
           return agent
@@ -1050,6 +1050,7 @@ describe('End to End tests', function () {
         const validReqBody: Models.IStudentBody = {
           first_name: 'Taylor',
           last_name: 'Jones',
+          gender: Models.Gender.Female,
           initial_lexile_measure: 400,
           email: 'tjones@parktudor.org',
           password: 'taylors_password',
@@ -1083,11 +1084,12 @@ describe('End to End tests', function () {
                 'date_created',
                 'email',
                 'first_name',
+                'last_name',
+                'gender',
                 'genre_interests',
                 'hashed_password',
                 'initial_lexile_measure',
                 'bookmarked_books',
-                'last_name',
                 'type',
                 'parent_emails'
               ])

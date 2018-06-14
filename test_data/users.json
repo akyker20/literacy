@@ -29,7 +29,8 @@
     "genre_interests": null,
     "initial_lexile_measure": 800,
     "bookmarked_books": [],
-    "parent_emails": []
+    "parent_emails": [],
+    "gender": "M"
   },
   {
     "_id": "katelynn-kyker",
@@ -54,6 +55,7 @@
         "date": "2018-05-16T18:55:56.479Z"
       }
     ],
-    "parent_emails": ["mkyker@gmail.com"]
+    "parent_emails": ["mkyker@gmail.com"],
+    "gender": "F"
   }
 ]

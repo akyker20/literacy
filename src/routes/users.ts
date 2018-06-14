@@ -51,6 +51,7 @@ export const userSchema = joi.object({
 }).required();
 
 export const studentSchema = userSchema.keys({
+  gender: joi.string().valid(_.values(M.Gender)).required().error(genFieldErr('gender')),
   parent_emails: parentEmailsSchema,
   initial_lexile_measure: lexileMeasureSchema.error(genFieldErr('initial_lexile_measure')),
 }).required();
