@@ -33,6 +33,7 @@
     "monk": "^6.0.6",
     "reading_rewards": "0.0.20",
     "restify": "^7.1.1",
+    "restify-cors-middleware": "^1.1.1",
     "restify-errors": "^6.0.0",
     "shortid": "^2.2.8",
     "typescript": "^2.8.3"
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@types/faker": "^4.1.2",
     "@types/mocha": "^5.2.0",
+    "@types/restify-cors-middleware": "^1.0.1",
     "@types/supertest": "^2.0.4",
     "faker": "^4.1.0",
     "mocha": "^5.1.1",

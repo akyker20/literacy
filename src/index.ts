@@ -1,5 +1,6 @@
 import * as restify from 'restify';
 import * as bunyan from 'bunyan';
+import * as corsMiddleware from 'restify-cors-middleware';
 
 import * as Routes from './routes';
 import { IBookData } from './data/books';
@@ -7,12 +8,21 @@ import { IUserData } from './data/users';
 import { IGenreData } from './data/genres';
 import { IQuizData } from './data/quizzes';
 import { IBookReviewData } from './data/book_reviews';
+import { Constants as SC } from 'reading_rewards';
 
-// setup logger
+// logger configuration
 
 const logger = bunyan.createLogger({
   name: 'literacy_backend',
   serializers: bunyan.stdSerializers
+});
+
+// cors configuration
+
+const cors = corsMiddleware({
+  origins: ['*'],
+  allowHeaders: [SC.AuthHeaderField],
+  exposeHeaders: []
 });
 
 export default class App {
@@ -36,6 +46,9 @@ export default class App {
       .use(restify.plugins.bodyParser())
       .use(restify.plugins.queryParser())
       .use(restify.plugins.requestLogger());
+    
+    this.server.pre(cors.preflight);
+    this.server.use(cors.actual);
 
     // configure user routes
 
