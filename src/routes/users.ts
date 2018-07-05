@@ -21,6 +21,8 @@ import { IBookData } from '../data/books';
 import { IGenreData } from '../data/genres';
 import { shortidSchema } from '../extensions';
 import { IBookReviewData } from '../data/book_reviews';
+import { IPrizeOrderData } from '../data/prize_orders';
+import { IPrizeData } from '../data/prizes';
 
 interface IUserLoginCredentials {
   email: string;
@@ -74,7 +76,9 @@ export function UserRoutes(
   quizData: IQuizData,
   bookData: IBookData,
   bookReviewData: IBookReviewData,
-  genreData: IGenreData
+  genreData: IGenreData,
+  prizeOrderData: IPrizeOrderData,
+  prizeData: IPrizeData
 ) {
 
   async function userExistsWithEmail(email: string): Promise<boolean> {
@@ -115,18 +119,28 @@ export function UserRoutes(
 
     const booksBookmarked = await bookData.getBooksWithIds(idsOfBookmarkedBooks);
 
-    const bookmarkedBooksDTO = booksBookmarked.map(book => ({
-      book,
-      date: _.find(student.bookmarked_books, { bookId: book._id }).date
-    }))
+    // get prizes ordered
+
+    const studentPrizeOrders = await prizeOrderData.getPrizeOrdersForStudent(student._id);
+    const idsOfPrizesOrdered = _.chain(studentPrizeOrders)
+      .map('prize_id')
+      .uniq()
+      .value()
+
+    const prizesOrdered = await prizeData.getPrizesWithIds(idsOfPrizesOrdered);
     
-    return _.assign({}, student, { 
+    return {
+      info: student,
       current_lexile_measure: currentLexileMeasure,
       books_read: booksRead, // based on passed submissions, not book reviews
       quiz_submissions: studentQuizSubmissions,
       book_reviews: studentBookReviews,
-      bookmarked_books: bookmarkedBooksDTO
-    })
+      bookmarked_books: booksBookmarked,
+      prize_orders: studentPrizeOrders,
+      prizes_ordered: prizesOrdered,
+      book_match_scores: {} // TODO: UNCLEAR IF THIS IS NEEDED
+    }
+    
   }
 
   return {

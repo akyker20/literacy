@@ -22,6 +22,8 @@ import { MongoQuizData } from '../data/quizzes';
 import { MongoBookReviewData } from '../data/book_reviews';
 import { MongoGenreData } from '../data/genres';
 import App from '..';
+import { MongoPrizeData } from '../data/prizes';
+import { MongoPrizeOrderData } from '../data/prize_orders';
 
 
 // Load all the data
@@ -32,6 +34,8 @@ const initialQuizzes: Models.IQuiz[] = JSON.parse(fs.readFileSync(Path.join(__di
 const initialUsers: Models.IUser[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/users.json'), 'utf8'));
 const initialQuizSubmissions = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/quiz_submissions.json'), 'utf8'));
 const initialBookReviews: Models.IBookReview[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/book_reviews.json'), 'utf8'));
+const initialPrizes: Models.IPrize[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/prizes.json'), 'utf8'));
+const initialPrizeOrders: Models.IPrizeOrder[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/prize_orders.json'), 'utf8'));
 
 // convenience variables
 
@@ -62,6 +66,8 @@ const quizCollection = db.get('quizzes', { castIds: false });
 const quizSubmissionCollection = db.get('quiz_submissions', { castIds: false });
 const usersCollection = db.get('users', { castIds: false });
 const genreCollection = db.get('genres', { castIds: false });
+const prizeCollection = db.get('prizes', { castIds: false });
+const prizeOrderCollection = db.get('prize_orders', { castIds: false });
 
 async function setData(collection: monk.ICollection, data: any) {
   await collection.remove({});
@@ -73,13 +79,17 @@ const mongoUserData = new MongoUserData(connectionStr);
 const mongoGenreData = new MongoGenreData(connectionStr);
 const mongoQuizData = new MongoQuizData(connectionStr);
 const mongoBookReviewData = new MongoBookReviewData(connectionStr);
+const mongoPrizeData = new MongoPrizeData(connectionStr);
+const mongoPrizeOrderData = new MongoPrizeOrderData(connectionStr);
 
 const app = new App(
   mongoBookData,
   mongoUserData,
   mongoGenreData,
   mongoQuizData,
-  mongoBookReviewData
+  mongoBookReviewData,
+  mongoPrizeData,
+  mongoPrizeOrderData
 )
 
 const agent = supertest(app.server);
@@ -112,7 +122,9 @@ describe('End to End tests', function () {
       setData(genreCollection, initialGenres),
       setData(quizCollection, initialQuizzes),
       setData(quizSubmissionCollection, initialQuizSubmissions),
-      setData(usersCollection, initialUsers)
+      setData(usersCollection, initialUsers),
+      setData(prizeCollection, initialPrizes),
+      setData(prizeOrderCollection, initialPrizeOrders)
     ]);
   });
 
@@ -246,6 +258,217 @@ describe('End to End tests', function () {
             return genreCollection.findOne({ _id: genreId })
           })
           .then(genre => assert.deepEqual(genre, update))
+      })
+
+    })
+
+  })
+
+  describe('Prize Routes', function () {
+
+    describe('#createPrizeOrder', function () {
+
+      const validPrizeBody: Models.IPrizeOrderBody = {
+        student_id: katelynn._id,
+        prize_id: _.sample(initialPrizes)._id
+      };
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post('/prize_orders')
+          .expect(401);
+      });
+
+      it('should 403 when students submits on behalf another student', function () {
+        return agent
+          .post('/prize_orders')
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(validPrizeBody)
+          .expect(403)
+          .then(checkErrMsg('Only admin can submit prize order for another student.'))
+      });
+
+      it('should 400 if student does not exist', function() {
+        const invalidId = shortid.generate();
+        const invalidPrizeBody = {
+          ...validPrizeBody,
+          student_id: invalidId
+        }
+        return agent
+          .post('/prize_orders')
+          .set(SC.AuthHeaderField, austinToken)
+          .send(invalidPrizeBody)
+          .expect(400)
+          .then(checkErrMsg(`Student ${invalidId} does not exist.`))
+      })
+
+      it('should 400 if prize does not exist', function() {
+        const invalidId = shortid.generate();
+        const invalidPrizeBody = {
+          ...validPrizeBody,
+          prize_id: invalidId
+        }
+        return agent
+          .post('/prize_orders')
+          .set(SC.AuthHeaderField, austinToken)
+          .send(invalidPrizeBody)
+          .expect(400)
+          .then(checkErrMsg(`Prize ${invalidId} does not exist.`))
+      })
+
+      it('should save the prize order', function () {
+        return agent
+          .post('/prize_orders')
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validPrizeBody)
+          .expect(200)
+          .then(({ body }) => {
+            assert.equal(body.status, Models.PrizeOrderStatus.Pending);
+            assert.containsAllKeys(body, [
+              '_id',
+              'student_id',
+              'prize_id',
+              'prize_price_usd',
+              'prize_point_cost',
+              'status',
+              'date_created'
+            ]);
+            return prizeOrderCollection.find({})
+          })
+          .then(allPrizeOrders => assert.lengthOf(allPrizeOrders, initialPrizeOrders.length + 1))
+      })
+
+    })
+
+
+    describe('#createPrize', function () {
+
+      const validPrizeBody: Models.IPrize = {
+        title: 'Some genre title',
+        description: 'Some genre description',
+        price_usd: 13.5,
+        photo_url: 'http://some-url'
+      };
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post('/prizes')
+          .expect(401);
+      });
+
+      it('should 403 if non-admin making request', function () {
+        return agent
+          .post(`/prizes`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should save the prize', function () {
+        return agent
+          .post('/prizes')
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validPrizeBody)
+          .expect(200)
+          .then(({ body }) => {
+            assert.containsAllKeys(body, ['_id', 'title', 'description', 'price_usd', 'photo_url']);
+            return prizeCollection.find({})
+          })
+          .then(allPrizes => assert.lengthOf(allPrizes, initialPrizes.length + 1))
+      })
+
+    })
+
+    describe('#deletePrize', function () {
+
+      const idOfPrizeToDelete = initialPrizes[0]._id;
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .del(`/prizes/${idOfPrizeToDelete}`)
+          .expect(401);
+      });
+
+      it('should 404 if genre does not exist', function () {
+        return agent
+          .del(`/prizes/${shortid.generate()}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(404)
+          .then(checkErrMsg('No prize was deleted'))
+      });
+
+      it('should 403 if non-admin making request', function () {
+        return agent
+          .del(`/prizes/${idOfPrizeToDelete}`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should delete the genre', function () {
+        return agent
+          .del(`/prizes/${idOfPrizeToDelete}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(200)
+          .then(({ body }) => {
+            assert.deepEqual(body, {
+              deletedPrize: _.find(initialPrizes, { _id: idOfPrizeToDelete })
+            })
+            return prizeCollection.find({})
+          })
+          .then(allPrizes => assert.lengthOf(allPrizes, initialPrizes.length - 1))
+      })
+
+    })
+
+    describe('#getPrizes', function () {
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .get('/prizes')
+          .expect(401);
+      });
+
+      it('should return all prizes', function () {
+        return agent
+          .get('/prizes')
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(200)
+          .then(({ body }) => assert.sameDeepMembers(body, initialPrizes))
+      })
+
+    })
+
+    describe('#updatePrize', function () {
+
+      const prizeToUpdate = _.sample(initialPrizes);
+      const prizeId = prizeToUpdate._id;
+      const update: Models.IPrize = Mockers.mockPrize({
+        _id: prizeId
+      });
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .put(`/prizes/${prizeId}`)
+          .expect(401);
+      });
+
+      it('should 403 if not admin user', function () {
+        return agent
+          .put(`/prizes/${prizeId}`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should update the prize', function () {
+        return agent
+          .put(`/prizes/${prizeId}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send(update)
+          .expect(200)
+          .then(({ body }) => {
+            assert.deepEqual(body, { updatedPrize: update })
+            return prizeCollection.findOne({ _id: prizeId })
+          })
+          .then(prize => assert.deepEqual(prize, update))
       })
 
     })
@@ -1458,7 +1681,9 @@ describe('End to End tests', function () {
       quizCollection.drop(),
       quizSubmissionCollection.drop(),
       usersCollection.drop(),
-      bookReviewCollection.drop()
+      bookReviewCollection.drop(),
+      prizeCollection.drop(),
+      prizeOrderCollection.drop()
     ]);
     db.close();
   })

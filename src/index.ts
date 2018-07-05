@@ -9,6 +9,9 @@ import { IGenreData } from './data/genres';
 import { IQuizData } from './data/quizzes';
 import { IBookReviewData } from './data/book_reviews';
 import { Constants as SC } from 'reading_rewards';
+import { IPrizeData } from './data/prizes';
+import { IPrizeOrderData } from './data/prize_orders';
+import { PrizeRoutes } from './routes';
 
 // logger configuration
 
@@ -34,7 +37,9 @@ export default class App {
     userData: IUserData,
     genreData: IGenreData,
     quizData: IQuizData,
-    bookReviewData: IBookReviewData
+    bookReviewData: IBookReviewData,
+    prizeData: IPrizeData,
+    prizeOrderData: IPrizeOrderData
   ) {
 
     this.server = restify.createServer({
@@ -57,7 +62,9 @@ export default class App {
       quizData,
       bookData,
       bookReviewData,
-      genreData
+      genreData,
+      prizeOrderData,
+      prizeData
     );
 
     this.server.get('/users', userRoutes.getAllUsers); // TODO: remove
@@ -118,16 +125,34 @@ export default class App {
     this.server.del('/quizzes/:quizId', quizRoutes.deleteQuiz);
     this.server.put('/quizzes/:quizId', quizRoutes.updateQuiz);
 
+    // configure prize routes
+
+    const prizeRoutes = PrizeRoutes(
+      prizeData,
+      prizeOrderData,
+      userData
+    );
+
+    this.server.get('/prizes', prizeRoutes.getPrizes);
+
+    this.server.post('/prizes', prizeRoutes.createPrize);
+
+    this.server.put('/prizes/:prizeId', prizeRoutes.updatePrize);
+
+    this.server.del('/prizes/:prizeId', prizeRoutes.deletePrize);
+
+    this.server.post('/prize_orders', prizeRoutes.orderPrize);
+
 
     /**
      * Audit logging of requests when not being tested.
      */
-    // if (process.env.NODE_ENV !== 'test') {
-    //   this.server.on('after', restify.plugins.auditLogger({
-    //     event: 'after',
-    //     log: logger
-    //   }));
-    // }
+    if (process.env.NODE_ENV !== 'test') {
+      this.server.on('after', restify.plugins.auditLogger({
+        event: 'after',
+        log: logger
+      }));
+    }
 
     /**
      * Log internal server errors.

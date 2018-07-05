@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "prize1-id",
+    "title": "Whamo ball",
+    "description": "Some prize description",
+    "photo_url": "http://someurl.com",
+    "price_usd": 12.5
+  },
+  {
+    "_id": "prize2-id",
+    "title": "Playmobile House",
+    "description": "Some prize description",
+    "photo_url": "http://someurl.com",
+    "price_usd": 12.5
+  }
+]
