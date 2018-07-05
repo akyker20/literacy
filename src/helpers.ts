@@ -82,6 +82,6 @@ export function computeMatchScore(
   // Amazon Popularity ranges from 0-5
   // interestFactor ranges from 1 to 4.
   // Normalize by 20 (the max)
-  return _.round((book.amazon_popularity * interestFactor) / 20.0, 2);
+  return (book.amazon_popularity * interestFactor) / 20.0;
 
 }

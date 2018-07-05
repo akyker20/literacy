@@ -32,6 +32,7 @@ const genres: M.IGenre[] = [
     description: 'Some description of genre'
   }
 ]
+const prizes = _.times(10, () => Mockers.mockPrize({}));
 
 const books = _.times(500, i => Mockers.mockBook({
   genres: _.sampleSize(genres, _.random(3)).map(g => g._id)
@@ -109,6 +110,9 @@ const bookCollection = db.get('books', { castIds: false });
 const genreCollection = db.get('genres', { castIds: false });
 const usersCollection = db.get('users', { castIds: false });
 const quizCollection = db.get('quizzes', { castIds: false })
+const prizeCollection = db.get('prizes', { castIds: false })
+const quizSubmissionsCollection = db.get('quiz_submissions', { castIds: false })
+const prizeOrdersCollection = db.get('prize_orders', { castIds: false })
 
 async function setData(collection: monk.ICollection, data: any) {
   await collection.drop();
@@ -119,5 +123,8 @@ Promise.all([
   setData(usersCollection, users),
   setData(bookCollection, books),
   setData(genreCollection, genres),
-  setData(quizCollection, quizzes)
+  setData(quizCollection, quizzes),
+  setData(prizeCollection, prizes),
+  setData(quizSubmissionsCollection, []),
+  setData(prizeOrdersCollection, [])
 ]).then(() => process.exit(0))

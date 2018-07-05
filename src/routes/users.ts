@@ -137,8 +137,7 @@ export function UserRoutes(
       book_reviews: studentBookReviews,
       bookmarked_books: booksBookmarked,
       prize_orders: studentPrizeOrders,
-      prizes_ordered: prizesOrdered,
-      book_match_scores: {} // TODO: UNCLEAR IF THIS IS NEEDED
+      prizes_ordered: prizesOrdered
     }
     
   }
