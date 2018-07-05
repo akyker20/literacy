@@ -9,7 +9,8 @@
     "watch": "./node_modules/.bin/tsc -w -p .",
     "clean": "./node_modules/.bin/rimraf dist",
     "debug": "nodemon --inspect -w ./dist ./dist/start.js",
-    "start": "node ./dist/start.js"
+    "start": "node ./dist/start.js",
+    "bootstrap": "node ./dist/bootstrap.js"
   },
   "author": "Austin Kyker",
   "license": "ISC",

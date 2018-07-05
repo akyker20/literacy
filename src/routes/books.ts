@@ -254,12 +254,18 @@ export function BookRoutes(
 
         const booksInRange = await bookData.getMatchingBooks({ lexile_range: currentLexileRange });
 
-        return booksInRange.map(book => _.assign({}, book, {
-          match_score: computeMatchScore(
+        const matchScores: { [bookId: string]: number } = {};
+        _.forEach(booksInRange, book => {
+          matchScores[book._id] = computeMatchScore(
             user.genre_interests, 
             book
           )
-        }))
+        })
+        
+        return <M.IStudentBooksDTO> {
+          books: booksInRange,
+          match_scores: matchScores
+        }
 
       }),
       Middle.handlePromise

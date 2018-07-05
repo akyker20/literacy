@@ -497,7 +497,7 @@ export function UserRoutes(
           throw new BadRequestError('Invalid email/password combination.');
         }
 
-        const userDTO = await getStudentDTO(user);
+        const studentDTO = await getStudentDTO(user);
 
         const claims = {
           _id: user._id,
@@ -506,10 +506,12 @@ export function UserRoutes(
 
         const token = jwt.sign(claims, Constants.JWTSecret, { expiresIn: '1y' });
 
-        return {
+        const dto: M.IWhoamiDTO = {
           auth_token: token,
-          user: userDTO
+          studentDTO
         }
+
+        return dto;
 
       }),
       Middle.handlePromise
