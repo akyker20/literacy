@@ -71,7 +71,7 @@ export function PrizeRoutes(
           _id: shortid.generate(),
           status: M.PrizeOrderStatus.Pending,
           prize_price_usd: prize.price_usd,
-          prize_point_cost: prize.price_usd * SC.PrizePointsPerDollar,
+          prize_point_cost: _.round(prize.price_usd * SC.PrizePointsPerDollar),
           date_created: new Date().toISOString()
         }
 

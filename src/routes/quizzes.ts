@@ -1,9 +1,8 @@
 import * as joi from 'joi';
 import * as _ from 'lodash';
-import * as moment from 'moment';
 import { Next, Response } from 'restify';
 import { ForbiddenError, ResourceNotFoundError, BadRequestError } from 'restify-errors';
-import { Models as M, Constants as SC } from 'reading_rewards';
+import { Models as M, Constants as SC, Helpers } from 'reading_rewards';
 
 import { IRequest, shortidSchema } from '../Extensions';
 import * as Middle from '../middleware';
@@ -152,50 +151,30 @@ export function QuizRoutes(
       },
       unwrapData(async (req: IRequest<M.IQuizSubmissionBody>) => {
 
+        const { student_id, book_id } = req.body;
+
         // verify user exists
 
-        const user = await userData.getUserById(req.body.student_id);
+        const user = await userData.getUserById(student_id);
 
         if (_.isNull(user)) {
-          throw new BadRequestError(`User ${req.body.student_id} does not exist.`)
+          throw new BadRequestError(`User ${student_id} does not exist.`)
         } else if (user.type !== M.UserType.STUDENT) {
-          throw new BadRequestError(`User ${req.body.student_id} is not a student.`)
+          throw new BadRequestError(`User ${student_id} is not a student.`)
         }
 
-        const submissions = await quizData.getSubmissionsForStudent(req.body.student_id);
+        const submissions = await quizData.getSubmissionsForStudent(student_id);
 
-        // check user did not recently submit a quiz.
-        
-        if (submissions.length) {
-
-          const mostRecentSubmission = _.orderBy(submissions, 'date_created', 'desc')[0];
-
-          const mustWaitTill = moment(mostRecentSubmission.date_created).add(SC.MinHoursBetweenBookQuizAttempt, 'h');
-
-          if (moment().isBefore(mustWaitTill)) {
-            throw new ForbiddenError(`User must wait till ${mustWaitTill.toISOString()} to attempt another quiz.`);
-          }
-
+        if (Helpers.needsToWaitToTakeNextQuiz(submissions)) {
+          throw new ForbiddenError(`User must wait to attempt another quiz.`);
         }
 
-        // verify user has not already passed quiz for book
+        if (Helpers.hasPassedQuizForBook(submissions, book_id)) {
+          throw new ForbiddenError(`User has already passed quiz for book ${req.body.book_id}`);
+        }
 
-        const prevSubmissionsForBook = submissions.filter(s => s.book_id === req.body.book_id);
-
-        // verification if there are previous submissions
-
-        if (prevSubmissionsForBook.length) {
-
-          const prevPassedSubmissions = _.find(prevSubmissionsForBook, { passed: true });
-
-          if (!_.isUndefined(prevPassedSubmissions)) {
-            throw new ForbiddenError(`User has already passed quiz for book ${req.body.book_id}`);
-          }
-
-          if (prevSubmissionsForBook.length >= SC.MaxNumQuizAttempts) {
-            throw new ForbiddenError(`User has exhausted all attempts to pass quiz for book ${req.body.book_id}`);
-          }
-
+        if (Helpers.hasExhaustedAttemptsForBook(submissions, book_id)) {
+          throw new ForbiddenError(`User has exhausted all attempts to pass quiz for book ${req.body.book_id}`);
         }
 
         // verify book actually exists

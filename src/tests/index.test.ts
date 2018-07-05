@@ -990,7 +990,6 @@ describe('End to End tests', function () {
       it('should prevent user from attempting another quiz without waiting', function () {
 
         const latestSubmissionDate = moment().subtract(SC.MinHoursBetweenBookQuizAttempt, 'h').add(1, 'm').toISOString();
-        const nextPossibleSubmissionDate = moment(latestSubmissionDate).add(SC.MinHoursBetweenBookQuizAttempt, 'h').toISOString();
 
         const recentSubmission = Mockers.mockQuizSubmission({
           quiz_id: 'quiz-id-1',
@@ -1008,7 +1007,7 @@ describe('End to End tests', function () {
               .set(SC.AuthHeaderField, katelynnToken)
               .send(userExhaustedAllAttemptsSubmission)
               .expect(403)
-              .then(checkErrMsg(`User must wait till ${nextPossibleSubmissionDate} to attempt another quiz.`))
+              .then(checkErrMsg(`User must wait to attempt another quiz.`))
 
           })
 

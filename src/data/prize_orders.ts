@@ -27,7 +27,7 @@ export class MongoPrizeOrderData implements IPrizeOrderData {
   }
 
   getPrizeOrdersForStudent(studentId: string): Promise<IPrizeOrder[]> {
-    return this.prizeOrders.findOneAndDelete({ student_id: studentId });
+    return this.prizeOrders.find({ student_id: studentId });
   }
 
   updatePrizeOrder(prizeOrder: IPrizeOrder): Promise<IPrizeOrder> {
