@@ -72,7 +72,8 @@ export function PrizeRoutes(
           status: M.PrizeOrderStatus.Pending,
           prize_price_usd: prize.price_usd,
           prize_point_cost: _.round(prize.price_usd * SC.PrizePointsPerDollar),
-          date_created: new Date().toISOString()
+          date_created: new Date().toISOString(),
+          date_ordered: null
         }
 
         return prizeOrderData.createPrizeOrder(prizeOrder);
