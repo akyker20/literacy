@@ -1094,6 +1094,63 @@ describe('End to End tests', function () {
 
     describe('User Routes', function () {
 
+      describe('#studentSignin', function() {
+
+        const validAdminCreds: Models.IUserLoginCreds = {
+          email: austin.email,
+          password: 'password'
+        }
+
+        const validStudentCreds: Models.IUserLoginCreds = {
+          email: katelynn.email,
+          password: 'password'
+        }
+
+        it('should 400 if no user exists with email', function() {
+          const invalidEmail = 'invalid@gmail.com'
+          return agent
+            .post(`/students/signin`)
+            .send({ email: invalidEmail, password: 'pass' })
+            .expect(400)
+            .then(checkErrMsg(`No user with email ${invalidEmail}`))
+        })
+
+        it('should 400 if user is admin', function() {
+          return agent
+            .post(`/students/signin`)
+            .send(validAdminCreds)
+            .expect(400)
+            .then(checkErrMsg('User must be a student.'))
+        })
+
+        it('should 400 if invalid email/password combo', function() {
+          const invalidPass = 'invalid';
+          const invalidCreds = {
+            ... validStudentCreds,
+            password: invalidPass
+          }
+          return agent
+            .post(`/students/signin`)
+            .send(invalidCreds)
+            .expect(400)
+            .then(checkErrMsg('Invalid email/password combination.'))
+        })
+
+        it('should 200 if credentials valid', function() {
+          return agent
+            .post(`/students/signin`)
+            .expect(200)
+            .send(validStudentCreds)
+            .then(({ body }) => {
+              const actualClaims = jwt.verify(body.auth_token, Constants.JWTSecret) as any
+              assert.equal(actualClaims._id, katelynn._id);
+              assert.equal(actualClaims.type, katelynn.type)
+              assert.deepEqual(body.studentDTO.info, katelynn)
+            })
+        })
+
+      })
+
       describe('#createEducator', function () {
 
         const validReqBody: Models.IUserBody = {

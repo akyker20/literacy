@@ -70,7 +70,7 @@ export default class App {
     this.server.get('/users', userRoutes.getAllUsers); // TODO: remove
 
     this.server.get('/whoami', userRoutes.whoami); // TEST
-    this.server.post('/users/signin', userRoutes.signin); // TEST
+    this.server.post('/students/signin', userRoutes.studentSignin);
 
     this.server.post('/students', userRoutes.createStudent);
     this.server.post('/students/:userId/genre_interests', userRoutes.createGenreInterests);

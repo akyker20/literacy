@@ -478,7 +478,7 @@ export function UserRoutes(
       Middle.handlePromise
     ],
 
-    signin: [
+    studentSignin: [
       Middle.valBody(userAuthSchema),
       unwrapData(async (req: IRequest<IUserLoginCredentials>) => {
 
@@ -488,6 +488,10 @@ export function UserRoutes(
 
         if (user === null) {
           throw new BadRequestError(`No user with email ${email}`);
+        }
+
+        if (user.type !== M.UserType.STUDENT) {
+          throw new BadRequestError(`User must be a student.`)
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, user.hashed_password);

@@ -6,7 +6,7 @@
     "first_name": "Austin",
     "last_name": "Kyker",
     "email": "akyker20@gmail.com",
-    "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG"
+    "hashed_password": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG"
   },
   {
     "_id": "bonnie-stewart",
@@ -15,7 +15,7 @@
     "first_name": "Bonnie",
     "last_name": "Stewart",
     "email": "bstewart@parktudor.com",
-    "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
+    "hashed_password": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
     "student_ids": []
   },
   {
@@ -25,7 +25,7 @@
     "first_name": "Chase",
     "last_name": "Malik",
     "email": "cmalik@gmail.com",
-    "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
+    "hashed_password": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
     "genre_interests": null,
     "initial_lexile_measure": 800,
     "bookmarked_books": [],
@@ -39,7 +39,7 @@
     "first_name": "Katelynn",
     "last_name": "Kyker",
     "email": "kkyker@gmail.com",
-    "hashed_pass": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
+    "hashed_password": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
     "genre_interests": {
       "science-id": 4,
       "history-id": 2,
