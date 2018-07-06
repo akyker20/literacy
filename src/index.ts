@@ -55,6 +55,11 @@ export default class App {
     this.server.pre(cors.preflight);
     this.server.use(cors.actual);
 
+    // Maintenance
+    // this.server.use((req, res) => {
+    //   res.send(503)
+    // })
+
     // configure user routes
 
     const userRoutes = Routes.UserRoutes(
