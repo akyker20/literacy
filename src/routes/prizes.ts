@@ -1,9 +1,9 @@
-import { Models as M, Constants as SC } from 'reading_rewards';
+import { Models as M, Constants as SC, Helpers } from 'reading_rewards';
 import * as joi from 'joi';
 import * as shortid from 'shortid';
 import * as _ from 'lodash';
 
-import { IRequest, shortidSchema } from '../Extensions';
+import { IRequest, shortidSchema } from '../extensions';
 import * as Middle from '../middleware';
 import { ResourceNotFoundError, BadRequestError, ForbiddenError } from 'restify-errors';
 import { IPrizeData } from '../data/prizes';
@@ -11,6 +11,7 @@ import { unwrapData } from '../helpers';
 import { IUserData } from '../data/users';
 import { IPrizeOrderData } from '../data/prize_orders';
 import { Next, Response } from 'restify';
+import { INotificationSys } from '../notifications';
 
 const inputPrizeOrderSchema = joi.object({
   student_id: shortidSchema,
@@ -19,9 +20,10 @@ const inputPrizeOrderSchema = joi.object({
 
 const inputPrizeSchema = joi.object({
   title: joi.string().max(100).required(),
-  description: joi.string().max(1000).required(),
+  description: joi.array().items(joi.string()).required(),
   price_usd: joi.number().max(1000).required(),
-  photo_url: joi.string().uri().required()
+  photo_urls: joi.array().items(joi.string().uri()).required(),
+  amazon_url: joi.string().uri().optional()
 }).strict().required();
 
 const createdPrizeSchema = inputPrizeSchema.keys({
@@ -31,7 +33,8 @@ const createdPrizeSchema = inputPrizeSchema.keys({
 export function PrizeRoutes(
   prizeData: IPrizeData,
   prizeOrderData: IPrizeOrderData,
-  userData: IUserData
+  userData: IUserData,
+  notifications: INotificationSys
 ) {
 
   return {
@@ -65,6 +68,9 @@ export function PrizeRoutes(
         if (_.isNull(prize)) {
           return new BadRequestError(`Prize ${prize_id} does not exist.`);
         }
+  
+        const slackMessage = `*${Helpers.getFullName(student)}* ordered *${prize.title}*`;
+        notifications.sendMessage(slackMessage);
 
         const prizeOrder: M.IPrizeOrder = {
           ...req.body,

@@ -24,6 +24,7 @@ import { MongoGenreData } from '../data/genres';
 import App from '..';
 import { MongoPrizeData } from '../data/prizes';
 import { MongoPrizeOrderData } from '../data/prize_orders';
+import { MockNotifications } from '../notifications/mock';
 
 
 // Load all the data
@@ -89,7 +90,8 @@ const app = new App(
   mongoQuizData,
   mongoBookReviewData,
   mongoPrizeData,
-  mongoPrizeOrderData
+  mongoPrizeOrderData,
+  new MockNotifications()
 )
 
 const agent = supertest(app.server);
@@ -345,9 +347,9 @@ describe('End to End tests', function () {
 
       const validPrizeBody: Models.IPrize = {
         title: 'Some genre title',
-        description: 'Some genre description',
+        description: ['Some prize bullet point'],
         price_usd: 13.5,
-        photo_url: 'http://some-url'
+        photo_urls: ['http://some-url']
       };
 
       it('should 401 when no auth token in header', function () {
@@ -370,7 +372,13 @@ describe('End to End tests', function () {
           .send(validPrizeBody)
           .expect(200)
           .then(({ body }) => {
-            assert.containsAllKeys(body, ['_id', 'title', 'description', 'price_usd', 'photo_url']);
+            assert.containsAllKeys(body, [
+              '_id',
+              'title',
+              'description',
+              'price_usd',
+              'photo_urls'
+            ]);
             return prizeCollection.find({})
           })
           .then(allPrizes => assert.lengthOf(allPrizes, initialPrizes.length + 1))

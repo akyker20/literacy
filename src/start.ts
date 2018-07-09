@@ -6,6 +6,8 @@ import { MongoBookReviewData } from "./data/book_reviews";
 import { MongoGenreData } from "./data/genres";
 import { MongoPrizeOrderData } from './data/prize_orders';
 import { MongoPrizeData } from './data/prizes';
+import { SlackNotifications } from './notifications/slack';
+import { isProd } from './helpers';
 
 const dbHost = process.env.MONGO_HOST || 'localhost';
 const dbPort = process.env.MONGO_PORT || '27017';
@@ -21,6 +23,14 @@ const mongoBookReviewData = new MongoBookReviewData(connectionStr);
 const mongoPrizeOrderData = new MongoPrizeOrderData(connectionStr);
 const mongoPrizeData = new MongoPrizeData(connectionStr);
 
+const prodEventsSlackWebhookUrl = 'https://hooks.slack.com/services/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';
+const devChannelSlackWebhookUrl = 'https://hooks.slack.com/services/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';
+const slackWebhookUrl = isProd() ?
+  prodEventsSlackWebhookUrl :
+  devChannelSlackWebhookUrl;
+const slackNotifications = new SlackNotifications(slackWebhookUrl);
+
+
 const app = new App(
   mongoBookData,
   mongoUserData,
@@ -28,7 +38,8 @@ const app = new App(
   mongoQuizData,
   mongoBookReviewData,
   mongoPrizeData,
-  mongoPrizeOrderData
+  mongoPrizeOrderData,
+  slackNotifications
 )
 
 app.listen(5000);

@@ -3,8 +3,12 @@ import { BadRequestError } from 'restify-errors';
 import { Next, Request, RequestHandler, Response } from 'restify';
 import { Models } from 'reading_rewards';
 
-import { IRequest } from './Extensions';
+import { IRequest } from './extensions';
 import { DefaultGenreInterestLevel, NumReviewsToBaseCLM } from './constants';
+
+export function isProd(): boolean {
+  return process.env.NODE_ENV === 'production';
+}
 
 export type PromiseHandler = (req: Request) => Promise<any>;
 

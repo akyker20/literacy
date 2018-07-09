@@ -4,7 +4,7 @@ import * as joi from 'joi';
 import * as _ from 'lodash';
 
 import { IBookData } from '../data/books';
-import { IRequest, lexileMeasureSchema, shortidSchema } from '../Extensions';
+import { IRequest, lexileMeasureSchema, shortidSchema } from '../extensions';
 import * as Middle from '../middleware';
 import { genFieldErr, getLexileRange, computeMatchScore, computeCurrentLexileMeasure, unwrapData } from '../helpers';
 import { ResourceNotFoundError, BadRequestError, ForbiddenError } from 'restify-errors';

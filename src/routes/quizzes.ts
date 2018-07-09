@@ -4,7 +4,7 @@ import { Next, Response } from 'restify';
 import { ForbiddenError, ResourceNotFoundError, BadRequestError } from 'restify-errors';
 import { Models as M, Constants as SC, Helpers } from 'reading_rewards';
 
-import { IRequest, shortidSchema } from '../Extensions';
+import { IRequest, shortidSchema } from '../extensions';
 import * as Middle from '../middleware';
 import { genFieldErr, unwrapData } from '../helpers';
 import { IUserData } from '../data/users';
@@ -12,6 +12,7 @@ import { IQuizData } from '../data/quizzes';
 import { IBookData } from '../data/books';
 import { QuizGraderInstance } from '../quizzes';
 import { QuestionSchema } from '../quizzes/question_schemas';
+import { INotificationSys } from '../notifications';
 
 export const inputQuizSchema = joi.object({
   questions: joi.array().items(QuestionSchema.unknown(true)).min(SC.MinQuestionsInQuiz).max(SC.MaxQuestionsInQuiz).required(),
@@ -41,7 +42,8 @@ interface IQuizSubmissionComprehensionBody {
 export function QuizRoutes(
   userData: IUserData,
   quizData: IQuizData,
-  bookData: IBookData
+  bookData: IBookData,
+  notifications: INotificationSys
 ) {
 
   async function isBookValid(quiz: M.IQuizBody): Promise<boolean> {
@@ -217,11 +219,30 @@ export function QuizRoutes(
 
         const quizScore = QuizGraderInstance.gradeQuiz(quiz, req.body.answers);
 
-        const quizSubmission: M.IQuizSubmission = _.assign({}, req.body, {
+        const quizSubmission: M.IQuizSubmission = {
+          ...req.body,
           date_created: new Date().toISOString(),
           score: quizScore,
           passed: quizScore >= SC.PassingQuizGrade
+        }
+        
+        // send slack notification
+
+        let slackMessage = `*${Helpers.getFullName(user)}* submitted quiz for *${book.title}*\n`;
+        _.forEach(quiz.questions, (question, index) => {
+          slackMessage += `_${question.prompt}_\n`;
+          switch (question.type) {
+            case  M.QuestionTypes.LongAnswer:
+              slackMessage += `${(quizSubmission.answers[index] as M.ILongAnswerAnswer).response}\n`;
+              break;
+            case M.QuestionTypes.MultipleChoice:
+              let answerIndex = (quizSubmission.answers[index] as M.IMultipleChoiceAnswer).answer_index;
+              slackMessage += `${(question as M.IMultipleChoiceQuestion).options[answerIndex]}\n`;
+              break;
+            default:
+          }
         })
+        notifications.sendMessage(slackMessage);
 
         return quizData.submitQuiz(quizSubmission);
 

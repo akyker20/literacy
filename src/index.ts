@@ -12,6 +12,7 @@ import { Constants as SC } from 'reading_rewards';
 import { IPrizeData } from './data/prizes';
 import { IPrizeOrderData } from './data/prize_orders';
 import { PrizeRoutes } from './routes';
+import { INotificationSys } from './notifications';
 
 // logger configuration
 
@@ -39,7 +40,8 @@ export default class App {
     quizData: IQuizData,
     bookReviewData: IBookReviewData,
     prizeData: IPrizeData,
-    prizeOrderData: IPrizeOrderData
+    prizeOrderData: IPrizeOrderData,
+    notifications: INotificationSys
   ) {
 
     this.server = restify.createServer({
@@ -55,6 +57,10 @@ export default class App {
     this.server.pre(cors.preflight);
     this.server.use(cors.actual);
 
+    // liveness probe
+
+    this.server.get('/', (req, res) => res.send(200, { message: 'Healthy!'}));
+
     // Maintenance
     // this.server.use((req, res) => {
     //   res.send(503)
@@ -69,7 +75,8 @@ export default class App {
       bookReviewData,
       genreData,
       prizeOrderData,
-      prizeData
+      prizeData,
+      notifications
     );
 
     this.server.get('/users', userRoutes.getAllUsers); // TODO: remove
@@ -117,7 +124,8 @@ export default class App {
     const quizRoutes = Routes.QuizRoutes(
       userData,
       quizData,
-      bookData
+      bookData,
+      notifications
     )
 
     this.server.get('/books/:bookId/quiz', quizRoutes.getQuizForBook);
@@ -135,7 +143,8 @@ export default class App {
     const prizeRoutes = PrizeRoutes(
       prizeData,
       prizeOrderData,
-      userData
+      userData,
+      notifications
     );
 
     this.server.get('/prizes', prizeRoutes.getPrizes);

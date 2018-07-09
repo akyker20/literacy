@@ -1,11 +1,11 @@
-import { IRequest, lexileMeasureSchema } from '../Extensions';
+import { IRequest, lexileMeasureSchema } from '../extensions';
 import * as Middle from '../middleware';
 import * as joi from 'joi';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
 import { Next, Response } from 'restify';
-import { Models as M, Constants as C } from 'reading_rewards';
+import { Models as M, Constants as C, Helpers } from 'reading_rewards';
 import { 
   BadRequestError,
   ResourceNotFoundError, 
@@ -23,6 +23,7 @@ import { shortidSchema } from '../extensions';
 import { IBookReviewData } from '../data/book_reviews';
 import { IPrizeOrderData } from '../data/prize_orders';
 import { IPrizeData } from '../data/prizes';
+import { INotificationSys } from '../notifications';
 
 interface IUserLoginCredentials {
   email: string;
@@ -78,7 +79,8 @@ export function UserRoutes(
   bookReviewData: IBookReviewData,
   genreData: IGenreData,
   prizeOrderData: IPrizeOrderData,
-  prizeData: IPrizeData
+  prizeData: IPrizeData,
+  notifications: INotificationSys
 ) {
 
   async function userExistsWithEmail(email: string): Promise<boolean> {
@@ -379,11 +381,6 @@ export function UserRoutes(
       Middle.handlePromise
     ],
 
-    updateBooksReadForStudent: [
-      Middle.authenticate,
-
-    ],
-
     createEducator: [
       Middle.authenticate,
       Middle.authorize([M.UserType.ADMIN]),
@@ -501,6 +498,9 @@ export function UserRoutes(
         }
 
         const studentDTO = await getStudentDTO(user);
+
+        const slackMessage = `*${Helpers.getFullName(user)} signed in*`
+        notifications.sendMessage(slackMessage)
 
         const claims = {
           _id: user._id,

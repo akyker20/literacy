@@ -1,0 +1,123 @@
+[
+  {
+    "_id": "color-bottle",
+    "title": "Color Your Own Water Bottle",
+    "description": [
+      "With the Your Decor Color Your Own Water Bottle Kit you can stay hydrated in style",
+      "This kit contains everything you need to decorate a unique water bottle (designs may vary)",
+      "Great prize for anyone who is creative and it is perfect as a solo project or as a group activity for birthday parties, sleepovers and any other fun get-togethers",
+      "Let your imagination go wild as you create a unique masterpiece"
+    ],
+    "price_usd": 7.97,
+    "photo_urls": [
+      "https://storage.googleapis.com/reading-rewards-prizes/color-bottle/1.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/color-bottle/2.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/color-bottle/3.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/color-bottle/4.jpg"
+    ],
+    "amazon_url": "https://www.amazon.com/Your-D%C3%A9cor-Horizon-Bottle-Colored/dp/B00JYCPRSA/"
+  },
+  {
+    "_id": "scraffiti-pad",
+    "title": "Scra-ffiti Sketch Book",
+    "description": [
+      "Scratch pad lets artist create beautiful colored designs on special black paper",
+      "When you draw with the wooden stylus, the top layer of the paper scratches away, revealing a rainbow of colors underneath",
+      "Themes include animals and gender neutral designs",
+      "Includes a 19 page book with 10 scratch stickers and a wooden stylus"
+    ],
+    "price_usd": 11.99,
+    "photo_urls": [
+      "https://storage.googleapis.com/reading-rewards-prizes/scraffiti-pad/1.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/scraffiti-pad/2.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/scraffiti-pad/3.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/scraffiti-pad/4.jpg"
+    ],
+    "amazon_url": "https://www.amazon.com/ALEX-Toys-Scra-ffiti-Scratch-Coloring/dp/B00LV0YBVC"
+  },
+  {
+    "_id": "jenga-classic",
+    "title": "Jenga Classic",
+    "description": [
+      "Pull out a bock without crashing the stack to win at Jenga",
+      "Includes 54 Jenga hardwood blocks, stacking sleeve with instructions",
+      "It takes skill, strategy, and luck! Challenge yourself or play with friends",
+      "Win by being the last player to remove a block without causing the stack to crash"
+    ],
+    "price_usd": 10.26,
+    "photo_urls": [
+      "https://storage.googleapis.com/reading-rewards-prizes/jenga/1.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/jenga/2.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/jenga/3.jpg"
+    ],
+    "amazon_url": "https://www.amazon.com/Hasbro-A2120E180-Jenga-Classic-Game/dp/B00ABA0ZOA"
+  },
+  {
+    "_id": "uno-card-game",
+    "title": "Uno Card Game",
+    "description": [
+      "UNO! The classic card game of matching colors and numbers",
+      "Players take turns matching one of their cards with the color or number card shown on the top of the deck",
+      "Score points by being the first to get rid of all the cards in your hand"
+    ],
+    "price_usd": 4.99,
+    "photo_urls": [
+      "https://storage.googleapis.com/reading-rewards-prizes/uno/1.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/uno/2.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/uno/3.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/uno/4.jpg"
+    ],
+    "amazon_url": "https://www.amazon.com/Mattel-Games-UNO-Card-Game/dp/B00004TZY8"
+  },
+  {
+    "_id": "mini-hoop",
+    "title": "SKLZ Pro Mini Micro Hoop",
+    "description": [
+      "The SKLZ Pro Mini Hoop Micro is the perfect over the door basketball hoop.",
+      "The 15” x 10” backboard is made of shatterproof clear polycarbonate for years of fun.",
+      "SKLZ is dedicated to bringing you the ultimate mini basketball set with a compact pro-grade backboard, break-away steel rim and foam ball, giving you the game you want."
+    ],
+    "price_usd": 25.69,
+    "photo_urls": [
+      "https://storage.googleapis.com/reading-rewards-prizes/mini-hoop/1.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/mini-hoop/2.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/mini-hoop/3.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/mini-hoop/4.jpg"
+    ],
+    "amazon_url": "https://www.amazon.com/SKLZ-Mini-Micro-Hoop-Foam/dp/B00XRDONXC/"
+  },
+  {
+    "_id": "yoyo-factory",
+    "title": "Fast 201 Yoyo",
+    "description": [
+      "All of our YoYoFactory models are build with a system for long, smooth spins.",
+      "Our yoyos are the best choice for a kid who wants to perfect string and looping tricks.",
+      "The sleek design makes string tricks easier and slick."
+    ],
+    "price_usd": 11.99,
+    "photo_urls": [
+      "https://storage.googleapis.com/reading-rewards-prizes/yoyo/1.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/yoyo/2.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/yoyo/3.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/yoyo/4.jpg"
+    ],
+    "amazon_url": "https://www.amazon.com/dp/B008OIOEES"
+  },
+  {
+    "_id": "activ-frisbee",
+    "title": "Activ Life Frisbee",
+    "description": [
+      "Activ Flyers are the world's easiest frisbees to throw and catch! Our unique design flies straight and can be caught in the smallest of hands, on your wrist or even your foot!",
+      "This two pack comes with one black and one white!",
+      "Enjoy hours of outdoor fun with your family and friends! Ideal for players of all ages and skill levels. Play anytime and anywhere. They even float in water, making them great beach, lake and pool toys."
+    ],
+    "price_usd": 12.99,
+    "photo_urls": [
+      "https://storage.googleapis.com/reading-rewards-prizes/activ-frisbee/1.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/activ-frisbee/2.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/activ-frisbee/3.jpg",
+      "https://storage.googleapis.com/reading-rewards-prizes/activ-frisbee/4.jpg"
+    ],
+    "amazon_url": "https://www.amazon.com/Activ-Life-Frisbee-Rings-Black/dp/B07B896S7Q"
+  }
+]

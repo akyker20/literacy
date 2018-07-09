@@ -5,6 +5,23 @@ import * as _ from 'lodash';
 
 import { HashedPassSaltLen } from './constants';
 
+// Configure database
+
+const host = process.env.MONGO_HOST || 'localhost';
+const port = process.env.MONGO_PORT || 27017;
+const dbName = process.env.MONGO_DB_NAME || 'local';
+
+const connectionStr = `mongodb://${host}:${port}/${dbName}`;
+const db = monk.default(connectionStr);
+
+const bookCollection = db.get('books', { castIds: false });
+const genreCollection = db.get('genres', { castIds: false });
+const usersCollection = db.get('users', { castIds: false });
+const quizCollection = db.get('quizzes', { castIds: false })
+const prizeCollection = db.get('prizes', { castIds: false })
+const quizSubmissionsCollection = db.get('quiz_submissions', { castIds: false })
+const prizeOrdersCollection = db.get('prize_orders', { castIds: false })
+
 const genres: M.IGenre[] = [
   {
     _id: 'history',
@@ -102,17 +119,6 @@ const users: M.IUser[] = [
   austin,
   katelynn
 ]
-
-const connectionStr = `mongodb://localhost:27017/local`;
-const db = monk.default(connectionStr);
-
-const bookCollection = db.get('books', { castIds: false });
-const genreCollection = db.get('genres', { castIds: false });
-const usersCollection = db.get('users', { castIds: false });
-const quizCollection = db.get('quizzes', { castIds: false })
-const prizeCollection = db.get('prizes', { castIds: false })
-const quizSubmissionsCollection = db.get('quiz_submissions', { castIds: false })
-const prizeOrdersCollection = db.get('prize_orders', { castIds: false })
 
 async function setData(collection: monk.ICollection, data: any) {
   await collection.drop();

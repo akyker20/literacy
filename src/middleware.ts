@@ -9,7 +9,7 @@ import { Models as M, Constants as SC } from 'reading_rewards';
 
 // internal dependencies
 
-import { IRequest } from './Extensions';
+import { IRequest } from './extensions';
 import * as Constants from './constants';
 
 /**

@@ -1,0 +1,6 @@
+dist
+node_modules
+.gitignore
+tslint.json
+update.sh
+test_data
