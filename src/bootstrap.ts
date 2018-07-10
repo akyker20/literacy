@@ -1,9 +1,13 @@
 import * as bcrypt from 'bcryptjs';
 import * as monk from 'monk';
+import * as Path from 'path';
+import * as fs from 'fs';
 import { Models as M, Mockers } from 'reading_rewards';
 import * as _ from 'lodash';
 
 import { HashedPassSaltLen } from './constants';
+
+const initialPrizes: M.IPrize[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../data/prizes.json'), 'utf8'));
 
 // Configure database
 
@@ -49,7 +53,6 @@ const genres: M.IGenre[] = [
     description: 'Some description of genre'
   }
 ]
-const prizes = _.times(10, () => Mockers.mockPrize({}));
 
 const books = _.times(500, i => Mockers.mockBook({
   genres: _.sampleSize(genres, _.random(3)).map(g => g._id)
@@ -130,7 +133,7 @@ Promise.all([
   setData(bookCollection, books),
   setData(genreCollection, genres),
   setData(quizCollection, quizzes),
-  setData(prizeCollection, prizes),
+  setData(prizeCollection, initialPrizes),
   setData(quizSubmissionsCollection, []),
   setData(prizeOrdersCollection, [])
 ]).then(() => process.exit(0))
