@@ -1153,7 +1153,7 @@ describe('End to End tests', function () {
               const actualClaims = jwt.verify(body.auth_token, Constants.JWTSecret) as any
               assert.equal(actualClaims._id, katelynn._id);
               assert.equal(actualClaims.type, katelynn.type)
-              assert.deepEqual(body.studentDTO.info, katelynn)
+              assert.deepEqual(body.dto.info, katelynn)
             })
         })
 

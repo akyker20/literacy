@@ -105,8 +105,10 @@ const katelynn: M.IStudent = {
   email: 'kkyker@gmail.com',
   first_name: 'Katelynn',
   last_name: 'Kyker',
+  status: M.StudentStatus.Active,
   type: M.UserType.STUDENT,
   date_created: new Date().toISOString(),
+  date_activated: new Date().toISOString(),
   hashed_password: bcrypt.hashSync('password', HashedPassSaltLen),
   initial_lexile_measure: 700,
   gender: M.Gender.Female,
@@ -118,9 +120,21 @@ const katelynn: M.IStudent = {
   }))
 }
 
+const bonnie: M.IEducator = {
+  _id: 'bonnie-stewart',
+  email: 'bonnie@gmail.com',
+  first_name: 'Bonnie',
+  last_name: 'Stewart',
+  type: M.UserType.EDUCATOR,
+  date_created: new Date().toISOString(),
+  hashed_password: bcrypt.hashSync('password', HashedPassSaltLen),
+  student_ids: [katelynn._id]
+}
+
 const users: M.IUser[] = [
   austin,
-  katelynn
+  katelynn,
+  bonnie
 ]
 
 async function setData(collection: monk.ICollection, data: any) {

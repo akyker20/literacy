@@ -12,6 +12,7 @@ export interface IUserData {
   getUsersWithIds: (ids: string[]) => Promise<IUser[]>;
   getUserByEmail: (email: string) => Promise<IUser>;
   getAllUsers: () => Promise<IUser[]>;
+  deleteUser: (userId: string) => Promise<IUser>;
 }
 
 export class MongoUserData implements IUserData {
@@ -47,6 +48,10 @@ export class MongoUserData implements IUserData {
 
   getAllUsers(): Promise<IUser[]> {
     return this.users.find({});
+  }
+
+  deleteUser(userId: string) {
+    return this.users.findOneAndDelete({ _id: userId })
   }
 
 }

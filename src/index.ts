@@ -78,19 +78,24 @@ export default class App {
       prizeData,
       notifications
     );
-
+    
     this.server.get('/users', userRoutes.getAllUsers); // TODO: remove
 
     this.server.get('/whoami', userRoutes.whoami); // TEST
     this.server.post('/students/signin', userRoutes.studentSignin);
+    this.server.post('/educators/signin', userRoutes.educatorSignin);
 
     this.server.post('/students', userRoutes.createStudent);
+    this.server.post('/students/:userId/activate', userRoutes.activatePendingStudent);
+    this.server.get('/students', userRoutes.getStudentByEmail);
+    this.server.post('/educators/:userId/students', userRoutes.createPendingStudent);
     this.server.post('/students/:userId/genre_interests', userRoutes.createGenreInterests);
     this.server.put('/students/:userId/genre_interests/:genreId', userRoutes.editGenreInterest);
     this.server.put('/students/:userId/parent_emails', userRoutes.updateStudentsParentsEmails);
     
     this.server.post('/educators', userRoutes.createEducator);
     this.server.put('/educators/:userId/students', userRoutes.updateStudentsForEducator);
+    this.server.del('/educators/:userId/students/:studentId', userRoutes.deletePendingStudent);
 
     this.server.post('/students/:userId/bookmarked_books', userRoutes.bookmarkBook);
     this.server.del('/students/:userId/bookmarked_books/:bookId', userRoutes.unbookmarkBook)

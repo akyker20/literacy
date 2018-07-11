@@ -6,11 +6,11 @@ import * as jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
 import { Next, Response } from 'restify';
 import { Models as M, Constants as C, Helpers } from 'reading_rewards';
-import { 
+import {
   BadRequestError,
-  ResourceNotFoundError, 
-  UnauthorizedError, 
-  ForbiddenError 
+  ResourceNotFoundError,
+  UnauthorizedError,
+  ForbiddenError
 } from 'restify-errors';
 
 import * as Constants from '../constants';
@@ -53,10 +53,23 @@ export const userSchema = joi.object({
   password: joi.string().required().error(genFieldErr('password')),
 }).required();
 
+const activateUserSchema = joi.object({
+  password: joi.string().required()
+}).required()
+
 export const studentSchema = userSchema.keys({
   gender: joi.string().valid(_.values(M.Gender)).required().error(genFieldErr('gender')),
   parent_emails: parentEmailsSchema,
   initial_lexile_measure: lexileMeasureSchema.error(genFieldErr('initial_lexile_measure')),
+}).required();
+
+export const pendingStudentSchema = joi.object({
+  first_name: joi.string().required(),
+  last_name: joi.string().required(),
+  email: joi.string().email().required(),
+  initial_lexile_measure: lexileMeasureSchema,
+  gender: joi.string().valid(_.values(M.Gender)).required(),
+  parent_emails: parentEmailsSchema
 }).required();
 
 export const userAuthSchema = joi.object({
@@ -83,9 +96,27 @@ export function UserRoutes(
   notifications: INotificationSys
 ) {
 
+  function getAuthToken(user: M.IUser) {
+    const claims = {
+      _id: user._id,
+      type: user.type
+    };
+    const token = jwt.sign(claims, Constants.JWTSecret, { expiresIn: '1y' });
+    return token;
+  }
+
   async function userExistsWithEmail(email: string): Promise<boolean> {
     const existingUserWithEmail = await userData.getUserByEmail(email);
     return !_.isNull(existingUserWithEmail);
+  }
+
+  async function getEducatorDTO(user: M.IUser): Promise<M.IEducatorDTO> {
+    const educator = user as M.IEducator;
+    const students = await userData.getUsersWithIds(educator.student_ids) as M.IStudent[];
+    return {
+      students,
+      educator
+    }
   }
 
   async function getStudentDTO(user: M.IUser): Promise<M.IStudentDTO> {
@@ -116,7 +147,7 @@ export function UserRoutes(
     const booksRead = await bookData.getBooksWithIds(idsOfBooksRead);
 
     // get bookmarked books
-    
+
     const idsOfBookmarkedBooks = _.map(student.bookmarked_books, 'bookId');
 
     const booksBookmarked = await bookData.getBooksWithIds(idsOfBookmarkedBooks);
@@ -130,7 +161,7 @@ export function UserRoutes(
       .value()
 
     const prizesOrdered = await prizeData.getPrizesWithIds(idsOfPrizesOrdered);
-    
+
     return {
       info: student,
       current_lexile_measure: currentLexileMeasure,
@@ -141,7 +172,7 @@ export function UserRoutes(
       prize_orders: studentPrizeOrders,
       prizes_ordered: prizesOrdered
     }
-    
+
   }
 
   return {
@@ -159,6 +190,8 @@ export function UserRoutes(
 
         if (user.type === M.UserType.STUDENT) {
           return getStudentDTO(user);
+        } else if (user.type === M.UserType.EDUCATOR) {
+          return getEducatorDTO(user);
         }
 
         return user;
@@ -354,6 +387,153 @@ export function UserRoutes(
       Middle.handlePromise
     ],
 
+    deletePendingStudent: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.ADMIN, M.UserType.EDUCATOR]),
+      Middle.authorizeAgents([M.UserType.ADMIN]),
+      unwrapData(async (req: IRequest<null>) => {
+        
+        const { userId: educatorId, studentId } = req.params;
+
+        const educator = await userData.getUserById(educatorId) as M.IEducator;
+
+        if (_.isNull(educator)) {
+          throw new ResourceNotFoundError(`User ${educatorId} does not exist`)
+        }
+
+        if (educator.type !== M.UserType.EDUCATOR) {
+          throw new BadRequestError(`User ${educatorId} is not an educator`)
+        }
+
+        if (!_.includes(educator.student_ids, studentId)) {
+          throw new BadRequestError(`Student ${studentId} is not in educator ${educatorId}'s list of students`)
+        }
+
+        const student = await userData.getUserById(studentId) as M.IStudent;
+
+        if (_.isNull(student)) {
+          throw new ResourceNotFoundError(`User ${studentId} does not exist`)
+        }
+
+        if (student.type !== M.UserType.STUDENT) {
+          throw new BadRequestError(`User ${studentId} is not a student`)
+        }
+
+        if (student.status !== M.StudentStatus.Pending) {
+          throw new BadRequestError(`Student ${studentId} cannot be deleted as they are already active`)
+        }
+
+        await userData.deleteUser(studentId);
+
+        const updatedEducator: M.IEducator = {
+          ...educator,
+          student_ids: _.filter(educator.student_ids, id => id !== studentId)
+        }
+
+        return await userData.updateUser(updatedEducator);
+
+      }),
+      Middle.handlePromise
+    ],
+
+    createPendingStudent: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.ADMIN, M.UserType.EDUCATOR]),
+      Middle.authorizeAgents([M.UserType.ADMIN]),
+      Middle.valBody(pendingStudentSchema),
+      unwrapData(async (req: IRequest<M.IPendingStudentBody>) => {
+
+        const { userId: teacherId } = req.params;
+
+        const teacher = await userData.getUserById(req.params.userId) as M.IEducator;
+
+        if (_.isNull(teacher)) {
+          throw new ResourceNotFoundError(`Teacher ${teacherId} does not exist`)
+        }
+
+        if (teacher.type !== M.UserType.EDUCATOR) {
+          throw new BadRequestError(`User ${teacherId} is not a teacher.`)
+        }
+        
+        if (await userExistsWithEmail(req.body.email)) {
+          throw new BadRequestError(`User with email ${req.body.email} already exists.`);
+        }
+
+        const pendingUser: M.IStudent = {
+          ...req.body,
+          type: M.UserType.STUDENT,
+          status: M.StudentStatus.Pending,
+          bookmarked_books: [],
+          genre_interests: null,
+          date_created: new Date().toISOString(),
+          date_activated: null
+        }
+
+        const createdStudent = await userData.createUser(pendingUser);
+
+        const updatedTeacher: M.IEducator = {
+          ... teacher,
+          student_ids: [...teacher.student_ids, createdStudent._id as string]
+        }
+
+        return await userData.updateUser(updatedTeacher);
+
+      }),
+      Middle.handlePromise
+    ],
+
+    getStudentByEmail: [
+      Middle.authenticate,
+      Middle.valQueryParams({ name: 'email', schema: joi.string().email().required() }),
+      unwrapData(async (req: IRequest<null>) => {
+        return await userData.getUserByEmail(req.query.email);
+      }),
+      Middle.handlePromise
+    ],
+
+    activatePendingStudent: [
+      Middle.valBody(activateUserSchema),
+      unwrapData(async (req: IRequest<{ password: string }>) => {
+
+        const { userId: studentId } = req.params;
+
+        const user = await userData.getUserById(studentId);
+
+        if (_.isNull(user)) {
+          throw new ResourceNotFoundError(`User ${studentId} does not exist`)
+        }
+
+        if (user.type !== M.UserType.STUDENT) {
+          throw new BadRequestError(`User ${studentId} is not a student.`)
+        }
+
+        const student = user as M.IStudent;
+
+        if (student.status !== M.StudentStatus.Pending) {
+          throw new BadRequestError(`Student ${studentId} is already activated.`)
+        }
+
+        const hashedPassword = await bcrypt.hash(req.body.password, Constants.HashedPassSaltLen);
+
+        const updatedStudent: M.IStudent = {
+          ...student,
+          status: M.StudentStatus.Active,
+          hashed_password: hashedPassword,
+          date_activated: new Date().toISOString()
+        }
+
+        const activatedStudent = await userData.updateUser(updatedStudent);
+
+        return <M.IAuthStudentDTO>{
+          auth_token: getAuthToken(activatedStudent),
+          dto: await getStudentDTO(activatedStudent)
+        }
+
+
+      }),
+      Middle.handlePromise
+    ],
+
     createStudent: [
       Middle.authenticate,
       Middle.authorize([M.UserType.ADMIN]),
@@ -367,9 +547,13 @@ export function UserRoutes(
         const hashedPassword = await bcrypt.hash(req.body.password, Constants.HashedPassSaltLen);
         delete req.body.password;
 
+        const nowIso = new Date().toISOString();
+
         const newStudent: M.IStudent = _.assign({}, req.body, {
+          status: M.StudentStatus.Active,
           hashed_password: hashedPassword,
-          date_created: new Date().toISOString(),
+          date_created: nowIso,
+          date_activated: nowIso,
           type: M.UserType.STUDENT,
           genre_interests: null,
           bookmarked_books: []
@@ -497,24 +681,47 @@ export function UserRoutes(
           throw new BadRequestError('Invalid email/password combination.');
         }
 
-        const studentDTO = await getStudentDTO(user);
+        const slackMessage = `*${Helpers.getFullName(user)} signed in*`
+        notifications.sendMessage(slackMessage)
+
+        return <M.IAuthStudentDTO>{
+          auth_token: getAuthToken(user),
+          dto: await getStudentDTO(user)
+        }
+
+      }),
+      Middle.handlePromise
+    ],
+
+    educatorSignin: [
+      Middle.valBody(userAuthSchema),
+      unwrapData(async (req: IRequest<IUserLoginCredentials>) => {
+
+        const { email, password } = req.body;
+
+        const user = await userData.getUserByEmail(email);
+
+        if (user === null) {
+          throw new BadRequestError(`No user with email ${email}`);
+        }
+
+        if (user.type !== M.UserType.EDUCATOR) {
+          throw new BadRequestError(`User must be an educator.`)
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.hashed_password);
+
+        if (!isPasswordCorrect) {
+          throw new BadRequestError('Invalid email/password combination.');
+        }
 
         const slackMessage = `*${Helpers.getFullName(user)} signed in*`
         notifications.sendMessage(slackMessage)
 
-        const claims = {
-          _id: user._id,
-          type: user.type
-        };
-
-        const token = jwt.sign(claims, Constants.JWTSecret, { expiresIn: '1y' });
-
-        const dto: M.IWhoamiDTO = {
-          auth_token: token,
-          studentDTO
+        return <M.IAuthEducatorDTO>{
+          auth_token: getAuthToken(user),
+          dto: await getEducatorDTO(user)
         }
-
-        return dto;
 
       }),
       Middle.handlePromise

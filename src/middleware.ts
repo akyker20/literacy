@@ -141,6 +141,29 @@ export function valBody<T>(schema: joi.Schema) {
   };
 }
 
+/**
+ * Validates schema of request query parameters
+ * Sends 400 if any parameters are invalid.
+ * 
+ * @param params 
+ */
+export function valQueryParams(... params: { name: string, schema: joi.Schema }[]) {
+  return (req: IRequest<any>, res: Response, next: Next) => {
+
+    // https://basarat.gitbooks.io/typescript/content/docs/for...of.html
+    for (const { name, schema } of params) {
+      const { error } = joi.validate(req.query[name], schema);
+      if (error) {
+        req.log.info(error.message, 'Request Url Query Param Error');
+        return next(new Err.BadRequestError(`Query param error for ${name}`));
+      }
+    }
+
+    return next();
+
+  };
+}
+
 export function valIdsSame(paramKey: string) {
   return (req: IRequest<any>, res: Response, next: Next) => {
 
