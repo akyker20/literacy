@@ -13,6 +13,8 @@ import { IPrizeData } from './data/prizes';
 import { IPrizeOrderData } from './data/prize_orders';
 import { PrizeRoutes } from './routes';
 import { INotificationSys } from './notifications';
+import { ReadingLogRoutes } from './routes/reading_log';
+import { IReadingLogData } from './data/reading_log';
 
 // logger configuration
 
@@ -41,6 +43,7 @@ export default class App {
     bookReviewData: IBookReviewData,
     prizeData: IPrizeData,
     prizeOrderData: IPrizeOrderData,
+    readingLogData: IReadingLogData,
     notifications: INotificationSys
   ) {
 
@@ -153,14 +156,23 @@ export default class App {
     );
 
     this.server.get('/prizes', prizeRoutes.getPrizes);
-
     this.server.post('/prizes', prizeRoutes.createPrize);
-
     this.server.put('/prizes/:prizeId', prizeRoutes.updatePrize);
-
     this.server.del('/prizes/:prizeId', prizeRoutes.deletePrize);
-
     this.server.post('/prize_orders', prizeRoutes.orderPrize);
+
+    // configure reading log routes
+
+    const readingLogRoutes = ReadingLogRoutes(
+      userData,
+      bookData,
+      readingLogData,
+      notifications
+    )
+
+    this.server.get('/students/:userId/reading_logs', readingLogRoutes.getLogsForStudent);
+    this.server.post('/students/:userId/reading_logs', readingLogRoutes.createLog);
+    this.server.del('/students/:userId/reading_logs/:logId', readingLogRoutes.deleteLog);
 
 
     /**

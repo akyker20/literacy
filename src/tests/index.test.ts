@@ -25,6 +25,7 @@ import App from '..';
 import { MongoPrizeData } from '../data/prizes';
 import { MongoPrizeOrderData } from '../data/prize_orders';
 import { MockNotifications } from '../notifications/mock';
+import { MongoReadingLogData } from '../data/reading_log';
 
 
 // Load all the data
@@ -48,6 +49,8 @@ const bonnieToken = genAuthTokenForUser(bonnie);
 
 const katelynn = _.find(initialUsers, { _id: 'katelynn-kyker' }) as Models.IStudent;
 const katelynnToken = genAuthTokenForUser(katelynn);
+
+const inactiveStudent = _.find(initialUsers, { status: Models.StudentStatus.Pending }) as Models.IStudent;
 
 const chase = _.find(initialUsers, { _id: 'chase-malik' }) as Models.IStudent;
 const chaseToken = genAuthTokenForUser(chase);
@@ -82,6 +85,7 @@ const mongoQuizData = new MongoQuizData(connectionStr);
 const mongoBookReviewData = new MongoBookReviewData(connectionStr);
 const mongoPrizeData = new MongoPrizeData(connectionStr);
 const mongoPrizeOrderData = new MongoPrizeOrderData(connectionStr);
+const readingLogData = new MongoReadingLogData(connectionStr);
 
 const app = new App(
   mongoBookData,
@@ -91,6 +95,7 @@ const app = new App(
   mongoBookReviewData,
   mongoPrizeData,
   mongoPrizeOrderData,
+  readingLogData,
   new MockNotifications()
 )
 
@@ -1114,6 +1119,11 @@ describe('End to End tests', function () {
           password: 'password'
         }
 
+        const inactiveStudentCreds: Models.IUserLoginCreds = {
+          email: inactiveStudent.email,
+          password: 'password'
+        }
+
         it('should 400 if no user exists with email', function() {
           const invalidEmail = 'invalid@gmail.com'
           return agent
@@ -1129,6 +1139,14 @@ describe('End to End tests', function () {
             .send(validAdminCreds)
             .expect(400)
             .then(checkErrMsg('User must be a student.'))
+        })
+
+        it('should 400 if student is not active', function() {
+          return agent
+            .post('/students/signin')
+            .send(inactiveStudentCreds)
+            .expect(400)
+            .then(checkErrMsg('This student account is not yet activated.'))
         })
 
         it('should 400 if invalid email/password combo', function() {
@@ -1369,6 +1387,7 @@ describe('End to End tests', function () {
               assert.hasAllKeys(body, [
                 '_id',
                 'date_created',
+                'date_activated',
                 'email',
                 'first_name',
                 'last_name',
@@ -1378,6 +1397,7 @@ describe('End to End tests', function () {
                 'initial_lexile_measure',
                 'bookmarked_books',
                 'type',
+                'status',
                 'parent_emails'
               ])
 
@@ -1387,13 +1407,15 @@ describe('End to End tests', function () {
 
               delete body._id;
               delete body.date_created;
+              delete body.date_activated;
               delete body.hashed_password;
               delete validReqBody.password;
 
               const expected = _.assign({}, validReqBody, {
                 type: Models.UserType.STUDENT,
                 genre_interests: null,
-                bookmarked_books: []
+                bookmarked_books: [],
+                status: Models.StudentStatus.Active
               });
 
               assert.deepEqual(expected, body);

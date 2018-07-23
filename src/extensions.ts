@@ -11,7 +11,7 @@ export interface IRequest<T> extends restify.Request {
   };
 }
 
-export const lexileMeasureSchema = joi.number().min(0).max(2000).required();
+export const lexileMeasureSchema = joi.number().min(0).max(2000).strict().required();
 
 const shortidRegexPattern = /[A-Za-z0-9_-]{7,14}/;
 

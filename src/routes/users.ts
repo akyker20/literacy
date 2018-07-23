@@ -483,7 +483,6 @@ export function UserRoutes(
     ],
 
     getStudentByEmail: [
-      Middle.authenticate,
       Middle.valQueryParams({ name: 'email', schema: joi.string().email().required() }),
       unwrapData(async (req: IRequest<null>) => {
         return await userData.getUserByEmail(req.query.email);
@@ -524,6 +523,9 @@ export function UserRoutes(
 
         const activatedStudent = await userData.updateUser(updatedStudent);
 
+        const slackMessage = `*${Helpers.getFullName(user)}* is activated`
+        notifications.sendMessage(slackMessage)
+        
         return <M.IAuthStudentDTO>{
           auth_token: getAuthToken(activatedStudent),
           dto: await getStudentDTO(activatedStudent)
@@ -673,6 +675,12 @@ export function UserRoutes(
 
         if (user.type !== M.UserType.STUDENT) {
           throw new BadRequestError(`User must be a student.`)
+        }
+
+        const student = user as M.IStudent;
+
+        if (student.status !== M.StudentStatus.Active) {
+          throw new BadRequestError('This student account is not yet activated.');
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, user.hashed_password);
