@@ -13,7 +13,6 @@ import { IPrizeData } from './data/prizes';
 import { IPrizeOrderData } from './data/prize_orders';
 import { PrizeRoutes } from './routes';
 import { INotificationSys } from './notifications';
-import { ReadingLogRoutes } from './routes/reading_log';
 import { IReadingLogData } from './data/reading_log';
 
 // logger configuration
@@ -79,6 +78,7 @@ export default class App {
       genreData,
       prizeOrderData,
       prizeData,
+      readingLogData,
       notifications
     );
     
@@ -163,7 +163,7 @@ export default class App {
 
     // configure reading log routes
 
-    const readingLogRoutes = ReadingLogRoutes(
+    const readingLogRoutes = Routes.ReadingLogRoutes(
       userData,
       bookData,
       readingLogData,

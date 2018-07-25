@@ -5,6 +5,7 @@
     "book_id": "harry-potter-id",
     "review": "Really enjoyed the book",
     "date_created": "2018-05-16T17:55:56.479Z",
-    "comprehension": 5
+    "comprehension": 5,
+    "interest": 3
   }
 ]

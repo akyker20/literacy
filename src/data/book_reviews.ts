@@ -6,6 +6,7 @@ import { Models as M } from 'reading_rewards';
 export interface IBookReviewData {
   createBookReview: (review: M.IBookReview) => Promise<M.IBookReview>;
   getBookReviewsForStudent: (studentId: string) => Promise<M.IBookReview[]>;
+  getReviewsForBook: (bookId: string) => Promise<M.IBookReview[]>
   getBookReview: (studentId: string, bookId: string) => Promise<M.IBookReview>;
 }
 
@@ -22,6 +23,10 @@ export class MongoBookReviewData implements IBookReviewData {
     const copy = _.cloneDeep(review);
     copy._id = shortid.generate();
     return this.bookReviews.insert(copy);
+  }
+
+  getReviewsForBook(bookId: string): Promise<M.IBookReview[]> {
+    return this.bookReviews.find({ book_id: bookId});
   }
 
   getBookReviewsForStudent(studentId: string): Promise<M.IBookReview[]> {

@@ -24,6 +24,7 @@ import { IBookReviewData } from '../data/book_reviews';
 import { IPrizeOrderData } from '../data/prize_orders';
 import { IPrizeData } from '../data/prizes';
 import { INotificationSys } from '../notifications';
+import { IReadingLogData } from '../data/reading_log';
 
 interface IUserLoginCredentials {
   email: string;
@@ -93,6 +94,7 @@ export function UserRoutes(
   genreData: IGenreData,
   prizeOrderData: IPrizeOrderData,
   prizeData: IPrizeData,
+  readingLogData: IReadingLogData,
   notifications: INotificationSys
 ) {
 
@@ -162,6 +164,8 @@ export function UserRoutes(
 
     const prizesOrdered = await prizeData.getPrizesWithIds(idsOfPrizesOrdered);
 
+    const readingLog = await readingLogData.getLogsForStudent(user._id);
+
     return {
       info: student,
       current_lexile_measure: currentLexileMeasure,
@@ -170,7 +174,8 @@ export function UserRoutes(
       book_reviews: studentBookReviews,
       bookmarked_books: booksBookmarked,
       prize_orders: studentPrizeOrders,
-      prizes_ordered: prizesOrdered
+      prizes_ordered: prizesOrdered,
+      reading_log: readingLog
     }
 
   }

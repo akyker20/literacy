@@ -14,10 +14,11 @@ import { IGenreData } from '../data/genres';
 import { IQuizData } from '../data/quizzes';
 
 const inputBookReview = joi.object({
-  comprehension: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required().error(genFieldErr('comprehension')),
-  review: joi.string().max(300).optional().error(genFieldErr('review')),
-  book_id: shortidSchema.required().error(genFieldErr('book_id')),
-  student_id: shortidSchema.required().error(genFieldErr('student_id'))
+  interest: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required(),
+  comprehension: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required(),
+  review: joi.string().max(500).optional(),
+  book_id: shortidSchema.required(),
+  student_id: shortidSchema.required()
 }).required()
 
 const inputBookSchema = joi.object({
@@ -68,6 +69,24 @@ export function BookRoutes(
 
   return {
 
+    getBookReviewsForBook: [
+      Middle.authenticate,
+      unwrapData(async (req: IRequest<null>) => {
+
+        const { bookId } = req.params;
+        const bookReviews = await bookReviewData.getReviewsForBook(bookId);
+        const activeReviews = bookReviews.filter(review => review.is_active && !_.isEmpty(review.review))
+        
+        return <M.IBookReviewDTO[]> activeReviews.map(review => ({
+          _id: review._id,
+          review: review.review,
+          date_created: review.date_created
+        }))
+        
+      }),
+      Middle.handlePromise
+    ],
+
     createBookReview: [
       Middle.authenticate,
       Middle.authorize([M.UserType.STUDENT, M.UserType.ADMIN]),
@@ -112,7 +131,8 @@ export function BookRoutes(
 
         const bookReview: M.IBookReview = _.assign({}, req.body, {
           date_created: new Date().toISOString(),
-          book_lexile_measure: book.lexile_measure
+          book_lexile_measure: book.lexile_measure,
+          is_active: true
         })
         
         return bookReviewData.createBookReview(bookReview);
