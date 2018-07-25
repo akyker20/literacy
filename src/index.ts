@@ -122,6 +122,7 @@ export default class App {
     this.server.del('/genres/:genreId', bookRoutes.deleteGenre);
 
     this.server.get('/books', bookRoutes.getBooks);
+    this.server.get('/books/:bookId/reviews', bookRoutes.getBookReviewsForBook);
     this.server.post('/books', bookRoutes.createBook);
     this.server.put('/books/:bookId', bookRoutes.updateBook);
     this.server.get('/books/:bookId', bookRoutes.getBook);

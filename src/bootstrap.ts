@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 import * as monk from 'monk';
+import * as faker from 'faker';
 import * as Path from 'path';
 import * as fs from 'fs';
 import { Models as M, Mockers } from 'reading_rewards';
@@ -25,6 +26,7 @@ const quizCollection = db.get('quizzes', { castIds: false })
 const prizeCollection = db.get('prizes', { castIds: false })
 const quizSubmissionsCollection = db.get('quiz_submissions', { castIds: false })
 const prizeOrdersCollection = db.get('prize_orders', { castIds: false })
+const bookReviewsCollection = db.get('book_reviews', { castIds: false });
 
 const genres: M.IGenre[] = [
   {
@@ -137,6 +139,17 @@ const users: M.IUser[] = [
   bonnie
 ]
 
+const bookReviews: M.IBookReview[] = [];
+_.forEach(books, book => _.times(_.random(1, 10), i => {
+  bookReviews.push(Mockers.mockBookReview({
+    book_id: book._id as string,
+    student_id: katelynn._id as string,
+    review: faker.lorem.sentences(_.random(3, 10)),
+    student_initials: `${faker.name.firstName().charAt(0)}${faker.name.lastName().charAt(0)}`.toUpperCase()
+  }))
+}))
+
+
 async function setData(collection: monk.ICollection, data: any) {
   await collection.drop();
   await collection.insert(data);
@@ -149,5 +162,6 @@ Promise.all([
   setData(quizCollection, quizzes),
   setData(prizeCollection, initialPrizes),
   setData(quizSubmissionsCollection, []),
-  setData(prizeOrdersCollection, [])
+  setData(prizeOrdersCollection, []),
+  setData(bookReviewsCollection, bookReviews)
 ]).then(() => process.exit(0))

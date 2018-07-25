@@ -80,7 +80,8 @@ export function BookRoutes(
         return <M.IBookReviewDTO[]> activeReviews.map(review => ({
           _id: review._id,
           review: review.review,
-          date_created: review.date_created
+          date_created: review.date_created,
+          student_initials: review.student_initials
         }))
         
       }),
@@ -101,6 +102,12 @@ export function BookRoutes(
       unwrapData(async (req: IRequest<M.IBookReviewBody>) => {
 
         const { student_id, book_id } = req.body;
+
+        const student = await userData.getUserById(student_id);
+
+        if (_.isNull(student)) {
+          throw new BadRequestError(`User ${student_id} does not exist`);
+        }
 
         // verify the book actually exists
 
@@ -132,7 +139,8 @@ export function BookRoutes(
         const bookReview: M.IBookReview = _.assign({}, req.body, {
           date_created: new Date().toISOString(),
           book_lexile_measure: book.lexile_measure,
-          is_active: true
+          is_active: true,
+          student_initials: `${student.first_name.charAt(0)}${student.last_name.charAt(0)}`.toUpperCase()
         })
         
         return bookReviewData.createBookReview(bookReview);

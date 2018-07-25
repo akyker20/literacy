@@ -687,6 +687,7 @@ describe('End to End tests', function () {
       delete reviewForBookNotRead.date_created;
       delete reviewForBookNotRead._id;
       delete reviewForBookNotRead.is_active;
+      delete reviewForBookNotRead.student_initials;
 
       const bookChaseReadId = 'hobbit-id';
       const reviewForBookRead = Mockers.mockBookReview({
@@ -697,6 +698,7 @@ describe('End to End tests', function () {
       delete reviewForBookRead.date_created;
       delete reviewForBookRead._id;
       delete reviewForBookRead.is_active;
+      delete reviewForBookRead.student_initials;
 
       it('should 401 when no auth token in header', function () {
         return agent
@@ -733,7 +735,8 @@ describe('End to End tests', function () {
             delete body._id;
             const expected = _.assign({}, reviewForBookRead, {
               book_lexile_measure: 1000,
-              is_active: true
+              is_active: true,
+              student_initials: 'CM'
             })
             assert.deepEqual(body, expected);
           })
