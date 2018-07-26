@@ -32,6 +32,10 @@ export function ReadingLogRoutes(
 
   return {
 
+    /**
+     * What is not validated
+     * Multiple reading logs per day
+     */
     createLog: [
       Middle.authenticate,
       Middle.authorize([M.UserType.ADMIN, M.UserType.STUDENT]),

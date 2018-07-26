@@ -139,14 +139,10 @@ export function UserRoutes(
 
     const studentQuizSubmissions = await quizData.getSubmissionsForStudent(student._id);
 
-    // get books read
+    // get books passed quiz for
 
-    const idsOfBooksRead = _.chain(studentQuizSubmissions)
-      .filter(s => s.passed)
-      .map('book_id')
-      .value();
-
-    const booksRead = await bookData.getBooksWithIds(idsOfBooksRead);
+    const idsOfPassedQuizBooks = Helpers.getIdsOfPassedQuizBooks(studentQuizSubmissions);
+    const passedQuizBooks = await bookData.getBooksWithIds(idsOfPassedQuizBooks);
 
     // get bookmarked books
 
@@ -169,13 +165,13 @@ export function UserRoutes(
     return {
       info: student,
       current_lexile_measure: currentLexileMeasure,
-      books_read: booksRead, // based on passed submissions, not book reviews
+      passed_quiz_books: passedQuizBooks,
       quiz_submissions: studentQuizSubmissions,
       book_reviews: studentBookReviews,
       bookmarked_books: booksBookmarked,
       prize_orders: studentPrizeOrders,
       prizes_ordered: prizesOrdered,
-      reading_log: readingLog
+      reading_logs: readingLog
     }
 
   }
