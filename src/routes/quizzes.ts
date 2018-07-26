@@ -95,7 +95,7 @@ export function QuizRoutes(
       Middle.authenticate,
       Middle.authorize([M.UserType.ADMIN]),
       Middle.valBody(createdQuizSchema),
-      Middle.valIdsSame('quizId'),
+      Middle.valIdsSame({ paramKey: 'quizId', bodyKey: '_id' }),
       unwrapData(async (req: IRequest<M.IQuiz>) => {
 
         if (!(await isBookValid(req.body))) {
@@ -171,11 +171,11 @@ export function QuizRoutes(
           throw new ForbiddenError(`User must wait to attempt another quiz.`);
         }
 
-        if (Helpers.hasPassedQuizForBook(submissions, book_id)) {
+        if (Helpers.hasPassedQuizForBook(book_id, submissions)) {
           throw new ForbiddenError(`User has already passed quiz for book ${req.body.book_id}`);
         }
 
-        if (Helpers.hasExhaustedAttemptsForBook(submissions, book_id)) {
+        if (Helpers.hasExhaustedAttemptsForBook(book_id, submissions)) {
           throw new ForbiddenError(`User has exhausted all attempts to pass quiz for book ${req.body.book_id}`);
         }
 

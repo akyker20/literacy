@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "finished_log",
+    "read_with": "By Myself",
+    "student_id": "katelynn-kyker",
+    "book_id": "harry-potter-id",
+    "is_last_log_for_book": true,
+    "start_page": 0,
+    "final_page": 309,
+    "date": "2018-07-26T15:47:25.074Z",
+    "points_earned": 309,
+    "duration_min": 100,
+    "summary": "blah",
+    "book_title": "Harry Potter"
+  },
+  {
+    "_id": "unfinished_log",
+    "read_with": "By Myself",
+    "student_id": "katelynn-kyker",
+    "book_id": "exchange-student-id",
+    "is_last_log_for_book": false,
+    "start_page": 0,
+    "final_page": 30,
+    "date": "2018-07-26T15:47:25.074Z",
+    "points_earned": 309,
+    "duration_min": 100,
+    "summary": "blah",
+    "book_title": "Harry Potter"
+  }
+]

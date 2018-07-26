@@ -15,7 +15,7 @@ import * as _ from 'lodash';
 import { Models, Mockers, Constants as SC } from 'reading_rewards';
 import { assert } from 'chai';
 
-import * as Constants from '../constants';
+import * as BEC from '../constants'
 import { MongoUserData } from '../data/users';
 import { MongoBookData } from '../data/books';
 import { MongoQuizData } from '../data/quizzes';
@@ -38,6 +38,7 @@ const initialQuizSubmissions = JSON.parse(fs.readFileSync(Path.join(__dirname, '
 const initialBookReviews: Models.IBookReview[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/book_reviews.json'), 'utf8'));
 const initialPrizes: Models.IPrize[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/prizes.json'), 'utf8'));
 const initialPrizeOrders: Models.IPrizeOrder[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/prize_orders.json'), 'utf8'));
+const initialReadingLogs: Models.IReadingLog[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/reading_logs.json'), 'utf8'));
 
 // convenience variables
 
@@ -72,6 +73,7 @@ const usersCollection = db.get('users', { castIds: false });
 const genreCollection = db.get('genres', { castIds: false });
 const prizeCollection = db.get('prizes', { castIds: false });
 const prizeOrderCollection = db.get('prize_orders', { castIds: false });
+const readingLogCollection = db.get('reading_logs', { castIds: false });
 
 async function setData(collection: monk.ICollection, data: any) {
   await collection.remove({});
@@ -102,7 +104,7 @@ const app = new App(
 const agent = supertest(app.server);
 
 function genAuthToken(type: Models.UserType, id?: string): string {
-  return jwt.sign({ _id: id || shortid.generate(), type }, Constants.JWTSecret, { expiresIn: '1y' });
+  return jwt.sign({ _id: id || shortid.generate(), type }, BEC.JWTSecret, { expiresIn: '1y' });
 }
 
 function genAuthTokenForUser(user: Models.IUser): string {
@@ -131,7 +133,8 @@ describe('End to End tests', function () {
       setData(quizSubmissionCollection, initialQuizSubmissions),
       setData(usersCollection, initialUsers),
       setData(prizeCollection, initialPrizes),
-      setData(prizeOrderCollection, initialPrizeOrders)
+      setData(prizeOrderCollection, initialPrizeOrders),
+      setData(readingLogCollection, initialReadingLogs)
     ]);
   });
 
@@ -1111,6 +1114,255 @@ describe('End to End tests', function () {
 
     })
 
+    describe('Reading Log Routes', function() {
+
+      const validReadingLog: Models.IReadingLogBody = {
+        student_id: katelynn._id as string,
+        book_id: _.find(initialBooks, book => book.num_pages > SC.ReadingLogMaxPagesPossibleInLog + 10)._id as string,
+        start_page: 0,
+        final_page: 100,
+        duration_min: 100,
+        summary: faker.lorem.sentence(4),
+        read_with: Models.ReadingWith.ByMyself,
+        is_last_log_for_book: false
+      }
+
+      describe('#createReadingLog', function() {
+
+        it('should 401 when no auth token in header', function () {
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .expect(401);
+        });
+
+        it('should 400 when student id in url does not match student in body', function () {
+          return agent
+            .post(`/students/${chase._id}/reading_logs`)
+            .set(SC.AuthHeaderField, austinToken)
+            .send(validReadingLog)
+            .expect(400);
+        });
+
+        it('should 403 if student posting for another student', function () {
+          return agent
+            .post(`/students/${chase._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(validReadingLog)
+            .expect(403);
+        });
+
+        it('should 400 if final_page is equal to end_page', function () {
+          
+          const invalid = {
+            ...validReadingLog,
+            start_page: 10,
+            final_page: 10 
+          }
+          
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg('Final page should be greater than start page'))
+
+        });
+
+        it('should 400 if final_page is less than to end_page', function () {
+          
+          const invalid = {
+            ...validReadingLog,
+            start_page: 10,
+            final_page: 5 
+          }
+          
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg('Final page should be greater than start page'))
+            
+        });
+
+        it('should 400 if final_page is greater than number of pages in book', function () {
+          
+          const book = _.find(initialBooks, { _id: validReadingLog.book_id });
+
+          const invalid = {
+            ...validReadingLog,
+            start_page: book.num_pages - 20,
+            final_page: book.num_pages + 10 
+          }
+          
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg(`Final page (${invalid.final_page}) exceeds number of pages in book (${book.num_pages})`))
+            
+        });
+
+        it('should 400 if too many pages logged', function () {
+          
+          const invalid: Models.IReadingLogBody = {
+            ...validReadingLog,
+            start_page: 0,
+            final_page: SC.ReadingLogMaxPagesPossibleInLog + 10
+          }
+          
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg(`The maximum number of pages you can log is ${SC.ReadingLogMaxPagesPossibleInLog}`))
+            
+        });
+
+        it('should 400 if final_page is last page of book, but not last log set', function () {
+          
+          const book = _.find(initialBooks, { _id: validReadingLog.book_id });
+
+          const invalid: Models.IReadingLogBody = {
+            ...validReadingLog,
+            start_page: book.num_pages - 20,
+            final_page: book.num_pages,
+            is_last_log_for_book: false
+          }
+          
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg('Final page cannot be last page, yet not the last log for the book'))
+            
+        });
+
+        it('should 400 if duration_min too small', function () {
+          
+          const invalid: Models.IReadingLogBody = {
+            ...validReadingLog,
+            duration_min: SC.ReadingLogMinMinutes - 1
+          }
+          
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg(`Reading log duration must be between ${SC.ReadingLogMinMinutes} and ${SC.ReadingLogMaxMinutes} minutes`))
+            
+        });
+
+        it('should 400 if duration_min too large', function () {
+          
+          const invalid: Models.IReadingLogBody = {
+            ...validReadingLog,
+            duration_min: SC.ReadingLogMaxMinutes + 1
+          }
+          
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg(`Reading log duration must be between ${SC.ReadingLogMinMinutes} and ${SC.ReadingLogMaxMinutes} minutes`))
+            
+        });
+
+        it('should 400 if is last log, but final_page is not last page of book', function () {
+          
+          const book = _.find(initialBooks, { _id: validReadingLog.book_id });
+
+          const invalid: Models.IReadingLogBody = {
+            ...validReadingLog,
+            start_page: book.num_pages - 20,
+            final_page: book.num_pages - 10,
+            is_last_log_for_book: true
+          }
+          
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg('Final page is not last page of book, yet this is a last log for the book'))
+            
+        });
+
+        it('should 400 if first log and doesn\'t start at page 0', function() {
+
+          const bookNotLogged = _.find(initialBooks, book => {
+            const idsOfBooksLogged = _.map(initialReadingLogs, 'book_id');
+            return !_.includes(idsOfBooksLogged, book._id)
+          })
+
+          const invalid = {
+            ...validReadingLog,
+            book_id: bookNotLogged._id,
+            start_page: 1,
+            final_page: 10
+          }
+
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg(`First log for book ${bookNotLogged.title} must have start_page = 0`))
+
+        })
+
+        it('should 400 if trying to log a book already finished logging', function() {
+
+          const book = _.find(initialBooks, { _id: 'harry-potter-id' })
+
+          const invalid = {
+            ...validReadingLog,
+            book_id: book._id,
+            start_page: 1,
+            final_page: 10
+          }
+
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg(`You have already logged that you finished ${book.title}`))
+
+        })
+
+        it('should 400 if log does not start where last log ended', function() {
+
+          const unfinishedLog = _.find(initialReadingLogs, { _id: 'unfinished_log' })
+          const book = _.find(initialBooks, { _id: unfinishedLog.book_id })
+
+          const invalid = {
+            ...validReadingLog,
+            book_id: book._id,
+            start_page: unfinishedLog.final_page + 2,
+            final_page: unfinishedLog.final_page + 10
+          }
+
+          return agent
+            .post(`/students/${katelynn._id}/reading_logs`)
+            .set(SC.AuthHeaderField, katelynnToken)
+            .send(invalid)
+            .expect(400)
+            .then(checkErrMsg(`Your last log for ${book.title} ended on ${unfinishedLog.final_page}. This next log must start on that page.`))
+
+        })
+
+      });
+
+
+
+    });
+
     describe('User Routes', function () {
 
       describe('#studentSignin', function() {
@@ -1174,7 +1426,7 @@ describe('End to End tests', function () {
             .expect(200)
             .send(validStudentCreds)
             .then(({ body }) => {
-              const actualClaims = jwt.verify(body.auth_token, Constants.JWTSecret) as any
+              const actualClaims = jwt.verify(body.auth_token, BEC.JWTSecret) as any
               assert.equal(actualClaims._id, katelynn._id);
               assert.equal(actualClaims.type, katelynn.type)
               assert.deepEqual(body.dto.info, katelynn)

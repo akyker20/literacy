@@ -164,19 +164,19 @@ export function valQueryParams(... params: { name: string, schema: joi.Schema }[
   };
 }
 
-export function valIdsSame(paramKey: string) {
+export function valIdsSame({ paramKey, bodyKey }: { paramKey: string, bodyKey: string }) {
   return (req: IRequest<any>, res: Response, next: Next) => {
 
     if (_.isEmpty(req.body)) {
       return next(new Err.BadRequestError('No body was sent in request.'));
     }
 
-    if (_.isEmpty(req.body._id)) {
-      return next(new Err.BadRequestError('No _id present in request body.'));
+    if (_.isEmpty(req.body[bodyKey])) {
+      return next(new Err.BadRequestError(`No key ${bodyKey} present in request body.`));
     }
 
-    if (req.params[paramKey] !== req.body._id) {
-      return next(new Err.BadRequestError('id in url is different than _id in body.'));
+    if (req.params[paramKey] !== req.body[bodyKey]) {
+      return next(new Err.BadRequestError(`${paramKey} in url is different than ${bodyKey} in body.`));
     }
 
     return next();

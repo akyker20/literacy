@@ -116,7 +116,7 @@ export function PrizeRoutes(
       Middle.authenticate,
       Middle.authorize([M.UserType.ADMIN]),
       Middle.valBody<M.IBook>(createdPrizeSchema),
-      Middle.valIdsSame('prizeId'),
+      Middle.valIdsSame({ paramKey: 'prizeId', bodyKey: '_id' }),
       unwrapData(async (req: IRequest<M.IPrize>) => {
 
         const updatedPrize = await prizeData.updatePrize(req.body);

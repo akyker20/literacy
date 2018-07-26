@@ -175,7 +175,7 @@ export function BookRoutes(
       Middle.authenticate,
       Middle.authorize([M.UserType.ADMIN]),
       Middle.valBody<M.IGenre>(createdGenreSchema),
-      Middle.valIdsSame('genreId'),
+      Middle.valIdsSame({ paramKey: 'genreId', bodyKey: '_id' }),
       unwrapData(async (req: IRequest<null>) => {
         
         const updatedGenre = await genreData.updateGenre(req.body);
@@ -302,7 +302,7 @@ export function BookRoutes(
       Middle.authenticate,
       Middle.authorize([M.UserType.ADMIN]),
       Middle.valBody<M.IBook>(createdBookSchema),
-      Middle.valIdsSame('bookId'),
+      Middle.valIdsSame({ paramKey: 'bookId', bodyKey: '_id' }),
       unwrapData(async (req: IRequest<M.IBook>) => {
 
         const bookUpdate = req.body;
