@@ -1,4 +1,4 @@
-import { Models as M, Helpers, Constants as SC } from 'reading_rewards';
+import { Models as M, Helpers } from 'reading_rewards';
 import * as joi from 'joi';
 import * as _ from 'lodash';
 import { Next, Response } from 'restify';
@@ -22,44 +22,6 @@ const readingLogSchema = joi.object({
   is_last_log_for_book: joi.boolean().required(),
   summary: joi.string().required()
 }).strict().required();
-
-function validateReadingLogBody({ 
-  final_page,
-  start_page,
-  book_id,
-  is_last_log_for_book,
-  duration_min }: M.IReadingLogBody, book: M.IBook): string | null {
-  
-  if (book_id !== book._id) {
-    throw new Error('Invalid book passed in');
-  }
-  
-  if (final_page <= start_page) {
-    return 'Final page should be greater than start page';
-  }
-
-  if (final_page - start_page > SC.ReadingLogMaxPagesPossibleInLog) {
-    return `The maximum number of pages you can log is ${SC.ReadingLogMaxPagesPossibleInLog}`;
-  }
-
-  if (final_page > book.num_pages) {
-    return `Final page (${final_page}) exceeds number of pages in book (${book.num_pages})`
-  }
-
-  if ((final_page === book.num_pages) && !is_last_log_for_book) {
-    return 'Final page cannot be last page, yet not the last log for the book'
-  }
-
-  if (duration_min < SC.ReadingLogMinMinutes || duration_min > SC.ReadingLogMaxMinutes) {
-    return `Reading log duration must be between ${SC.ReadingLogMinMinutes} and ${SC.ReadingLogMaxMinutes} minutes`
-  }
-
-  if (is_last_log_for_book && final_page !== book.num_pages) {
-    return 'Final page is not last page of book, yet this is a last log for the book'
-  }
-  
-  return null;
-}
 
 export function ReadingLogRoutes(
   userData: IUserData,
@@ -105,7 +67,7 @@ export function ReadingLogRoutes(
 
         // Validate log
 
-        const errorMsg = validateReadingLogBody(req.body, book);
+        const errorMsg = Helpers.validateReadingLogBody(req.body, book);
 
         if (!_.isNull(errorMsg)) {
           return new BadRequestError(errorMsg)
