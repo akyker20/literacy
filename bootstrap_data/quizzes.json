@@ -1,0 +1,376 @@
+[
+  {
+    "_id": "7siAe47sg",
+    "book_id": "Afew9koZO",
+    "date_created": "2018-07-31T20:02:14.358Z",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Why had Percy gone to so many different schools by the 6th grade?",
+        "options": [
+          "He kept on getting expelled from every school he went to.",
+          "His mother was searching for the best school for kids with ADHD.",
+          "He flunked out of every school he had attended.",
+          "His mother kept changing jobs, so they moved a lot."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Why did most half-bloods stay in camp year-round?",
+        "options": [
+          "In the mortal world, monsters go after them.",
+          "They needed year-round training to be demi-gods.",
+          "Only in camp were they immortal.",
+          "They couldn't find mates in the mortal world."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which group did not teach lessons at Camp Half-Blood?",
+        "options": [
+          "The gods",
+          "The satyrs",
+          "The nymphs",
+          "The centaurs"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What name was given to Percy's sword?",
+        "options": [
+          "Riptide",
+          "Tidalwave",
+          "Hurricane",
+          "Tsunami"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Why were Zeus and Poseidon fighting?",
+        "options": [
+          "Zeus thought Poseidon had stolen his master bolt.",
+          "Zeus was angry with Poseidon for having a son with a mortal.",
+          "They were trying to decide who would dethrone the Lord of the Dead.",
+          "Poseidon was mad at Zeus for allowing his wife to die."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Who is Annabeth?",
+        "options": [
+          "Percy's friend",
+          "Zeus's daughter",
+          "Grover's older sister",
+          "A sick girl"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Why had Medusa attacked Annabeth?",
+        "options": [
+          "Annabeth's mother had turned Medusa into a monster.",
+          "Annabeth's father had killed Medusa's boyfriend.",
+          "She was working with the Underworld.",
+          "She wanted Percy to herself."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was strange about the Las Vegas casino?",
+        "options": [
+          "The temptations of so many goodies made you stay.",
+          "All the people were gods or demigods.",
+          "It had no game machines.",
+          "It carried you back in time, 20-30 years."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In Las Vegas, who tricked the trio into getting his bag at the waterpark?",
+        "options": [
+          "Ares",
+          "Zeus",
+          "Poseidon",
+          "Hades"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When Percy found out the truth about Luke, what prophecy came true?",
+        "options": [
+          "You will be betrayed by one who calls you a friend.",
+          "All is fair in love and war.",
+          "Things are not always what they seem.",
+          "You never know that the grass is greener until you get there."
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "b_ifSXw6M",
+    "date_created": "2018-07-31T20:02:14.358Z",
+    "book_id": "JjqaXNcpN",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Yollie's mom saving money for?",
+        "options": [
+          "Yollie's mom was saving money to send Yollie to college.",
+          "Yollie's mom was saving money to buy a new house.",
+          "Yollie's mom was saving money to send to her family in Mexico.",
+          "Yollie's mom was saving money to get braces for Yollie."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Yollie wear to the eighth-grade fall dance?",
+        "options": [
+          "Yollie wore a white dress that her mom had dyed black.",
+          "Yollie wore the dress her sister had worn to her senior prom.",
+          "Yollie wore one of her mom's old dresses.",
+          "Yollie wore a dress that her grandfather had sent from Mexico."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What happened while Manuel was performing the song, 'La Bamba'?",
+        "options": [
+          "The record got stuck while Manuel was performing the song, 'La Bamba'.",
+          "The lights in the auditorium went out while Manuel was performing.",
+          "Manuel fell down and broke his arm while he was performing the song, 'La Bamba'.",
+          "Manuel's friend Benny walked on stage and started playing his trumpet while Manuel was performing."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How did Alfonso think he was going to get his teeth fixed?",
+        "options": [
+          "Alfonso thought he was going to fix his teeth himself by pressing on them.",
+          "Alfonso thought his friend's uncle, who was a dentist, would fix his teeth.",
+          "Alfonso thought his mom would pay to fixing his teeth if he gave her a picture of them.",
+          "Alfonso thought his older brother would pay to get his teeth fixed."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Victor's friend, Michael, start doing to get the girls' attention after reading a GQ magazine?",
+        "options": [
+          "Michael started scowling to get the girls' attention.",
+          "Michael started wearing a black leather jacket to get the girls' attention.",
+          "Michael started shaving his initials in his hair to get the girls' attention.",
+          "Michael started wearing a gold necklace to get the girls' attention."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Alfonso do for Sandra's brother the day Alfonso met Sandra?",
+        "options": [
+          "Alfonso helped Sandra's brother get untangled from a barbed-wire fence.",
+          "Alfonso helped Sandra's brother fix the hole in the doghouse.",
+          "Alfonso helped Sandra's brother do his math homework.",
+          "Alfonso helped Sandra's brother stand up to a bully."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Fausto feed the dog that he had found?",
+        "options": [
+          "Fausto fed the dog part of an orange.",
+          "Fausto fed the dog some cat food.",
+          "Fausto fed the dog his tuna fish sandwich.",
+          "Fausto fed the dog a bowl of rice."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What happened on Gilbert's first day of karate class?",
+        "options": [
+          "Gilbert pulled a muscle in his shoulder on the first day of karate class.",
+          "Pete beat Gilbert's cousin, Raymundo, in a match.",
+          "Gilbert won a sparring match against a kid with a yellow belt.",
+          "Gilbert had a bicycle wreck and couldn't make it to the first day of karate class."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Why didn't Maria want to go on vacation with her family?",
+        "options": [
+          "Maria didn't want to go because she thought it would be too boring.",
+          "Maria didn't want to go because was mad at her dad.",
+          "She didn't want to be away from her boyfriend.",
+          "She didn't want to go because she was afraid she'd lose her job."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Lupe strengthen to become good at her sport?",
+        "options": [
+          "Lupe strengthened her thumb muscle to become good at her sport.",
+          "Lupe strengthened her biceps to become good at her sport.",
+          "Lupe strengthened her abdomen to become good at her sport.",
+          "Lupe strengthened her thighs to become good at her sport."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Maria and Becky do after Maria's family left for their vacation?",
+        "options": [
+          "They went to the mall after Maria's family left for their vacation.",
+          "Maria and Becky rode motorcycles with some guys after Maria's family left.",
+          "They went to work at the supermarket after Maria's family left for their vacation.",
+          "Maria and Becky went to a dance after Maria's family left."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Fausto do with the money he got for returning the dog to its owners?",
+        "options": [
+          "Fausto gave the money to a church.",
+          "Fausto bought a birthday present for his mom with the money.",
+          "Fausto bought himself a new pair of jeans with the money.",
+          "Fausto gave the money to his dad to help buy a new car."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Yollie do to get even with her mother for not waking her up after the movie was over?",
+        "options": [
+          "Yollie put a glass of water next to her mom's alarm clock.",
+          "Yollie put salt in her mom's coffee.",
+          "Yollie put a fake spider on her mom's hand.",
+          "Yollie told her mom she had a phone call from the President."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Hector's grandfather say he would give him the second time Hector made a phone call for him?",
+        "options": [
+          "He said he would give Hector a thousand-dollar Confederate bill.",
+          "He said he would give Hector a brand-new, purple 10-speed bike.",
+          "He said he would give Hector a 100-year-old watch.",
+          "He said he would give Hector a baseball signed by Pete Rose."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How did Gilbert feel about the karate studio closing for good?",
+        "options": [
+          "Gilbert was happy that the karate studio closed.",
+          "Gilbert was nervous about the karate studio closing.",
+          "Gilbert was angry that the karate studio closed.",
+          "Gilbert was sad that the karate studio closed."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In which sport did Lupe win two trophies?",
+        "options": [
+          "Lupe won two trophies in marbles.",
+          "Lupe won two trophies in softball.",
+          "Lupe won two trophies in horseback riding.",
+          "Lupe won two trophies in swimming."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Hector's grandfather want to buy and resell to make money?",
+        "options": [
+          "Hector's grandfather wanted to buy and resell a house.",
+          "Hector's grandfather wanted to buy and resell bicycles.",
+          "Hector's grandfather wanted to buy and resell vacuum cleaners.",
+          "Hector's grandfather wanted to buy and resell a car."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What had happened when Manuel was in first grade and tried to show his class how a flashlight worked?",
+        "options": [
+          "He couldn't get it to work because the battery was dead.",
+          "Time ran out before Manuel got his turn.",
+          "Manuel get embarrassed because he fell asleep right before it was his turn.",
+          "One of the other kids in his class showed how a flashlight worked right before it was time for Manuel's presentation."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What happened to Veronica's Barbie?",
+        "options": [
+          "Veronica's Barbie's head got lost.",
+          "Martha hid Veronica's Barbie so she could keep it for herself.",
+          "Uncle Rudy's puppy chewed up Veronica's Barbie.",
+          "Veronica lost her Barbie when she took it to school."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What language did Victor say that he knew, in order to impress Teresa?",
+        "options": [
+          "Victor said he knew French.",
+          "Victor said he knew Greek.",
+          "Victor said he knew German.",
+          "Victor said he knew Japanese."
+        ],
+        "answer_index": 0
+      }
+    ]
+  }
+]

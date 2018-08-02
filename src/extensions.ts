@@ -1,6 +1,6 @@
 import * as restify from 'restify';
 import * as joi from 'joi';
-import { Models } from 'reading_rewards';
+import { Models, Constants as SC } from 'reading_rewards';
 
 export interface IRequest<T> extends restify.Request {
   body: T;
@@ -11,7 +11,7 @@ export interface IRequest<T> extends restify.Request {
   };
 }
 
-export const lexileMeasureSchema = joi.number().min(0).max(2000).strict().required();
+export const lexileMeasureSchema = joi.number().min(SC.MinLexileMeasure).max(SC.MaxLexileMeasure).strict().required();
 
 const shortidRegexPattern = /[A-Za-z0-9_-]{7,14}/;
 

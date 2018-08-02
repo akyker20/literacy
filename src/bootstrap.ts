@@ -8,7 +8,9 @@ import * as _ from 'lodash';
 
 import { HashedPassSaltLen } from './constants';
 
-const initialPrizes: M.IPrize[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../data/prizes.json'), 'utf8'));
+const initialPrizes: M.IPrize[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../bootstrap_data/prizes.json'), 'utf8'));
+const initialBooks: M.IBook[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../bootstrap_data/books.json'), 'utf8'));
+const initialQuizzes: M.IQuiz[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../bootstrap_data/quizzes.json'), 'utf8'));
 
 // Configure database
 
@@ -23,7 +25,8 @@ const bookCollection = db.get('books', { castIds: false });
 const genreCollection = db.get('genres', { castIds: false });
 const usersCollection = db.get('users', { castIds: false });
 const quizCollection = db.get('quizzes', { castIds: false })
-const prizeCollection = db.get('prizes', { castIds: false })
+const prizeCollection = db.get('prizes', { castIds: false });
+const readingLogCollection = db.get('reading_logs', { castIds: false });
 const quizSubmissionsCollection = db.get('quiz_submissions', { castIds: false })
 const prizeOrdersCollection = db.get('prize_orders', { castIds: false })
 const bookReviewsCollection = db.get('book_reviews', { castIds: false });
@@ -56,11 +59,15 @@ const genres: M.IGenre[] = [
   }
 ]
 
-const books = _.times(500, i => Mockers.mockBook({
-  genres: _.sampleSize(genres, _.random(3)).map(g => g._id)
-}))
+const books = [
+  ...initialBooks,
+  ..._.times(500, i => Mockers.mockBook({
+    genres: _.sampleSize(genres, _.random(3)).map(g => g._id)
+  }))
+]
 
 const quizzes: M.IQuiz[] = [
+  ...initialQuizzes,
   {
     _id: 'quiz-id',
     date_created: new Date().toISOString(),
@@ -130,7 +137,12 @@ const bonnie: M.IEducator = {
   type: M.UserType.EDUCATOR,
   date_created: new Date().toISOString(),
   hashed_password: bcrypt.hashSync('password', HashedPassSaltLen),
-  student_ids: [katelynn._id]
+  student_ids: [katelynn._id],
+  notification_settings: {
+    reading_logs: true,
+    quiz_submissions: true,
+    prizes_ordered: true
+  }
 }
 
 const users: M.IUser[] = [
@@ -163,5 +175,6 @@ Promise.all([
   setData(prizeCollection, initialPrizes),
   setData(quizSubmissionsCollection, []),
   setData(prizeOrdersCollection, []),
-  setData(bookReviewsCollection, bookReviews)
+  setData(bookReviewsCollection, bookReviews),
+  setData(readingLogCollection, [])
 ]).then(() => process.exit(0))

@@ -16,12 +16,13 @@ import { Models, Mockers, Constants as SC } from 'reading_rewards';
 import { assert } from 'chai';
 
 import * as BEC from '../constants'
+import App from '..';
+
 import { MongoUserData } from '../data/users';
 import { MongoBookData } from '../data/books';
 import { MongoQuizData } from '../data/quizzes';
 import { MongoBookReviewData } from '../data/book_reviews';
 import { MongoGenreData } from '../data/genres';
-import App from '..';
 import { MongoPrizeData } from '../data/prizes';
 import { MongoPrizeOrderData } from '../data/prize_orders';
 import { MockNotifications } from '../notifications/mock';
@@ -1473,6 +1474,7 @@ describe('End to End tests', function () {
                 'first_name',
                 'hashed_password',
                 'last_name',
+                'notification_settings',
                 'student_ids',
                 'type'
               ])
@@ -1488,7 +1490,12 @@ describe('End to End tests', function () {
 
               const expected = _.assign({}, validReqBody, {
                 type: Models.UserType.EDUCATOR,
-                student_ids: []
+                student_ids: [],
+                notification_settings: {
+                  reading_logs: true,
+                  quiz_submissions: true,
+                  prizes_ordered: true
+                }
               });
 
               assert.deepEqual(expected, body);
@@ -1499,6 +1506,51 @@ describe('End to End tests', function () {
         });
 
       });
+
+      describe('#updateEducatorNotificationSettings', function() {
+
+        const validNoteSettings: Models.IEducatorNoteSettings = {
+          reading_logs: true,
+          quiz_submissions: false,
+          prizes_ordered: true
+        }
+
+        it('should 401 when no auth token in header', function () {
+          return agent
+            .put(`/educators/${bonnie._id}/notification_settings`)
+            .expect(401);
+        });
+
+        it('should 403 if not a teacher', function () {
+          return agent
+            .put(`/educators/${chase._id}/notification_settings`)
+            .set(SC.AuthHeaderField, bonnieToken)
+            .send(validNoteSettings)
+            .expect(403);
+        });
+
+        it('should 400 if invalid body', function () {
+          let invalidSettings = _.cloneDeep(validNoteSettings);
+          delete invalidSettings.prizes_ordered;
+          return agent
+            .put(`/educators/${bonnie._id}/notification_settings`)
+            .set(SC.AuthHeaderField, bonnieToken)
+            .send(invalidSettings)
+            .expect(400);
+        });
+
+        it('should 200 and update the settings', function () {
+
+          return agent
+            .put(`/educators/${bonnie._id}/notification_settings`)
+            .set(SC.AuthHeaderField, bonnieToken)
+            .send(validNoteSettings)
+            .expect(200)
+            .then(() => mongoUserData.getUserById(bonnie._id))
+            .then((educator: Models.IEducator) => assert.deepEqual(educator.notification_settings, validNoteSettings))
+        });
+
+      })
 
       describe('#updateStudentsForEducator', function () {
 

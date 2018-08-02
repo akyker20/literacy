@@ -88,6 +88,7 @@ export default class App {
     this.server.post('/students/signin', userRoutes.studentSignin);
     this.server.post('/educators/signin', userRoutes.educatorSignin);
 
+    this.server.get('/students/:userId', userRoutes.getStudent);
     this.server.post('/students', userRoutes.createStudent);
     this.server.post('/students/:userId/activate', userRoutes.activatePendingStudent);
     this.server.get('/students', userRoutes.getStudentByEmail);
@@ -97,6 +98,7 @@ export default class App {
     this.server.put('/students/:userId/parent_emails', userRoutes.updateStudentsParentsEmails);
     
     this.server.post('/educators', userRoutes.createEducator);
+    this.server.put('/educators/:userId/notification_settings', userRoutes.updateEducatorNotificationSettings)
     this.server.put('/educators/:userId/students', userRoutes.updateStudentsForEducator);
     this.server.del('/educators/:userId/students/:studentId', userRoutes.deletePendingStudent);
 

@@ -16,7 +16,12 @@
     "last_name": "Stewart",
     "email": "bstewart@parktudor.com",
     "hashed_password": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
-    "student_ids": []
+    "student_ids": [],
+    "notification_settings": {
+      "reading_logs": false,
+      "quiz_submissions": false,
+      "prize_ordered": false
+    }
   },
   {
     "_id": "chase-malik",

@@ -47,6 +47,12 @@ export const createGenreInterestSchema = joi.object().pattern(/.*/, joi.number()
 
 const parentEmailsSchema = joi.array().items(joi.string().email()).max(C.MaxParentEmailsPerStudent).unique().required().error(genFieldErr('parent_emails'));
 
+const notificationSettingsSchema = joi.object({
+  reading_logs: joi.bool().required(),
+  quiz_submissions: joi.bool().required(),
+  prizes_ordered: joi.bool().required()
+}).required()
+
 export const userSchema = joi.object({
   first_name: joi.string().required().error(genFieldErr('first_name')),
   last_name: joi.string().required().error(genFieldErr('last_name')),
@@ -196,6 +202,36 @@ export function UserRoutes(
         }
 
         return user;
+
+      }),
+      Middle.handlePromise
+    ],
+
+    getStudent: [
+      Middle.authenticate,
+      Middle.authorizeAgents([M.UserType.EDUCATOR, M.UserType.ADMIN]),
+      unwrapData(async (req: IRequest<null>) => {
+        const { userId } = req.params;
+
+        const user = await userData.getUserById(userId);
+
+        if (_.isNull(user)) {
+          return new BadRequestError(`User ${userId} does not exist.`)
+        }
+
+        if (user.type !== M.UserType.STUDENT) {
+          return new ForbiddenError(`User ${userId} is not a student.`)
+        }
+
+        const { type, _id } = req.authToken;
+        if (type === M.UserType.EDUCATOR) {
+          const educator = await userData.getUserById(_id) as M.IEducator;
+          if (!_.includes(educator.student_ids, userId)) {
+            return new ForbiddenError(`Teacher ${educator._id} does not have student ${userId}`)
+          }
+        }
+
+        return await getStudentDTO(user);
 
       }),
       Middle.handlePromise
@@ -568,6 +604,36 @@ export function UserRoutes(
       Middle.handlePromise
     ],
 
+    updateEducatorNotificationSettings: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.EDUCATOR, M.UserType.ADMIN]),
+      Middle.authorizeAgents([M.UserType.ADMIN]),
+      Middle.valBody(notificationSettingsSchema),
+      unwrapData(async (req: IRequest<M.IEducatorNoteSettings>) => {
+        
+        const { userId: educatorId } = req.params;
+
+        const educator = await userData.getUserById(educatorId) as M.IEducator;
+
+        if (_.isNull(educator)) {
+          throw new ResourceNotFoundError(`Educator ${educatorId} does not exist.`)
+        }
+
+        if (educator.type !== M.UserType.EDUCATOR) {
+          throw new ForbiddenError(`User ${educatorId} is not an educator`)
+        }
+
+        const updatedEducator: M.IEducator = {
+          ...educator,
+          notification_settings: req.body
+        }
+
+        return await userData.updateUser(updatedEducator);
+
+      }),
+      Middle.handlePromise
+    ],
+
     createEducator: [
       Middle.authenticate,
       Middle.authorize([M.UserType.ADMIN]),
@@ -585,7 +651,12 @@ export function UserRoutes(
           hashed_password: hashedPassword,
           date_created: new Date().toISOString(),
           type: M.UserType.EDUCATOR,
-          student_ids: []
+          student_ids: [],
+          notification_settings: {
+            reading_logs: true,
+            quiz_submissions: true,
+            prizes_ordered: true
+          }
         });
 
         return await userData.createUser(educator);
