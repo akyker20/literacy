@@ -9,6 +9,7 @@ export interface IReadingLogData {
   createLog: (log: ReadingLog) => Promise<ReadingLog>;
   deleteLog: (logId: string) => Promise<ReadingLog>;
   getLogsForStudent: (studentId: string) => Promise<ReadingLog[]>;
+  getLogsForStudents: (studentIds: string[]) => Promise<ReadingLog[]>;
 }
 
 export class MongoReadingLogData implements IReadingLogData {
@@ -32,6 +33,10 @@ export class MongoReadingLogData implements IReadingLogData {
 
   getLogsForStudent(studentId: string): Promise<ReadingLog[]> {
     return this.readingLogs.find({ student_id: studentId });
+  }
+
+  getLogsForStudents(studentIds: string[]): Promise<ReadingLog[]> {
+    return this.readingLogs.find({ student_id: { $in: studentIds }});
   }
 
 }

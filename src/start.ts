@@ -9,6 +9,9 @@ import { MongoPrizeData } from './data/prizes';
 import { SlackNotifications } from './notifications/slack';
 import { isProd } from './helpers';
 import { MongoReadingLogData } from './data/reading_log';
+import { NodemailerEmail } from './email/nodemailer';
+import { IEmail } from './email';
+import { MockEmail } from './email/mock';
 
 const dbHost = process.env.MONGO_HOST || 'localhost';
 const dbPort = process.env.MONGO_PORT || '27017';
@@ -32,6 +35,28 @@ const slackWebhookUrl = isProd() ?
   devChannelSlackWebhookUrl;
 const slackNotifications = new SlackNotifications(slackWebhookUrl);
 
+let email: IEmail;
+
+if (process.env.NODE_ENV === 'production') {
+
+  if (!process.env.EMAIL_USER && !process.env.EMAIL_PASS) {
+    throw new Error('EMAIL_USER and EMAIL_PASS must be set!');
+  }
+
+  email = new NodemailerEmail(
+    process.env.EMAIL_USER,
+    {
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    }
+  )
+
+} else {
+  email = new MockEmail(true /* log emails */)
+}
 
 const app = new App(
   mongoBookData,
@@ -42,7 +67,8 @@ const app = new App(
   mongoPrizeData,
   mongoPrizeOrderData,
   readingLogData,
-  slackNotifications
+  slackNotifications,
+  email
 )
 
 app.listen(5000);

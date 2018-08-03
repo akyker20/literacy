@@ -1,4 +1,4 @@
-import { Models as M, Helpers } from 'reading_rewards';
+import { Models as M, Helpers, Models } from 'reading_rewards';
 import * as joi from 'joi';
 import * as _ from 'lodash';
 import { Next, Response } from 'restify';
@@ -11,6 +11,8 @@ import { unwrapData } from '../helpers';
 import { IUserData } from '../data/users';
 import { INotificationSys } from '../notifications';
 import { IReadingLogData } from '../data/reading_log';
+import { IEmailContent, IEmail } from '../email';
+import { EmailTemplates } from '../email/templates';
 
 const readingLogSchema = joi.object({
   student_id: shortidSchema,
@@ -27,7 +29,8 @@ export function ReadingLogRoutes(
   userData: IUserData,
   bookData: IBookData,
   readingLogData: IReadingLogData,
-  notifications: INotificationSys
+  notifications: INotificationSys,
+  email: IEmail
 ) {
 
   return {
@@ -53,13 +56,13 @@ export function ReadingLogRoutes(
 
         const { student_id, book_id } = req.body;
 
-        const user = await userData.getUserById(student_id);
+        const student = await userData.getUserById(student_id) as Models.IStudent;
 
-        if (_.isNull(user)) {
+        if (_.isNull(student)) {
           return new ResourceNotFoundError(`User ${student_id} does not exist`)
         }
 
-        if (user.type !== M.UserType.STUDENT ) {
+        if (student.type !== M.UserType.STUDENT ) {
           return new BadRequestError(`User ${student_id} is not a student`)
         }
 
@@ -110,8 +113,21 @@ export function ReadingLogRoutes(
           points_earned: req.body.final_page - req.body.start_page
         }
 
-        const slackMessage = `*${Helpers.getFullName(user)}* submitted reading log.\n${JSON.stringify(log)}`;
+        // send slack message
+        const slackMessage = `*${Helpers.getFullName(student)}* submitted reading log.\n${JSON.stringify(log)}`;
         notifications.sendMessage(slackMessage);
+
+        // send email notification
+
+        const emailContent: IEmailContent = EmailTemplates.buildReadingLogEmail(student, log);
+
+        const educator = await userData.getEducatorOfStudent(student_id);
+        
+        if (!_.isNull(educator) && educator.notification_settings.reading_logs) {
+          email.sendMail(educator.email, emailContent);
+        }
+
+        email.sendAdminEmail(emailContent);
 
         return await readingLogData.createLog(log);
 

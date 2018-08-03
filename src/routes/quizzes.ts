@@ -13,6 +13,8 @@ import { IBookData } from '../data/books';
 import { QuizGraderInstance } from '../quizzes';
 import { QuestionSchema } from '../quizzes/question_schemas';
 import { INotificationSys } from '../notifications';
+import { IEmail, IEmailContent } from '../email';
+import { EmailTemplates } from '../email/templates';
 
 export const inputQuizSchema = joi.object({
   questions: joi.array().items(QuestionSchema.unknown(true)).min(SC.MinQuestionsInQuiz).max(SC.MaxQuestionsInQuiz).required(),
@@ -43,7 +45,8 @@ export function QuizRoutes(
   userData: IUserData,
   quizData: IQuizData,
   bookData: IBookData,
-  notifications: INotificationSys
+  notifications: INotificationSys,
+  email: IEmail
 ) {
 
   async function isBookValid(quiz: M.IQuizBody): Promise<boolean> {
@@ -157,11 +160,11 @@ export function QuizRoutes(
 
         // verify user exists
 
-        const user = await userData.getUserById(student_id);
+        const student = await userData.getUserById(student_id) as M.IStudent;
 
-        if (_.isNull(user)) {
+        if (_.isNull(student)) {
           throw new BadRequestError(`User ${student_id} does not exist.`)
-        } else if (user.type !== M.UserType.STUDENT) {
+        } else if (student.type !== M.UserType.STUDENT) {
           throw new BadRequestError(`User ${student_id} is not a student.`)
         }
 
@@ -223,12 +226,13 @@ export function QuizRoutes(
           ...req.body,
           date_created: new Date().toISOString(),
           score: quizScore,
-          passed: quizScore >= SC.PassingQuizGrade
+          passed: quizScore >= SC.PassingQuizGrade,
+          book_title: book.title
         }
         
         // send slack notification
 
-        let slackMessage = `*${Helpers.getFullName(user)}* submitted quiz for *${book.title}*\n`;
+        let slackMessage = `*${Helpers.getFullName(student)}* submitted quiz for *${book.title}*\n`;
         _.forEach(quiz.questions, (question, index) => {
           slackMessage += `_${question.prompt}_\n`;
           switch (question.type) {
@@ -243,6 +247,18 @@ export function QuizRoutes(
           }
         })
         notifications.sendMessage(slackMessage);
+
+        // email notifications
+
+        const attemptNum = _.filter(submissions, { book_id }).length + 1;
+        const emailContent: IEmailContent = EmailTemplates.buildQuizSubEmail(student, quizSubmission, attemptNum);
+
+        const educator = await userData.getEducatorOfStudent(student_id);
+        if (!_.isNull(educator) && educator.notification_settings.quiz_submissions) {
+          email.sendMail(educator.email, emailContent)
+        }
+
+        email.sendAdminEmail(emailContent);
 
         return quizData.submitQuiz(quizSubmission);
 

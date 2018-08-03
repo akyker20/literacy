@@ -13,6 +13,7 @@ export interface IUserData {
   getUserByEmail: (email: string) => Promise<IUser>;
   getAllUsers: () => Promise<IUser[]>;
   deleteUser: (userId: string) => Promise<IUser>;
+  getEducatorOfStudent: (studentId: string) => Promise<M.IEducator>;
 }
 
 export class MongoUserData implements IUserData {
@@ -22,6 +23,10 @@ export class MongoUserData implements IUserData {
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
     this.users = db.get('users', { castIds: false });
+  }
+
+  getEducatorOfStudent(studentId: string): Promise<M.IEducator> {
+    return this.users.findOne({ type: M.UserType.EDUCATOR, student_ids: studentId })
   }
 
   getUsersWithIds(ids: string[]): Promise<IUser[]> {

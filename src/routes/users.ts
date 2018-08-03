@@ -120,10 +120,33 @@ export function UserRoutes(
 
   async function getEducatorDTO(user: M.IUser): Promise<M.IEducatorDTO> {
     const educator = user as M.IEducator;
+
+    // compute studentProgress object
+
+    const allStudentReadingLogs = await readingLogData.getLogsForStudents(educator.student_ids);
+    const allStudentSubmissions = await quizData.getSubmissionsForStudents(educator.student_ids);
+
     const students = await userData.getUsersWithIds(educator.student_ids) as M.IStudent[];
+
+    const studentProgress: M.IStudentProgress[] = [];
+    _.forEach(students, student => {
+      if (student.status === M.StudentStatus.Active) {
+        const studentReadingLogs = _.filter(allStudentReadingLogs, { student_id: student._id });
+        const passedStudentQuizzes = _.filter(allStudentSubmissions, { student_id: student._id, passed: true });
+        studentProgress.push({
+          student_name: Helpers.getFullName(student),
+          student_id: student._id,
+          num_quizzes_passed: passedStudentQuizzes.length,
+          num_reading_sessions: studentReadingLogs.length,
+          total_min_reading: _.sumBy(studentReadingLogs, 'duration_min')
+        })
+      }
+    })
+
     return {
       students,
-      educator
+      educator,
+      student_progress: studentProgress
     }
   }
 

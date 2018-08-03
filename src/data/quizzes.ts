@@ -20,6 +20,7 @@ export interface IQuizData {
   updateQuizSubmission: (quizSubmission: IQuizSubmission) => Promise<IQuizSubmission>;
   getSubmissionsForQuiz: (quizId: string) => Promise<IQuizSubmission[]>;
   getSubmissionsForStudent: (userId: string) => Promise<IQuizSubmission[]>;
+  getSubmissionsForStudents: (studentIds: string[]) => Promise<IQuizSubmission[]>;
   getSubmissionById: (submissionId: string) => Promise<IQuizSubmission>;
 }
 
@@ -85,6 +86,10 @@ export class MongoQuizData implements IQuizData {
 
   getSubmissionsForStudent(studentId: string): Promise<IQuizSubmission[]> {
     return this.quizSubmissions.find({ student_id: studentId });
+  }
+
+  getSubmissionsForStudents(studentIds: string[]): Promise<IQuizSubmission[]> {
+    return this.quizSubmissions.find({ student_id: { $in: studentIds }});
   }
 
   getSubmissionById(submissionId: string): Promise<IQuizSubmission> {

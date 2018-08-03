@@ -14,6 +14,7 @@ import { IPrizeOrderData } from './data/prize_orders';
 import { PrizeRoutes } from './routes';
 import { INotificationSys } from './notifications';
 import { IReadingLogData } from './data/reading_log';
+import { IEmail } from './email';
 
 // logger configuration
 
@@ -43,7 +44,8 @@ export default class App {
     prizeData: IPrizeData,
     prizeOrderData: IPrizeOrderData,
     readingLogData: IReadingLogData,
-    notifications: INotificationSys
+    notifications: INotificationSys,
+    email: IEmail
   ) {
 
     this.server = restify.createServer({
@@ -136,7 +138,8 @@ export default class App {
       userData,
       quizData,
       bookData,
-      notifications
+      notifications,
+      email
     )
 
     this.server.get('/books/:bookId/quiz', quizRoutes.getQuizForBook);
@@ -155,7 +158,8 @@ export default class App {
       prizeData,
       prizeOrderData,
       userData,
-      notifications
+      notifications,
+      email
     );
 
     this.server.get('/prizes', prizeRoutes.getPrizes);
@@ -170,7 +174,8 @@ export default class App {
       userData,
       bookData,
       readingLogData,
-      notifications
+      notifications,
+      email
     )
 
     this.server.get('/students/:userId/reading_logs', readingLogRoutes.getLogsForStudent);

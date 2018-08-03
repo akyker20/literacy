@@ -1,4 +1,4 @@
-import { Models as M, Constants as SC, Helpers } from 'reading_rewards';
+import { Models as M, Constants as SC, Helpers, Models } from 'reading_rewards';
 import * as joi from 'joi';
 import * as shortid from 'shortid';
 import * as _ from 'lodash';
@@ -12,6 +12,8 @@ import { IUserData } from '../data/users';
 import { IPrizeOrderData } from '../data/prize_orders';
 import { Next, Response } from 'restify';
 import { INotificationSys } from '../notifications';
+import { IEmailContent, IEmail } from '../email';
+import { EmailTemplates } from '../email/templates';
 
 const inputPrizeOrderSchema = joi.object({
   student_id: shortidSchema,
@@ -34,7 +36,8 @@ export function PrizeRoutes(
   prizeData: IPrizeData,
   prizeOrderData: IPrizeOrderData,
   userData: IUserData,
-  notifications: INotificationSys
+  notifications: INotificationSys,
+  email: IEmail
 ) {
 
   return {
@@ -53,7 +56,7 @@ export function PrizeRoutes(
       unwrapData(async (req: IRequest<M.IPrizeOrderBody>) => {
         const { prize_id, student_id } = req.body;
 
-        const student = await userData.getUserById(student_id);
+        const student = await userData.getUserById(student_id) as Models.IStudent;
 
         if (_.isNull(student)) {
           return new BadRequestError(`Student ${student_id} does not exist.`);
@@ -68,9 +71,7 @@ export function PrizeRoutes(
         if (_.isNull(prize)) {
           return new BadRequestError(`Prize ${prize_id} does not exist.`);
         }
-  
-        const slackMessage = `*${Helpers.getFullName(student)}* ordered *${prize.title}*`;
-        notifications.sendMessage(slackMessage);
+
 
         const prizeOrder: M.IPrizeOrder = {
           ...req.body,
@@ -81,6 +82,22 @@ export function PrizeRoutes(
           date_created: new Date().toISOString(),
           date_ordered: null
         }
+
+        // slack notification
+
+        const slackMessage = `*${Helpers.getFullName(student)}* ordered *${prize.title}*`;
+        notifications.sendMessage(slackMessage);
+
+        // email notifications
+
+        const emailContent: IEmailContent = EmailTemplates.buildOrderedPrizeEmail(student, prize, prizeOrder);
+
+        const educator = await userData.getEducatorOfStudent(student_id);
+        if (!_.isNull(educator) && educator.notification_settings.prizes_ordered) {
+          email.sendMail(educator.email, emailContent)
+        }
+
+        email.sendAdminEmail(emailContent);
 
         return prizeOrderData.createPrizeOrder(prizeOrder);
 

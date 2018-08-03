@@ -27,6 +27,7 @@ import { MongoPrizeData } from '../data/prizes';
 import { MongoPrizeOrderData } from '../data/prize_orders';
 import { MockNotifications } from '../notifications/mock';
 import { MongoReadingLogData } from '../data/reading_log';
+import { MockEmail } from '../email/mock';
 
 
 // Load all the data
@@ -99,7 +100,8 @@ const app = new App(
   mongoPrizeData,
   mongoPrizeOrderData,
   readingLogData,
-  new MockNotifications()
+  new MockNotifications(),
+  new MockEmail(false /* log emails */)
 )
 
 const agent = supertest(app.server);
@@ -299,7 +301,7 @@ describe('End to End tests', function () {
           .then(checkErrMsg('Only admin can submit prize order for another student.'))
       });
 
-      it('should 400 if student does not exist', function() {
+      it('should 400 if student does not exist', function () {
         const invalidId = shortid.generate();
         const invalidPrizeBody = {
           ...validPrizeBody,
@@ -313,7 +315,7 @@ describe('End to End tests', function () {
           .then(checkErrMsg(`Student ${invalidId} does not exist.`))
       })
 
-      it('should 400 if prize does not exist', function() {
+      it('should 400 if prize does not exist', function () {
         const invalidId = shortid.generate();
         const invalidPrizeBody = {
           ...validPrizeBody,
@@ -1017,6 +1019,7 @@ describe('End to End tests', function () {
         const recentSubmission = Mockers.mockQuizSubmission({
           quiz_id: 'quiz-id-1',
           book_id: initialBooks[0]._id,
+          book_title: initialBooks[0].title,
           student_id: katelynn._id,
           date_created: latestSubmissionDate,
           answers: _.times(5, () => ({ answer_index: 2 }))
@@ -1045,10 +1048,12 @@ describe('End to End tests', function () {
           .then(({ body }) => {
             delete body._id;
             delete body.date_created;
-            assert.deepEqual(body, _.assign({}, passingValidSubmissionQuiz1Body, {
+            assert.deepEqual(body, {
+              ...passingValidSubmissionQuiz1Body,
               passed: true,
-              score: 100
-            }))
+              score: 100,
+              book_title: initialBooks[0].title
+            })
             return quizSubmissionCollection.find({})
           })
           .then(submissions => assert.lengthOf(submissions, initialQuizSubmissions.length + 1))
@@ -1063,10 +1068,12 @@ describe('End to End tests', function () {
           .then(({ body }) => {
             delete body._id;
             delete body.date_created;
-            assert.deepEqual(body, _.assign({}, failingSubmissionQuiz1Body, {
+            assert.deepEqual(body, {
+              ...failingSubmissionQuiz1Body,
               passed: false,
-              score: 60
-            }))
+              score: 60,
+              book_title: initialBooks[0].title
+            })
           })
       })
 
@@ -1115,7 +1122,7 @@ describe('End to End tests', function () {
 
     })
 
-    describe('Reading Log Routes', function() {
+    describe('Reading Log Routes', function () {
 
       const validReadingLog: Models.IReadingLogBody = {
         student_id: katelynn._id as string,
@@ -1128,7 +1135,7 @@ describe('End to End tests', function () {
         is_last_log_for_book: false
       }
 
-      describe('#createReadingLog', function() {
+      describe('#createReadingLog', function () {
 
         it('should 401 when no auth token in header', function () {
           return agent
@@ -1153,13 +1160,13 @@ describe('End to End tests', function () {
         });
 
         it('should 400 if final_page is equal to end_page', function () {
-          
+
           const invalid = {
             ...validReadingLog,
             start_page: 10,
-            final_page: 10 
+            final_page: 10
           }
-          
+
           return agent
             .post(`/students/${katelynn._id}/reading_logs`)
             .set(SC.AuthHeaderField, katelynnToken)
@@ -1170,60 +1177,60 @@ describe('End to End tests', function () {
         });
 
         it('should 400 if final_page is less than to end_page', function () {
-          
+
           const invalid = {
             ...validReadingLog,
             start_page: 10,
-            final_page: 5 
+            final_page: 5
           }
-          
+
           return agent
             .post(`/students/${katelynn._id}/reading_logs`)
             .set(SC.AuthHeaderField, katelynnToken)
             .send(invalid)
             .expect(400)
             .then(checkErrMsg('Final page should be greater than start page'))
-            
+
         });
 
         it('should 400 if final_page is greater than number of pages in book', function () {
-          
+
           const book = _.find(initialBooks, { _id: validReadingLog.book_id });
 
           const invalid = {
             ...validReadingLog,
             start_page: book.num_pages - 20,
-            final_page: book.num_pages + 10 
+            final_page: book.num_pages + 10
           }
-          
+
           return agent
             .post(`/students/${katelynn._id}/reading_logs`)
             .set(SC.AuthHeaderField, katelynnToken)
             .send(invalid)
             .expect(400)
             .then(checkErrMsg(`Final page (${invalid.final_page}) exceeds number of pages in book (${book.num_pages})`))
-            
+
         });
 
         it('should 400 if too many pages logged', function () {
-          
+
           const invalid: Models.IReadingLogBody = {
             ...validReadingLog,
             start_page: 0,
             final_page: SC.ReadingLogMaxPagesPossibleInLog + 10
           }
-          
+
           return agent
             .post(`/students/${katelynn._id}/reading_logs`)
             .set(SC.AuthHeaderField, katelynnToken)
             .send(invalid)
             .expect(400)
             .then(checkErrMsg(`The maximum number of pages you can log is ${SC.ReadingLogMaxPagesPossibleInLog}`))
-            
+
         });
 
         it('should 400 if final_page is last page of book, but not last log set', function () {
-          
+
           const book = _.find(initialBooks, { _id: validReadingLog.book_id });
 
           const invalid: Models.IReadingLogBody = {
@@ -1232,50 +1239,50 @@ describe('End to End tests', function () {
             final_page: book.num_pages,
             is_last_log_for_book: false
           }
-          
+
           return agent
             .post(`/students/${katelynn._id}/reading_logs`)
             .set(SC.AuthHeaderField, katelynnToken)
             .send(invalid)
             .expect(400)
             .then(checkErrMsg('Final page cannot be last page, yet not the last log for the book'))
-            
+
         });
 
         it('should 400 if duration_min too small', function () {
-          
+
           const invalid: Models.IReadingLogBody = {
             ...validReadingLog,
             duration_min: SC.ReadingLogMinMinutes - 1
           }
-          
+
           return agent
             .post(`/students/${katelynn._id}/reading_logs`)
             .set(SC.AuthHeaderField, katelynnToken)
             .send(invalid)
             .expect(400)
             .then(checkErrMsg(`Reading log duration must be between ${SC.ReadingLogMinMinutes} and ${SC.ReadingLogMaxMinutes} minutes`))
-            
+
         });
 
         it('should 400 if duration_min too large', function () {
-          
+
           const invalid: Models.IReadingLogBody = {
             ...validReadingLog,
             duration_min: SC.ReadingLogMaxMinutes + 1
           }
-          
+
           return agent
             .post(`/students/${katelynn._id}/reading_logs`)
             .set(SC.AuthHeaderField, katelynnToken)
             .send(invalid)
             .expect(400)
             .then(checkErrMsg(`Reading log duration must be between ${SC.ReadingLogMinMinutes} and ${SC.ReadingLogMaxMinutes} minutes`))
-            
+
         });
 
         it('should 400 if is last log, but final_page is not last page of book', function () {
-          
+
           const book = _.find(initialBooks, { _id: validReadingLog.book_id });
 
           const invalid: Models.IReadingLogBody = {
@@ -1284,17 +1291,17 @@ describe('End to End tests', function () {
             final_page: book.num_pages - 10,
             is_last_log_for_book: true
           }
-          
+
           return agent
             .post(`/students/${katelynn._id}/reading_logs`)
             .set(SC.AuthHeaderField, katelynnToken)
             .send(invalid)
             .expect(400)
             .then(checkErrMsg('Final page is not last page of book, yet this is a last log for the book'))
-            
+
         });
 
-        it('should 400 if first log and doesn\'t start at page 0', function() {
+        it('should 400 if first log and doesn\'t start at page 0', function () {
 
           const bookNotLogged = _.find(initialBooks, book => {
             const idsOfBooksLogged = _.map(initialReadingLogs, 'book_id');
@@ -1317,7 +1324,7 @@ describe('End to End tests', function () {
 
         })
 
-        it('should 400 if trying to log a book already finished logging', function() {
+        it('should 400 if trying to log a book already finished logging', function () {
 
           const book = _.find(initialBooks, { _id: 'harry-potter-id' })
 
@@ -1337,7 +1344,7 @@ describe('End to End tests', function () {
 
         })
 
-        it('should 400 if log does not start where last log ended', function() {
+        it('should 400 if log does not start where last log ended', function () {
 
           const unfinishedLog = _.find(initialReadingLogs, { _id: 'unfinished_log' })
           const book = _.find(initialBooks, { _id: unfinishedLog.book_id })
@@ -1366,7 +1373,7 @@ describe('End to End tests', function () {
 
     describe('User Routes', function () {
 
-      describe('#studentSignin', function() {
+      describe('#studentSignin', function () {
 
         const validAdminCreds: Models.IUserLoginCreds = {
           email: austin.email,
@@ -1383,7 +1390,7 @@ describe('End to End tests', function () {
           password: 'password'
         }
 
-        it('should 400 if no user exists with email', function() {
+        it('should 400 if no user exists with email', function () {
           const invalidEmail = 'invalid@gmail.com'
           return agent
             .post(`/students/signin`)
@@ -1392,7 +1399,7 @@ describe('End to End tests', function () {
             .then(checkErrMsg(`No user with email ${invalidEmail}`))
         })
 
-        it('should 400 if user is admin', function() {
+        it('should 400 if user is admin', function () {
           return agent
             .post(`/students/signin`)
             .send(validAdminCreds)
@@ -1400,7 +1407,7 @@ describe('End to End tests', function () {
             .then(checkErrMsg('User must be a student.'))
         })
 
-        it('should 400 if student is not active', function() {
+        it('should 400 if student is not active', function () {
           return agent
             .post('/students/signin')
             .send(inactiveStudentCreds)
@@ -1408,10 +1415,10 @@ describe('End to End tests', function () {
             .then(checkErrMsg('This student account is not yet activated.'))
         })
 
-        it('should 400 if invalid email/password combo', function() {
+        it('should 400 if invalid email/password combo', function () {
           const invalidPass = 'invalid';
           const invalidCreds = {
-            ... validStudentCreds,
+            ...validStudentCreds,
             password: invalidPass
           }
           return agent
@@ -1421,7 +1428,7 @@ describe('End to End tests', function () {
             .then(checkErrMsg('Invalid email/password combination.'))
         })
 
-        it('should 200 if credentials valid', function() {
+        it('should 200 if credentials valid', function () {
           return agent
             .post(`/students/signin`)
             .expect(200)
@@ -1507,7 +1514,7 @@ describe('End to End tests', function () {
 
       });
 
-      describe('#updateEducatorNotificationSettings', function() {
+      describe('#updateEducatorNotificationSettings', function () {
 
         const validNoteSettings: Models.IEducatorNoteSettings = {
           reading_logs: true,
@@ -1605,8 +1612,8 @@ describe('End to End tests', function () {
         });
 
       })
-      
-      describe('#updateStudentsParentsEmails', function() {
+
+      describe('#updateStudentsParentsEmails', function () {
 
         it('should 401 when no auth token in header', function () {
           return agent
@@ -1924,7 +1931,7 @@ describe('End to End tests', function () {
 
       });
 
-      describe('#bookmarkBook', function() {
+      describe('#bookmarkBook', function () {
 
         const validReqBody = {
           bookId: 'harry-potter-id'
@@ -2000,7 +2007,7 @@ describe('End to End tests', function () {
 
       });
 
-      describe('#unbookmarkBook', function() {
+      describe('#unbookmarkBook', function () {
 
         it('should 401 when no auth token in header', function () {
           return agent
