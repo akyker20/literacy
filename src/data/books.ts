@@ -24,7 +24,8 @@ export interface IBookData {
   getBooksWithIds: (ids: string[]) => Promise<M.IBook[]>;
   updateBook: (book: M.IBook) => Promise<M.IBook>;
   deleteBook: (bookId: string) => Promise<M.IBook>;
-  searchBooks: (query: string) => Promise<M.IBook[]>
+  searchBooks: (query: string) => Promise<M.IBook[]>;
+  getBooksByAuthor: (authorId: string) => Promise<M.IBook[]>;
 }
 
 export interface IBookQuery {
@@ -39,6 +40,10 @@ export class MongoBookData implements IBookData {
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
     this.books = db.get('books', { castIds: false });
+  }
+
+  getBooksByAuthor(authorId: string) {
+    return this.books.find({ authors: { $elemMatch: { id: authorId } }})
   }
 
   createBook(book: M.IBook): Promise<M.IBook> {

@@ -6,12 +6,14 @@ import * as _ from 'lodash';
 import { IBookData } from '../data/books';
 import { IRequest, lexileMeasureSchema, shortidSchema } from '../extensions';
 import * as Middle from '../middleware';
-import { genFieldErr, getLexileRange, computeMatchScore, computeCurrentLexileMeasure, unwrapData } from '../helpers';
+import { genFieldErr, computeMatchScore, unwrapData } from '../helpers';
 import { ResourceNotFoundError, BadRequestError, ForbiddenError } from 'restify-errors';
 import { IUserData } from '../data/users';
 import { IBookReviewData } from '../data/book_reviews';
 import { IGenreData } from '../data/genres';
 import { IQuizData } from '../data/quizzes';
+import { IAuthorData } from '../data/authors';
+import { ISeriesData } from '../data/series';
 
 const inputBookReview = joi.object({
   interest: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required(),
@@ -21,7 +23,7 @@ const inputBookReview = joi.object({
   student_id: shortidSchema.required()
 }).required()
 
-const inputBookSchema = joi.object({
+const sharedBookSchema = joi.object({
   cover_photo_url: joi.string().required().error(genFieldErr('cover_photo_url')),
   amazon_popularity: joi.number().min(0).max(5).required().error(genFieldErr('amazon_popularity')),
   title: joi.string().required().error(genFieldErr('title')),
@@ -29,12 +31,23 @@ const inputBookSchema = joi.object({
   lexile_measure: lexileMeasureSchema.error(genFieldErr('lexile_measure')),
   num_pages: joi.number().min(40).max(3000).required().error(genFieldErr('num_pages')),
   isbn: joi.string().regex(/^(97(8|9))?\d{9}(\d|X)$/).required().error(genFieldErr('isbn')),
-  author: joi.string().required().error(genFieldErr('author')),
-  genres: joi.array().items(joi.string()).min(1).max(5).unique().required().error(genFieldErr('genres'))
+  genres: joi.array().items(joi.string()).min(1).max(5).unique().required().error(genFieldErr('genres')),
+  series: joi.object({
+    book_num: joi.number().integer().required(),
+    id: shortidSchema
+  }).optional()
 }).strict().required();
 
-const createdBookSchema = inputBookSchema.keys({
-  _id: shortidSchema.required().error(genFieldErr('_id'))
+const inputBookSchema = sharedBookSchema.keys({
+  author_ids: joi.array().items(shortidSchema).required().error(genFieldErr('author_ids'))
+}).strict().required();
+
+const createdBookSchema = sharedBookSchema.keys({
+  _id: shortidSchema.required().error(genFieldErr('_id')),
+  authors: joi.array().items(joi.object({
+    id: shortidSchema,
+    name: joi.string().required()
+  }).min(1).max(4).required())
 }).required();
 
 const inputGenreSchema = joi.object({
@@ -48,10 +61,12 @@ const createdGenreSchema = inputGenreSchema.keys({
 
 export function BookRoutes(
   genreData: IGenreData,
+  authorData: IAuthorData,
   bookData: IBookData,
   bookReviewData: IBookReviewData,
   userData: IUserData,
-  quizData: IQuizData
+  quizData: IQuizData,
+  seriesData: ISeriesData
 ) {
 
   async function checkBookForInvalidGenres(candidate: M.IBook): Promise<string[]> {
@@ -85,6 +100,30 @@ export function BookRoutes(
         }))
         
       }),
+      Middle.handlePromise
+    ],
+
+    getAllSeries: [
+      Middle.authenticate,
+      unwrapData(async () => seriesData.getAllSeries()),
+      Middle.handlePromise
+    ],
+
+    getAllAuthors: [
+      Middle.authenticate,
+      unwrapData(async () => authorData.getAllAuthors()),
+      Middle.handlePromise
+    ],
+
+    getAuthor: [
+      Middle.authenticate,
+      unwrapData(async (req) => authorData.getAuthorById(req.params.authorId)),
+      Middle.handlePromise
+    ],
+
+    getBooksByAuthor: [
+      Middle.authenticate,
+      unwrapData(async (req) => bookData.getBooksByAuthor(req.params.authorId)),
       Middle.handlePromise
     ],
 
@@ -231,7 +270,7 @@ export function BookRoutes(
     ],
     getBook: [
       Middle.authenticate,
-      unwrapData(async (req: IRequest<M.IBook>) => {
+      unwrapData(async (req: IRequest<null>) => {
         const book = await bookData.getBook(req.params.bookId);
         if (_.isNull(book)) {
           throw new ResourceNotFoundError(`Book ${req.params.bookId} does not exist.`);
@@ -272,18 +311,12 @@ export function BookRoutes(
           throw new ForbiddenError(`Student ${userId} has not provided genre interests`)
         }
 
-        const studentBookReviews = await bookReviewData.getBookReviewsForStudent(user._id);
+        // const studentBookReviews = await bookReviewData.getBookReviewsForStudent(user._id);
         
-        const currentLexileMeasure = computeCurrentLexileMeasure(
-          user.initial_lexile_measure, 
-          studentBookReviews
-        );
-        const currentLexileRange = getLexileRange(currentLexileMeasure);
-
-        const booksInRange = await bookData.getMatchingBooks({ lexile_range: currentLexileRange });
+        const allBooks = await bookData.getAllBooks();
 
         const matchScores: { [bookId: string]: number } = {};
-        _.forEach(booksInRange, book => {
+        _.forEach(allBooks, book => {
           matchScores[book._id] = computeMatchScore(
             user.genre_interests, 
             book
@@ -291,7 +324,7 @@ export function BookRoutes(
         })
         
         return <M.IStudentBooksDTO> {
-          books: booksInRange,
+          books: allBooks,
           match_scores: matchScores
         }
 

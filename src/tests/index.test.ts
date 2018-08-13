@@ -18,6 +18,7 @@ import { assert } from 'chai';
 import * as BEC from '../constants'
 import App from '..';
 
+import { MongoAuthorData } from '../data/authors';
 import { MongoUserData } from '../data/users';
 import { MongoBookData } from '../data/books';
 import { MongoQuizData } from '../data/quizzes';
@@ -28,10 +29,12 @@ import { MongoPrizeOrderData } from '../data/prize_orders';
 import { MockNotifications } from '../notifications/mock';
 import { MongoReadingLogData } from '../data/reading_log';
 import { MockEmail } from '../email/mock';
+import { MongoSeriesData } from '../data/series';
 
 
 // Load all the data
 
+const initialAuthors: Models.IAuthor[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/authors.json'), 'utf8'))
 const initialBooks: Models.IBook[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/books.json'), 'utf8'));
 const initialGenres: Models.IGenre[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/genres.json'), 'utf8'));
 const initialQuizzes: Models.IQuiz[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/quizzes.json'), 'utf8'));
@@ -67,6 +70,7 @@ const connectionStr = `mongodb://${dbHost}:${dbPort}/${dbName}`;
 const db = monk.default(connectionStr);
 db.addMiddleware(require('monk-middleware-debug'))
 
+const authorCollection = db.get('authors', { castIds: false });
 const bookCollection = db.get('books', { castIds: false });
 const bookReviewCollection = db.get('book_reviews', { castIds: false });
 const quizCollection = db.get('quizzes', { castIds: false });
@@ -82,6 +86,7 @@ async function setData(collection: monk.ICollection, data: any) {
   await collection.insert(data);
 }
 
+const mongoAuthorData = new MongoAuthorData(connectionStr);
 const mongoBookData = new MongoBookData(connectionStr);
 const mongoUserData = new MongoUserData(connectionStr);
 const mongoGenreData = new MongoGenreData(connectionStr);
@@ -90,11 +95,14 @@ const mongoBookReviewData = new MongoBookReviewData(connectionStr);
 const mongoPrizeData = new MongoPrizeData(connectionStr);
 const mongoPrizeOrderData = new MongoPrizeOrderData(connectionStr);
 const readingLogData = new MongoReadingLogData(connectionStr);
+const mongoSeriesData = new MongoSeriesData(connectionStr)
 
 const app = new App(
   mongoBookData,
   mongoUserData,
   mongoGenreData,
+  mongoSeriesData,
+  mongoAuthorData,
   mongoQuizData,
   mongoBookReviewData,
   mongoPrizeData,
@@ -137,7 +145,8 @@ describe('End to End tests', function () {
       setData(usersCollection, initialUsers),
       setData(prizeCollection, initialPrizes),
       setData(prizeOrderCollection, initialPrizeOrders),
-      setData(readingLogCollection, initialReadingLogs)
+      setData(readingLogCollection, initialReadingLogs),
+      setData(authorCollection, initialAuthors)
     ]);
   });
 
@@ -2086,7 +2095,8 @@ describe('End to End tests', function () {
       usersCollection.drop(),
       bookReviewCollection.drop(),
       prizeCollection.drop(),
-      prizeOrderCollection.drop()
+      prizeOrderCollection.drop(),
+      authorCollection.drop()
     ]);
     db.close();
   })

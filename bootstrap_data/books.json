@@ -1,74 +1,2122 @@
 [
   {
-    "_id": "JjqaXNcpN",
+    "_id": "N_3_T_WwVp",
     "title": "Baseball in April and Other Stories",
-    "author": "Gary Soto",
     "isbn": "015205720X",
-    "summary": "The Mexican American author Gary Soto draws on his own experience of growing up in California’s Central Valley in this finely crafted collection of eleven short stories that reveal big themes in the small events of daily life. Crooked teeth, ponytailed girls, embarrassing grandfathers, imposter Barbies, annoying brothers, Little League tryouts, and karate lessons weave the colorful fabric of Soto’s world. The smart, tough, vulnerable kids in these stories are Latino, but their dreams and desires belong to all of us. Glossary of Spanish terms included.",
-    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/baseball_in_april.jpg",
-    "lexile_measure": 830,
-    "amazon_popularity": 3.65,
     "num_pages": 111,
-    "genres": []
+    "authors": [
+      {
+        "id": "1lS1uc_cq",
+        "name": "Gary Soto"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/baseball.jpg",
+    "lexile_measure": 830,
+    "summary": "The Mexican American author Gary Soto draws on his own experience of growing up in California’s Central Valley in this finely crafted collection of eleven short stories that reveal big themes in the small events of daily life. Crooked teeth, ponytailed girls, embarrassing grandfathers, imposter Barbies, annoying brothers, Little League tryouts, and karate lessons weave the colorful fabric of Soto’s world. The smart, tough, vulnerable kids in these stories are Latino, but their dreams and desires belong to all of us. Glossary of Spanish terms included.",
+    "genres": [
+      "HyBbXujB7",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "3.65"
   },
   {
-    "_id": "NECojxy4P",
+    "_id": "O8vvHQ7Alg",
     "title": "Hatchet",
-    "author": "Gary Paulsen",
     "isbn": "27701301",
-    "summary": "Brian is on his way to Canada to visit his estranged father when the pilot of his small prop plane suffers a heart attack. Brian is forced to crash-land the plane in a lake--and finds himself stranded in the remote Canadian wilderness with only his clothing and the hatchet his mother gave him as a present before his departure. \nBrian had been distraught over his parents' impending divorce and the secret he carries about his mother, but now he is truly desolate and alone. Exhausted, terrified, and hungry, Brian struggles to find food and make a shelter for himself. He has no special knowledge of the woods, and he must find a new kind of awareness and patience as he meets each day's challenges. Is the water safe to drink? Are the berries he finds poisonous?\nSlowly, Brian learns to turn adversity to his advantage--an invading porcupine unexpectedly shows him how to make fire, a devastating tornado shows him how to retrieve supplies from the submerged airplane. Most of all, Brian leaves behind the self-pity he has felt about his predicament as he summons the courage to stay alive.\nA story of survival and of transformation, this riveting book has sparked many a reader's interest in venturing into the wild.",
+    "num_pages": 192,
+    "authors": [
+      {
+        "id": "HSje1yDPOn",
+        "name": "Gary Paulsen"
+      }
+    ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/hatchet.jpg",
     "lexile_measure": 1020,
-    "amazon_popularity": 3.69,
-    "num_pages": 192,
-    "genres": []
+    "summary": "Brian is on his way to Canada to visit his estranged father when the pilot of his small prop plane suffers a heart attack. Brian is forced to crash-land the plane in a lake--and finds himself stranded in the remote Canadian wilderness with only his clothing and the hatchet his mother gave him as a present before his departure. \n\nBrian had been distraught over his parents' impending divorce and the secret he carries about his mother, but now he is truly desolate and alone. Exhausted, terrified, and hungry, Brian struggles to find food and make a shelter for himself. He has no special knowledge of the woods, and he must find a new kind of awareness and patience as he meets each day's challenges. Is the water safe to drink? Are the berries he finds poisonous? \n\nSlowly, Brian learns to turn adversity to his advantage--an invading porcupine unexpectedly shows him how to make fire, a devastating tornado shows him how to retrieve supplies from the submerged airplane. Most of all, Brian leaves behind the self-pity he has felt about his predicament as he summons the courage to stay alive. \n\nA story of survival and of transformation, this riveting book has sparked many a reader's interest in venturing into the wild.",
+    "genres": [
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "3.69"
   },
   {
-    "_id": "fRGJN4d1p",
+    "_id": "7qV-y3IJET",
     "title": "Peak",
-    "author": "Roland Smith",
     "isbn": "152024174",
-    "summary": "After fourteen-year-old Peak Marcello is arrested for scaling a New York City skyscraper, he's left with two choices: wither away in Juvenile Detention or go live with his long-lost father, who runs a climbing company in Thailand. But Peak quickly learns that his father's renewed interest in him has strings attached. Big strings. As owner of Peak Expeditions, he wants his son to be the youngest person to reach the Everest summit--and his motives are selfish at best. Even so, for a climbing addict like Peak, tackling Everest is the challenge of a lifetime. But it's also one that could cost him his life.\nRoland Smith has created an action-packed adventure about friendship, sacrifice, family, and the drive to take on Everest, despite the incredible risk. The story of Peak’s dangerous ascent—told in his own words—is suspenseful, immediate, and impossible to put down.",
+    "num_pages": 246,
+    "authors": [
+      {
+        "id": "xwltpHOa6i",
+        "name": "Roland Smith"
+      }
+    ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/peak.jpg",
     "lexile_measure": 760,
-    "amazon_popularity": 3.98,
-    "num_pages": 246,
-    "genres": []
+    "summary": "After fourteen-year-old Peak Marcello is arrested for scaling a New York City skyscraper, he's left with two choices: wither away in Juvenile Detention or go live with his long-lost father, who runs a climbing company in Thailand. But Peak quickly learns that his father's renewed interest in him has strings attached. Big strings. As owner of Peak Expeditions, he wants his son to be the youngest person to reach the Everest summit--and his motives are selfish at best. Even so, for a climbing addict like Peak, tackling Everest is the challenge of a lifetime. But it's also one that could cost him his life.\n\nRoland Smith has created an action-packed adventure about friendship, sacrifice, family, and the drive to take on Everest, despite the incredible risk. The story of Peak’s dangerous ascent—told in his own words—is suspenseful, immediate, and impossible to put down.",
+    "genres": [
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "3.98"
   },
   {
-    "_id": "eRJATyRj2",
+    "_id": "SRb2g3UzFf",
     "title": "The Phantom Tollbooth",
-    "author": "Norton Juster",
     "isbn": "394821998",
-    "summary": "Illustrated in black-and-white. This ingenious fantasy centers around Milo, a bored ten-year-old who comes home to find a large toy tollbooth sitting in his room. Joining forces with a watchdog named Tock, Milo drives through the tollbooth's gates and begins a memorable journey. He meets such characters as the foolish, yet lovable Humbug, the Mathemagician, and the not-so-wicked \"Which,\" Faintly Macabre, who gives Milo the \"impossible\" mission of returning two princesses to the Kingdom of Wisdom.",
+    "num_pages": 255,
+    "authors": [
+      {
+        "id": "_qyvRt33tJ",
+        "name": "Norton Juster"
+      }
+    ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/phantom_tollbooth.jpg",
     "lexile_measure": 1000,
-    "amazon_popularity": 4.21,
-    "num_pages": 255,
-    "genres": []
+    "summary": "Illustrated in black-and-white. This ingenious fantasy centers around Milo, a bored ten-year-old who comes home to find a large toy tollbooth sitting in his room. Joining forces with a watchdog named Tock, Milo drives through the tollbooth's gates and begins a memorable journey. He meets such characters as the foolish, yet lovable Humbug, the Mathemagician, and the not-so-wicked \"Which,\" Faintly Macabre, who gives Milo the \"impossible\" mission of returning two princesses to the Kingdom of Wisdom.",
+    "genres": [
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.21"
   },
   {
-    "_id": "2M-V5YT_o",
+    "_id": "Rov6JOVNoD",
     "title": "Island of the Blue Dolphins",
-    "author": "Scott O'Dell",
     "isbn": "318572540",
-    "summary": "In the Pacific there is an island that looks like a big fish sunning itself in the sea. Around it, blue dolphins swim, otters play, and sea elephants and sea birds abound. Once, Indians also lived on the island. And when they left and sailed to the east, one young girl was left behind.\nThis is the story of Karana, the Indian girl who lived alone for years on the Island of the Blue Dolphins. Year after year, she watched one season pass into another and waited for a ship to take her away. But while she waited, she kept herself alive by building shelter, making weapons, finding food, and fighting her enemies, the wild dogs. It is not only an unusual adventure of survival, but also a tale of natural beauty and personal discovery.",
-    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/island_blue_dolphins.jpg",
-    "lexile_measure": 1000,
-    "amazon_popularity": 3.81,
     "num_pages": 192,
-    "genres": []
+    "authors": [
+      {
+        "id": "KC7C7BDlbW",
+        "name": "Scott O'Dell"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/island_of_dolphins.jpg",
+    "lexile_measure": 1000,
+    "summary": "In the Pacific there is an island that looks like a big fish sunning itself in the sea. Around it, blue dolphins swim, otters play, and sea elephants and sea birds abound. Once, Indians also lived on the island. And when they left and sailed to the east, one young girl was left behind.\n\nThis is the story of Karana, the Indian girl who lived alone for years on the Island of the Blue Dolphins. Year after year, she watched one season pass into another and waited for a ship to take her away. But while she waited, she kept herself alive by building shelter, making weapons, finding food, and fighting her enemies, the wild dogs. It is not only an unusual adventure of survival, but also a tale of natural beauty and personal discovery.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "3.81"
   },
   {
-    "_id": "Afew9koZO",
+    "_id": "BKFplgxyhH",
     "title": "The Lightning Thief",
-    "author": "Rick Riordan",
     "isbn": "9781417732470",
-    "summary": "Percy Jackson is a good kid, but he can't seem to focus on his schoolwork or control his temper. And lately, being away at boarding school is only getting worse - Percy could have sworn his pre-algebra teacher turned into a monster and tried to kill him. When Percy's mom finds out, she knows it's time that he knew the truth about where he came from, and that he go to the one place he'll be safe. She sends Percy to Camp Half Blood, a summer camp for demigods (on Long Island), where he learns that the father he never knew is Poseidon, God of the Sea. Soon a mystery unfolds and together with his friends—one a satyr and the other the demigod daughter of Athena - Percy sets out on a quest across the United States to reach the gates of the Underworld (located in a recording studio in Hollywood) and prevent a catastrophic war between the gods.",
+    "num_pages": 377,
+    "authors": [
+      {
+        "id": "nD83iBqXmx",
+        "name": "Rick Riordan"
+      }
+    ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/lightning_thief.jpg",
     "lexile_measure": 740,
-    "amazon_popularity": 4.24,
-    "num_pages": 377,
-    "genres": []
+    "summary": "Percy Jackson is a good kid, but he can't seem to focus on his schoolwork or control his temper. And lately, being away at boarding school is only getting worse - Percy could have sworn his pre-algebra teacher turned into a monster and tried to kill him. When Percy's mom finds out, she knows it's time that he knew the truth about where he came from, and that he go to the one place he'll be safe. She sends Percy to Camp Half Blood, a summer camp for demigods (on Long Island), where he learns that the father he never knew is Poseidon, God of the Sea. Soon a mystery unfolds and together with his friends—one a satyr and the other the demigod daughter of Athena - Percy sets out on a quest across the United States to reach the gates of the Underworld (located in a recording studio in Hollywood) and prevent a catastrophic war between the gods.",
+    "genres": [
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.24",
+    "series": {
+      "id": "9rQ_9C1WYf",
+      "series_title": "Percy Jackson & the Olympians",
+      "book_num": 1
+    }
+  },
+  {
+    "_id": "boPYlnFLfw",
+    "title": "Holes",
+    "isbn": "440414806",
+    "num_pages": 233,
+    "authors": [
+      {
+        "id": "n78rYqmi1g",
+        "name": "Louis Sachar"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/holes.jpg",
+    "lexile_measure": 660,
+    "summary": "Stanley tries to dig up the truth in this inventive and darkly humorous tale of crime and punishment—and redemption. Ages 10+\n\nStanley Yelnats is under a curse. A curse that began with his no-good-dirty-rotten- pig-stealing-great-great-grandfather and has since followed generations of Yelnats. Now Stanley has been unjustly sent to a boys' detention center, Camp Green Lake, where the warden makes the boys \"build character\" by spending all day, every day, digging holes: five feet wide and five feet deep. It doesn't take long for Stanley to realize there's more than character improvement going on at Camp Green Lake. The boys are digging holes because the warden is looking for something. Stanley tries to dig up the truth in this inventive and darkly humorous tale of crime and punishment—and redemption.",
+    "genres": [
+      "Hy4HM_sB7"
+    ],
+    "amazon_popularity": "3.94"
+  },
+  {
+    "_id": "AN3RLLfvJCG",
+    "title": "Tuck Everlasting",
+    "isbn": "312369816",
+    "num_pages": 160,
+    "authors": [
+      {
+        "id": "jNq5dvxnuP",
+        "name": "Natalie Babbitt"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/tuck.jpg",
+    "lexile_measure": 770,
+    "summary": "Doomed to - or blessed with - eternal life after drinking from a magic spring, the Tuck family wanders about trying to live as inconspicuously and comfortably as they can. When ten-year-old Winnie Foster stumbles on their secret, the Tucks take her home and explain why living forever at one age is less a blessing that it might seem. Complications arise when Winnie is followed by a stranger who wants to market the spring water for a fortune.",
+    "genres": [
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "3.86"
+  },
+  {
+    "_id": "oorD158WKwz",
+    "title": "Redwall",
+    "isbn": "142302376",
+    "num_pages": 352,
+    "authors": [
+      {
+        "id": "-nicMzDEccm",
+        "name": "Brian Jacques"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/redwall_1.jpg",
+    "lexile_measure": 800,
+    "summary": "As the inhabitants of Redwall Abbey bask in the glorious Summer of the Late Rose, all is quiet and peaceful. But things are not as they seem. Cluny the Scourge—the evil one-eyed rat warlord, is hell-bent on destroying the tranquility as he prepares to fight a bloody battle for the ownership of Redwall. This dazzling story in the Redwall series is packed with all the wit, wisdom, humor, and blood-curdling adventure of the other books in the collection, but has the added bonus of taking the reader right back to the heart and soul of Redwall Abbey and the characters who live there.",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.12",
+    "series": {
+      "id": "Eu0VPLfBuIL",
+      "series_title": "Redwall",
+      "book_num": 1
+    }
+  },
+  {
+    "_id": "IiL7IQwEmov",
+    "title": "Mossflower",
+    "isbn": "142302384",
+    "num_pages": 432,
+    "authors": [
+      {
+        "id": "-nicMzDEccm",
+        "name": "Brian Jacques"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/redwall_2.jpg",
+    "lexile_measure": 780,
+    "summary": "The thrilling prequel to \"Redwall\". The clever and greedy wildcat Tsarmina becomes ruler of all Mossflower Woods and is determined to govern the peaceful woodlanders with an iron paw. The brave mouse Martin and quick-talking mouse thief Gonff meet in the depths of Kotir Castle's dungeon. The two escape and resolve to end Tsarmina's tyrannical rule. Joined by Kinny the mole, Martin and Gonff set off on a dangerous quest for Salamandastron, where they are convinced that their only hope, Boar the Fighter, still lives.",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.1",
+    "series": {
+      "id": "Eu0VPLfBuIL",
+      "series_title": "Redwall",
+      "book_num": 2
+    }
+  },
+  {
+    "_id": "F8Vdm8Dnt2T",
+    "title": "Mattimeo",
+    "isbn": "142302406",
+    "num_pages": 448,
+    "authors": [
+      {
+        "id": "-nicMzDEccm",
+        "name": "Brian Jacques"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/redwall_3.jpg",
+    "lexile_measure": 820,
+    "summary": "In this sequel to \"Redwall, \" the adventure continues as evil fox Slager ventures into Redwall Abbey and kidnaps the Woodland children--including Mattimeo, son of the great warrior mouse, Matthias.",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.03",
+    "series": {
+      "id": "Eu0VPLfBuIL",
+      "series_title": "Redwall",
+      "book_num": 3
+    }
+  },
+  {
+    "_id": "S-7Q5dZHkjO",
+    "title": "Mariel of Redwall",
+    "isbn": "142302392",
+    "num_pages": 400,
+    "authors": [
+      {
+        "id": "-nicMzDEccm",
+        "name": "Brian Jacques"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/redwall_4.jpg",
+    "lexile_measure": 900,
+    "summary": "In the stunning tradition of \"Watership Down comes a magnificent tale of treachery, destiny, courage and sacrifice -- from the author of \"Redwall, Mossflower, and\" Mattimeo.Dire peril awaits the innocent mousechild Mariel on a voyage with her father across tempest-tossed waters. For Gabool the Wild, King of the Searats, greedily eyes their unsuspecting vessel -- hungry for plunder . . . and destruction. Mercilessly cast overboard by the evil rodent, Mariel is washed ashore near Redwall Abbey barely alive . . . with no memory. But with the aid of a small yet hardy band of Woodlanders, the courageous mousemaid is determined to reclaim her identity . . . and to enact a rightful vengeance on the bloodthirsty pirate and his terrible minions.",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "3.97",
+    "series": {
+      "id": "Eu0VPLfBuIL",
+      "series_title": "Redwall",
+      "book_num": 4
+    }
+  },
+  {
+    "_id": "TykL4VSeEri",
+    "title": "A Wrinkle in Time",
+    "isbn": "312367546",
+    "num_pages": 256,
+    "authors": [
+      {
+        "id": "lwG6BgW6_9t",
+        "name": "Madeleine L'Engle"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/wrinkle.jpg",
+    "lexile_measure": 740,
+    "summary": "It was a dark and stormy night; Meg Murry, her small brother Charles Wallace, and her mother had come down to the kitchen for a midnight snack when they were upset by the arrival of a most disturbing stranger. \n\n\"Wild nights are my glory,\" the unearthly stranger told them. \"I just got caught in a downdraft and blown off course. Let me be on my way. Speaking of way, by the way, there is such a thing as a tesseract\".\n\nMeg's father had been experimenting with this fifth dimension of time travel when he mysteriously disappeared. Now the time has come for Meg, her friend Calvin, and Charles Wallace to rescue him. But can they outwit the forces of evil they will encounter on their heart-stopping journey through space?",
+    "genres": [
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.02"
+  },
+  {
+    "_id": "7ZHAHjwKB0m",
+    "title": "Treasure Island",
+    "isbn": "1505297400",
+    "num_pages": 122,
+    "authors": [
+      {
+        "id": "qesqHkLYVxJ",
+        "name": "Robert Louis Stevenson"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/treasure_island.jpg",
+    "lexile_measure": 610,
+    "summary": "In the book, young Jim Hawkins helps his father to run the Admiral Benbow, an inn near Bristol, England. One day, a desperate-looking ruffian, Billy Bones (“the captain”), appears cursing people and demanding drink. When he suffers a stroke, they have no choice but to allow him to stay. They cannot keep him away from the rum, and while drunk he tells Jim that he is a pirate and that he has a treasure map but is in danger from other pirates. When the blind pirate, Pew, catches up with him and tips him the ominous Black Spot (signifying guilt if not looming death), he suffers a second stroke and dies. Jim retrieves Bones’ map and takes it to Dr. Livesey, a local judge, and Squire Trelawney. The three decide to mount an expedition to Skeleton Island to find the treasure. Sadly, they are fooled into hiring some of Billy’s former shipmates among their crew, including the leader of the pirates, Long John Silver. Silver and his men, of course, plan to steal the treasure once it is found and to kill all of the non-pirates. What follows is a rip-roaring tale of mutiny, treachery, swordfights, and murder as Jim, Dr. Livesey, and the squire are forced to live on their wits in order to survive against ruthless enemies. Stevenson’s text, in such episodes as Jim and his mother listening to Pew’s stick taptapping the ground as he approaches the inn, or Jim’s terror when he is first grabbed by Ben Gunn, a marooned sailor on the island, is so vivid that the reader is transported there with them.",
+    "genres": [
+      "SyQXQOorX",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "3.82"
+  },
+  {
+    "_id": "s4_4aad4en7",
+    "title": "Maniac Magee",
+    "isbn": "316809063",
+    "num_pages": 180,
+    "authors": [
+      {
+        "id": "jjdQ8aYsRqN",
+        "name": "Jerry Spinelli"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/maniac_magee.jpg",
+    "lexile_measure": 820,
+    "summary": "Jeffrey Lionel \"Maniac\" Magee might have lived a normal life if a freak accident hadn't made him an orphan. After living with his unhappy and uptight aunt and uncle for eight years, he decides to run--and not just run away, but run. This is where the myth of Maniac Magee begins, as he changes the lives of a racially divided small town with his amazing and legendary feats.",
+    "genres": [
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "3.87"
+  },
+  {
+    "_id": "tLfGK93SK6D",
+    "title": "Wonder",
+    "isbn": "375969020",
+    "num_pages": 320,
+    "authors": [
+      {
+        "id": "OceCPHSiD5k",
+        "name": "R. J. Palacio"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/wonder.jpg",
+    "lexile_measure": 790,
+    "summary": "August Pullman was born with a facial difference that, up until now, has prevented him from going to a mainstream school. Starting 5th grade at Beecher Prep, he wants nothing more than to be treated as an ordinary kid—but his new classmates can’t get past Auggie’s extraordinary face. WONDER, now a #1 New York Times bestseller and included on the Texas Bluebonnet Award master list, begins from Auggie’s point of view, but soon switches to include his classmates, his sister, her boyfriend, and others. These perspectives converge in a portrait of one community’s struggle with empathy, compassion, and acceptance.",
+    "genres": [
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "4.45"
+  },
+  {
+    "_id": "8_ikYg1JSud",
+    "title": "Hoot",
+    "isbn": "440419395",
+    "num_pages": 292,
+    "authors": [
+      {
+        "id": "_X1m71MNy_R",
+        "name": "Carl Hiaasen"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/hoot.jpg",
+    "lexile_measure": 760,
+    "summary": "Unfortunately, Roy's first acquaintance in Florida is Dana Matherson, a well-known bully. Then again, if Dana hadn't been sinking his thumbs into Roy's temples and mashing his face against the school-bus window, Roy might never have spotted the running boy. And the running boy is intriguing: he was running away from the school bus, carried no books, and-here's the odd part-wore no shoes. Sensing a mystery, Roy sets himself on the boy's trail. The chase introduces him to potty-trained alligators, a fake-fart champion, some burrowing owls, a renegade eco-avenger, and several extremely poisonous snakes with unnaturally sparkling tails.",
+    "genres": [
+      "Hy4HM_sB7",
+      "SyQXQOorX",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "3.81"
+  },
+  {
+    "_id": "SbOD9gv3Apy",
+    "title": "The Westing Game",
+    "isbn": "014240120X",
+    "num_pages": 192,
+    "authors": [
+      {
+        "id": "-XBTN8MEoTT",
+        "name": "Ellen Raskin"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/westing_game.jpg",
+    "lexile_measure": 750,
+    "summary": "A bizarre chain of events begins when sixteen unlikely people gather for the reading of Samuel W. Westing's will. And though no one knows why the eccentric, game-loving millionaire has chosen a virtual stranger - and a possible murderer - to inherit his vast fortune, one thing's for sure: Sam Westing may be dead... but that won't stop him from playing one last game!",
+    "genres": [
+      "Hy4HM_sB7",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "4.03"
+  },
+  {
+    "_id": "WCVQf6Xxp57",
+    "title": "Stone Fox",
+    "isbn": "64401324",
+    "num_pages": 96,
+    "authors": [
+      {
+        "id": "6ZpHnhx2cxS",
+        "name": "John Reynolds Gardiner"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/stone_fox.jpg",
+    "lexile_measure": 610,
+    "summary": "Based on a Rocky Mountain legend, Stone Fox tells the story of Little Willy, who lives with his grandfather in Wyoming. When Grandfather falls ill, he is no longer able to work the farm, which is in danger of foreclosure. Little Willy is determined to win the National Dogsled Race—the prize money would save the farm and his grandfather. But he isn't the only one who desperately wants to win. Willy and his brave dog Searchlight must face off against experienced racers, including a Native American man named Stone Fox, who has never lost a race.",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "4.03"
+  },
+  {
+    "_id": "8bWQbad9fBj",
+    "title": "Ella Enchanted",
+    "isbn": "64407055",
+    "num_pages": 240,
+    "authors": [
+      {
+        "id": "VWeM88TdmM2",
+        "name": "Gail Carson Levine"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/ella_enchanted.jpg",
+    "lexile_measure": 670,
+    "summary": "At birth, Ella is inadvertently cursed by an imprudent young fairy named Lucinda, who bestows on her the \"gift\" of obedience. Anything anyone tells her to do, Ella must obey. Another girl might have been cowed by this affliction, but not feisty Ella: \"Instead of making me docile, Lucinda's curse made a rebel of me. Or perhaps I was that way naturally.\" When her beloved mother dies, leaving her in the care of a mostly absent and avaricious father, and later, a loathsome stepmother and two treacherous stepsisters, Ella's life and well-being seem to be in grave peril. But her intelligence and saucy nature keep her in good stead as she sets out on a quest for freedom and self-discovery as she tries to track down Lucinda to undo the curse, fending off ogres, befriending elves, and falling in love with a prince along the way. Yes, there is a pumpkin coach, a glass slipper, and a happily ever after, but this is the most remarkable, delightful, and profound version of Cinderella you'll ever read.",
+    "genres": [
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "3.97"
+  },
+  {
+    "_id": "4QdbnKZlPaD",
+    "title": "The Crossover",
+    "isbn": "544107713",
+    "num_pages": 240,
+    "authors": [
+      {
+        "id": "F2Iz4AgbdvX",
+        "name": "Kwame Alexander"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/crossover.jpg",
+    "lexile_measure": 750,
+    "summary": "\"With a bolt of lightning on my kicks . . .The court is SIZZLING. My sweat is DRIZZLING. Stop all that quivering. Cuz tonight I'm delivering,\" announces dread-locked, 12-year old Josh Bell. He and his twin brother Jordan are awesome on the court. But Josh has more than basketball in his blood, he's got mad beats, too, that tell his family's story in verse, in this fast and furious middle grade novel of family and brotherhood.\n\nJosh and Jordan must come to grips with growing up on and off the court to realize breaking the rules comes at a terrible price, as their story's heart-stopping climax proves a game-changer for the entire family. ",
+    "genres": [
+      "HyBbXujB7",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "4.24"
+  },
+  {
+    "_id": "GVqBwQMdUXr",
+    "title": "The Girl who drank the moon",
+    "isbn": "1616205679",
+    "num_pages": 400,
+    "authors": [
+      {
+        "id": "51yBo5We9Vb",
+        "name": "Kelly Barnhill"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/girl_who_drank_moon.jpg",
+    "lexile_measure": 640,
+    "summary": "Every year, the people of the Protectorate leave a baby as an offering to the witch who lives in the forest. They hope this sacrifice will keep her from terrorizing their town. But the witch in the Forest, Xan, is kind. She shares her home with a wise Swamp Monster and a Perfectly Tiny Dragon. Xan rescues the children and delivers them to welcoming families on the other side of the forest, nourishing the babies with starlight on the journey.\n\nOne year, Xan accidentally feeds a baby moonlight instead of starlight, filling the ordinary child with extraordinary magic. Xan decides she must raise this girl, whom she calls Luna, as her own. As Luna’s thirteenth birthday approaches, her magic begins to emerge--with dangerous consequences. Meanwhile, a young man from the Protectorate is determined to free his people by killing the witch. Deadly birds with uncertain intentions flock nearby. A volcano, quiet for centuries, rumbles just beneath the earth’s surface. And the woman with the Tiger’s heart is on the prowl . . .",
+    "genres": [
+      "SyQXQOorX",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "4.18"
+  },
+  {
+    "_id": "vUMJ9gUVHcH",
+    "title": "Ghost",
+    "isbn": "1481450166",
+    "num_pages": 208,
+    "authors": [
+      {
+        "id": "51fcaDLSBns",
+        "name": "Jason Reynolds"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/ghost.jpg",
+    "lexile_measure": 730,
+    "summary": "Running. That's all that Ghost (real name Castle Cranshaw) has ever known. But never for a track team. Nope, his game has always been ball. But when Ghost impulsively challenges an elite sprinter to a race -- and wins -- the Olympic medalist track coach sees he has something: crazy natural talent. Thing is, Ghost has something else: a lot of anger, and a past that he is trying to outrun. Can Ghost harness his raw talent for speed and meld with the team, or will his past finally catch up to him?",
+    "genres": [
+      "HyBbXujB7",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "4.22"
+  },
+  {
+    "_id": "IBR8fby3hNJ",
+    "title": "Fish in a tree",
+    "isbn": "142426423",
+    "num_pages": 320,
+    "authors": [
+      {
+        "id": "cU3ZMkvLNYY",
+        "name": "Lynda Mullaly Hunt"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/fish_in_a_tree.jpg",
+    "lexile_measure": 550,
+    "summary": "\nAlly has been smart enough to fool a lot of smart people. Every time she lands in a new school, she is able to hide her inability to read by creating clever yet disruptive distractions.  She is afraid to ask for help; after all, how can you cure dumb? However, her newest teacher Mr. Daniels sees the bright, creative kid underneath the trouble maker. With his help, Ally learns not to be so hard on herself and that dyslexia is nothing to be ashamed of. As her confidence grows, Ally feels free to be herself and the world starts opening up with possibilities. She discovers that there’s a lot more to her—and to everyone—than a label, and that great minds don’t always think alike.",
+    "genres": [
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "4.3"
+  },
+  {
+    "_id": "AsyVExKxXJD",
+    "title": "The keeper: the unguarded story of Tim Howard",
+    "isbn": "62387588",
+    "num_pages": 288,
+    "authors": [
+      {
+        "id": "P8tAxBztnv5",
+        "name": "Tim Howard"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/keeper_howard.jpg",
+    "lexile_measure": 700,
+    "summary": "In this heartwarming and candid memoir, Tim Howard does something he would never do on a soccer field: he drops his guard. As fiercely protective about his privacy as he is guarding the goal for the US national team and for Everton in the English Premier League, Howard opens up for the first time about how a hyperactive kid from New Jersey with Tourette’s syndrome defied the odds to become one of the world’s premier goalkeepers. Howard managed to keep his condition in check well enough to be drafted by Major League Soccer right out of high school.\n\nAfter a successful seventeen-year professional soccer career, Howard became an overnight star this past summer in Brazil. His heroic performance in goal for the United States against Belgium, in which he saved an astonishing sixteen shots—the most for any goalkeeper in a World Cup game—made him a household name as well as a trending internet meme. In the course of 120 minutes, Howard went from a player known mainly by soccer aficionados to an American icon, revered by millions for his dependability, daring, and humility.\n\nIn this uplifting memoir now adapted for young readers, Howard shares his remarkable journey from a challenging childhood in which he was raised by a single mother who instilled in him a love of sports and a devout Christian faith that helped him deal with the onset of Tourette’s in fifth grade.",
+    "genres": [
+      "r1ECmusSQ",
+      "HyBbXujB7"
+    ],
+    "amazon_popularity": "4.38"
+  },
+  {
+    "_id": "2d3m67GDKd6",
+    "title": "Because of Winn-dixie",
+    "isbn": "763680869",
+    "num_pages": 208,
+    "authors": [
+      {
+        "id": "FIfZ2Txkv7d",
+        "name": "Kate DiCamillo"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/winn_dixie.jpg",
+    "lexile_measure": 670,
+    "summary": "The summer Opal and her father, the preacher, move to Naomi, Florida, Opal goes into the Winn-Dixie supermarket--and comes out with a dog. A big, ugly, suffering dog with a sterling sense of humor. A dog she dubs Winn-Dixie. Because of Winn-Dixie, the preacher tells Opal ten things about her absent mother, one for each year Opal has been alive. Winn-Dixie is better at making friends than anyone Opal has ever known, and together they meet the local librarian, Miss Franny Block, who once fought off a bear with a copy of WAR AND PEACE. They meet Gloria Dump, who is nearly blind but sees with her heart, and Otis, an ex-con who sets the animals in his pet shop loose after hours, then lulls them with his guitar.Opal spends all that sweet summer collecting stories about her new friends and thinking about her mother. But because of Winn-Dixie or perhaps because she has grown, Opal learns to let go, just a little, and that friendship—and forgiveness—can sneak up on you like a sudden summer storm.",
+    "genres": [
+      "rktJmOsHQ",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "4.02"
+  },
+  {
+    "_id": "6jdvrS-lFCe",
+    "title": "Walk Two Moons",
+    "isbn": "60560134",
+    "num_pages": 304,
+    "authors": [
+      {
+        "id": "mOsJU3ADlhL",
+        "name": "Sharon Creech"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/walk_two_moons.jpg",
+    "lexile_measure": 770,
+    "summary": "Thirteen-year-old Salamanca Tree Hiddle, proud of her country roots and the \"Indian-ness in her blood,\" travels from Ohio to Idaho with her eccentric grandparents. Along the way, she tells them of the story of Phoebe Winterbottom, who received mysterious messages, who met a \"potential lunatic,\" and whose mother disappeared.\n\nAs Sal entertains her grandparents with Phoebe's outrageous story, her own story begins to unfold—the story of a thirteen-year-old girl whose only wish is to be reunited with her missing mother.",
+    "genres": [
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "3.96"
+  },
+  {
+    "_id": "WXl8ZbK08al",
+    "title": "Seedfolks",
+    "isbn": "590511904",
+    "num_pages": 70,
+    "authors": [
+      {
+        "id": "0X7U9mDcu6w",
+        "name": "Paul Fleischman"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/seedfolks.jpg",
+    "lexile_measure": 710,
+    "summary": "A Vietnamese girl plants six lima beans in a Cleveland vacant lot. Looking down on the immigrant-filled neighborhood, a Romanian woman watches suspiciously. A school janitor gets involved, then a Guatemalan family. Then muscle-bound Curtis, trying to win back Lateesha. Pregnant Maricela. Amir from India. A sense of community sprouts and spreads. ",
+    "genres": [
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "3.72"
+  },
+  {
+    "_id": "NO6eapbqAgs",
+    "title": "Oggie Cooder",
+    "isbn": "9781531878566",
+    "num_pages": 188,
+    "authors": [
+      {
+        "id": "6h364Sq6bnD",
+        "name": "Sarah Weeks"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/oggie.jpg",
+    "lexile_measure": 880,
+    "summary": "From the author of So B. It, a super charming middle-grade Napoleon Dynamite with heart - the tale of a very average boy who's put in his school's spotlight when his averageness appeals to a TV show.\n\nOggie Cooder has a talent -- he can charve better than anyone else in Truman Elementary School. (Charving, for the uninitiated, is the carving of a piece of cheese with one's teeth.) Oggie doesn't think this is anything special -- but his whole school will soon be disagreeing with him. Because after he inadvertantly charves during a nationwide hunt for unusual talents, his charving puts him on the path to fame and forture. Suddenly, he's the star of the school . . . but he's not sure that he wants to shine that way.",
+    "genres": [
+      "r11Vzdirm"
+    ],
+    "amazon_popularity": "3.69"
+  },
+  {
+    "_id": "hhy-rVsGRlt",
+    "title": "My Side of the Mountain",
+    "isbn": "142401110",
+    "num_pages": 192,
+    "authors": [
+      {
+        "id": "1kWy64vuu5_",
+        "name": "Jean Craighead George"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/my_side_of_mountain.jpg",
+    "lexile_measure": 810,
+    "summary": "Disappointed when his father reneges on a promised camping trip, Sam Gribley, a 13-year-old Canadian boy, decides to emulate his hero, Thoreau, by living close to nature. Explaining in a note to his parents that he intends to live on his own for a year, Sam packs his camping equipment and sets out with his pet raccoon, Gus, for the Laurentian Mountains. After traveling by bus and foot, he finds a mountain meadow near a stream and makes a home for himself in a hollow tree trunk. While conducting algae experiments, learning to forage for food, and hiding from people who pass his campsite, Sam decides to capture and train a baby falcon, a project that succeeds largely because of a trip to town and a helpful discussion with Miss Turner, a friendly librarian. One day Bando, an itinerant folksinger, happens upon Sam's hideout, and a warm friendship develops between the two as Bando contributes to the boy's knowledge of survival tactics. When it is time for Bando to move on, Sam asks him to mail a letter he has written to his parents. With the coming of winter, Sam suffers his first sorrow when a passing hunter kills his pet falcon. This, accompanied by the increasing cold, begins to depress his spirits. On Christmas Day, he awakens to find himself frozen by ice and snow inside his tree house. He is rescued by the timely arrival of Bando and Miss Turner, who has brought him a Christmas dinner. While they are finishing their holiday feast, Bando shows Sam newspaper clippings on the extensive search his parents have been conducting for their son. Touched by their concern and satisfied that he has accomplished what he set out to do, Sam takes Gus and leaves for home.",
+    "genres": [
+      "Sk8dbOjr7",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "4.04"
+  },
+  {
+    "_id": "ceGfTL8SuTT",
+    "title": "Give Me Liberty!",
+    "isbn": "60744235",
+    "num_pages": 384,
+    "authors": [
+      {
+        "id": "8AkC3V9JBbj",
+        "name": "L.M. Elliott"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/Give_me_liberty.jpg",
+    "lexile_measure": 810,
+    "summary": "For thirteen–year–old Nathaniel, an indentured servant in colonial Virginia, life is hard. Though things improve with the help of a kind master named Basil–who shares music, books, and philosophies on equality–around him the climate is heating up. It's 1775 and colonists are enraged by England's taxation. Patrick Henry's words \"give me liberty, or give me death\" become the sounding call and the American Revolution is about to errupt. Nathaniel and Basil must make a choice about joining the fight and face a larger conundrum about the true meaning of liberty.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "3.76"
+  },
+  {
+    "_id": "XSwuNgMdiNM",
+    "title": "The Miraculous Journey of Edward Tulane",
+    "isbn": "763680907",
+    "num_pages": 240,
+    "authors": [
+      {
+        "id": "FIfZ2Txkv7d",
+        "name": "Kate DiCamillo"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/edward_tulane.jpg",
+    "lexile_measure": 700,
+    "summary": "Miraculous Journey of Edward Tulane. Once, in a house on Egypt Street, there lived a china rabbit named Edward Tulane. The rabbit was very pleased with himself, and for good reason: he was owned by a girl named Abilene, who treated him with the utmost care and adored him completely. And then, one day, he was lost.",
+    "genres": [
+      "SyQXQOorX",
+      "rktJmOsHQ"
+    ],
+    "amazon_popularity": "4.35"
+  },
+  {
+    "_id": "AmHyWuOzWWW",
+    "title": "Clementine",
+    "isbn": "786838833",
+    "num_pages": 160,
+    "authors": [
+      {
+        "id": "nTvRQ3j9ggV",
+        "name": "Sara Pennypacker"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/clementine.jpg",
+    "lexile_measure": 790,
+    "summary": "Clementine is having not so good of a week.\n\n-On Monday she's sent to the principal’s office for cutting off Margaret’s hair.\n- Tuesday, Margaret's mother is mad at her. \n- Wednesday, she's sent to the principal... again. \n- Thursday, Margaret stops speaking to her. \n- Friday starts with yucky eggs and gets worse. \n- And by Saturday, even her mother is mad at her.\n\nOkay, fine. Clementine is having a DISASTROUS week.",
+    "genres": [
+      "r11Vzdirm"
+    ],
+    "amazon_popularity": "3.91"
+  },
+  {
+    "_id": "emaU3lTGm_v",
+    "title": "The Secret School",
+    "isbn": "152046992",
+    "num_pages": 176,
+    "authors": [
+      {
+        "id": "awIyU_zrBe9",
+        "name": "Avi"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/secret_school.jpg",
+    "lexile_measure": 540,
+    "summary": "More than anything, Ida Bidson wants to become a teacher. To do that, she must finish eighth grade, then go on to high school. But her dream falters when the one-room school in her remote Colorado town shuts down. Her only hope is to keep the school open without anyone finding out. Yet even a secret school needs a teacher. Ida can't be it. . . . Or can she?",
+    "genres": [
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "3.77"
+  },
+  {
+    "_id": "ZQClfrD0trb",
+    "title": "Nasty, Stinky Sneakers",
+    "isbn": "64405079",
+    "num_pages": 128,
+    "authors": [
+      {
+        "id": "Lmfj0vF_fwT",
+        "name": "Eve Bunting"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/nasty_stinky.jpg",
+    "lexile_measure": 510,
+    "summary": "Colin has spent weeks perfecting his sneaker odor for the Stinkiest Sneakers in the World contest. If he wins, he'll get three brand-new pairs of Slam Dunkers sneakers: one for himself, one for his little sister, Amy, and one for his best pal, Webster.\nBut now, after weeks of working toward stinky perfection -- not washing his feet, wearing no socks, jogging to get his feet juicy, and even sleeping with his sneakers on -- the nasty, stinky sneakers are missing!",
+    "genres": [
+      "r11Vzdirm"
+    ],
+    "amazon_popularity": "3.43"
+  },
+  {
+    "_id": "AhBtQBgmZJv",
+    "title": "The Homework Machine",
+    "isbn": "689876793",
+    "num_pages": 176,
+    "authors": [
+      {
+        "id": "Q5dXK-955PI",
+        "name": "Dan Gutman"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/homework_machine.jpg",
+    "lexile_measure": 680,
+    "summary": "The unlikely foursome made up of a geek, a class clown, a teacher's pet, and a slacker -- Brenton, Sam \"Snick,\", Judy and Kelsey, respectively, -- are bound together by one very big secret: the homework machine. Because the machine, code named Belch, is doing their homework for them, they start spending a lot of time together, attracting a lot of attention. And attention is exactly what you don't want when you are keeping a secret.\n\nBefore long, members of the D Squad, as they are called at school are getting strange Instant Messages from a shady guy named Milner; their teacher, Miss Rasmussen, is calling private meetings with each of them and giving them pop tests that they are failing; and someone has leaked the possibility of a homework machine to the school newspaper. Just when the D Squad thinks things can't get any more out of control, Belch becomes much more powerful than they ever imagined. Soon the kids are in a race against their own creation, and the loser could end up in jail...or worse!",
+    "genres": [
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "3.82"
+  },
+  {
+    "_id": "vZseVDYwwGQ",
+    "title": "My Dog, My Hero",
+    "isbn": "9781466867055",
+    "num_pages": 56,
+    "authors": [
+      {
+        "id": "tUOQDN5LIqu",
+        "name": "Betsy Byars"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/dog_hero.jpg",
+    "lexile_measure": 670,
+    "summary": "My Hero' to Be Chosen: Eight finalists will compete tonight for the title My Hero. The winner will wear the coveted gold Hero medal. These brave and courageous dogs will each appear with their nominator who will tell their story.\n\nThere's Smiley, who fought a giant bull. Bear used his giant paws to save the life of another dog. Munchkin warned a gardener of a poisonous snake about to strike. Old Dog helped find people buried under rubble after a tornado. Buster pulled a baby carriage out of the path of a careening truck. Blue, who had never been known to bark, used his voice to bring help to his wounded master. Dopey's constant barking saved the life of a baby left in a sweltering car. Little Bit brought love and companionship to a nursing home resident.",
+    "genres": [
+      "rktJmOsHQ"
+    ],
+    "amazon_popularity": "4.14"
+  },
+  {
+    "_id": "NhMsEzApn89",
+    "title": "Number the Stars",
+    "isbn": "547577095",
+    "num_pages": 160,
+    "authors": [
+      {
+        "id": "cwYm3IYW7xP",
+        "name": "Lois Lowry"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/number_the_stars.jpg",
+    "lexile_measure": 670,
+    "summary": "Ten-year-old Annemarie Johansen and her best friend Ellen Rosen often think of life before the war. It's now 1943 and their life in Copenhagen is filled with school, food shortages, and the Nazi soldiers marching through town. When the Jews of Denmark are \"relocated,\" Ellen moves in with the Johansens and pretends to be one of the family. Soon Annemarie is asked to go on a dangerous mission to save Ellen's life",
+    "genres": [
+      "r1eZGuiB7",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "4.12"
+  },
+  {
+    "_id": "kCEzeN_Sz5q",
+    "title": "The Graveyard Book",
+    "isbn": "60530944",
+    "num_pages": 352,
+    "authors": [
+      {
+        "id": "LulUjO1NC95",
+        "name": "Neil Gaiman"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/graveyard_book.jpg",
+    "lexile_measure": 820,
+    "summary": "After the grisly murder of his entire family, a toddler wanders into a graveyard where the ghosts and other supernatural residents agree to raise him as one of their own.\n\nNobody Owens, known to his friends as Bod, is a normal boy. He would be completely normal if he didn't live in a sprawling graveyard, being raised and educated by ghosts, with a solitary guardian who belongs to neither the world of the living nor of the dead. There are dangers and adventures in the graveyard for a boy. But if Bod leaves the graveyard, then he will come under attack from the man Jack—who has already killed Bod's family... ",
+    "genres": [
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.12"
+  },
+  {
+    "_id": "sqUYRcJLzUC",
+    "title": "All Creatures Great and Small",
+    "isbn": "1250057833",
+    "num_pages": 457,
+    "authors": [
+      {
+        "id": "GqEzOJcgzLk",
+        "name": "James Herriot"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/all_creatures.jpg",
+    "lexile_measure": 990,
+    "summary": "In the rolling dales of Yorkshire, a simple, rural region of northern England, a young veterinarian from Sunderland joins a new practice. A stranger in a strange land, he must quickly learn the odd dialect and humorous ways of the locals, master outdated equipment, and do his best to mend, treat, and heal pets and livestock alike.\n \nThis witty and heartwarming collection, based on the author’s own experiences, became an international success, spawning sequels and winning over animal lovers everywhere. Perhaps better than any other writer, James Herriot reveals the ties that bind us to the creatures in our lives.",
+    "genres": [
+      "rktJmOsHQ",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "4.31"
+  },
+  {
+    "_id": "uG0_O8wZk75",
+    "title": "The City of Ember",
+    "isbn": "375822747",
+    "num_pages": 270,
+    "authors": [
+      {
+        "id": "0EmtmmEX2be",
+        "name": "Jeanne DuPrau"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/city_of_ember.jpg",
+    "lexile_measure": 680,
+    "summary": "Many hundreds of years ago, the city of Ember was created by the Builders to contain everything needed for human survival. It worked…but now the storerooms are almost out of food, crops are blighted, corruption is spreading through the city and worst of all—the lights are failing. Soon Ember could be engulfed by darkness…\n\nBut when two children, Lina and Doon, discover fragments of an ancient parchment, they begin to wonder if there could be a way out of Ember. Can they decipher the words from long ago and find a new future for everyone? Will the people of Ember listen to them?",
+    "genres": [
+      "SyQXQOorX",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "3.86"
+  },
+  {
+    "_id": "vDFBIfkMCNn",
+    "title": "Bud not buddy",
+    "isbn": "440413281",
+    "num_pages": 272,
+    "authors": [
+      {
+        "id": "sn0Rjol6EX0",
+        "name": "Christopher Paul Curtis"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/bud_not_buddy.jpg",
+    "lexile_measure": 950,
+    "summary": "It’s 1936, in Flint Michigan. Times may be hard, and ten-year-old Bud may be a motherless boy on the run, but Bud’s got a few things going for him:\n\n1. He has his own suitcase full of special things.\n2. He’s the author of Bud Caldwell’s Rules and Things for Having a Funner Life and Making a Better Liar Out of Yourself.\n3. His momma never told him who his father was, but she left a clue: flyers advertising Herman E. Calloway and his famous band, the Dusky Devastators of the Depression!!!!!!\n \nBud’s got an idea that those flyers will lead him to his father. Once he decides to hit the road to find this mystery man, nothing can stop him—not hunger, not fear, not vampires, not even Herman E. Calloway himself.",
+    "genres": [
+      "r1eZGuiB7",
+      "H1cjM_jB7"
+    ],
+    "amazon_popularity": "3.9"
+  },
+  {
+    "_id": "WoXPBy29gyt",
+    "title": "King of the Mound: My Summer with Satchel Paige",
+    "isbn": "1442433477",
+    "num_pages": 160,
+    "authors": [
+      {
+        "id": "d60R3GHU7lO",
+        "name": "Wes Tooke"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/king_mound.jpg",
+    "lexile_measure": 900,
+    "summary": "Nick was going to be a star baseball player, no doubt about it. People for miles around talked about the twelve-year-old boy with the golden arm. And then Nick is diagnosed with polio - a life-threatening disease in the 1930s. Everyone is devastated, especially Nick's father, who copes by closing off from his son. When Nick finally leaves the hospital he wants nothing more than to get back in the game, but he seems to be the only one who thinks it's possible. But after he begins working for Mr. Churchill, the owner of a minor league team, Nick meets Satchel Paige, arguably the best player in baseball. Satchel faces obstacles of his own - his skin color prevents him from joining the major leagues - and he encourages Nick to overcome the odds and step out of the dugout",
+    "genres": [
+      "HyBbXujB7",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "3.93"
+  },
+  {
+    "_id": "7AnFn07WVQf",
+    "title": "Hero Two Doors Down",
+    "isbn": "545804523",
+    "num_pages": 208,
+    "authors": [
+      {
+        "id": "YEo6PePS8nx",
+        "name": "Sharon Robinson"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/hero_two_doors.jpg",
+    "lexile_measure": 640,
+    "summary": "Stephen Satlow is an eight-year-old boy living in Brooklyn, New York, which means he only cares about one thing-the Dodgers. Steve and his father spend hours reading the sports pages and listening to games on the radio. Aside from an occasional run-in with his teacher, life is pretty simple for Steve.\n\nBut then Steve hears a rumor that an African American family is moving to his all-Jewish neighborhood. It's 1948 and some of his neighbors are against it. Steve knows this is wrong. His hero, Jackie Robinson, broke the color barrier in baseball the year before.\n\nThen it happens--Steve's new neighbor is none other than Jackie Robinson! Steve is beyond excited about living two doors down from the Robinson family. He can't wait to meet Jackie. This is going to be the best baseball season yet! How many kids ever get to become friends with their hero?",
+    "genres": [
+      "HyBbXujB7",
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "3.82"
+  },
+  {
+    "_id": "0-EBXYZIUxA",
+    "title": "Soar",
+    "isbn": "147513154",
+    "num_pages": 320,
+    "authors": [
+      {
+        "id": "kfkFYaeveBJ",
+        "name": "Joan Bauer"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/soar.jpg",
+    "lexile_measure": 510,
+    "summary": "Jeremiah is not one to let anything keep him down. Starting with his adoption by computer genius Walt, Jeremiah has looked on his life as a series of lucky breaks. When a weak heart keeps him from playing his beloved baseball, Jeremiah appoints himself the team coach. When Walt has to move for another new assignment, Jeremiah sees it as a great chance to explore a new town. But no sooner do they arrive than a doping scandel is revealed and the town feels betrayed and disgraced. Jeremiah takes it as his personal mission to restore the town's morale and help the teams bounce back and remember how to soar. Full of humor, heart, and baseball lore, Soar is Joan Bauer at her best.",
+    "genres": [
+      "HyBbXujB7",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "4.18"
+  },
+  {
+    "_id": "7bhplDcQg3B",
+    "title": "Booked",
+    "isbn": "544570987",
+    "num_pages": 320,
+    "authors": [
+      {
+        "id": "F2Iz4AgbdvX",
+        "name": "Kwame Alexander"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/booked.png",
+    "lexile_measure": 660,
+    "summary": "Like lightning/you strike/fast and free/legs zoom/down field/eyes fixed/on the checkered ball/on the goal/ten yards to go/can’t nobody stop you/\ncan’t nobody cop you…\nIn this follow-up to the Newbery-winning novel THE CROSSOVER,  soccer, family, love, and friendship, take center stage as twelve-year-old Nick learns the power of words as he wrestles with problems at home, stands up to a bully, and tries to impress the girl of his dreams. Helping him along are his best friend and sometimes teammate Coby, and The Mac, a rapping librarian who gives Nick inspiring books to read.  \nThis electric and heartfelt novel-in-verse by poet Kwame Alexander bends and breaks as it captures all the thrills and setbacks, action and emotion of a World Cup match!",
+    "genres": [
+      "HyBbXujB7"
+    ],
+    "amazon_popularity": "4.19"
+  },
+  {
+    "_id": "w9SULL4e532",
+    "title": "Athlete vs. Mathlete",
+    "isbn": "1599909154",
+    "num_pages": 208,
+    "authors": [
+      {
+        "id": "0Na0MBJ6EJV",
+        "name": "WC Mack"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/athlete_mathlete.jpg",
+    "lexile_measure": 610,
+    "summary": "Owen Evans lights up the scoreboards. His brother, Russell, rocks the school boards. These twin brothers couldn't be more different. They've long kept the peace by going their separate ways, but all that is about to change. The new basketball coach recruits Russell for the seventh grade team and a jealous Owen has to fight to stay in the game. When someone tries to steal Russell's spot as captain of the mathlete team, will the two be able to put aside their differences in order to save his position? Or will they be sidelined?\n\nPerfect for fans of Matt Christopher and Andrew Clements alike, this is a lighthearted and hilarious look at what happens when brains meets brawn meets basketball.",
+    "genres": [
+      "HyBbXujB7"
+    ],
+    "amazon_popularity": "3.94"
+  },
+  {
+    "_id": "N3tskWw2OaD",
+    "title": "A Handful of Stars",
+    "isbn": "545700280",
+    "num_pages": 192,
+    "authors": [
+      {
+        "id": "dvbFgAXy19N",
+        "name": "Cynthia Lord"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/handful_of_stars.jpg",
+    "lexile_measure": 690,
+    "summary": "When Lily's blind dog, Lucky, slips his collar and runs away across the wide-open blueberry barrens of eastern Maine, it's Salma Santiago who manages to catch him. Salma, the daughter of migrant workers, is in the small town with her family for the blueberry-picking season. \n\nAfter their initial chance meeting, Salma and Lily bond over painting bee boxes for Lily's grandfather, and Salma's friendship transforms Lily's summer. But when Salma decides to run in the upcoming Blueberry Queen pageant, they'll have to face some tough truths about friendship and belonging. Should an outsider like Salma really participate in the pageant -- and possibly win?",
+    "genres": [
+      "rktJmOsHQ",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "4.16"
+  },
+  {
+    "_id": "Xv6NUBESF8w",
+    "title": "Rain Reign",
+    "isbn": "1250073979",
+    "num_pages": 256,
+    "authors": [
+      {
+        "id": "-G-w8NQdVSA",
+        "name": "Ann Martin"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/rain_reign.jpg",
+    "lexile_measure": 720,
+    "summary": "Rose Howard has Asperger’s syndrome, and an obsession with homonyms (even her name is a homonym). She gave her dog Rain a name with two homonyms (Reign, Rein), which, according to Rose’s rules of homonyms, is very special. Rain was a lost dog Rose’s father brought home. Rose and Rain are practically inseparable. And they are often home alone, as Rose’s father spends most evenings at a bar, and doesn’t have much patience for his special-needs daughter.\n\nJust as a storm hits town, Rain goes missing. Rose’s father shouldn’t have let Rain out. Now Rose has to find her dog, even if it means leaving her routines and safe places to search. Rose will find Rain, but so will Rain’s original owners.",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "4.21"
+  },
+  {
+    "_id": "rzmyduNb9i5",
+    "title": "Woof (Bowser and Birdie)",
+    "isbn": "545643325",
+    "num_pages": 293,
+    "authors": [
+      {
+        "id": "KxcCinZhjRR",
+        "name": "Spencer Quinn"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/woof.jpg",
+    "lexile_measure": 650,
+    "summary": "There is trouble brewing in the Louisiana swamp -- Bowser can smell it. Bowser is a very handsome and only slightly slobbery dog, and he can smell lots of things. Like bacon. And rawhide chews! And the sweat on humans when they're lying.\n\nBirdie Gaux, the girl Bowser lives with, also knows something is wrong. It's not just that her grammy's stuffed prize marlin has been stolen. It's the weird rumor that the marlin is linked to a missing treasure. It's the truck that seems to be following Birdie and the bad feeling on the back of her neck.\n\nWhen Birdie and Bowser start digging into the mystery, not even Bowser's powerful sniffer can smell just how menacing the threat is. And when the danger comes straight for Birdie, Bowser knows it up to him to sic 'em.",
+    "genres": [
+      "rktJmOsHQ",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "3.91"
+  },
+  {
+    "_id": "C4Mb_yikfJH",
+    "title": "Shiloh",
+    "isbn": "689835825",
+    "num_pages": 146,
+    "authors": [
+      {
+        "id": "CBnm_RnPcTZ",
+        "name": "Phyllis Reynolds Naylor"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/shiloh.jpg",
+    "lexile_measure": 780,
+    "summary": "Marty will do anything to save his new friend Shiloh in this Newbery Medal–winning novel from Phillis Reynolds Naylor.\n\nWhen Marty Preston comes across a young beagle in the hills behind his home, it's love at first sight—and also big trouble. It turns out the dog, which Marty names Shiloh, belongs to Judd Travers, who drinks too much and has a gun—and abuses his dogs. So when Shiloh runs away from Judd to Marty, Marty just has to hide him and protect him from Judd. But Marty's secret becomes too big for him to keep to himself, and it exposes his entire family to Judd's anger. How far will Marty have to go to make Shiloh his?",
+    "genres": [
+      "rktJmOsHQ",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "3.92"
+  },
+  {
+    "_id": "Dqay_gE57GA",
+    "title": "A Dog's Life",
+    "isbn": "439717000",
+    "num_pages": 208,
+    "authors": [
+      {
+        "id": "-G-w8NQdVSA",
+        "name": "Ann Martin"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/dogs_life.jpg",
+    "lexile_measure": 870,
+    "summary": "Squirrel and her brother Bone begin their lives in a toolshed behind someone's summer house. Their mother nurtures them and teaches them the many skills they will need to survive as stray dogs. But when their mother is taken from them suddenly and too soon, the puppies are forced to make their own way in the world, facing humans both gentle and brutal, busy highways, other animals, and the changing seasons. When Bone and Squirrel become separated, Squirrel must fend for herself, and in the process makes two friends who in very different ways define her fate.",
+    "genres": [
+      "rktJmOsHQ"
+    ],
+    "amazon_popularity": "4.19"
+  },
+  {
+    "_id": "vHfvgvGVcR8",
+    "title": "Five Lives of our cat Zook",
+    "isbn": "1419705253",
+    "num_pages": 240,
+    "authors": [
+      {
+        "id": "2Ha9sc4WdaJ",
+        "name": "Joanne Rocklin"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/five_lives_zook.png",
+    "lexile_measure": 760,
+    "summary": "In this warmhearted middle-grade novel, Oona and her brother, Fred, love their cat Zook (short for Zucchini), but Zook is sick. As they conspire to break him out of the vet’s office, convinced he can only get better at home with them, Oona tells Fred the story of Zook’s previous lives, ranging in style from fairy tale to grand epic to slice of life. Each of Zook’s lives has echoes in Oona’s own family life, which is going through a transition she’s not yet ready to face. Her father died two years ago, and her mother has started a relationship with a man named Dylan—whom Oona secretly calls “the villain.” The truth about Dylan, and about Zook’s medical condition, drives the drama in this loving family story.",
+    "genres": [
+      "rktJmOsHQ"
+    ],
+    "amazon_popularity": "3.81"
+  },
+  {
+    "_id": "amzkzGF3lUd",
+    "title": "Into the Wild",
+    "isbn": "62366963",
+    "num_pages": 320,
+    "authors": [
+      {
+        "id": "7TZT6jrlymA",
+        "name": "Erin Hunter"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_1.jpg",
+    "lexile_measure": 790,
+    "summary": "Rusty starts out as an ordinary house kitten, but his travels deep into the forest involve him in the epic battles of the cat warrior clans who roam (and rule) the wild. With a new name - Firepaw - and a position as a Thunderclan apprentice, our feline hero faces his destiny, struggles with issues of friendship, honour, courage, and betrayal, and learns what it truly means to be a warrior. ",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.28",
+    "series": {
+      "id": "Cf50qTaU4sc",
+      "series_title": "Warriors",
+      "book_num": 1
+    }
+  },
+  {
+    "_id": "4QsJP-aeVY8",
+    "title": "Fire and Ice",
+    "isbn": "62366971",
+    "num_pages": 368,
+    "authors": [
+      {
+        "id": "7TZT6jrlymA",
+        "name": "Erin Hunter"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_2.jpg",
+    "lexile_measure": 800,
+    "summary": "Book Two of WARRIORS continues Fireheart's quest to be a true warrior, when he finds new danger lurking in the woods as the chill of winter sets in.\n\nWindClan is missing, and hostilities between the remaining three clans place all the cats in peril. Illness and tragic accidents weaken the camp, and ThunderClan needs all its warriors to defend itself - but Fireheart suspects that certain cats may not be as loyal as they appear.",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.37",
+    "series": {
+      "id": "Cf50qTaU4sc",
+      "series_title": "Warriors",
+      "book_num": 2
+    }
+  },
+  {
+    "_id": "FBb06UGPM7L",
+    "title": "Forest of Secrets",
+    "isbn": "006236698X",
+    "num_pages": 368,
+    "authors": [
+      {
+        "id": "7TZT6jrlymA",
+        "name": "Erin Hunter"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_3.jpg",
+    "lexile_measure": 900,
+    "summary": "Allegiances are shifting among the Clans of warrior cats that roam the forest. With tensions so delicately balanced, former friends can become enemies overnight, and some cats are willing to kill to get what they want.\n\nFireheart is determined to find out the truth about the mysterious death of brave ThunderClan warrior Redtail. But as he searches for answers, he uncovers secrets that some believe would be better left hidden.",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.41",
+    "series": {
+      "id": "Cf50qTaU4sc",
+      "series_title": "Warriors",
+      "book_num": 3
+    }
+  },
+  {
+    "_id": "2KjXnePPb1T",
+    "title": "Rising Storm",
+    "isbn": "62366998",
+    "num_pages": 312,
+    "authors": [
+      {
+        "id": "7TZT6jrlymA",
+        "name": "Erin Hunter"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_4.jpg",
+    "lexile_measure": 890,
+    "summary": "Fireheart's traitorous enemy Tigerclaw has been vanquished and exiled from Thunder Clan -- but Fireheart can't shake the feeling that he's lurking in the forest, waiting for his chance to strike.\nThat's not the only problem facing the young warrior in these blazing summer months, as he struggles to handle sinister omens, an apprentice with a shocking secret, and a devastated Clan leader who is a shell of her former self.\nMeanwhile the forest gets hotter and hotter ... and everyone braces for the coming storm.",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.39",
+    "series": {
+      "id": "Cf50qTaU4sc",
+      "series_title": "Warriors",
+      "book_num": 4
+    }
+  },
+  {
+    "_id": "b8uxXI4aoG6",
+    "title": "A Dangerous Path",
+    "isbn": "62367005",
+    "num_pages": 313,
+    "authors": [
+      {
+        "id": "7TZT6jrlymA",
+        "name": "Erin Hunter"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_5.jpg",
+    "lexile_measure": 840,
+    "summary": "ShadowClan has a dark new leader, but will he be satisfied with his power now -- or does his desire for revenge burn even more strongly? Fireheart fears that there is a connection between the rise of Tigerstar and the terrible dreams that haunt his nights, murmuring of danger and death.\nMeanwhile, a mysterious and vicious threat unlike any other has invaded the forest, placing every cat's life in peril. Fireheart's beloved leader has turned her back on their warrior ancestors, and Fireheart can't help but wonder if she's right. Has StarClan abandoned them forever?",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.43",
+    "series": {
+      "id": "Cf50qTaU4sc",
+      "series_title": "Warriors",
+      "book_num": 5
+    }
+  },
+  {
+    "_id": "RJPakpNEiJm",
+    "title": "The Darkest Hour",
+    "isbn": "62367013",
+    "num_pages": 315,
+    "authors": [
+      {
+        "id": "7TZT6jrlymA",
+        "name": "Erin Hunter"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_6.jpg",
+    "lexile_measure": 880,
+    "summary": "ThunderClan's darkest hour is upon them, as Tigerstar's quest for power plunges all the Clans into the most terrible danger any cat has ever faced. In order to save his Clan and his friends, Fireheart must uncover the meaning of an ominous proclamation from StarClan:\n\n\"Four will become two. Lion and tiger will meet in battle, and blood will rule the forest.\"\n\nThe time has come for prophecies to unfold, and for heroes to rise",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.52",
+    "series": {
+      "id": "Cf50qTaU4sc",
+      "series_title": "Warriors",
+      "book_num": 6
+    }
+  },
+  {
+    "_id": "VByxotW_j_e",
+    "title": "Ghetto Cowboy",
+    "isbn": "763664537",
+    "num_pages": 224,
+    "authors": [
+      {
+        "id": "Wm4sIT69P-c",
+        "name": "G. Neri"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/ghetto_cowboy.jpg",
+    "lexile_measure": 660,
+    "summary": "When Cole’s mom dumps him in the mean streets of Philadelphia to live with the dad he’s never met, the last thing Cole expects to see is a horse, let alone a stable full of them. He may not know much about cowboys, but what he knows for sure is that cowboys aren’t black, and they don’t live in the inner city. But in his dad’s ’hood, horses are a way of life, and soon Cole’s days of skipping school and getting in trouble in Detroit have been replaced by shoveling muck and trying not to get stomped on. At first, all Cole can think about is how to ditch these ghetto cowboys and get home. But when the City threatens to shut down the stables— and take away the horse Cole has come to think of as his own— he knows that it’s time to step up and fight back. Inspired by the little-known urban riders of Philly and Brooklyn, this compelling tale of latter -day cowboy justice champions a world where your friends always have your back, especially when the chips are down.",
+    "genres": [
+      "rktJmOsHQ",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "3.86"
+  },
+  {
+    "_id": "BC15KYT4jux",
+    "title": "Some Kind of Courage",
+    "isbn": "545665825",
+    "num_pages": 240,
+    "authors": [
+      {
+        "id": "6-Pc8nGKLim",
+        "name": "Dan Gemeinhart"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/some_kind_of_courage.jpg",
+    "lexile_measure": 760,
+    "summary": "Joseph Johnson has lost just about everyone he's ever loved. He lost his pa in an accident. He lost his ma and his little sister to sickness. And now, he's lost his pony--fast, fierce, beautiful Sarah, taken away by a man who had no right to take her.\n\nJoseph can sure enough get her back, though. The odds are stacked against him, but he isn't about to give up. He will face down deadly animals, dangerous men, and the fury of nature itself on his quest to be reunited with the only family he has left.\n\nBecause Joseph Johnson may have lost just about everything. But he hasn't lost hope. And he hasn't lost the fire in his belly that says he's getting his Sarah back--no matter what.",
+    "genres": [
+      "rktJmOsHQ",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "4.37"
+  },
+  {
+    "_id": "fccGE8w1Q1x",
+    "title": "The War that saved my life",
+    "isbn": "147510481",
+    "num_pages": 352,
+    "authors": [
+      {
+        "id": "oGw-WUmzhVw",
+        "name": "Kimberly Brubaker Bradley"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/war_saved_my_life.jpg",
+    "lexile_measure": 580,
+    "summary": "An exceptionally moving story of triumph against all odds set during World War 2, from the acclaimed author of Jefferson’s Sons and for fans of Number the Stars.\n \nNine-year-old Ada has never left her one-room apartment. Her mother is too humiliated by Ada’s twisted foot to let her outside. So when her little brother Jamie is shipped out of London to escape the war, Ada doesn’t waste a minute—she sneaks out to join him.\n \nSo begins a new adventure of Ada, and for Susan Smith, the woman who is forced to take the two kids in. As Ada teaches herself to ride a pony, learns to read, and watches for German spies, she begins to trust Susan—and Susan begins to love Ada and Jamie. But in the end, will their bond be enough to hold them together through wartime? Or will Ada and her brother fall back into the cruel hands of their mother?",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "4.48"
+  },
+  {
+    "_id": "zhClBH9ABgX",
+    "title": "Weedflower",
+    "isbn": "1416975667",
+    "num_pages": 272,
+    "authors": [
+      {
+        "id": "dKAaLr4ST8m",
+        "name": "Cynthia Kadohata"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/weedflower.jpg",
+    "lexile_measure": 750,
+    "summary": "Twelve-year-old Sumiko feels her life has been made up of two parts: before Pearl Harbor and after it. The good part and the bad part. Raised on a flower farm in California, Sumiko is used to being the only Japanese girl in her class. Even when the other kids tease her, she always has had her flowers and family to go home to.\nThat all changes after the horrific events of Pearl Harbor. Other Americans start to suspect that all Japanese people are spies for the emperor, even if, like Sumiko, they were born in the United States! As suspicions grow, Sumiko and her family find themselves being shipped to an internment camp in one of the hottest deserts in the United States. The vivid color of her previous life is gone forever, and now dust storms regularly choke the sky and seep into every crack of the military barrack that is her new \"home.\"\n\nSumiko soon discovers that the camp is on an Indian reservation and that the Japanese are as unwanted there as they'd been at home. But then she meets a young Mohave boy who might just become her first real friend...if he can ever stop being angry about the fact that the internment camp is on his tribe's land.\n\nWith searing insight and clarity, Newbery Medal-winning author Cynthia Kadohata explores an important and painful topic through the eyes of a young girl who yearns to belong. Weedflower is the story of the rewards and challenges of a friendship across the racial divide, as well as the based-on-real-life story of how the meeting of Japanese Americans and Native Americans changed the future of both.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "3.89"
+  },
+  {
+    "_id": "g2xPfUGya1f",
+    "title": "On the Wings of Heroes",
+    "isbn": "014241204X",
+    "num_pages": 160,
+    "authors": [
+      {
+        "id": "vCajIqru7tg",
+        "name": "Richard Peck"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/wings_of_heroes.jpg",
+    "lexile_measure": 730,
+    "summary": "Davy Bowmans brother and their dad hung the moon. Dad looks forward to Halloween more than a kid, and Davys brother, Bill, flies B-17s. Davy adores these two heroes and tries his best to follow their lead, especially now. World War II has invaded Davys homefront boyhood. Theres an air raid drill in the classroom, and being a kid is an endless scrap drive. Bill has joined up, breaking their dads heart. It s an intense, confusing time, and one that will invite Davy to grow up in a hurry.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "3.91"
+  },
+  {
+    "_id": "GSKmxWpklGp",
+    "title": "Paper Wishes",
+    "isbn": "1250104149",
+    "num_pages": 192,
+    "authors": [
+      {
+        "id": "gWL961368aR",
+        "name": "Lois Sepahban"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/paper_wishes.jpg",
+    "lexile_measure": 550,
+    "summary": "Ten-year-old Manami did not realize how peaceful her family's life on Bainbridge Island was until the day it all changed. It's 1942, after the attack on Pearl Harbor, and Manami and her family are Japanese American, which means that the government says they must leave their home by the sea and join other Japanese Americans at a prison camp in the desert. Manami is sad to go, but even worse is that they are going to have to give her and her grandfather's dog, Yujiin, to a neighbor to take care of. Manami decides to sneak Yujiin under her coat and gets as far as the mainland before she is caught and forced to abandon Yujiin. She and her grandfather are devastated, but Manami clings to the hope that somehow Yujiin will find his way to the camp and make her family whole again. It isn't until she finds a way to let go of her guilt that Manami can reclaim the piece of herself that she left behind and accept all that has happened to her family.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "4.06"
+  },
+  {
+    "_id": "TrVSvjie_ZZ",
+    "title": "Black Radishes",
+    "isbn": "9781613830208",
+    "num_pages": 242,
+    "authors": [
+      {
+        "id": "7--h3ubQM0V",
+        "name": "Susan Meyer"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/black_radishes.jpg",
+    "lexile_measure": 790,
+    "summary": "It is March of 1940. The French believe that their army can protect them from Nazi Germany. But is Paris a safe place for Jews? Gustave’s parents don’t think so. Forced to leave behind his best friend, the mischievous Marcel, and his cousin Jean-Paul, Gustave moves with his mother and father to Saint-Georges, a small village in the countryside.\n     During April and May, Nazi Germany invades one country after another. In June, the French army is defeated, and Paris is occupied. Saint-Georges is still part of the free zone, but the situation there is becoming increasingly precarious.\nThen Gustave meets Nicole, a Catholic girl who works for the French Resistance. Along with her father, Nicole tries to find a way to smuggle Jean-Paul, Marcel, and their families into Free France so that they can all escape to America. It is Gustave, however, who comes up with a plan that just might work. But going into Occupied France is a risky thing to do when you are Jewish.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "3.9"
+  },
+  {
+    "_id": "PoJKHr8MQDA",
+    "title": "Jump Into the Sky",
+    "isbn": "440421403",
+    "num_pages": 352,
+    "authors": [
+      {
+        "id": "qucvgqp1l06",
+        "name": "Shelley Pearsall"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/jump_sky.jpg",
+    "lexile_measure": 940,
+    "summary": "Levi Battle's been left behind all his life. His mother could sing like a bird and she flew away like one, too. His father left him with his grandmother so he could work as a traveling salesman—until Levi's grandmother left this world entirely. Now Levi's staying with his Aunt Odella while his father is serving in the U.S. Army. But it's 1945, and the war is nearly over, and Aunt Odella decides it's time for Levi to do some leaving of his own. Before he can blink, Levi finds himself on a train from Chicago to Fayettville, North Carolina, where his father is currently stationed—last they knew.\n\nSo begins an eye-opening, life-changing journey for Levi. First lesson: there are different rules for African Americans in the South than there are in Chicago. And breaking them can have serious consequences. But with the help of some kind strangers, and despite the hindrances of some unkind ones, Levi makes his way across the United States—searching for his father and finding out about himself, his country, and what it truly means to belong.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "3.85"
+  },
+  {
+    "_id": "Ic_1YxvzpVD",
+    "title": "Elijah of Buxton",
+    "isbn": "439023459",
+    "num_pages": 368,
+    "authors": [
+      {
+        "id": "sn0Rjol6EX0",
+        "name": "Christopher Paul Curtis"
+      }
+    ],
+    "cover_photo_url": "",
+    "lexile_measure": 1070,
+    "summary": "Eleven-year-old Elijah is the first child born into freedom in Buxton, Canada, a settlement of runaway slaves just over the border from Detroit. He's best known in his hometown as the boy who made a memorable impression on Frederick Douglass. But things change when a former slave steals money from Elijah’s friend, who has been saving to buy his family out of captivity in the South. Elijah embarks on a dangerous journey to America in pursuit of the thief, and he discovers firsthand the unimaginable horrors of the life his parents fled -- a life from which he’ll always be free, if he can find the courage to get back home.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "3.91"
+  },
+  {
+    "_id": "fn_toydLQ1S",
+    "title": "My Name is Sally Little Song",
+    "isbn": "014240943X",
+    "num_pages": 192,
+    "authors": [
+      {
+        "id": "ViwR75vPVc6",
+        "name": "Brenda Woods"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/sally_little_song.jpg",
+    "lexile_measure": 780,
+    "summary": "Sally Harrison and her family are slaves on a plantation in Georgia. But when Master decides to sell Sally and her brother, the family escapes to seek shelter with a tribe of Seminoles who are rumored to adopt runaway slaves. After a perilous journey, Sally’s family finds and joins the tribe. But while her father and brother easily adjust to Indian ways, Sally can’t seem to find her place. Combining the poetry of Sally’s songs with the heartracing tension of the family’s escape, author Brenda Woods delivers a breathtaking story of a girl caught between worlds.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "3.85"
+  },
+  {
+    "_id": "I-rIEUXxvJ0",
+    "title": "The Mostly True Adventures of Homer P Figg",
+    "isbn": "439668212",
+    "num_pages": 240,
+    "authors": [
+      {
+        "id": "04BGp1Rrw3f",
+        "name": "Rodman Philbrick"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/homer_figg.jpg",
+    "lexile_measure": 950,
+    "summary": "In this Newbery Honor-winning page-turner, twelve-year-old orphan Homer runs away from Pine Swamp, Maine, to find his older brother, Harold, who has been sold into the Union Army. With laugh-aloud humor, Homer outwits and outruns a colorful assortment of civil War-era thieves, scallywags, and spies as he makes his way south, following clues that finally lead him to Gettysburg. Even through a hail of gunfire, Homer never loses heart--but will he find his brother? Or will it be too late?\nWith engaging wit and comical repartee reminiscent of Mark Twain, master storyteller Rodman Philbrick introduces us to the unforgettable character of Homer in his latest groundbreaking novel.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "3.68"
+  },
+  {
+    "_id": "IFGGvVc9H1x",
+    "title": "I Survived: The Battle of Gettysburg, 1863",
+    "isbn": "545459362",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "gXLVhK5mqSq",
+        "name": "Lauren Tarshis"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_gettysburg.jpg",
+    "lexile_measure": 660,
+    "summary": "It's 1863, and Thomas and his little sister, Birdie, have fled the farm where they were born and raised as slaves. Following the North Star, looking for freedom, they soon cross paths with a Union soldier. Everything changes: Corporal Henry Green brings Thomas and Birdie back to his regiment, and suddenly it feels like they've found a new home. Best of all, they don't have to find their way north alone--they're marching with the army.\n\nBut then orders come through: The men are called to battle in Pennsylvania. Thomas has made it so far . . . but does he have what it takes to survive Gettysburg?",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "4.16"
+  },
+  {
+    "_id": "xkGamvc4TH7",
+    "title": "I Survived: The Attacks of September 11, 2001",
+    "isbn": "545207002",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "gXLVhK5mqSq",
+        "name": "Lauren Tarshis"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_911.jpg",
+    "lexile_measure": 630,
+    "summary": "The only thing Lucas loves more than football is his Uncle Benny, his dad's best friend at the fire department where they both work. Benny taught Lucas everything about football. So when Lucas's parents decide the sport is too dangerous and he needs to quit, Lucas has to talk to his biggest fan.\n\nSo the next morning, Lucas takes the train to the city instead of the bus to school. It's a bright, beautiful day in New York. But just as Lucas arrives at his uncle's firehouse, everything changes -- and nothing will ever be the same again.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "4.24"
+  },
+  {
+    "_id": "KNYiTInEq3w",
+    "title": "I Survived: Hurricane Katrina, 2005",
+    "isbn": "545206960",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "gXLVhK5mqSq",
+        "name": "Lauren Tarshis"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_katrina.jpg",
+    "lexile_measure": 590,
+    "summary": "Barry's family tries to evacuate before Hurricane Katrina hits their home in New Orleans. But when Barry's little sister gets terribly sick, they're forced to stay home and wait out the storm.\n\nAt first, Katrina doesn't seem to be as bad as predicted. But overnight the levees break, and Barry's world is literally torn apart. He's swept away by the floodwaters, away from his family. Can he survive the storm of the century -- alone?",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "4.2"
+  },
+  {
+    "_id": "iM2PUx-Rymy",
+    "title": "I Survived: The Sinking of the Titanic, 1912",
+    "isbn": "545206944",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "gXLVhK5mqSq",
+        "name": "Lauren Tarshis"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_titanic.jpg",
+    "lexile_measure": 590,
+    "summary": "The most terrifying events in history are brought vividly to life in this new fictional series! In book 1, ten-year-old George is trapped on the Titanic -- how will he survive?\n\nTen-year-old George Calder can't believe his luck -- he and his little sister, Phoebe, are on the famous Titanic, crossing the ocean with their Aunt Daisy. The ship is full of exciting places to explore, but when George ventures into the first class storage cabin, a terrible boom shakes the entire boat. Suddenly, water is everywhere, and George's life changes forever.\n\nLauren Tarshis brings history's most exciting and terrifying events to life in this new fictional series. Readers will be transported by stories of amazing kids and how they survived!",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "4.1"
+  },
+  {
+    "_id": "qaaEllCe0DJ",
+    "title": "I Survived: The Nazi Invasion, 1944",
+    "isbn": "545459389",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "gXLVhK5mqSq",
+        "name": "Lauren Tarshis"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_nazi.jpg",
+    "lexile_measure": 740,
+    "summary": "In a Jewish ghetto, Max Rosen and his sister Zena struggle to live after their father is taken away by the Nazis. With barely enough food to survive, the siblings make a daring escape from Nazi soldiers into the nearby forest.\n\nMax and Zena are brought to a safe camp by Jewish resistance fighters. But soon, bombs are falling all around them. Can Max and Zena survive the fallout of the Nazi invasion?",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "4.25"
+  },
+  {
+    "_id": "fjc9lZeVMyS",
+    "title": "I Survived: The Shark Attacks of 1916",
+    "isbn": "545206952",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "gXLVhK5mqSq",
+        "name": "Lauren Tarshis"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_shark.jpg",
+    "lexile_measure": 610,
+    "summary": "Chet Roscow is finally feeling at home in Elm Hills, New Jersey. He has a job with his uncle Jerry at the local diner, three great friends, and the perfect summertime destination: cool, refreshing Matawan Creek.\n\nBut Chet's summer is interrupted by shocking news. A great white shark has been attacking swimmers along the Jersey shore, not far from Elm Hills. Everyone in town is talking about it. So when Chet sees something in the creek, he's sure it's his imagination. . . until he comes face-to-face with a bloodthirsty shark!",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "amazon_popularity": "4.15"
+  },
+  {
+    "_id": "0139K4odTAM",
+    "title": "Who was Abraham Lincoln?",
+    "isbn": "448448866",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "upOuG4LDMpq",
+        "name": "Janet Pascal"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_abe.jpg",
+    "lexile_measure": 720,
+    "summary": "Born to a family of farmers, Lincoln stood out from an early age--literally! (He was six feet four inches tall.) As sixteenth President of the United States, he guided the nation through the Civil War and saw the abolition of slavery. But Lincoln was tragically shot one night at Ford's Theater--the first President to be assassinated. Over 100 black-and-white illustrations and maps are included.",
+    "genres": [
+      "r1ECmusSQ"
+    ],
+    "amazon_popularity": "4.11"
+  },
+  {
+    "_id": "OipuGQVZk35",
+    "title": "Who Was Albert Einstein?",
+    "isbn": "448424967",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "pDV9sECpm-b",
+        "name": "Jess Brallier"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_einstein.jpg",
+    "lexile_measure": 810,
+    "summary": "Everyone has heard of Albert Einstein-but what exactly did he do? How much do kids really know about Albert Einstein besides the funny hair and genius label? For instance, do they know that he was expelled from school as a kid? Finally, here's the story of Albert Einstein's life, told in a fun, engaging way that clearly explores the world he lived in and changed.",
+    "genres": [
+      "r1ECmusSQ"
+    ],
+    "amazon_popularity": "4.19"
+  },
+  {
+    "_id": "iRMYZXHNCmw",
+    "title": "Who was Isaac Newton?",
+    "isbn": "448479133",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "upOuG4LDMpq",
+        "name": "Janet Pascal"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_newton.jpg",
+    "lexile_measure": 840,
+    "summary": "Isaac Newton was always a loner, preferring to spend his time contemplating the mysteries of the universe. When the plague broke out in London in 1665 he was forced to return home from college. It was during this period of so much death, that Newton gave life to some of the most important theories in modern science, including gravity and the laws of motion.",
+    "genres": [
+      "r1ECmusSQ"
+    ],
+    "amazon_popularity": "4.06"
+  },
+  {
+    "_id": "ibx-boLIQWx",
+    "title": "Who Was Leonardo da Vinci?",
+    "isbn": "448443015",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "tE4rNBDWiR5",
+        "name": "Roberta Edwards"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_leonardo.jpg",
+    "lexile_measure": 640,
+    "summary": "Leonardo da Vinci was a gifted painter, talented musician, and dedicated scientist and inventor, designing flying machines, submarines, and even helicopters.  Yet he had a hard time finishing things, a problem anyone can relate to.  Only thirteen paintings are known to be his; as for the illustrated encyclopedia he intended to create, all that he left were thousands of disorganized notebook pages.  Here is an accessible portrait of a fascinating man who lived at a fascinating time—Italy during the Renaissance.",
+    "genres": [
+      "r1ECmusSQ",
+      "H1cjM_jB7"
+    ],
+    "amazon_popularity": "4.1"
+  },
+  {
+    "_id": "pZy2pbIixlz",
+    "title": "Who Was Thomas Alva Edison?",
+    "isbn": "448437651",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "5P9qZoAoyNy",
+        "name": "Margaret Frith"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_edison.jpg",
+    "lexile_measure": 790,
+    "summary": "One day in 1882, Thomas Edison flipped a switch that lit up lower Manhattan with incandescent light and changed the way people live ever after. The electric light bulb was only one of thousands of Edison’s inventions, which include the phonograph and the kinetoscope, an early precursor to the movie camera. As a boy, observing a robin catch a worm and then take flight, he fed a playmate a mixture of worms and water to see if she could fly! Here’s an accessible, appealing biography with 100 black-and-white illustrations.",
+    "genres": [
+      "r1ECmusSQ"
+    ],
+    "amazon_popularity": "4.11"
+  },
+  {
+    "_id": "ted-BDfCYds",
+    "title": "Who was Marie Curie?",
+    "isbn": "044847896X",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "4HnDJtm43KS",
+        "name": "Megan Stine"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_curie.jpg",
+    "lexile_measure": 690,
+    "summary": "Born in Warsaw, Poland, on November 7, 1867, Marie Curie was forbidden to attend the male-only University of Warsaw, so she enrolled at the Sorbonne in Paris to study physics and mathematics. There she met a professor named Pierre Curie, and the two soon married, forming one of the most famous scientific partnerships in history. Together they discovered two elements and won a Nobel Prize in 1903. (Later Marie won another Nobel award for chemistry in 1911.) She died in Savoy, France, on July 4, 1934, a victim of many years of exposure to toxic radiation.",
+    "genres": [
+      "r1ECmusSQ"
+    ],
+    "amazon_popularity": "4.32"
+  },
+  {
+    "_id": "piNKlrNIrpK",
+    "title": "Who was Martin Luther King Jr.",
+    "isbn": "448447231",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "ilTWL0hIJma",
+        "name": "Bonnie Bader"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_mlk.jpg",
+    "lexile_measure": 750,
+    "summary": "Dr. Martin Luther King, Jr. was only 25 when he helped organize the Montgomery Bus Boycott and was soon organizing black people across the country in support of the right to vote, desegregation, and other basic civil rights. Maintaining nonviolent and peaceful tactics even when his life was threatened, King was also an advocate for the poor and spoke out against racial and economic injustice until his death?from an assassin?s bullet?in 1968. With clearly written text that explains this tumultuous time in history and 80 black-and-white illustrations, this Who Was?? celebrates the vision and the legacy of a remarkable man.",
+    "genres": [
+      "r1ECmusSQ"
+    ],
+    "amazon_popularity": "4.3"
+  },
+  {
+    "_id": "Y57pVZhxYJv",
+    "title": "Who was Amelia Earhart?",
+    "isbn": "448428563",
+    "num_pages": 106,
+    "authors": [
+      {
+        "id": "0F2AtgYUdlz",
+        "name": "Kate Boehm Jerome"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_earhart.jpg",
+    "lexile_measure": 610,
+    "summary": "Amelia Earhart was a woman of many \"firsts.\" In 1932, she became the first woman to fly solo across the Atlantic Ocean. In 1935, she also became the first woman to fly across the Pacific. From her early years to her mysterious 1937 disappearance while attempting a flight around the world, readers will find Amelia Earhart's life a fascinating story.",
+    "genres": [
+      "r1ECmusSQ"
+    ],
+    "amazon_popularity": "4.08"
+  },
+  {
+    "_id": "zhPZ7fh0FW1",
+    "title": "Who was Jackie Robinson?",
+    "isbn": "448455579",
+    "num_pages": 112,
+    "authors": [
+      {
+        "id": "VotsdOfYk4F",
+        "name": "Gail Herman"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_jackie.jpg",
+    "lexile_measure": 670,
+    "summary": "As a kid, Jackie Robinson loved sports. And why not? He was a natural at football, basketball, and, of course, baseball. But beyond athletic skill, it was his strength of character that secured his place in sports history. In 1947 Jackie joined the Brooklyn Dodgers, breaking the long-time color barrier in major league baseball. It was tough being first- not only did \"fans\" send hate mail but some of his own teammates refused to accept him. Here is an inspiring sports biography, with black-and-white illustrations throughout.",
+    "genres": [
+      "HyBbXujB7",
+      "r1ECmusSQ"
+    ],
+    "amazon_popularity": "4.23"
+  },
+  {
+    "_id": "xBT7HvnE9wG",
+    "title": "It Ain't So Awful, Falafel",
+    "isbn": "132874096X",
+    "num_pages": 384,
+    "authors": [
+      {
+        "id": "3JqNp75JLDi",
+        "name": "Firoozeh Dumas"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/awful_falafel.jpg",
+    "lexile_measure": 730,
+    "summary": "Zomorod (Cindy) Yousefzadeh is the new kid on the block . . . for the fourth time. California’s Newport Beach is her family’s latest perch, and she’s determined to shuck her brainy loner persona and start afresh with a new Brady Bunch name—Cindy. It’s the late 1970s, and fitting in becomes more difficult as Iran makes U.S. headlines with protests, revolution, and finally the taking of American hostages. Even puka shell necklaces, pool parties, and flying fish can't distract Cindy from the anti-Iran sentiments that creep way too close to home. A poignant yet lighthearted middle grade debut from the author of the best-selling Funny in Farsi.",
+    "genres": [
+      "r11Vzdirm"
+    ],
+    "amazon_popularity": "4.26"
+  },
+  {
+    "_id": "UiqA4MiSZdo",
+    "title": "Invisible Emmie",
+    "isbn": "62484931",
+    "num_pages": 192,
+    "authors": [
+      {
+        "id": "izZrqJw3iXc",
+        "name": "Terri Libenson"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/invisible_emmie.jpg",
+    "lexile_measure": 570,
+    "summary": "This is the story of two totally different girls—quiet, shy, artistic Emmie and popular, outgoing, athletic Katie—and how their lives unexpectedly intersect one day when an embarrassing note falls into the wrong hands.",
+    "genres": [
+      "r11Vzdirm"
+    ],
+    "amazon_popularity": "3.83"
+  },
+  {
+    "_id": "fieKHwR5ZQb",
+    "title": "Jacky Ha-ha",
+    "isbn": "316432539",
+    "num_pages": 384,
+    "authors": [
+      {
+        "id": "ZtZpXrALYAv",
+        "name": "James Patterson"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/jacky_haha.jpg",
+    "lexile_measure": 740,
+    "summary": "In twenty years Jacqueline Hart will be a famous comedienne, but right now, she goes by Jacky Ha-Ha, a nickname she's given after her classmates tease her about her stutter. While her mom is away fighting in Iraq, she pranks up a storm at home and school, trying to distract everyone with laughs so they won't notice her speech impediment. Can Jacky survive being forced into the big school play? Or will she be laughed off stage (and not in the good way!)?",
+    "genres": [
+      "r11Vzdirm"
+    ],
+    "amazon_popularity": "4.3"
+  },
+  {
+    "_id": "-unfOsihWfr",
+    "title": "Chomp",
+    "isbn": "375868275",
+    "num_pages": 290,
+    "authors": [
+      {
+        "id": "_X1m71MNy_R",
+        "name": "Carl Hiaasen"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/chomp.jpg",
+    "lexile_measure": 800,
+    "summary": "Wahoo Cray lives in a zoo. His father is an animal wrangler, so he's grown up with all manner of gators, snakes, parrots, rats, monkeys, snappers, and more in his backyard. The critters he can handle. His father is the unpredictable one. \n\nWhen his dad takes a job with a reality TV show called \"Expedition Survival!\", Wahoo figures he'll have to do a bit of wrangling himself—to keep his dad from killing Derek Badger, the show's boneheaded star, before the shoot is over. But the job keeps getting more complicated. Derek Badger seems to actually believe his PR and insists on using wild animals for his stunts. And Wahoo's acquired a shadow named Tuna—a girl who's sporting a shiner courtesy of her old man and needs a place to hide out. \n\nThey've only been on location in the Everglades for a day before Derek gets bitten by a bat and goes missing in a storm. Search parties head out and promptly get lost themselves. And then Tuna's dad shows up with a gun . . .",
+    "genres": [
+      "r11Vzdirm",
+      "B1Z_NdiB7",
+      "Hy4HM_sB7"
+    ],
+    "amazon_popularity": "3.94"
+  },
+  {
+    "_id": "E_wl0XJ77Dl",
+    "title": "Flush",
+    "isbn": "375861254",
+    "num_pages": 288,
+    "authors": [
+      {
+        "id": "_X1m71MNy_R",
+        "name": "Carl Hiaasen"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/flush.jpg",
+    "lexile_measure": 830,
+    "summary": "Noah's dad is sure that the owner of the Coral Queen casino boat is flushing raw sewage into the harbor--which has made taking a dip at the local beach like swimming in a toilet. He can't prove it though, and so he decides that sinking the boat will make an effective statement. Right. The boat is pumped out and back in business within days and Noah's dad is in the local lock-up.\n\nNow Noah is determined to succeed where his dad failed. He will prove that the Coral Queen is dumping illegally . . . somehow.",
+    "genres": [
+      "r11Vzdirm",
+      "Hy4HM_sB7",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "3.87"
+  },
+  {
+    "_id": "Cpp6Xxfs39k",
+    "title": "Scat",
+    "isbn": "440421047",
+    "num_pages": 400,
+    "authors": [
+      {
+        "id": "_X1m71MNy_R",
+        "name": "Carl Hiaasen"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/scat.jpg",
+    "lexile_measure": 810,
+    "summary": "Bunny Starch, the most feared biology teacher ever, is missing. She disappeared after a school field trip to Black Vine Swamp. And, to be honest, the kids in her class are relieved.\n \nBut when the principal tries to tell the students that Mrs. Starch has been called away on a \"family emergency,\" Nick and Marta just don't buy it. No, they figure the class delinquent, Smoke, has something to do with her disappearance.\n \nAnd he does! But not in the way they think. There's a lot more going on in Black Vine Swamp than any one player in this twisted tale can see. And Nick and Marta will have to reckon with an eccentric eco-avenger, a stuffed rat named Chelsea, a wannabe Texas oilman, a singing substitute teacher, and a ticked-off Florida panther before they really begin to see the big picture.\n \nThat's life in the swamp, kids.",
+    "genres": [
+      "r11Vzdirm",
+      "B1Z_NdiB7",
+      "Hy4HM_sB7"
+    ],
+    "amazon_popularity": "3.94"
+  },
+  {
+    "_id": "LbCFBwBqQCu",
+    "title": "The Wednesday Wars",
+    "isbn": "054723760X",
+    "num_pages": 272,
+    "authors": [
+      {
+        "id": "nxN2uEtcAHz",
+        "name": "Gary Schmidt"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/wednesday_wars.jpg",
+    "lexile_measure": 990,
+    "summary": "Meet Holling Hoodhood, a seventh-grader at Camillo Junior High, who must spend Wednesday afternoons with his teacher, Mrs. Baker, while the rest of the class has religious instruction. Mrs. Baker doesn’t like Holling—he’s sure of it. Why else would she make him read the plays of William Shakespeare outside class? But everyone has bigger things to worry about, like Vietnam. His father wants Holling and his sister to be on their best behavior: the success of his business depends on it. But how can Holling stay out of trouble when he has so much to contend with? A bully demanding cream puffs; angry rats; and a baseball hero signing autographs the very same night Holling has to appear in a play in yellow tights! As fate sneaks up on him again and again, Holling finds Motivation—the Big M—in the most unexpected places and musters up the courage to embrace his destiny, in spite of himself.",
+    "genres": [
+      "r11Vzdirm"
+    ],
+    "amazon_popularity": "4.06"
+  },
+  {
+    "_id": "vssCye-fFrR",
+    "title": "Timmy Failure: Mistakes Were Made",
+    "isbn": "076366927X",
+    "num_pages": 320,
+    "authors": [
+      {
+        "id": "5aCZj5dUtE1",
+        "name": "Stephan Pastis"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/mistakes_made.jpg",
+    "lexile_measure": 520,
+    "summary": "Take eleven-year-old Timmy Failure — the clueless, comically self-confident CEO of the best detective agency in town, perhaps even the nation. Add his impressively lazy business partner, a very large polar bear named Total. Throw in the Failuremobile — Timmy’s mom’s Segway — and what you have is Total Failure, Inc., a global enterprise destined to make Timmy so rich his mother won’t have to stress out about the bills anymore. Of course, Timmy’s plan does not include the four-foot-tall female whose name shall not be uttered. And it doesn’t include Rollo Tookus, who is so obsessed with getting into \"Stanfurd\" that he can’t carry out a no-brainer spy mission. From the offbeat creator of Pearls Before Swine comes an endearingly bumbling hero in a caper whose peerless hilarity is accompanied by a whodunit twist. With perfectly paced visual humor, Stephan Pastis gets you snorting with laughter, then slyly carries the joke a beat further — or sweetens it with an unexpected poignant moment — making this a comics-inspired story (the first in a new series) that truly stands apart from the pack.",
+    "genres": [
+      "r11Vzdirm"
+    ],
+    "amazon_popularity": "3.87"
+  },
+  {
+    "_id": "3Fq_BtAfFkT",
+    "title": "The Tapper Twins Go To War (with eachother)",
+    "isbn": "316315974",
+    "num_pages": 240,
+    "authors": [
+      {
+        "id": "p7sWLBhaa-L",
+        "name": "Geoff Rodkey"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/tapper_twins_war.jpg",
+    "lexile_measure": 880,
+    "summary": "Twelve-year-old twins, Claudia and Reese, who couldn't be more different...except in their determination to come out on top in a vicious prank war. But when the competition escalates into an all-out battle that's fought from the cafeteria of their New York City private school all the way to the fictional universe of an online video game, the twins have to decide if their efforts to destroy each other are worth the price. In a starred review, Publishers Weekly declared \"This uproarious series opener... is packed with both laugh-out-loud moments and heart.\"",
+    "genres": [
+      "r11Vzdirm"
+    ],
+    "amazon_popularity": "4.03",
+    "series": {
+      "id": "IDWXJ8T_3oW",
+      "series_title": "The Tapper Twins",
+      "book_num": 1
+    }
+  },
+  {
+    "_id": "l9QFJPQVkaV",
+    "title": "The Tapper Twins Run For President",
+    "isbn": "316316008",
+    "num_pages": 304,
+    "authors": [
+      {
+        "id": "p7sWLBhaa-L",
+        "name": "Geoff Rodkey"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/tapper_president.jpg",
+    "lexile_measure": 800,
+    "summary": "Told as a series of interviews, screenshots, text messages, and social media bursts, The Tapper Twins Run For President tops the antics of the real 2016 elections! Claudia Tapper wants to become President of the United States someday. She's the sixth grade class president, and has every reason to presume she'll get reelected. Reese Tapper could not care less about student government--until he learns becoming class president is his best shot at overturning a hated new rule. And thus, the greatest political rivalry in Culvert Prep history is born! In a tangle of evil-genius advisers, meddlesome best-friends, negative campaign attacks and outrageously funny missteps, Claudia and Reese duke it out to see who will rule the school.",
+    "genres": [
+      "r11Vzdirm"
+    ],
+    "amazon_popularity": "4.35",
+    "series": {
+      "id": "IDWXJ8T_3oW",
+      "series_title": "The Tapper Twins",
+      "book_num": 2
+    }
+  },
+  {
+    "_id": "W-Gw9EcoJoH",
+    "title": "From the Mixed-Up Files of Mrs. Basil E. Frankweiler",
+    "isbn": "689711816",
+    "num_pages": 168,
+    "authors": [
+      {
+        "id": "K_4FX2KyBtk",
+        "name": "E.L. Konigsburg"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/mixed_up_files.jpg",
+    "lexile_measure": 700,
+    "summary": "When suburban Claudia Kincaid decides to run away, she knows she doesn’t just want to run from somewhere, she wants to run to somewhere — to a place that is comfortable, beautiful, and, preferably, elegant. She chooses the Metropolitan Museum of Art in New York City. Knowing her younger brother Jamie has money and thus can help her with a serious cash-flow problem, she invites him along.\n\nOnce settled into the museum, Claudia and Jamie find themselves caught up in the mystery of an angel statue that the museum purchased at auction for a bargain price of $225. The statue is possibly an early work of the Renaissance master, Michelangelo, and therefore worth millions. Is it? Or isn’t it? \n\nClaudia is determined to find out. Her quest leads her to Mrs. Basil E. Frankweiler, the remarkable old woman who sold the statue, and to some equally remarkable discoveries about herself.",
+    "genres": [
+      "Hy4HM_sB7",
+      "Sk8dbOjr7",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "4.15"
+  },
+  {
+    "_id": "ugv9ImIftzk",
+    "title": "The Invention of Hugo Cabret",
+    "isbn": "1407103482",
+    "num_pages": 533,
+    "authors": [
+      {
+        "id": "vAGuM5mC_JR",
+        "name": "Brian Selznick"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/hugo_cabret.jpg",
+    "lexile_measure": 820,
+    "summary": "Orphan, clock keeper, and thief, Hugo lives in the walls of a busy Paris train station, where his survival depends on secrets and anonymity. But when his world suddenly interlocks with an eccentric, bookish girl and a bitter old man who runs a toy booth in the station, Hugo's undercover life, and his most precious secret, are put in jeopardy. A cryptic drawing, a treasured notebook, a stolen key, a mechanical man, and a hidden message from Hugo's dead father form the backbone of this intricate, tender, and spellbinding mystery.",
+    "genres": [
+      "Hy4HM_sB7",
+      "r1eZGuiB7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.23"
+  },
+  {
+    "_id": "UITL2RK56WB",
+    "title": "Encyclopedia Brown Boy Detective",
+    "isbn": "142408883",
+    "num_pages": 96,
+    "authors": [
+      {
+        "id": "LQbqsRJtSY0",
+        "name": "Donald Sobol"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/encyclopedia_brown.jpg",
+    "lexile_measure": 560,
+    "summary": "A Civil War sword...A watermelon stabbing...\n\nMissing roller skates...\n\nA trapeze artist's inheritance...\n\nAnd an eyewitness who's legally blind!\n\nTheses are just some of the ten brain-twisting mysteries that Encyclopedia Brown must solve by using his famous computerlike brain. Try to crack the cases along with him--the answer to all the mysteries are found in the back!",
+    "genres": [
+      "Hy4HM_sB7"
+    ],
+    "amazon_popularity": "4.04"
+  },
+  {
+    "_id": "b8op4jScQdA",
+    "title": "Harriet the Spy",
+    "isbn": "440416795",
+    "num_pages": 320,
+    "authors": [
+      {
+        "id": "19bEzGyfvI5",
+        "name": "Louise Fitzhugh"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/harriet_the_spy.jpg",
+    "lexile_measure": 760,
+    "summary": "Harriet M. Welsch is a spy. She's staked out a spy route, and she writes down everything about everyone she sees - including her classmates and her best friends - in her notebook. \nI bet the lady with the cross-eye looks in the mirror and feels just terrible.\n\nPinky Whitehead will never change. Does his mother hate him? If I had him I'd hate him.\n\nThen Harriet loses track of her notebook, and it ends up in the wrong hands. Before Harriet can stop them, her friends have read the always truthful, sometimes awful things she’s written about each of them. Will Harriet find a way to put her life and her friendships back together?",
+    "genres": [
+      "Hy4HM_sB7"
+    ],
+    "amazon_popularity": "3.95"
+  },
+  {
+    "_id": "QzHv3nMpLJw",
+    "title": "The Mysterious Benedict Society",
+    "isbn": "9780316003957",
+    "num_pages": 512,
+    "authors": [
+      {
+        "id": "RBN-TqS8AH6",
+        "name": "Trenton Lee Stewart"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/bensociety_1.jpg",
+    "lexile_measure": 840,
+    "summary": "\"Are you a gifted child looking for special opportunities?\" \n\nDozens of children respond to this peculiar ad in the newspaper and are then put through a series of mind-bending tests, which readers take along with them. Only four children-two boys and two girls-succeed. Their challenge: to go on a secret mission that only the most intelligent and inventive children could complete. To accomplish it they will have to go undercover at the Learning Institute for the Very Enlightened, where the only rule is that there are no rules. But what they'll find in the hidden underground tunnels of the school is more than your average school supplies. So, if you're gifted, creative, or happen to know Morse Code, they could probably use your help.",
+    "genres": [
+      "Hy4HM_sB7",
+      "SyQXQOorX"
+    ],
+    "amazon_popularity": "4.15",
+    "series": {
+      "id": "ijlOJOHg7_7",
+      "series_title": "The Mysterious Benedict Society",
+      "book_num": 1
+    }
+  },
+  {
+    "_id": "rx-5jVjgaFA",
+    "title": "The Mysterious Benedict Society and the Perolous Journey",
+    "isbn": "9780316036733",
+    "num_pages": 464,
+    "authors": [
+      {
+        "id": "RBN-TqS8AH6",
+        "name": "Trenton Lee Stewart"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/bensociety_2.jpg",
+    "lexile_measure": 890,
+    "summary": "The Mysterious Benedict Society is up against a new mission, significantly closer to home. After reuniting for a celebratory scavenger hunt, Reynie, Kate, Sticky, and Constance are forced to go on an unexpected search--a search to find Mr. Benedict. It seems that while he was preparing the kids' adventure, he stepped right into a trap orchestrated by his evil twin Mr. Curtain. \n\nWith only one week to find a captured Mr. Benedict, the gifted foursome faces their greatest challenge of all--a challenge that will reinforce the reasons they were brought together in the first place and will require them to fight for the very namesake that united them.",
+    "genres": [
+      "Hy4HM_sB7",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "4.2",
+    "series": {
+      "id": "ijlOJOHg7_7",
+      "series_title": "The Mysterious Benedict Society",
+      "book_num": 2
+    }
+  },
+  {
+    "_id": "qz_PjgFJz7F",
+    "title": "The Mysterious Benedict Society and the Prisoner's Dilemma",
+    "isbn": "316045500",
+    "num_pages": 400,
+    "authors": [
+      {
+        "id": "RBN-TqS8AH6",
+        "name": "Trenton Lee Stewart"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/bensociety_3.jpg",
+    "lexile_measure": 900,
+    "summary": "Join the Mysterious Benedict Society as Reynie, Kate, Sticky, and Constance embark on a daring new adventure that threatens to force them apart from their families, friends, and even each other. When an unexplained blackout engulfs Stonetown, the foursome must unravel clues relating to a nefarious new plot, while their search for answers brings them closer to danger than ever before.",
+    "genres": [
+      "Hy4HM_sB7",
+      "Sk8dbOjr7"
+    ],
+    "amazon_popularity": "4.28",
+    "series": {
+      "id": "ijlOJOHg7_7",
+      "series_title": "The Mysterious Benedict Society",
+      "book_num": 3
+    }
+  },
+  {
+    "_id": "o_oQp3qUTsH",
+    "title": "The Way to Stay in Destiny",
+    "isbn": "9780545788694",
+    "num_pages": 197,
+    "authors": [
+      {
+        "id": "RzKG-e1aZgB",
+        "name": "Augusta Scattergood"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/stay_destiny.jpg",
+    "lexile_measure": 650,
+    "summary": "When Theo gets off a bus in Destiny, Florida, he's left behind the only life he's ever known. Now he's got to live with Uncle Raymond, a Vietnam War vet and a loner who wants nothing to do with this long-lost nephew. Thank goodness for Miss Sister Grandersole's Boarding House and Dance School. The piano that sits in Miss Sister's dance hall calls to Theo. He can't wait to play those ivory keys. When Anabel arrives things get even more enticing.  This feisty girl, a baseball fanatic, invites Theo on her quest to uncover the town's connection to old-time ball players rumored to have lived there years before. A mystery, an adventure, and a musical exploration unfold as this town called Destiny lives up to its name.\n \nAcclaimed author Augusta Scattergood has delivered a straight-to-the-heart story with unforgettable characters, humor, and hard questions about loss, family, and belonging. \n",
+    "genres": [
+      "H1cjM_jB7",
+      "r1eZGuiB7",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "3.74"
+  },
+  {
+    "_id": "TaVAjHUxpBX",
+    "title": "A Crooked Kind of Perfect",
+    "isbn": "015206608X",
+    "num_pages": 224,
+    "authors": [
+      {
+        "id": "6T2hc1pbVrC",
+        "name": "Linda Urban"
+      }
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/crooked_perfect.jpg",
+    "lexile_measure": 730,
+    "summary": "Ten-year-old Zoe Elias has perfect piano dreams. She can practically feel the keys under her flying fingers; she can hear the audience's applause. All she needs is a baby grand so she can start her lessons, and then she'll be well on her way to Carnegie Hall.\n\nBut when Dad ventures to the music store and ends up with a wheezy organ instead of a piano, Zoe's dreams hit a sour note. Learning the organ versions of old TV theme songs just isn't the same as mastering Beethoven on the piano. And the organ isn't the only part of Zoe's life in Michigan that's off-kilter, what with Mom constantly at work, Dad afraid to leave the house, and that odd boy, Wheeler Diggs, following her home from school every day.\n\nYet when Zoe enters the annual Perform-O-Rama organ competition, she finds that life is full of surprises--and that perfection may be even better when it's just a little off center.",
+    "genres": [
+      "H1cjM_jB7",
+      "B1Z_NdiB7"
+    ],
+    "amazon_popularity": "3.85"
   }
 ]

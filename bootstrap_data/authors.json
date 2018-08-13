@@ -1,0 +1,402 @@
+[
+  {
+    "_id": "1lS1uc_cq",
+    "name": "Gary Soto",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/gary-soto.jpg"
+  },
+  {
+    "_id": "HSje1yDPOn",
+    "name": "Gary Paulsen",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/gary-paulsen.jpg"
+  },
+  {
+    "_id": "xwltpHOa6i",
+    "name": "Roland Smith",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/roland-smith.jpg"
+  },
+  {
+    "_id": "_qyvRt33tJ",
+    "name": "Norton Juster",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/norton-juster.jpg"
+  },
+  {
+    "_id": "KC7C7BDlbW",
+    "name": "Scott O'Dell",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/scott-o'dell.jpg"
+  },
+  {
+    "_id": "nD83iBqXmx",
+    "name": "Rick Riordan",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/rick-riordan.jpg"
+  },
+  {
+    "_id": "n78rYqmi1g",
+    "name": "Louis Sachar",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/louis-sachar.jpg"
+  },
+  {
+    "_id": "jNq5dvxnuP",
+    "name": "Natalie Babbitt",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/natalie-babbitt.jpg"
+  },
+  {
+    "_id": "-nicMzDEccm",
+    "name": "Brian Jacques",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/brian-jacques.jpg"
+  },
+  {
+    "_id": "lwG6BgW6_9t",
+    "name": "Madeleine L'Engle",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/madeleine-l'engle.jpg"
+  },
+  {
+    "_id": "qesqHkLYVxJ",
+    "name": "Robert Louis Stevenson",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/robert-louis-stevenson.jpg"
+  },
+  {
+    "_id": "jjdQ8aYsRqN",
+    "name": "Jerry Spinelli",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/jerry-spinelli.jpg"
+  },
+  {
+    "_id": "OceCPHSiD5k",
+    "name": "R. J. Palacio",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/r.-j.-palacio.jpg"
+  },
+  {
+    "_id": "_X1m71MNy_R",
+    "name": "Carl Hiaasen",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/carl-hiaasen.jpg"
+  },
+  {
+    "_id": "-XBTN8MEoTT",
+    "name": "Ellen Raskin",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/ellen-raskin.jpg"
+  },
+  {
+    "_id": "6ZpHnhx2cxS",
+    "name": "John Reynolds Gardiner",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/john-reynolds-gardiner.jpg"
+  },
+  {
+    "_id": "VWeM88TdmM2",
+    "name": "Gail Carson Levine",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/gail-carson-levine.jpg"
+  },
+  {
+    "_id": "F2Iz4AgbdvX",
+    "name": "Kwame Alexander",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/kwame-alexander.jpg"
+  },
+  {
+    "_id": "51yBo5We9Vb",
+    "name": "Kelly Barnhill",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/kelly-barnhill.jpg"
+  },
+  {
+    "_id": "51fcaDLSBns",
+    "name": "Jason Reynolds",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/jason-reynolds.jpg"
+  },
+  {
+    "_id": "cU3ZMkvLNYY",
+    "name": "Lynda Mullaly Hunt",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/lynda-mullaly-hunt.jpg"
+  },
+  {
+    "_id": "P8tAxBztnv5",
+    "name": "Tim Howard",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/tim-howard.jpg"
+  },
+  {
+    "_id": "FIfZ2Txkv7d",
+    "name": "Kate DiCamillo",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/kate-dicamillo.jpg"
+  },
+  {
+    "_id": "mOsJU3ADlhL",
+    "name": "Sharon Creech",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/sharon-creech.jpg"
+  },
+  {
+    "_id": "0X7U9mDcu6w",
+    "name": "Paul Fleischman",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/paul-fleischman.jpg"
+  },
+  {
+    "_id": "6h364Sq6bnD",
+    "name": "Sarah Weeks",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/sarah-weeks.jpg"
+  },
+  {
+    "_id": "1kWy64vuu5_",
+    "name": "Jean Craighead George",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/jean-craighead-george.jpg"
+  },
+  {
+    "_id": "8AkC3V9JBbj",
+    "name": "L.M. Elliott",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/l.m.-elliott.jpg"
+  },
+  {
+    "_id": "nTvRQ3j9ggV",
+    "name": "Sara Pennypacker",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/sara-pennypacker.jpg"
+  },
+  {
+    "_id": "awIyU_zrBe9",
+    "name": "Avi",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/avi.jpg"
+  },
+  {
+    "_id": "Lmfj0vF_fwT",
+    "name": "Eve Bunting",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/eve-bunting.jpg"
+  },
+  {
+    "_id": "Q5dXK-955PI",
+    "name": "Dan Gutman",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/dan-gutman.jpg"
+  },
+  {
+    "_id": "tUOQDN5LIqu",
+    "name": "Betsy Byars",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/betsy-byars.jpg"
+  },
+  {
+    "_id": "cwYm3IYW7xP",
+    "name": "Lois Lowry",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/lois-lowry.jpg"
+  },
+  {
+    "_id": "LulUjO1NC95",
+    "name": "Neil Gaiman",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/neil-gaiman.jpg"
+  },
+  {
+    "_id": "GqEzOJcgzLk",
+    "name": "James Herriot",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/james-herriot.jpg"
+  },
+  {
+    "_id": "0EmtmmEX2be",
+    "name": "Jeanne DuPrau",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/jeanne-duprau.jpg"
+  },
+  {
+    "_id": "sn0Rjol6EX0",
+    "name": "Christopher Paul Curtis",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/christopher-paul-curtis.jpg"
+  },
+  {
+    "_id": "d60R3GHU7lO",
+    "name": "Wes Tooke",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/wes-tooke.jpg"
+  },
+  {
+    "_id": "YEo6PePS8nx",
+    "name": "Sharon Robinson",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/sharon-robinson.jpg"
+  },
+  {
+    "_id": "kfkFYaeveBJ",
+    "name": "Joan Bauer",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/joan-bauer.jpg"
+  },
+  {
+    "_id": "0Na0MBJ6EJV",
+    "name": "WC Mack",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/wc-mack.jpg"
+  },
+  {
+    "_id": "dvbFgAXy19N",
+    "name": "Cynthia Lord",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/cynthia-lord.jpg"
+  },
+  {
+    "_id": "-G-w8NQdVSA",
+    "name": "Ann Martin",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/ann-martin.jpg"
+  },
+  {
+    "_id": "KxcCinZhjRR",
+    "name": "Spencer Quinn",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/spencer-quinn.jpg"
+  },
+  {
+    "_id": "CBnm_RnPcTZ",
+    "name": "Phyllis Reynolds Naylor",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/phyllis-reynolds-naylor.jpg"
+  },
+  {
+    "_id": "2Ha9sc4WdaJ",
+    "name": "Joanne Rocklin",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/joanne-rocklin.jpg"
+  },
+  {
+    "_id": "7TZT6jrlymA",
+    "name": "Erin Hunter",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/erin-hunter.jpg"
+  },
+  {
+    "_id": "Wm4sIT69P-c",
+    "name": "G. Neri",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/g.-neri.jpg"
+  },
+  {
+    "_id": "6-Pc8nGKLim",
+    "name": "Dan Gemeinhart",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/dan-gemeinhart.jpg"
+  },
+  {
+    "_id": "oGw-WUmzhVw",
+    "name": "Kimberly Brubaker Bradley",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/kimberly-brubaker-bradley.jpg"
+  },
+  {
+    "_id": "dKAaLr4ST8m",
+    "name": "Cynthia Kadohata",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/cynthia-kadohata.jpg"
+  },
+  {
+    "_id": "vCajIqru7tg",
+    "name": "Richard Peck",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/richard-peck.jpg"
+  },
+  {
+    "_id": "gWL961368aR",
+    "name": "Lois Sepahban",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/lois-sepahban.jpg"
+  },
+  {
+    "_id": "7--h3ubQM0V",
+    "name": "Susan Meyer",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/susan-meyer.jpg"
+  },
+  {
+    "_id": "qucvgqp1l06",
+    "name": "Shelley Pearsall",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/shelley-pearsall.jpg"
+  },
+  {
+    "_id": "ViwR75vPVc6",
+    "name": "Brenda Woods",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/brenda-woods.jpg"
+  },
+  {
+    "_id": "04BGp1Rrw3f",
+    "name": "Rodman Philbrick",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/rodman-philbrick.jpg"
+  },
+  {
+    "_id": "gXLVhK5mqSq",
+    "name": "Lauren Tarshis",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/lauren-tarshis.jpg"
+  },
+  {
+    "_id": "upOuG4LDMpq",
+    "name": "Janet Pascal",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/janet-pascal.jpg"
+  },
+  {
+    "_id": "pDV9sECpm-b",
+    "name": "Jess Brallier",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/jess-brallier.jpg"
+  },
+  {
+    "_id": "tE4rNBDWiR5",
+    "name": "Roberta Edwards",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/roberta-edwards.jpg"
+  },
+  {
+    "_id": "5P9qZoAoyNy",
+    "name": "Margaret Frith",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/margaret-frith.jpg"
+  },
+  {
+    "_id": "4HnDJtm43KS",
+    "name": "Megan Stine",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/megan-stine.jpg"
+  },
+  {
+    "_id": "ilTWL0hIJma",
+    "name": "Bonnie Bader",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/bonnie-bader.jpg"
+  },
+  {
+    "_id": "0F2AtgYUdlz",
+    "name": "Kate Boehm Jerome",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/kate-boehm-jerome.jpg"
+  },
+  {
+    "_id": "VotsdOfYk4F",
+    "name": "Gail Herman",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/gail-herman.jpg"
+  },
+  {
+    "_id": "3JqNp75JLDi",
+    "name": "Firoozeh Dumas",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/firoozeh-dumas.jpg"
+  },
+  {
+    "_id": "izZrqJw3iXc",
+    "name": "Terri Libenson",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/terri-libenson.jpg"
+  },
+  {
+    "_id": "ZtZpXrALYAv",
+    "name": "James Patterson",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/james-patterson.jpg"
+  },
+  {
+    "_id": "nxN2uEtcAHz",
+    "name": "Gary Schmidt",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/gary-schmidt.jpg"
+  },
+  {
+    "_id": "5aCZj5dUtE1",
+    "name": "Stephan Pastis",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/stephan-pastis.jpg"
+  },
+  {
+    "_id": "p7sWLBhaa-L",
+    "name": "Geoff Rodkey",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/geoff-rodkey.jpg"
+  },
+  {
+    "_id": "K_4FX2KyBtk",
+    "name": "E.L. Konigsburg",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/e.l.-konigsburg.jpg"
+  },
+  {
+    "_id": "vAGuM5mC_JR",
+    "name": "Brian Selznick",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/brian-selznick.jpg"
+  },
+  {
+    "_id": "LQbqsRJtSY0",
+    "name": "Donald Sobol",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/donald-sobol.jpg"
+  },
+  {
+    "_id": "19bEzGyfvI5",
+    "name": "Louise Fitzhugh",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/louise-fitzhugh.jpg"
+  },
+  {
+    "_id": "RBN-TqS8AH6",
+    "name": "Trenton Lee Stewart",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/trenton-lee-stewart.jpg"
+  },
+  {
+    "_id": "RzKG-e1aZgB",
+    "name": "Augusta Scattergood",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/augusta-scattergood.jpg"
+  },
+  {
+    "_id": "6T2hc1pbVrC",
+    "name": "Linda Urban",
+    "photo_url": "https://storage.googleapis.com/reading-rewards-authors/linda-urban.jpg"
+  }
+]

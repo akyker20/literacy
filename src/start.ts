@@ -1,6 +1,7 @@
 import App from '.';
 import { MongoUserData } from "./data/users";
 import { MongoBookData } from "./data/books";
+import { MongoAuthorData } from "./data/authors";
 import { MongoQuizData } from "./data/quizzes";
 import { MongoBookReviewData } from "./data/book_reviews";
 import { MongoGenreData } from "./data/genres";
@@ -12,6 +13,7 @@ import { MongoReadingLogData } from './data/reading_log';
 import { NodemailerEmail } from './email/nodemailer';
 import { IEmail } from './email';
 import { MockEmail } from './email/mock';
+import { MongoSeriesData } from './data/series';
 
 const dbHost = process.env.MONGO_HOST || 'localhost';
 const dbPort = process.env.MONGO_PORT || '27017';
@@ -19,6 +21,7 @@ const dbName = process.env.MONGO_DB_NAME || 'local';
 
 const connectionStr = `mongodb://${dbHost}:${dbPort}/${dbName}`;
 
+const mongoAuthorData = new MongoAuthorData(connectionStr);
 const mongoBookData = new MongoBookData(connectionStr);
 const mongoUserData = new MongoUserData(connectionStr);
 const mongoGenreData = new MongoGenreData(connectionStr);
@@ -26,7 +29,8 @@ const mongoQuizData = new MongoQuizData(connectionStr);
 const mongoBookReviewData = new MongoBookReviewData(connectionStr);
 const mongoPrizeOrderData = new MongoPrizeOrderData(connectionStr);
 const mongoPrizeData = new MongoPrizeData(connectionStr);
-const readingLogData = new MongoReadingLogData(connectionStr);
+const mongoReadingLogData = new MongoReadingLogData(connectionStr);
+const mongoSeriesData = new MongoSeriesData(connectionStr);
 
 const prodEventsSlackWebhookUrl = 'https://hooks.slack.com/services/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';
 const devChannelSlackWebhookUrl = 'https://hooks.slack.com/services/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';
@@ -62,11 +66,13 @@ const app = new App(
   mongoBookData,
   mongoUserData,
   mongoGenreData,
+  mongoSeriesData,
+  mongoAuthorData,
   mongoQuizData,
   mongoBookReviewData,
   mongoPrizeData,
   mongoPrizeOrderData,
-  readingLogData,
+  mongoReadingLogData,
   slackNotifications,
   email
 )

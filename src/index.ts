@@ -15,6 +15,8 @@ import { PrizeRoutes } from './routes';
 import { INotificationSys } from './notifications';
 import { IReadingLogData } from './data/reading_log';
 import { IEmail } from './email';
+import { IAuthorData } from './data/authors';
+import { ISeriesData } from './data/series';
 
 // logger configuration
 
@@ -39,6 +41,8 @@ export default class App {
     bookData: IBookData,
     userData: IUserData,
     genreData: IGenreData,
+    seriesData: ISeriesData,
+    authorData: IAuthorData,
     quizData: IQuizData,
     bookReviewData: IBookReviewData,
     prizeData: IPrizeData,
@@ -111,11 +115,19 @@ export default class App {
 
     const bookRoutes = Routes.BookRoutes(
       genreData,
+      authorData,
       bookData,
       bookReviewData,
       userData,
-      quizData
+      quizData,
+      seriesData
     );
+
+    this.server.get('/series', bookRoutes.getAllSeries);
+
+    this.server.get('/authors', bookRoutes.getAllAuthors);
+    this.server.get('/authors/:authorId/books', bookRoutes.getBooksByAuthor);
+    this.server.get('/authors/:authorId', bookRoutes.getAuthor);
 
     this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent); // TEST
     this.server.post('/book_reviews', bookRoutes.createBookReview);
