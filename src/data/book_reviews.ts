@@ -4,6 +4,7 @@ import * as shortid from 'shortid';
 import { Models as M } from 'reading_rewards';
 
 export interface IBookReviewData {
+  getAllBookReviews: () => Promise<M.IBookReview[]>;
   createBookReview: (review: M.IBookReview) => Promise<M.IBookReview>;
   getBookReviewsForStudent: (studentId: string) => Promise<M.IBookReview[]>;
   getReviewsForBook: (bookId: string) => Promise<M.IBookReview[]>
@@ -17,6 +18,10 @@ export class MongoBookReviewData implements IBookReviewData {
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
     this.bookReviews = db.get('book_reviews', { castIds: false });
+  }
+
+  getAllBookReviews() {
+    return this.bookReviews.find({});
   }
 
   createBookReview(review: M.IBookReview): Promise<M.IBookReview> {

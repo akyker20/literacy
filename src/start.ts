@@ -14,6 +14,7 @@ import { NodemailerEmail } from './email/nodemailer';
 import { IEmail } from './email';
 import { MockEmail } from './email/mock';
 import { MongoSeriesData } from './data/series';
+import { MongoBookRequestData } from './data/book_requests';
 
 const dbHost = process.env.MONGO_HOST || 'localhost';
 const dbPort = process.env.MONGO_PORT || '27017';
@@ -31,6 +32,7 @@ const mongoPrizeOrderData = new MongoPrizeOrderData(connectionStr);
 const mongoPrizeData = new MongoPrizeData(connectionStr);
 const mongoReadingLogData = new MongoReadingLogData(connectionStr);
 const mongoSeriesData = new MongoSeriesData(connectionStr);
+const mongoBookRequestData = new MongoBookRequestData(connectionStr);
 
 const prodEventsSlackWebhookUrl = 'https://hooks.slack.com/services/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';
 const devChannelSlackWebhookUrl = 'https://hooks.slack.com/services/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';
@@ -66,6 +68,7 @@ const app = new App(
   mongoBookData,
   mongoUserData,
   mongoGenreData,
+  mongoBookRequestData,
   mongoSeriesData,
   mongoAuthorData,
   mongoQuizData,

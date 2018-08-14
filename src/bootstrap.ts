@@ -24,6 +24,7 @@ const dbName = process.env.MONGO_DB_NAME || 'local';
 const connectionStr = `mongodb://${host}:${port}/${dbName}`;
 const db = monk.default(connectionStr);
 
+const bookRequestCollection = db.get('book_requests', { castIds: false });
 const seriesCollection = db.get('series', { castIds: false });
 const authorCollection = db.get('authors', { castIds: false });
 const bookCollection = db.get('books', { castIds: false });
@@ -93,10 +94,7 @@ const katelynn: M.IStudent = {
   gender: M.Gender.Female,
   parent_emails: ['jkyker217@gmail.com'],
   genre_interests: katelynnGenreInterests,
-  bookmarked_books: _.sampleSize(initialBooks, _.random(5)).map(book => ({
-    bookId: book._id,
-    date: new Date().toISOString()
-  }))
+  bookmarked_books: []
 }
 
 const bonnie: M.IEducator = {
@@ -148,5 +146,6 @@ Promise.all([
   setData(quizSubmissionsCollection, []),
   setData(prizeOrdersCollection, []),
   setData(bookReviewsCollection, bookReviews),
-  setData(readingLogCollection, [])
+  setData(readingLogCollection, []),
+  setData(bookRequestCollection, [])
 ]).then(() => process.exit(0))

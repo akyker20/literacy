@@ -3,6 +3,7 @@ import * as Middle from '../middleware';
 import * as joi from 'joi';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import * as shortid from 'shortid';
 import * as _ from 'lodash';
 import { Next, Response } from 'restify';
 import { Models as M, Constants as C, Helpers } from 'reading_rewards';
@@ -25,11 +26,20 @@ import { IPrizeOrderData } from '../data/prize_orders';
 import { IPrizeData } from '../data/prizes';
 import { INotificationSys } from '../notifications';
 import { IReadingLogData } from '../data/reading_log';
+import { IBookRequestData } from '../data/book_requests';
 
 interface IUserLoginCredentials {
   email: string;
   password: string;
 }
+
+const updateBookRequestStatus = joi.object({
+  updated_status: joi.string().valid(_.values(M.BookRequestStatus)).required()
+}).required()
+
+const requestBookSchema = joi.object({
+  bookId: shortidSchema.error(genFieldErr('bookId'))
+}).required()
 
 const bookmarkBookSchema = joi.object({
   bookId: shortidSchema.error(genFieldErr('bookId'))
@@ -96,6 +106,7 @@ export function UserRoutes(
   userData: IUserData,
   quizData: IQuizData,
   bookData: IBookData,
+  bookRequestData: IBookRequestData,
   bookReviewData: IBookReviewData,
   genreData: IGenreData,
   prizeOrderData: IPrizeOrderData,
@@ -150,7 +161,7 @@ export function UserRoutes(
     }
   }
 
-  async function getStudentDTO(user: M.IUser): Promise<M.IStudentDTO> {
+  async function getStudentDTO(user: M.IUser): Promise<M.IClientStudent> {
     const student = user as M.IStudent;
 
     // get book reviews by student
@@ -168,38 +179,23 @@ export function UserRoutes(
 
     const studentQuizSubmissions = await quizData.getSubmissionsForStudent(student._id);
 
-    // get books passed quiz for
+    // get book requests by student
 
-    const idsOfPassedQuizBooks = Helpers.getIdsOfPassedQuizBooks(studentQuizSubmissions);
-    const passedQuizBooks = await bookData.getBooksWithIds(idsOfPassedQuizBooks);
-
-    // get bookmarked books
-
-    const idsOfBookmarkedBooks = _.map(student.bookmarked_books, 'bookId');
-
-    const booksBookmarked = await bookData.getBooksWithIds(idsOfBookmarkedBooks);
+    const bookRequests = await bookRequestData.getBookRequestsByStudent(student._id);
 
     // get prizes ordered
 
     const studentPrizeOrders = await prizeOrderData.getPrizeOrdersForStudent(student._id);
-    const idsOfPrizesOrdered = _.chain(studentPrizeOrders)
-      .map('prize_id')
-      .uniq()
-      .value()
-
-    const prizesOrdered = await prizeData.getPrizesWithIds(idsOfPrizesOrdered);
 
     const readingLog = await readingLogData.getLogsForStudent(user._id);
 
     return {
       info: student,
       current_lexile_measure: currentLexileMeasure,
-      passed_quiz_books: passedQuizBooks,
       quiz_submissions: studentQuizSubmissions,
       book_reviews: studentBookReviews,
-      bookmarked_books: booksBookmarked,
+      book_requests: bookRequests,
       prize_orders: studentPrizeOrders,
-      prizes_ordered: prizesOrdered,
       reading_logs: readingLog
     }
 
@@ -239,18 +235,18 @@ export function UserRoutes(
         const user = await userData.getUserById(userId);
 
         if (_.isNull(user)) {
-          return new BadRequestError(`User ${userId} does not exist.`)
+          throw new BadRequestError(`User ${userId} does not exist.`)
         }
 
         if (user.type !== M.UserType.STUDENT) {
-          return new ForbiddenError(`User ${userId} is not a student.`)
+          throw new ForbiddenError(`User ${userId} is not a student.`)
         }
 
         const { type, _id } = req.authToken;
         if (type === M.UserType.EDUCATOR) {
           const educator = await userData.getUserById(_id) as M.IEducator;
           if (!_.includes(educator.student_ids, userId)) {
-            return new ForbiddenError(`Teacher ${educator._id} does not have student ${userId}`)
+            throw new ForbiddenError(`Teacher ${educator._id} does not have student ${userId}`)
           }
         }
 
@@ -271,11 +267,11 @@ export function UserRoutes(
         const user = await userData.getUserById(userId);
 
         if (_.isNull(user)) {
-          return new BadRequestError(`User ${userId} does not exist.`)
+          throw new BadRequestError(`User ${userId} does not exist.`)
         }
 
         if (user.type !== M.UserType.STUDENT) {
-          return new ForbiddenError(`User ${userId} is not a student.`)
+          throw new ForbiddenError(`User ${userId} is not a student.`)
         }
 
         const updatedStudent: M.IStudent = _.assign({}, user as M.IStudent, {
@@ -283,6 +279,110 @@ export function UserRoutes(
         })
 
         return await userData.updateUser(updatedStudent)
+
+      }),
+      Middle.handlePromise
+    ],
+
+    createBookRequest: [
+      Middle.authenticate,
+      Middle.authorizeAgents([M.UserType.ADMIN]),
+      Middle.valBody(requestBookSchema),
+      unwrapData(async (req: IRequest<{ bookId: string }>) => {
+
+        const { userId: studentId } = req.params;
+        const { bookId } = req.body;
+
+        const book = await bookData.getBook(bookId);
+
+        if (_.isNull(book)) {
+          throw new BadRequestError(`Book ${bookId} does not exist.`)
+        }
+
+        const student = (await userData.getUserById(studentId)) as M.IStudent
+
+        if (_.isNull(student)) {
+          throw new ResourceNotFoundError(`User ${studentId} does not exist.`)
+        }
+
+        if (student.type !== M.UserType.STUDENT) {
+          throw new ForbiddenError(`User ${studentId} is not a student.`)
+        }
+
+        const studentBookRequests = await bookRequestData.getBookRequestsByStudent(student._id);
+        const outstandingBookRequest = _.find(studentBookRequests, br => br.status !== M.BookRequestStatus.Collected);
+        
+        if (!_.isUndefined(outstandingBookRequest)) {
+          throw new BadRequestError(`A request (${outstandingBookRequest._id}) exists. Cannot create a new book request.`)
+        }
+
+        // make request
+
+        const request: M.IBookRequest = {
+          _id: shortid.generate(),
+          student_id: student._id,
+          book_id: book._id,
+          status: M.BookRequestStatus.Requested,
+          date_requested: new Date().toISOString()
+        }
+
+        return await bookRequestData.createBookRequest(request);
+
+      }),
+      Middle.handlePromise
+    ],
+
+    deleteBookRequest: [
+      Middle.authenticate,
+      Middle.authorizeAgents([M.UserType.ADMIN]),
+      unwrapData(async (req: IRequest<null>) => {
+
+        const { userId: studentId, requestId } = req.params;
+
+        const request = await bookRequestData.getRequestById(requestId);
+
+        if (_.isNull(request)) {
+          throw new BadRequestError(`Request ${requestId} does not exist.`)
+        }
+
+        if (request.student_id !== studentId) {
+          throw new BadRequestError('student_id in request does not match :studentId param')
+        }
+
+        const isNotAdmin = req.authToken.type !== M.UserType.ADMIN;
+        if (isNotAdmin && (request.status !== M.BookRequestStatus.Requested)) {
+          throw new BadRequestError('Non-Admins can only delete requests with status = Requested.')
+        }
+
+        // delete the request
+
+        return await bookRequestData.deleteRequest(requestId);
+
+      }),
+      Middle.handlePromise
+    ],
+
+    updateBookRequestStatus: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.ADMIN]),
+      Middle.valBody(updateBookRequestStatus),
+      unwrapData(async (req: IRequest<{ updated_status: M.BookRequestStatus }>) => {
+
+        const { requestId } = req.params;
+        const { updated_status } = req.body;
+
+        const request = await bookRequestData.getRequestById(requestId);
+
+        if (_.isNull(request)) {
+          throw new ResourceNotFoundError(`Request ${requestId} does not exist`);
+        }
+
+        const updatedRequest: M.IBookRequest = {
+          ...request,
+          status: updated_status
+        }
+
+        return await bookRequestData.updateRequest(updatedRequest);
 
       }),
       Middle.handlePromise
@@ -300,32 +400,40 @@ export function UserRoutes(
         const book = await bookData.getBook(bookId);
 
         if (_.isNull(book)) {
-          return new BadRequestError(`Book ${bookId} does not exist.`)
+          throw new BadRequestError(`Book ${bookId} does not exist.`)
         }
 
         const student = (await userData.getUserById(studentId)) as M.IStudent
 
         if (_.isNull(student)) {
-          return new ResourceNotFoundError(`User ${studentId} does not exist.`)
+          throw new ResourceNotFoundError(`User ${studentId} does not exist.`)
         }
 
         if (student.type !== M.UserType.STUDENT) {
-          return new ForbiddenError(`User ${studentId} is not a student.`)
+          throw new ForbiddenError(`User ${studentId} is not a student.`)
         }
 
-        const idsOfBooksBookmarked = _.map(student.bookmarked_books, 'bookId');
-
-        if (_.includes(idsOfBooksBookmarked, bookId)) {
-          return new BadRequestError(`Student ${studentId} already bookmarked book ${bookId}.`)
+        if (_.includes(student.bookmarked_books, bookId)) {
+          throw new BadRequestError(`Student ${studentId} already bookmarked book ${bookId}.`)
         }
 
-        const updatedStudent: M.IStudent = _.assign({}, student, {
-          bookmarked_books: [...student.bookmarked_books, {
+        const studentQuizSubmissions = await quizData.getSubmissionsForStudent(studentId);
+        const studentReadingLogs = await readingLogData.getLogsForStudent(studentId);
+        
+        const studentBookQuizStatus = Helpers.getStudentBookQuizStatus(book._id, studentQuizSubmissions, studentReadingLogs);
+
+        if (studentBookQuizStatus === M.StudentBookQuizStatus.Failed || studentBookQuizStatus === M.StudentBookQuizStatus.Passed) {
+          throw new BadRequestError(`Student cannot bookmark a book for which they already passed or failed the quiz.`)
+        }
+
+        const updatedStudent: M.IStudent = {
+          ...student,
+          bookmarked_books: [
             bookId,
-            date: new Date().toISOString()
-          }]
-        })
-
+            ...student.bookmarked_books
+          ]
+        }
+        
         return await userData.updateUser(updatedStudent);
 
       }),
@@ -342,27 +450,31 @@ export function UserRoutes(
         const book = await bookData.getBook(bookId);
 
         if (_.isNull(book)) {
-          return new BadRequestError(`Book ${bookId} does not exist.`)
+          throw new BadRequestError(`Book ${bookId} does not exist.`)
         }
 
         const student = (await userData.getUserById(studentId)) as M.IStudent
 
         if (_.isNull(student)) {
-          return new ResourceNotFoundError(`User ${studentId} does not exist.`)
+          throw new ResourceNotFoundError(`User ${studentId} does not exist.`)
         }
 
         if (student.type !== M.UserType.STUDENT) {
-          return new ForbiddenError(`User ${studentId} is not a student.`)
+          throw new ForbiddenError(`User ${studentId} is not a student.`)
         }
 
-        const idsOfBooksBookmarked = _.map(student.bookmarked_books, 'bookId');
+        if (!_.includes(student.bookmarked_books, bookId)) {
+          throw new BadRequestError(`Student ${studentId} never bookmarked book ${bookId}.`)
+        }
 
-        if (!_.includes(idsOfBooksBookmarked, bookId)) {
-          return new BadRequestError(`Student ${studentId} never bookmarked book ${bookId}.`)
+        const studentBookRequests = await bookRequestData.getBookRequestsByStudent(studentId);
+        const outstandingRequestForBook = _.find(studentBookRequests, br => (br.status !== M.BookRequestStatus.Collected) && br.book_id === book._id)
+        if (!_.isUndefined(outstandingRequestForBook)) {
+          throw new BadRequestError(`A request (${outstandingRequestForBook._id}) exists with status ${outstandingRequestForBook.status}. You cannot unbookmark this book.`)
         }
 
         const updatedStudent: M.IStudent = _.assign({}, student, {
-          bookmarked_books: _.filter(student.bookmarked_books, ({ bookId: existingId }) => existingId !== bookId)
+          bookmarked_books: _.without(student.bookmarked_books, bookId)
         })
 
         return await userData.updateUser(updatedStudent);

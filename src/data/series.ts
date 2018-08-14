@@ -6,11 +6,6 @@ export interface ISeriesData {
   getSeriesById: (id: string) => Promise<M.ISeries>;
 }
 
-export interface IBookQuery {
-  genres?: string[];
-  lexile_range?: M.ILexileRange;
-}
-
 export class MongoSeriesData implements ISeriesData {
 
   private series: monk.ICollection;

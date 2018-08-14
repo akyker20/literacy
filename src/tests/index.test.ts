@@ -30,6 +30,7 @@ import { MockNotifications } from '../notifications/mock';
 import { MongoReadingLogData } from '../data/reading_log';
 import { MockEmail } from '../email/mock';
 import { MongoSeriesData } from '../data/series';
+import { MongoBookRequestData } from '../data/book_requests';
 
 
 // Load all the data
@@ -96,11 +97,13 @@ const mongoPrizeData = new MongoPrizeData(connectionStr);
 const mongoPrizeOrderData = new MongoPrizeOrderData(connectionStr);
 const readingLogData = new MongoReadingLogData(connectionStr);
 const mongoSeriesData = new MongoSeriesData(connectionStr)
+const mongoBookRequestData = new MongoBookRequestData(connectionStr);
 
 const app = new App(
   mongoBookData,
   mongoUserData,
   mongoGenreData,
+  mongoBookRequestData,
   mongoSeriesData,
   mongoAuthorData,
   mongoQuizData,
@@ -1940,150 +1943,8 @@ describe('End to End tests', function () {
 
       });
 
-      describe('#bookmarkBook', function () {
-
-        const validReqBody = {
-          bookId: 'harry-potter-id'
-        }
-
-        const invalidReqBody = {
-          bookId: shortid.generate()
-        }
-
-        it('should 401 when no auth token in header', function () {
-          return agent
-            .post(`/students/${katelynn._id}/bookmarked_books`)
-            .expect(401);
-        });
-
-        it('should 404 if user does not exist', function () {
-          const invalidUserId = shortid.generate()
-          return agent
-            .post(`/students/${invalidUserId}/bookmarked_books`)
-            .set(SC.AuthHeaderField, austinToken)
-            .send(validReqBody)
-            .expect(404)
-            .then(checkErrMsg(`User ${invalidUserId} does not exist.`))
-        });
-
-        it('should 403 if user is not a student', function () {
-          return agent
-            .post(`/students/${austin._id}/bookmarked_books`)
-            .set(SC.AuthHeaderField, austinToken)
-            .send(validReqBody)
-            .expect(403)
-            .then(checkErrMsg(`User ${austin._id} is not a student.`))
-        });
-
-        it('should 403 if student making request on behalf another student', function () {
-          return agent
-            .post(`/students/${chase._id}/bookmarked_books`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .expect(403)
-            .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
-        });
-
-        it('should 400 if book does not exist', function () {
-          return agent
-            .post(`/students/${chase._id}/bookmarked_books`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .send(invalidReqBody)
-            .expect(400)
-            .then(checkErrMsg(`Book ${invalidReqBody.bookId} does not exist.`))
-        });
-
-        it('should 400 if book is already bookmarked', function () {
-          return agent
-            .post(`/students/${katelynn._id}/bookmarked_books`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(validReqBody)
-            .expect(400)
-            .then(checkErrMsg(`Student ${katelynn._id} already bookmarked book ${validReqBody.bookId}.`))
-        });
-
-        it('should 200 and bookmark book', function () {
-          return agent
-            .post(`/students/${chase._id}/bookmarked_books`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .send(validReqBody)
-            .expect(200)
-            .then(() => mongoUserData.getUserById(chase._id))
-            .then((student: Models.IStudent) => {
-              assert.lengthOf(student.bookmarked_books, chase.bookmarked_books.length + 1);
-              assert.equal(_.last(student.bookmarked_books).bookId, validReqBody.bookId);
-            })
-        });
-
-      });
-
-      describe('#unbookmarkBook', function () {
-
-        it('should 401 when no auth token in header', function () {
-          return agent
-            .del(`/students/${katelynn._id}/bookmarked_books/harry-potter-id`)
-            .expect(401);
-        });
-
-        it('should 404 if user does not exist', function () {
-          const invalidUserId = shortid.generate()
-          return agent
-            .del(`/students/${invalidUserId}/bookmarked_books/harry-potter-id`)
-            .set(SC.AuthHeaderField, austinToken)
-            .expect(404)
-            .then(checkErrMsg(`User ${invalidUserId} does not exist.`))
-        });
-
-        it('should 403 if user is not a student', function () {
-          return agent
-            .del(`/students/${austin._id}/bookmarked_books/harry-potter-id`)
-            .set(SC.AuthHeaderField, austinToken)
-            .expect(403)
-            .then(checkErrMsg(`User ${austin._id} is not a student.`))
-        });
-
-        it('should 403 if student making request on behalf another student', function () {
-          return agent
-            .del(`/students/${chase._id}/bookmarked_books/harry-potter-id`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .expect(403)
-            .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
-        });
-
-        it('should 400 if book does not exist', function () {
-          const invalidBookId = shortid.generate()
-          return agent
-            .del(`/students/${chase._id}/bookmarked_books/${invalidBookId}`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .expect(400)
-            .then(checkErrMsg(`Book ${invalidBookId} does not exist.`))
-        });
-
-        it('should 400 if book isn\'t bookmarked', function () {
-          const unbookmarkedBookId = 'hobbit-id';
-          return agent
-            .del(`/students/${chase._id}/bookmarked_books/${unbookmarkedBookId}`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .expect(400)
-            .then(checkErrMsg(`Student ${chase._id} never bookmarked book ${unbookmarkedBookId}.`))
-        });
-
-        it('should 200 and unbookmark book', function () {
-          const { bookId: idOfBookToUnbookmark } = katelynn.bookmarked_books[0];
-          return agent
-            .del(`/students/${katelynn._id}/bookmarked_books/${idOfBookToUnbookmark}`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .expect(200)
-            .then(() => mongoUserData.getUserById(katelynn._id))
-            .then((student: Models.IStudent) => {
-              assert.lengthOf(student.bookmarked_books, katelynn.bookmarked_books.length - 1);
-              assert.notInclude(_.map(student.bookmarked_books, 'bookId'), idOfBookToUnbookmark)
-            })
-        });
-
-      });
-
-    })
-
+    });
+    
   })
 
   after(async function () {

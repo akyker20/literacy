@@ -6,11 +6,6 @@ export interface IAuthorData {
   getAuthorById: (id: string) => Promise<M.IAuthor>;
 }
 
-export interface IBookQuery {
-  genres?: string[];
-  lexile_range?: M.ILexileRange;
-}
-
 export class MongoAuthorData implements IAuthorData {
 
   private authors: monk.ICollection;

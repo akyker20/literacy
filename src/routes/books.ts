@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import { IBookData } from '../data/books';
 import { IRequest, lexileMeasureSchema, shortidSchema } from '../extensions';
 import * as Middle from '../middleware';
-import { genFieldErr, computeMatchScore, unwrapData } from '../helpers';
+import { genFieldErr, computeMatchScoreForBook, unwrapData } from '../helpers';
 import { ResourceNotFoundError, BadRequestError, ForbiddenError } from 'restify-errors';
 import { IUserData } from '../data/users';
 import { IBookReviewData } from '../data/book_reviews';
@@ -311,15 +311,31 @@ export function BookRoutes(
           throw new ForbiddenError(`Student ${userId} has not provided genre interests`)
         }
 
-        // const studentBookReviews = await bookReviewData.getBookReviewsForStudent(user._id);
+        const allBookReviews = await bookReviewData.getAllBookReviews();
+        const studentBookReviews = _.filter(allBookReviews, { student_id: userId }) as M.IBookReview[]
         
         const allBooks = await bookData.getAllBooks();
 
         const matchScores: { [bookId: string]: number } = {};
         _.forEach(allBooks, book => {
-          matchScores[book._id] = computeMatchScore(
-            user.genre_interests, 
-            book
+
+          const bookAuthorIds = _.map(book.authors, 'id');
+
+          const otherBooksBySameAuthor = _.filter(allBooks, b => {
+            const isSameBook = (b._id === book._id);
+            const candidateAuthorIds = _.map(book.authors, 'id');
+            const shareAuthor = _.isEmpty(_.intersection(bookAuthorIds, candidateAuthorIds));
+            return !isSameBook && shareAuthor;
+          })
+
+          const bookReviewsForBook = _.filter(allBookReviews, { book_id: book._id })
+
+          matchScores[book._id] = computeMatchScoreForBook(
+            book,
+            user,
+            otherBooksBySameAuthor,
+            studentBookReviews,
+            bookReviewsForBook
           )
         })
         

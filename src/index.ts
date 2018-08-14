@@ -17,6 +17,7 @@ import { IReadingLogData } from './data/reading_log';
 import { IEmail } from './email';
 import { IAuthorData } from './data/authors';
 import { ISeriesData } from './data/series';
+import { IBookRequestData } from './data/book_requests';
 
 // logger configuration
 
@@ -41,6 +42,7 @@ export default class App {
     bookData: IBookData,
     userData: IUserData,
     genreData: IGenreData,
+    bookRequestData: IBookRequestData,
     seriesData: ISeriesData,
     authorData: IAuthorData,
     quizData: IQuizData,
@@ -80,6 +82,7 @@ export default class App {
       userData,
       quizData,
       bookData,
+      bookRequestData,
       bookReviewData,
       genreData,
       prizeOrderData,
@@ -110,6 +113,9 @@ export default class App {
 
     this.server.post('/students/:userId/bookmarked_books', userRoutes.bookmarkBook);
     this.server.del('/students/:userId/bookmarked_books/:bookId', userRoutes.unbookmarkBook)
+    this.server.post('/students/:userId/book_requests', userRoutes.createBookRequest);
+    this.server.del('/students/:userId/book_requests/:requestId', userRoutes.deleteBookRequest);
+    this.server.put('/requests/:requestId/status', userRoutes.updateBookRequestStatus);
 
     // configure book routes
 
