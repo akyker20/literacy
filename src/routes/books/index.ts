@@ -1,63 +1,23 @@
+// 3rd party dependencies
+
 import { Response, Next } from 'restify';
 import { Models as M } from 'reading_rewards';
-import * as joi from 'joi';
 import * as _ from 'lodash';
 
-import { IBookData } from '../data/books';
-import { IRequest, lexileMeasureSchema, shortidSchema } from '../extensions';
-import * as Middle from '../middleware';
-import { genFieldErr, computeMatchScoreForBook, unwrapData } from '../helpers';
+// internal dependencies
+
+import { IBookData } from '../../data/books';
+import { IRequest, unwrapData } from '../extensions';
+import * as Middle from '../../middleware';
+import { computeMatchScoreForBook } from '../../helpers';
 import { ResourceNotFoundError, BadRequestError, ForbiddenError } from 'restify-errors';
-import { IUserData } from '../data/users';
-import { IBookReviewData } from '../data/book_reviews';
-import { IGenreData } from '../data/genres';
-import { IQuizData } from '../data/quizzes';
-import { IAuthorData } from '../data/authors';
-import { ISeriesData } from '../data/series';
-
-const inputBookReview = joi.object({
-  interest: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required(),
-  comprehension: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required(),
-  review: joi.string().max(500).optional(),
-  book_id: shortidSchema.required(),
-  student_id: shortidSchema.required()
-}).required()
-
-const sharedBookSchema = joi.object({
-  cover_photo_url: joi.string().required().error(genFieldErr('cover_photo_url')),
-  amazon_popularity: joi.number().min(0).max(5).required().error(genFieldErr('amazon_popularity')),
-  title: joi.string().required().error(genFieldErr('title')),
-  summary: joi.string().min(100).max(1000).required().error(genFieldErr('summary')),
-  lexile_measure: lexileMeasureSchema.error(genFieldErr('lexile_measure')),
-  num_pages: joi.number().min(40).max(3000).required().error(genFieldErr('num_pages')),
-  isbn: joi.string().regex(/^(97(8|9))?\d{9}(\d|X)$/).required().error(genFieldErr('isbn')),
-  genres: joi.array().items(joi.string()).min(1).max(5).unique().required().error(genFieldErr('genres')),
-  series: joi.object({
-    book_num: joi.number().integer().required(),
-    id: shortidSchema
-  }).optional()
-}).strict().required();
-
-const inputBookSchema = sharedBookSchema.keys({
-  author_ids: joi.array().items(shortidSchema).required().error(genFieldErr('author_ids'))
-}).strict().required();
-
-const createdBookSchema = sharedBookSchema.keys({
-  _id: shortidSchema.required().error(genFieldErr('_id')),
-  authors: joi.array().items(joi.object({
-    id: shortidSchema,
-    name: joi.string().required()
-  }).min(1).max(4).required())
-}).required();
-
-const inputGenreSchema = joi.object({
-  title: joi.string().required().error(genFieldErr('title')),
-  description: joi.string().max(200).required().error(genFieldErr('description'))
-}).required();
-
-const createdGenreSchema = inputGenreSchema.keys({
-  _id: shortidSchema.required().error(genFieldErr('_id'))
-}).required();
+import { IUserData } from '../../data/users';
+import { IBookReviewData } from '../../data/book_reviews';
+import { IGenreData } from '../../data/genres';
+import { IQuizData } from '../../data/quizzes';
+import { IAuthorData } from '../../data/authors';
+import { ISeriesData } from '../../data/series';
+import { BodyValidators as Val } from './joi';
 
 export function BookRoutes(
   genreData: IGenreData,
@@ -69,9 +29,11 @@ export function BookRoutes(
   seriesData: ISeriesData
 ) {
 
+  // Helpers
+
   async function checkBookForInvalidGenres(candidate: M.IBook): Promise<string[]> {
     
-    const existingGenres = await genreData.getGenres();
+    const existingGenres = await genreData.getAllGenres();
     const existingGenreIds = _.map(existingGenres, '_id');
     const invalidGenres = _.difference(candidate.genres, existingGenreIds);
 
@@ -81,6 +43,8 @@ export function BookRoutes(
 
     return null;
   }
+
+  // Routes
 
   return {
 
@@ -129,15 +93,15 @@ export function BookRoutes(
 
     createBookReview: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.STUDENT, M.UserType.ADMIN]),
+      Middle.authorize([M.UserType.Student, M.UserType.Admin]),
       (req: IRequest<M.IBookReviewBody>, res: Response, next: Next) => {
         const { type, _id: userId } = req.authToken;
-        if ((type !== M.UserType.ADMIN) && (userId !== req.body.student_id)) {
+        if ((type !== M.UserType.Admin) && (userId !== req.body.student_id)) {
           return next(new ForbiddenError(`User ${userId} cannot write book review for user ${req.body.student_id}`));
         }
         next();
       },
-      Middle.valBody<M.IBookReviewBody>(inputBookReview),
+      Middle.valBody<M.IBookReviewBody>(Val.InputBookReview),
       unwrapData(async (req: IRequest<M.IBookReviewBody>) => {
 
         const { student_id, book_id } = req.body;
@@ -194,8 +158,8 @@ export function BookRoutes(
 
     createGenre: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.ADMIN]),
-      Middle.valBody<M.IGenre>(inputGenreSchema),
+      Middle.authorize([M.UserType.Admin]),
+      Middle.valBody<M.IGenre>(Val.InputGenreSchema),
       (req: IRequest<M.IGenre>, res: Response, next: Next) => {
         req.promise = genreData.createGenre(req.body);
         next();
@@ -205,15 +169,15 @@ export function BookRoutes(
     getGenres: [
       Middle.authenticate,
       (req: IRequest<null>, res: Response, next: Next) => {
-        req.promise = genreData.getGenres();
+        req.promise = genreData.getAllGenres();
         next();
       },
       Middle.handlePromise
     ],
     updateGenre: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.ADMIN]),
-      Middle.valBody<M.IGenre>(createdGenreSchema),
+      Middle.authorize([M.UserType.Admin]),
+      Middle.valBody<M.IGenre>(Val.CreatedGenreSchema),
       Middle.valIdsSame({ paramKey: 'genreId', bodyKey: '_id' }),
       unwrapData(async (req: IRequest<null>) => {
         
@@ -230,7 +194,7 @@ export function BookRoutes(
     ],
     deleteGenre: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.ADMIN]),
+      Middle.authorize([M.UserType.Admin]),
       unwrapData(async (req: IRequest<null>) => {
 
         const deletedGenre = await genreData.deleteGenre(req.params.genreId);
@@ -251,8 +215,8 @@ export function BookRoutes(
 
     createBook: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.ADMIN]),
-      Middle.valBody<M.IBook>(inputBookSchema),
+      Middle.authorize([M.UserType.Admin]),
+      Middle.valBody<M.IBook>(Val.InputBookSchema),
       unwrapData(async (req: IRequest<M.IBook>) => {
 
         const bookCandidate = req.body;
@@ -279,24 +243,14 @@ export function BookRoutes(
       }),
       Middle.handlePromise
     ],
-    getBooks: [
+    getAllBooks: [
       Middle.authenticate,
-      unwrapData(async (req: IRequest<M.IBook>) => {
-
-        const searchQuery = req.query.q;
-
-        if (!_.isEmpty(searchQuery)) {
-          return bookData.searchBooks(searchQuery);
-        }
-
-        return bookData.getAllBooks();
-
-      }),
+      unwrapData(async () => bookData.getAllBooks()),
       Middle.handlePromise
     ],
     getBooksForStudent: [
       Middle.authenticate,
-      Middle.authorizeAgents([M.UserType.ADMIN]),
+      Middle.authorizeAgents([M.UserType.Admin]),
       unwrapData(async (req: IRequest<M.IBook>) => {
 
         const { userId } = req.params;
@@ -349,8 +303,8 @@ export function BookRoutes(
     ],
     updateBook: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.ADMIN]),
-      Middle.valBody<M.IBook>(createdBookSchema),
+      Middle.authorize([M.UserType.Admin]),
+      Middle.valBody<M.IBook>(Val.CreatedBookSchema),
       Middle.valIdsSame({ paramKey: 'bookId', bodyKey: '_id' }),
       unwrapData(async (req: IRequest<M.IBook>) => {
 
@@ -375,7 +329,7 @@ export function BookRoutes(
     ],
     deleteBook: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.ADMIN]),
+      Middle.authorize([M.UserType.Admin]),
       unwrapData(async (req: IRequest<M.IBook>) => {
         
         const deletedBook = await bookData.deleteBook(req.params.bookId);

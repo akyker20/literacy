@@ -82,23 +82,22 @@ export default class App {
       userData,
       quizData,
       bookData,
+      prizeData,
       bookRequestData,
       bookReviewData,
       genreData,
       prizeOrderData,
-      prizeData,
       readingLogData,
       notifications
     );
     
-    this.server.get('/users', userRoutes.getAllUsers); // TODO: remove
+    this.server.get('/users', userRoutes.getAllUsers);
 
-    this.server.get('/whoami', userRoutes.whoami); // TEST
+    this.server.get('/whoami', userRoutes.whoami);
     this.server.post('/students/signin', userRoutes.studentSignin);
     this.server.post('/educators/signin', userRoutes.educatorSignin);
 
     this.server.get('/students/:userId', userRoutes.getStudent);
-    this.server.post('/students', userRoutes.createStudent);
     this.server.post('/students/:userId/activate', userRoutes.activatePendingStudent);
     this.server.get('/students', userRoutes.getStudentByEmail);
     this.server.post('/educators/:userId/students', userRoutes.createPendingStudent);
@@ -108,7 +107,6 @@ export default class App {
     
     this.server.post('/educators', userRoutes.createEducator);
     this.server.put('/educators/:userId/notification_settings', userRoutes.updateEducatorNotificationSettings)
-    this.server.put('/educators/:userId/students', userRoutes.updateStudentsForEducator);
     this.server.del('/educators/:userId/students/:studentId', userRoutes.deletePendingStudent);
 
     this.server.post('/students/:userId/bookmarked_books', userRoutes.bookmarkBook);
@@ -143,7 +141,7 @@ export default class App {
     this.server.put('/genres/:genreId', bookRoutes.updateGenre);
     this.server.del('/genres/:genreId', bookRoutes.deleteGenre);
 
-    this.server.get('/books', bookRoutes.getBooks);
+    this.server.get('/books', bookRoutes.getAllBooks);
     this.server.get('/books/:bookId/reviews', bookRoutes.getBookReviewsForBook);
     this.server.post('/books', bookRoutes.createBook);
     this.server.put('/books/:bookId', bookRoutes.updateBook);
@@ -164,7 +162,7 @@ export default class App {
 
     this.server.get('/quizzes', quizRoutes.getAllQuizzes); // TODO: remove
 
-    this.server.post('/quiz_submissions', quizRoutes.submitQuiz);
+    this.server.post('/students/:userId/quiz_submissions', quizRoutes.submitQuiz);
 
     this.server.post('/quizzes', quizRoutes.createQuiz);
     this.server.del('/quizzes/:quizId', quizRoutes.deleteQuiz);
@@ -180,11 +178,11 @@ export default class App {
       email
     );
 
-    this.server.get('/prizes', prizeRoutes.getPrizes);
+    this.server.get('/prizes', prizeRoutes.getAllPrizes);
     this.server.post('/prizes', prizeRoutes.createPrize);
     this.server.put('/prizes/:prizeId', prizeRoutes.updatePrize);
     this.server.del('/prizes/:prizeId', prizeRoutes.deletePrize);
-    this.server.post('/prize_orders', prizeRoutes.orderPrize);
+    this.server.post('/students/:userId/prize_orders', prizeRoutes.orderPrize);
 
     // configure reading log routes
 

@@ -7,7 +7,7 @@ type IGenre = M.IGenre;
 
 export interface IGenreData {
   createGenre: (genre: IGenre) => Promise<IGenre>;
-  getGenres: () => Promise<IGenre[]>;
+  getAllGenres: () => Promise<IGenre[]>;
   getGenreById: (genreId: string) => Promise<IGenre>;
   updateGenre(genre: IGenre): Promise<IGenre>;
   deleteGenre: (genreId: string) => Promise<IGenre>;
@@ -32,7 +32,7 @@ export class MongoGenreData implements IGenreData {
     return this.genres.findOne({ _id: genreId });
   }
 
-  getGenres(): Promise<IGenre[]> {
+  getAllGenres(): Promise<IGenre[]> {
     return this.genres.find({});
   }
 

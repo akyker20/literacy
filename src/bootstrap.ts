@@ -1,9 +1,9 @@
 import * as bcrypt from 'bcryptjs';
 import * as monk from 'monk';
-import * as faker from 'faker';
+// import * as faker from 'faker';
 import * as Path from 'path';
 import * as fs from 'fs';
-import { Models as M, Mockers } from 'reading_rewards';
+import { Models as M } from 'reading_rewards';
 import * as _ from 'lodash';
 
 import { HashedPassSaltLen } from './constants';
@@ -72,7 +72,7 @@ const austin: M.IUser = {
   email: 'akyker20@gmail.com',
   first_name: 'Austin',
   last_name: 'Kyker',
-  type: M.UserType.ADMIN,
+  type: M.UserType.Admin,
   date_created: new Date().toISOString(),
   hashed_password: bcrypt.hashSync('password', HashedPassSaltLen)
 }
@@ -86,7 +86,7 @@ const katelynn: M.IStudent = {
   first_name: 'Katelynn',
   last_name: 'Kyker',
   status: M.StudentStatus.Active,
-  type: M.UserType.STUDENT,
+  type: M.UserType.Student,
   date_created: new Date().toISOString(),
   date_activated: new Date().toISOString(),
   hashed_password: bcrypt.hashSync('password', HashedPassSaltLen),
@@ -99,10 +99,10 @@ const katelynn: M.IStudent = {
 
 const bonnie: M.IEducator = {
   _id: 'bonnie-stewart',
-  email: 'bonnie@gmail.com',
+  email: 'kykercomputing@gmail.com',
   first_name: 'Bonnie',
   last_name: 'Stewart',
-  type: M.UserType.EDUCATOR,
+  type: M.UserType.Educator,
   date_created: new Date().toISOString(),
   hashed_password: bcrypt.hashSync('password', HashedPassSaltLen),
   student_ids: [katelynn._id],
@@ -120,15 +120,6 @@ const users: M.IUser[] = [
 ]
 
 const bookReviews: M.IBookReview[] = [];
-_.forEach(initialBooks, book => _.times(_.random(1, 10), i => {
-  bookReviews.push(Mockers.mockBookReview({
-    book_id: book._id as string,
-    student_id: katelynn._id as string,
-    review: faker.lorem.sentences(_.random(3, 10)),
-    student_initials: `${faker.name.firstName().charAt(0)}${faker.name.lastName().charAt(0)}`.toUpperCase()
-  }))
-}))
-
 
 async function setData(collection: monk.ICollection, data: any) {
   await collection.drop();

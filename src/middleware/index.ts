@@ -9,8 +9,8 @@ import { Models as M, Constants as SC } from 'reading_rewards';
 
 // internal dependencies
 
-import { IRequest } from './extensions';
-import * as Constants from './constants';
+import { IRequest } from '../routes/extensions';
+import * as Constants from '../constants';
 
 /**
  * Authentication, not authorization! Use authorize middleware

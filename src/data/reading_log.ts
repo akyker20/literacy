@@ -7,9 +7,9 @@ type ReadingLog = M.IReadingLog;
 
 export interface IReadingLogData {
   createLog: (log: ReadingLog) => Promise<ReadingLog>;
-  deleteLog: (logId: string) => Promise<ReadingLog>;
   getLogsForStudent: (studentId: string) => Promise<ReadingLog[]>;
   getLogsForStudents: (studentIds: string[]) => Promise<ReadingLog[]>;
+  deleteLog: (logId: string) => Promise<ReadingLog>;
 }
 
 export class MongoReadingLogData implements IReadingLogData {
@@ -27,16 +27,16 @@ export class MongoReadingLogData implements IReadingLogData {
     return this.readingLogs.insert(copy);
   }
 
-  deleteLog(logId: string): Promise<ReadingLog> {
-    return this.readingLogs.findOneAndDelete({ _id: logId });
-  }
-
   getLogsForStudent(studentId: string): Promise<ReadingLog[]> {
     return this.readingLogs.find({ student_id: studentId });
   }
 
   getLogsForStudents(studentIds: string[]): Promise<ReadingLog[]> {
     return this.readingLogs.find({ student_id: { $in: studentIds }});
+  }
+
+  deleteLog(logId: string): Promise<ReadingLog> {
+    return this.readingLogs.findOneAndDelete({ _id: logId });
   }
 
 }

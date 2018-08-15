@@ -7,12 +7,13 @@ type IUser = M.IUser;
 
 export interface IUserData {
   createUser: (user: IUser) => Promise<IUser>;
-  updateUser: (user: IUser) => Promise<IUser>;
   getUserById: (id: string) => Promise<IUser>;
   getUsersWithIds: (ids: string[]) => Promise<IUser[]>;
   getUserByEmail: (email: string) => Promise<IUser>;
   getAllUsers: () => Promise<IUser[]>;
+  updateUser: (user: IUser) => Promise<IUser>;
   deleteUser: (userId: string) => Promise<IUser>;
+
   getEducatorOfStudent: (studentId: string) => Promise<M.IEducator>;
 }
 
@@ -25,12 +26,10 @@ export class MongoUserData implements IUserData {
     this.users = db.get('users', { castIds: false });
   }
 
-  getEducatorOfStudent(studentId: string): Promise<M.IEducator> {
-    return this.users.findOne({ type: M.UserType.EDUCATOR, student_ids: studentId })
-  }
-
-  getUsersWithIds(ids: string[]): Promise<IUser[]> {
-    return this.users.find({ _id: { $in: ids }});
+  createUser(user: IUser): Promise<IUser> {
+    const copy = _.cloneDeep(user);
+    copy._id = shortid.generate();
+    return this.users.insert(copy);
   }
 
   getUserById(userId: string): Promise<IUser> {
@@ -41,22 +40,24 @@ export class MongoUserData implements IUserData {
     return this.users.findOne({ email });
   }
 
-  createUser(user: IUser): Promise<IUser> {
-    const copy = _.cloneDeep(user);
-    copy._id = shortid.generate();
-    return this.users.insert(copy);
-  }
-
-  updateUser(user: IUser): Promise<IUser> {
-    return this.users.findOneAndUpdate({ _id: user._id }, user)
+  getUsersWithIds(ids: string[]): Promise<IUser[]> {
+    return this.users.find({ _id: { $in: ids }});
   }
 
   getAllUsers(): Promise<IUser[]> {
     return this.users.find({});
   }
 
+  updateUser(user: IUser): Promise<IUser> {
+    return this.users.findOneAndUpdate({ _id: user._id }, user)
+  }
+
   deleteUser(userId: string) {
     return this.users.findOneAndDelete({ _id: userId })
+  }
+
+  getEducatorOfStudent(studentId: string): Promise<M.IEducator> {
+    return this.users.findOne({ type: M.UserType.Educator, student_ids: studentId })
   }
 
 }

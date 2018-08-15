@@ -7,9 +7,9 @@ type IPrize = M.IPrize;
 
 export interface IPrizeData {
   createPrize: (prize: IPrize) => Promise<IPrize>;
-  getPrizes: () => Promise<IPrize[]>;
-  getPrizesWithIds: (prizeIds: string[]) => Promise<IPrize[]>;
   getPrizeById: (prizeId: string) => Promise<IPrize>;
+  getPrizesWithIds: (prizeIds: string[]) => Promise<IPrize[]>;
+  getAllPrizes: () => Promise<IPrize[]>;
   updatePrize(prize: IPrize): Promise<IPrize>;
   deletePrize: (prizeId: string) => Promise<IPrize>;
 }
@@ -37,7 +37,7 @@ export class MongoPrizeData implements IPrizeData {
     return this.prizes.find({ _id: { $in: ids }});
   }
 
-  getPrizes(): Promise<IPrize[]> {
+  getAllPrizes(): Promise<IPrize[]> {
     return this.prizes.find({});
   }
 

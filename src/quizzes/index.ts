@@ -1,3 +1,9 @@
+/**
+ * For each type of question, there is a grading strategy, answer schema, and question schema
+ * The question and answer schema is used to validate quizzes during creation
+ * The grading strategy is used to grade the quiz during quiz submission.
+ */
+
 import * as _ from 'lodash';
 import { assert } from 'chai';
 import * as joi from 'joi';

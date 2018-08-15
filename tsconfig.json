@@ -6,7 +6,8 @@
 		"target": "es2015",
 		"noUnusedLocals": true,
 		"noImplicitAny": false,
-		"jsx": "react"
+		"jsx": "react",
+		"lib": ["es6", "dom", "esnext"]
 	},
 	"exclude": [
 			"node_modules",

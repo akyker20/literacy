@@ -16,7 +16,7 @@ import { Models, Mockers, Constants as SC } from 'reading_rewards';
 import { assert } from 'chai';
 
 import * as BEC from '../constants'
-import App from '..';
+import App from '../app';
 
 import { MongoAuthorData } from '../data/authors';
 import { MongoUserData } from '../data/users';
@@ -1508,9 +1508,9 @@ describe('End to End tests', function () {
               delete validReqBody.password;
 
               const expected = _.assign({}, validReqBody, {
-                type: Models.UserType.EDUCATOR,
+                type: Models.UserType.Educator,
                 student_ids: [],
-                notification_settings: {
+                notification_settingsn: {
                   reading_logs: true,
                   quiz_submissions: true,
                   prizes_ordered: true
@@ -1593,7 +1593,7 @@ describe('End to End tests', function () {
         it('should 403 if educator making request on behalf another educator', function () {
           return agent
             .put(`/educators/${bonnie._id}/students`)
-            .set(SC.AuthHeaderField, genAuthToken(Models.UserType.EDUCATOR, shortid.generate()))
+            .set(SC.AuthHeaderField, genAuthToken(Models.UserType.Educator, shortid.generate()))
             .expect(403);
         });
 
@@ -1679,82 +1679,82 @@ describe('End to End tests', function () {
 
       })
 
-      describe('#createStudent', function () {
+      // describe('#createStudent', function () {
 
-        const validReqBody: Models.IStudentBody = {
-          first_name: 'Taylor',
-          last_name: 'Jones',
-          gender: Models.Gender.Female,
-          initial_lexile_measure: 400,
-          email: 'tjones@parktudor.org',
-          password: 'taylors_password',
-          parent_emails: []
-        }
+      //   const validReqBody: Models.IStudentBody = {
+      //     first_name: 'Taylor',
+      //     last_name: 'Jones',
+      //     gender: Models.Gender.Female,
+      //     initial_lexile_measure: 400,
+      //     email: 'tjones@parktudor.org',
+      //     password: 'taylors_password',
+      //     parent_emails: []
+      //   }
 
-        it('should 401 when no auth token in header', function () {
-          return agent
-            .post(`/students`)
-            .expect(401);
-        });
+      //   it('should 401 when no auth token in header', function () {
+      //     return agent
+      //       .post(`/students`)
+      //       .expect(401);
+      //   });
 
-        it('should 403 if non-admin making request', function () {
-          return agent
-            .post('/students')
-            .set(SC.AuthHeaderField, chaseToken)
-            .expect(403);
-        });
+      //   it('should 403 if non-admin making request', function () {
+      //     return agent
+      //       .post('/students')
+      //       .set(SC.AuthHeaderField, chaseToken)
+      //       .expect(403);
+      //   });
 
-        it('should 200 and save the student', function () {
+      //   it('should 200 and save the student', function () {
 
-          return agent
-            .post('/students')
-            .set(SC.AuthHeaderField, austinToken)
-            .send(validReqBody)
-            .expect(200)
-            .then(({ body }) => {
+      //     return agent
+      //       .post('/students')
+      //       .set(SC.AuthHeaderField, austinToken)
+      //       .send(validReqBody)
+      //       .expect(200)
+      //       .then(({ body }) => {
 
-              assert.hasAllKeys(body, [
-                '_id',
-                'date_created',
-                'date_activated',
-                'email',
-                'first_name',
-                'last_name',
-                'gender',
-                'genre_interests',
-                'hashed_password',
-                'initial_lexile_measure',
-                'bookmarked_books',
-                'type',
-                'status',
-                'parent_emails'
-              ])
+      //         assert.hasAllKeys(body, [
+      //           '_id',
+      //           'date_created',
+      //           'date_activated',
+      //           'email',
+      //           'first_name',
+      //           'last_name',
+      //           'gender',
+      //           'genre_interests',
+      //           'hashed_password',
+      //           'initial_lexile_measure',
+      //           'bookmarked_books',
+      //           'type',
+      //           'status',
+      //           'parent_emails'
+      //         ])
 
-              // bcrypt will produce different hashes for the same
-              // string. In other words, hash(validReqBody.password) !== body.hashed_password
-              assert.isTrue(bcrypt.compareSync(validReqBody.password, body.hashed_password));
+      //         // bcrypt will produce different hashes for the same
+      //         // string. In other words, hash(validReqBody.password) !== body.hashed_password
+      //         assert.isTrue(bcrypt.compareSync(validReqBody.password, body.hashed_password));
 
-              delete body._id;
-              delete body.date_created;
-              delete body.date_activated;
-              delete body.hashed_password;
-              delete validReqBody.password;
+      //         delete body._id;
+      //         delete body.date_created;
+      //         delete body.date_activated;
+      //         delete body.hashed_password;
+      //         delete validReqBody.password;
 
-              const expected = _.assign({}, validReqBody, {
-                type: Models.UserType.STUDENT,
-                genre_interests: null,
-                bookmarked_books: [],
-                status: Models.StudentStatus.Active
-              });
+      //         const expected = _.assign({}, validReqBody, {
+      //           type: Models.UserType.Student,
+      //           genre_interests: null,
+      //           bookmarked_books: [],
+      //           status: Models.StudentStatus.Active
+      //         });
 
-              assert.deepEqual(expected, body);
-              return usersCollection.find({});
+      //         assert.deepEqual(expected, body);
+      //         return usersCollection.find({});
 
-            })
-            .then(allUsers => assert.lengthOf(allUsers, initialUsers.length + 1))
-        })
+      //       })
+      //       .then(allUsers => assert.lengthOf(allUsers, initialUsers.length + 1))
+      //   })
 
-      })
+      // })
 
 
       describe('#createGenreInterests', function () {
@@ -1834,7 +1834,7 @@ describe('End to End tests', function () {
 
         });
 
-        it('should 403 if user is not STUDENT', function () {
+        it('should 403 if user is not Student', function () {
 
           return agent
             .post(`/students/${austin._id}/genre_interests`)

@@ -1,5 +1,6 @@
 import { Models, Helpers, Constants } from 'reading_rewards';
 import * as moment from 'moment';
+
 import { IEmailContent } from '.';
 
 export namespace EmailTemplates {

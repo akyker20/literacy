@@ -2,16 +2,16 @@ import { IEmail, IEmailContent } from ".";
 
 export class MockEmail implements IEmail {
 
-  constructor(private log: boolean) { 
-    console.log(`Using Mock email with ${log ? 'logging' : 'NO logging'}.`)
+  constructor(private enableLogging: boolean) { 
+    console.log(`Using Mock email with ${enableLogging ? 'logging' : 'NO logging'}.`)
   }
 
   sendAdminEmail({ subject, text }: IEmailContent) {
-    if (this.log) {
+    if (this.enableLogging) {
       console.log(`
       --------
       Sending Email
-      recipient: ADMIN
+      recipient: Admin
       subject: ${subject}
       text:
       ${text}
@@ -21,7 +21,7 @@ export class MockEmail implements IEmail {
   }
 
   sendMail(recipient: string, { subject, text }: IEmailContent) {
-    if (this.log) {
+    if (this.enableLogging) {
       console.log(`
       --------
       Sending Email

@@ -1,29 +1,19 @@
 import { Models as M, Helpers, Models } from 'reading_rewards';
-import * as joi from 'joi';
 import * as _ from 'lodash';
-import { Next, Response } from 'restify';
+import {
+  ResourceNotFoundError,
+  BadRequestError
+} from 'restify-errors';
 
-import { IRequest, shortidSchema } from '../extensions';
-import * as Middle from '../middleware';
-import { ResourceNotFoundError, BadRequestError, ForbiddenError } from 'restify-errors';
-import { IBookData } from '../data/books';
-import { unwrapData } from '../helpers';
-import { IUserData } from '../data/users';
-import { INotificationSys } from '../notifications';
-import { IReadingLogData } from '../data/reading_log';
-import { IEmailContent, IEmail } from '../email';
-import { EmailTemplates } from '../email/templates';
-
-const readingLogSchema = joi.object({
-  student_id: shortidSchema,
-  book_id: shortidSchema,
-  read_with: joi.string().valid(_.values(M.ReadingWith)).required(),
-  start_page: joi.number().integer().required(),
-  final_page: joi.number().integer().required(),
-  duration_min: joi.number().integer().min(0).max(60 * 10).required(),
-  is_last_log_for_book: joi.boolean().required(),
-  summary: joi.string().required()
-}).strict().required();
+import { IRequest, unwrapData, validateUser } from '../extensions';
+import * as Middle from '../../middleware';
+import { IBookData } from '../../data/books';
+import { IUserData } from '../../data/users';
+import { INotificationSys } from '../../notifications';
+import { IReadingLogData } from '../../data/reading_log';
+import { IEmailContent, IEmail } from '../../email';
+import { EmailTemplates } from '../../email/templates';
+import { BodyValidators as Val } from './joi';
 
 export function ReadingLogRoutes(
   userData: IUserData,
@@ -35,41 +25,23 @@ export function ReadingLogRoutes(
 
   return {
 
-    /**
-     * What is not validated
-     * Multiple reading logs per day
-     */
     createLog: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.ADMIN, M.UserType.STUDENT]),
-      Middle.authorizeAgents([M.UserType.ADMIN]),
-      Middle.valBody<M.IReadingLog>(readingLogSchema),
+      Middle.authorize([M.UserType.Admin, M.UserType.Student]),
+      Middle.authorizeAgents([M.UserType.Admin]),
+      Middle.valBody<M.IReadingLog>(Val.ReadingLogSchema),
       Middle.valIdsSame({ paramKey: 'userId', bodyKey: 'student_id' }),
-      (req: IRequest<M.IBookReviewBody>, res: Response, next: Next) => {
-        const { type, _id: userId } = req.authToken;
-        if ((type !== M.UserType.ADMIN) && (userId !== req.body.student_id)) {
-          return next(new ForbiddenError(`Only admin can submit reading log for another student.`));
-        }
-        next();
-      },
       unwrapData(async (req: IRequest<M.IReadingLogBody>) => {
 
         const { student_id, book_id } = req.body;
 
         const student = await userData.getUserById(student_id) as Models.IStudent;
-
-        if (_.isNull(student)) {
-          return new ResourceNotFoundError(`User ${student_id} does not exist`)
-        }
-
-        if (student.type !== M.UserType.STUDENT ) {
-          return new BadRequestError(`User ${student_id} is not a student`)
-        }
+        validateUser(student_id, student)
 
         const book = await bookData.getBook(book_id);
-        
+
         if (_.isNull(book)) {
-          return new BadRequestError(`Book ${book_id} does not exist`)
+          return new ResourceNotFoundError(`Book ${book_id} does not exist`)
         }
 
         // Validate log
@@ -87,7 +59,7 @@ export function ReadingLogRoutes(
         const studentLogsForBook = _.filter(studentLogs, { book_id });
 
         if (_.isEmpty(studentLogsForBook)) {
-          
+
           if (req.body.start_page !== 0) {
             throw new BadRequestError(`First log for book ${book.title} must have start_page = 0`);
           }
@@ -107,13 +79,14 @@ export function ReadingLogRoutes(
         }
 
         const log: M.IReadingLog = {
-          ... req.body,
+          ...req.body,
           date: new Date().toISOString(),
           book_title: book.title,
           points_earned: req.body.final_page - req.body.start_page
         }
 
         // send slack message
+
         const slackMessage = `*${Helpers.getFullName(student)}* submitted reading log.\n${JSON.stringify(log)}`;
         notifications.sendMessage(slackMessage);
 
@@ -122,7 +95,7 @@ export function ReadingLogRoutes(
         const emailContent: IEmailContent = EmailTemplates.buildReadingLogEmail(student, log);
 
         const educator = await userData.getEducatorOfStudent(student_id);
-        
+
         if (!_.isNull(educator) && educator.notification_settings.reading_logs) {
           email.sendMail(educator.email, emailContent);
         }
@@ -137,8 +110,8 @@ export function ReadingLogRoutes(
 
     deleteLog: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.ADMIN, M.UserType.STUDENT]),
-      Middle.authorizeAgents([M.UserType.ADMIN]),
+      Middle.authorize([M.UserType.Admin, M.UserType.Student]),
+      Middle.authorizeAgents([M.UserType.Admin]),
       unwrapData(async (req: IRequest<null>) => {
         const { logId } = req.params;
         const deletedLog = await readingLogData.deleteLog(logId);
@@ -152,21 +125,14 @@ export function ReadingLogRoutes(
 
     getLogsForStudent: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.ADMIN, M.UserType.STUDENT]),
-      Middle.authorizeAgents([M.UserType.ADMIN]),
+      Middle.authorize([M.UserType.Admin, M.UserType.Student]),
+      Middle.authorizeAgents([M.UserType.Admin]),
       unwrapData(async (req: IRequest<null>) => {
 
         const { userId } = req.params;
-        
+
         const user = await userData.getUserById(userId);
-
-        if (_.isNull(user)) {
-          return new ResourceNotFoundError(`User ${userId} does not exist`)
-        }
-
-        if (user.type !== M.UserType.STUDENT ) {
-          return new BadRequestError(`User ${userId} is not a student`)
-        }
+        validateUser(userId, user);
 
         return await readingLogData.getLogsForStudent(userId)
 

@@ -1,71 +1,64 @@
 import * as _ from 'lodash';
-import { BadRequestError } from 'restify-errors';
-import { Next, Request, RequestHandler, Response } from 'restify';
 import { Models } from 'reading_rewards';
 
-import { IRequest } from './extensions';
 import { DefaultGenreInterestLevel, NumReviewsToBaseCLM } from './constants';
 
 export function isProd(): boolean {
   return process.env.NODE_ENV === 'production';
 }
 
-export type PromiseHandler = (req: Request) => Promise<any>;
-
-
 /**
- * Similar to unwrapVal, but this function wraps an async function which
- * returns a promise that is attached to the req.promise field which can
- * later be processed (resolved/rejected) in handlePromise middleware.
- * @param handler
+ * 
+ * @param studentILM initial lexile measure of the student
+ * @param studentBookReviews all the book reviews by the student
  */
-export function unwrapData(handler: PromiseHandler): RequestHandler {
-  return (req: IRequest<any>, res: Response, next: Next) => {
-    req.promise = handler(req);
-    next();
-  };
-}
-
-/**
- * Clients should not receive a joi error.
- * They should receive something simpler:
- * i.e. 'Invalid/missing field user_name'
- * @param fieldName
- */
-export function genFieldErr(fieldName: string): Error {
-  return new BadRequestError(`Invalid/missing field ${fieldName}`);
-}
-
-export function getLexileRange(measure: number): Models.ILexileRange {
-  return {
-    min: measure - 100,
-    max: measure + 50
-  };
-}
-
 export function computeCurrentLexileMeasure(
-  initialLexileMeasure: number,
-  bookReviews: Models.IBookReview[]
+  studentILM: number,
+  studentBookReviews: Models.IBookReview[]
 ): number {
 
   // if user has less than 3 submitted quizzes with comprehension scores
   // just use the initial lexile measure
-  if (bookReviews.length < NumReviewsToBaseCLM) {
-    return initialLexileMeasure;
+  if (studentBookReviews.length < NumReviewsToBaseCLM) {
+    return studentILM;
   }
 
-  const recentReviews = _.chain(bookReviews)
-    .orderBy('date_created', 'desc')
+  // find the 3 most recent reviews by the students of books
+  // where book lexile measure exceeded student initial measure above students initial measure
+  // that student somewhat enjoyed (4-5 interest) and have
+  
+  const consideredReviews = _.chain(studentBookReviews)
+    .filter(review => review.book_lexile_measure >= studentILM)
+    .filter(review => review.interest >= 4 && review.comprehension >= 4)
+    .orderBy('book_lexile_measure', 'desc')
     .slice(0, NumReviewsToBaseCLM)
     .value();
 
-  return _.reduce(recentReviews, (total, review) => {
-    const adjustedLexileSignal = review.book_lexile_measure + 50 * (review.comprehension - 4);
-    return total + adjustedLexileSignal;
-  }, 0) / recentReviews.length;
+  if (consideredReviews.length < NumReviewsToBaseCLM) {
+    return studentILM;
+  }
+
+  const clm = _.meanBy(consideredReviews, review => {
+    // comprehension is either 4 or 5
+    // therefore returned value is either book_lexile_measure or (book_lexile_measure + 50)
+    return review.book_lexile_measure + 50 * (review.comprehension - 4);
+  })
+
+  return clm;
 
 }
 
+/**
+ * Computes a number between 0 and 1 that will be multiplied by the raw interest
+ * score computed for a student, book pair.
+ * In general, the multiplier will be closer to 1 for books that are in the student's lexile
+ * range and closer to 0, far away
+ * The multiplier decreases linearly (fast) when diff exceeds 50
+ * The multiplier decreases quadratically (slower) when diff is less than -100
+ * The smallest the multiplier gets is 0.1
+ * The multiplier is 1 just above the students clm
+ * @param lexileDiff the difference between student's clm and book's lexile measure
+ */
 function computeLexileMultiplier(lexileDiff: number) {
   if (lexileDiff <= -300 || lexileDiff > 250) {
     return 0.1;
@@ -73,6 +66,8 @@ function computeLexileMultiplier(lexileDiff: number) {
     return (-0.9/Math.pow(200, 2)) * Math.pow((lexileDiff + 100), 2) + 1.0
   } else if (lexileDiff > 50 && lexileDiff <= 250) {
     return 1 - 0.9/200 * (lexileDiff - 50)
+  } else if (lexileDiff < 0) {
+    return 0.9;
   } else {
     return 1;
   }
