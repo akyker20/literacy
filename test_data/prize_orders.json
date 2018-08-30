@@ -8,5 +8,15 @@
     "status": "pending",
     "date_created": "2018-07-05T14:18:38.130Z",
     "date_ordered": null
+  },
+  {
+    "_id": "prize-order2-id",
+    "student_id": "katelynn-kyker",
+    "prize_id": "prize1-id",
+    "prize_price_usd": 12.5,
+    "prize_point_cost": 1250,
+    "status": "ordered",
+    "date_created": "2018-07-06T14:18:38.130Z",
+    "date_ordered": "2018-07-06T14:18:38.130Z"
   }
 ]

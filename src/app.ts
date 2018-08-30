@@ -136,10 +136,10 @@ export default class App {
     this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent); // TEST
     this.server.post('/book_reviews', bookRoutes.createBookReview);
 
-    this.server.post('/genres', bookRoutes.createGenre);
-    this.server.get('/genres', bookRoutes.getGenres);
-    this.server.put('/genres/:genreId', bookRoutes.updateGenre);
-    this.server.del('/genres/:genreId', bookRoutes.deleteGenre);
+    this.server.post('/genres', bookRoutes.createGenre); // TESTED
+    this.server.get('/genres', bookRoutes.getGenres); // TESTED
+    this.server.put('/genres/:genreId', bookRoutes.updateGenre); // TESTED
+    this.server.del('/genres/:genreId', bookRoutes.deleteGenre); // TESTED
 
     this.server.get('/books', bookRoutes.getAllBooks);
     this.server.get('/books/:bookId/reviews', bookRoutes.getBookReviewsForBook);
@@ -178,11 +178,12 @@ export default class App {
       email
     );
 
-    this.server.get('/prizes', prizeRoutes.getAllPrizes);
-    this.server.post('/prizes', prizeRoutes.createPrize);
-    this.server.put('/prizes/:prizeId', prizeRoutes.updatePrize);
-    this.server.del('/prizes/:prizeId', prizeRoutes.deletePrize);
-    this.server.post('/students/:userId/prize_orders', prizeRoutes.orderPrize);
+    this.server.get('/prizes', prizeRoutes.getAllPrizes); // TESTED
+    this.server.post('/prizes', prizeRoutes.createPrize); // TESTED
+    this.server.put('/prizes/:prizeId', prizeRoutes.updatePrize); // TESTED
+    this.server.del('/prizes/:prizeId', prizeRoutes.deletePrize); // TESTED
+    this.server.post('/prize_orders/:orderId/ordered', prizeRoutes.setPrizeOrderStatusToOrdered); // TESTED
+    this.server.post('/students/:userId/prize_orders', prizeRoutes.orderPrize); // TESTED
 
     // configure reading log routes
 

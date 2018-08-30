@@ -2,7 +2,7 @@
 
 import { Models as M, Constants as SC, Helpers, Models } from 'reading_rewards';
 import * as _ from 'lodash';
-import { ResourceNotFoundError } from 'restify-errors';
+import { ResourceNotFoundError, BadRequestError } from 'restify-errors';
 
 
 // internal dependencies
@@ -26,6 +26,35 @@ export function PrizeRoutes(
 ) {
 
   return {
+
+    setPrizeOrderStatusToOrdered: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
+      unwrapData(async (req: IRequest<null>) => {
+        
+        const { orderId } = req.params;
+
+        const prizeOrder = await prizeOrderData.getPrizeOrderById(orderId);
+
+        if (_.isNull(prizeOrder)) {
+          throw new ResourceNotFoundError(`Prize Order ${orderId} does not exist.`)
+        }
+
+        if (prizeOrder.status === M.PrizeOrderStatus.Ordered) {
+          throw new BadRequestError(`Prize Order ${orderId} already has status Ordered`)
+        }
+
+        const update: M.IPrizeOrder = {
+          ...prizeOrder,
+          status: M.PrizeOrderStatus.Ordered,
+          date_ordered: new Date().toISOString()
+        }
+
+        return prizeOrderData.updatePrizeOrder(update);
+
+      }),
+      Middle.handlePromise
+    ],
 
     orderPrize: [
       Middle.authenticate,
@@ -74,7 +103,6 @@ export function PrizeRoutes(
         // create prize order
 
         return prizeOrderData.createPrizeOrder(prizeOrder);
-
 
       }),
       Middle.handlePromise

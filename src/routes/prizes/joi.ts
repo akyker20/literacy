@@ -1,4 +1,6 @@
 import * as joi from 'joi';
+import * as _ from 'lodash';
+import { Models } from 'reading_rewards';
 import { shortidSchema } from '../extensions';
 
 export namespace BodyValidators {
@@ -6,6 +8,10 @@ export namespace BodyValidators {
   export const InputPrizeOrderSchema = joi.object({
     student_id: shortidSchema,
     prize_id: shortidSchema
+  }).strict().required();
+
+  export const UpdatePrizeOrderStatus = joi.object({
+    status: joi.string().valid([_.values(Models.PrizeOrderStatus.Ordered)])
   }).strict().required();
 
   export const InputPrizeSchema = joi.object({

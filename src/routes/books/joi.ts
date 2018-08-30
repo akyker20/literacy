@@ -21,9 +21,10 @@ export namespace BodyValidators {
     isbn: joi.string().regex(/^(97(8|9))?\d{9}(\d|X)$/).required().error(genFieldErr('isbn')),
     genres: joi.array().items(joi.string()).min(1).max(5).unique().required().error(genFieldErr('genres')),
     series: joi.object({
-      book_num: joi.number().integer().required(),
-      id: shortidSchema
-    }).optional()
+      book_num: joi.number().integer().min(1).max(20).required(),
+      id: shortidSchema,
+      series_title: joi.string().required()
+    }).optional(),
   }).strict().required();
 
   export const InputBookSchema = sharedBookSchema.keys({

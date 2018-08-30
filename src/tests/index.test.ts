@@ -35,7 +35,6 @@ import { MongoBookRequestData } from '../data/book_requests';
 
 // Load all the data
 
-const initialAuthors: Models.IAuthor[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/authors.json'), 'utf8'))
 const initialBooks: Models.IBook[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/books.json'), 'utf8'));
 const initialGenres: Models.IGenre[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/genres.json'), 'utf8'));
 const initialQuizzes: Models.IQuiz[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/quizzes.json'), 'utf8'));
@@ -125,10 +124,6 @@ function genAuthTokenForUser(user: Models.IUser): string {
   return genAuthToken(user.type, user._id);
 }
 
-// function decodeAuthToken(token: string): { _id: string, type: string } {
-//   return <{ _id: string, type: string }>jwt.verify(token, Constants.JWTSecret);
-// }
-
 function checkErrMsg(msg: string) {
   return ({ body }: any) => {
     assert.equal(body.message, msg);
@@ -148,8 +143,7 @@ describe('End to End tests', function () {
       setData(usersCollection, initialUsers),
       setData(prizeCollection, initialPrizes),
       setData(prizeOrderCollection, initialPrizeOrders),
-      setData(readingLogCollection, initialReadingLogs),
-      setData(authorCollection, initialAuthors)
+      setData(readingLogCollection, initialReadingLogs)
     ]);
   });
 
@@ -188,47 +182,6 @@ describe('End to End tests', function () {
             return genreCollection.find({})
           })
           .then(allGenres => assert.lengthOf(allGenres, initialGenres.length + 1))
-      })
-
-    })
-
-    describe('#deleteGenre', function () {
-
-      const idOfGenreToDelete = initialGenres[0]._id;
-
-      it('should 401 when no auth token in header', function () {
-        return agent
-          .del(`/genres/${idOfGenreToDelete}`)
-          .expect(401);
-      });
-
-      it('should 404 if genre does not exist', function () {
-        return agent
-          .del(`/genres/${shortid.generate()}`)
-          .set(SC.AuthHeaderField, austinToken)
-          .expect(404)
-          .then(checkErrMsg('No genre was deleted'))
-      });
-
-      it('should 403 if non-admin making request', function () {
-        return agent
-          .del(`/genres/${idOfGenreToDelete}`)
-          .set(SC.AuthHeaderField, katelynnToken)
-          .expect(403);
-      });
-
-      it('should delete the genre', function () {
-        return agent
-          .del(`/genres/${idOfGenreToDelete}`)
-          .set(SC.AuthHeaderField, austinToken)
-          .expect(200)
-          .then(({ body }) => {
-            assert.deepEqual(body, {
-              deletedGenre: _.find(initialGenres, { _id: idOfGenreToDelete })
-            })
-            return genreCollection.find({})
-          })
-          .then(allGenres => assert.lengthOf(allGenres, initialGenres.length - 1))
       })
 
     })
@@ -287,6 +240,47 @@ describe('End to End tests', function () {
 
     })
 
+    describe('#deleteGenre', function () {
+
+      const idOfGenreToDelete = initialGenres[0]._id;
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .del(`/genres/${idOfGenreToDelete}`)
+          .expect(401);
+      });
+
+      it('should 404 if genre does not exist', function () {
+        return agent
+          .del(`/genres/${shortid.generate()}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(404)
+          .then(checkErrMsg('No genre was deleted'))
+      });
+
+      it('should 403 if non-admin making request', function () {
+        return agent
+          .del(`/genres/${idOfGenreToDelete}`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should delete the genre', function () {
+        return agent
+          .del(`/genres/${idOfGenreToDelete}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(200)
+          .then(({ body }) => {
+            assert.deepEqual(body, {
+              deletedGenre: _.find(initialGenres, { _id: idOfGenreToDelete })
+            })
+            return genreCollection.find({})
+          })
+          .then(allGenres => assert.lengthOf(allGenres, initialGenres.length - 1))
+      })
+
+    })
+
   })
 
   describe('Prize Routes', function () {
@@ -300,50 +294,57 @@ describe('End to End tests', function () {
 
       it('should 401 when no auth token in header', function () {
         return agent
-          .post('/prize_orders')
+          .post(`/students/${katelynn._id}/prize_orders`)
           .expect(401);
+      });
+
+      it('should 400 if student id in url different from body', function () {
+        return agent
+          .post(`/students/${chase._id}/prize_orders`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validPrizeBody)
+          .expect(400)
       });
 
       it('should 403 when students submits on behalf another student', function () {
         return agent
-          .post('/prize_orders')
+          .post(`/students/${katelynn._id}/prize_orders`)
           .set(SC.AuthHeaderField, chaseToken)
           .send(validPrizeBody)
           .expect(403)
-          .then(checkErrMsg('Only admin can submit prize order for another student.'))
       });
 
-      it('should 400 if student does not exist', function () {
+      it('should 404 if student does not exist', function () {
         const invalidId = shortid.generate();
         const invalidPrizeBody = {
           ...validPrizeBody,
           student_id: invalidId
         }
         return agent
-          .post('/prize_orders')
+          .post(`/students/${invalidId}/prize_orders`)
           .set(SC.AuthHeaderField, austinToken)
           .send(invalidPrizeBody)
-          .expect(400)
-          .then(checkErrMsg(`Student ${invalidId} does not exist.`))
+          .expect(404)
+          .then(checkErrMsg(`User ${invalidId} does not exist.`))
       })
 
-      it('should 400 if prize does not exist', function () {
+      it('should 404 if prize does not exist', function () {
         const invalidId = shortid.generate();
         const invalidPrizeBody = {
           ...validPrizeBody,
           prize_id: invalidId
         }
         return agent
-          .post('/prize_orders')
+          .post(`/students/${katelynn._id}/prize_orders`)
           .set(SC.AuthHeaderField, austinToken)
           .send(invalidPrizeBody)
-          .expect(400)
+          .expect(404)
           .then(checkErrMsg(`Prize ${invalidId} does not exist.`))
       })
 
       it('should save the prize order', function () {
         return agent
-          .post('/prize_orders')
+          .post(`/students/${katelynn._id}/prize_orders`)
           .set(SC.AuthHeaderField, austinToken)
           .send(validPrizeBody)
           .expect(200)
@@ -365,11 +366,57 @@ describe('End to End tests', function () {
 
     })
 
+    describe('#setPrizeOrderStatusToOrdered', function() {
+      
+      const unorderedPrizeOrder = _.find(initialPrizeOrders, { status: Models.PrizeOrderStatus.Pending });
+      const orderedPrizeOrder = _.find(initialPrizeOrders, { status: Models.PrizeOrderStatus.Ordered });
+      
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post(`/prize_orders/${unorderedPrizeOrder._id}/ordered`)
+          .expect(401);
+      });
+
+      it('should 403 if non-admin making request when no auth token in header', function () {
+        return agent
+          .post(`/prize_orders/${unorderedPrizeOrder._id}/ordered`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should 404 if prize order does not exist', function () {
+        const invalidId = shortid.generate();
+        return agent
+          .post(`/prize_orders/${invalidId}/ordered`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(404);
+      });
+
+      it('should 400 if prize was already ordered', function () {
+        return agent
+          .post(`/prize_orders/${orderedPrizeOrder._id}/ordered`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(400);
+      });
+
+      it('should 200 and update the status', function () {
+        return agent
+          .post(`/prize_orders/${unorderedPrizeOrder._id}/ordered`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(200)
+          .then(() => prizeOrderCollection.findOne({ _id: unorderedPrizeOrder._id }))
+          .then(({ status, date_ordered }: Models.IPrizeOrder) => {
+            assert.equal(status, Models.PrizeOrderStatus.Ordered);
+            assert.isTrue(moment(date_ordered, moment.ISO_8601).isValid())
+          })
+      });
+
+    })
 
     describe('#createPrize', function () {
 
       const validPrizeBody: Models.IPrize = {
-        title: 'Some genre title',
+        title: 'Some Prize title',
         description: ['Some prize bullet point'],
         price_usd: 13.5,
         photo_urls: ['http://some-url']
@@ -419,7 +466,7 @@ describe('End to End tests', function () {
           .expect(401);
       });
 
-      it('should 404 if genre does not exist', function () {
+      it('should 404 if prize does not exist', function () {
         return agent
           .del(`/prizes/${shortid.generate()}`)
           .set(SC.AuthHeaderField, austinToken)
@@ -482,7 +529,7 @@ describe('End to End tests', function () {
           .expect(401);
       });
 
-      it('should 403 if not admin user', function () {
+      it('should 403 if non-admin user', function () {
         return agent
           .put(`/prizes/${prizeId}`)
           .set(SC.AuthHeaderField, katelynnToken)
@@ -508,7 +555,7 @@ describe('End to End tests', function () {
 
   describe('Book Routes', function () {
 
-    describe('#createBook', function () {
+    describe.only('#createBook', function () {
 
       let validBookBody = Mockers.mockBook({
         genres: [initialGenres[0]._id]

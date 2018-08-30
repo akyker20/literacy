@@ -6,6 +6,7 @@ import { Models as M } from 'reading_rewards';
 type IPrizeOrder = M.IPrizeOrder;
 
 export interface IPrizeOrderData {
+  getPrizeOrderById: (orderId: string) => Promise<IPrizeOrder>;
   createPrizeOrder: (prizeOrder: IPrizeOrder) => Promise<IPrizeOrder>;
   getPrizeOrdersForStudent: (studentId: string) => Promise<IPrizeOrder[]>;
   updatePrizeOrder(prizeOrder: IPrizeOrder): Promise<IPrizeOrder>;
@@ -18,6 +19,10 @@ export class MongoPrizeOrderData implements IPrizeOrderData {
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
     this.prizeOrders = db.get('prize_orders', { castIds: false });
+  }
+
+  getPrizeOrderById(orderId: string): Promise<IPrizeOrder> {
+    return this.prizeOrders.findOne({ _id: orderId })
   }
 
   createPrizeOrder(prizeOrder: IPrizeOrder): Promise<IPrizeOrder> {
