@@ -142,9 +142,9 @@
     ]
   },
   {
-    "_id": "quiz-harry",
+    "_id": "quiz-baseball",
     "date_created": "2018-05-16T17:55:56.479Z",
-    "book_id": "harry-potter-id",
+    "book_id": "baseball-id",
     "questions": [
       {
         "type": "la",

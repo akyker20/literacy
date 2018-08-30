@@ -1,114 +1,83 @@
 [
   {
-    "_id": "harry-potter-id",
-    "title": "Harry Potter and Sorcerest Stone",
-    "cover_photo_url": "http://someurl.com",
-    "amazon_popularity": 4.2,
-    "num_pages": 309,
-    "summary": "Harry Potter's life is miserable. His parents are dead and he's stuck with his heartless relatives, who force him to live in a tiny closet under the stairs. But his fortune changes when he receives a letter that tells him the truth about himself: he's a wizard. A mysterious visitor rescues him from his relatives and takes him to his new home, Hogwarts.",
-    "isbn": "9780439708180",
-    "lexile_measure": 880,
-    "author": "JK Rowling",
+    "_id": "baseball-id",
+    "title": "Baseball in April and Other Stories",
+    "isbn": "015205720X",
+    "num_pages": 111,
+    "authors": [
+      "5uFnJVq03"
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/baseball.jpg",
+    "lexile_measure": 830,
+    "summary": "The Mexican American author Gary Soto draws on his own experience of growing up in California’s Central Valley in this finely crafted collection of eleven short stories that reveal big themes in the small events of daily life. Crooked teeth, ponytailed girls, embarrassing grandfathers, imposter Barbies, annoying brothers, Little League tryouts, and karate lessons weave the colorful fabric of Soto’s world. The smart, tough, vulnerable kids in these stories are Latino, but their dreams and desires belong to all of us. Glossary of Spanish terms included.",
     "genres": [
-      "fantasy-id"
-    ]
+      "HyBbXujB7",
+      "B1Z_NdiB7"
+    ],
+    "goodreads_rating": "3.65"
   },
   {
-    "_id": "exchange-student-id",
-    "title": "The Exchange Student",
-    "cover_photo_url": "http://someurl.com",
-    "amazon_popularity": 4.5,
-    "num_pages": 222,
-    "isbn": "9780618689484",
-    "summary": "What a time for an exchange student to arrive, Daria thought, especially one from another planet! Daria is one of Earth's youngest licensed breeders of endangered species, and she has enough to do caring for her menagerie without having to cope with Fen.",
-    "lexile_measure": 950,
-    "author": "Kate Gilmore",
+    "_id": "hatchet-id",
+    "title": "Hatchet",
+    "isbn": "27701301",
+    "num_pages": 192,
+    "authors": [
+      "u_nVo3QKe3"
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/hatchet.jpg",
+    "lexile_measure": 1020,
+    "summary": "Brian is on his way to Canada to visit his estranged father when the pilot of his small prop plane suffers a heart attack. Brian is forced to crash-land the plane in a lake--and finds himself stranded in the remote Canadian wilderness with only his clothing and the hatchet his mother gave him as a present before his departure. \n\nBrian had been distraught over his parents' impending divorce and the secret he carries about his mother, but now he is truly desolate and alone. Exhausted, terrified, and hungry, Brian struggles to find food and make a shelter for himself. He has no special knowledge of the woods, and he must find a new kind of awareness and patience as he meets each day's challenges. Is the water safe to drink? Are the berries he finds poisonous? \n\nSlowly, Brian learns to turn adversity to his advantage--an invading porcupine unexpectedly shows him how to make fire, a devastating tornado shows him how to retrieve supplies from the submerged airplane. Most of all, Brian leaves behind the self-pity he has felt about his predicament as he summons the courage to stay alive. \n\nA story of survival and of transformation, this riveting book has sparked many a reader's interest in venturing into the wild.",
     "genres": [
-      "mystery-id"
-    ]
+      "Sk8dbOjr7"
+    ],
+    "goodreads_rating": "3.69"
   },
   {
-    "_id": "little-goat-id",
-    "title": "The Little Apple Goat",
-    "cover_photo_url": "http://someurl.com",
-    "amazon_popularity": 4.2,
-    "num_pages": 28,
-    "isbn": "9780618689484",
-    "summary": "Little Apple Goat is ordinary in every way -- except for one. Instead of munching on oats or grass or laundry left on the line, she prefers to eat fruit from the orchard.",
-    "lexile_measure": 670,
-    "author": "Caroline Jayne Church",
+    "_id": "peak-id",
+    "title": "Peak",
+    "isbn": "152024174",
+    "num_pages": 246,
+    "authors": [
+      "E_uJcUmZAE"
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/peak.jpg",
+    "lexile_measure": 760,
+    "summary": "After fourteen-year-old Peak Marcello is arrested for scaling a New York City skyscraper, he's left with two choices: wither away in Juvenile Detention or go live with his long-lost father, who runs a climbing company in Thailand. But Peak quickly learns that his father's renewed interest in him has strings attached. Big strings. As owner of Peak Expeditions, he wants his son to be the youngest person to reach the Everest summit--and his motives are selfish at best. Even so, for a climbing addict like Peak, tackling Everest is the challenge of a lifetime. But it's also one that could cost him his life.\n\nRoland Smith has created an action-packed adventure about friendship, sacrifice, family, and the drive to take on Everest, despite the incredible risk. The story of Peak’s dangerous ascent—told in his own words—is suspenseful, immediate, and impossible to put down.",
     "genres": [
-      "mystery-id"
-    ]
+      "Sk8dbOjr7"
+    ],
+    "goodreads_rating": "3.98"
   },
   {
-    "_id": "amelia-id",
-    "title": "Who Was Amelia Earhart?",
-    "cover_photo_url": "http://someurl.com",
-    "amazon_popularity": 4.2,
-    "num_pages": 102,
-    "isbn": "9780618689484",
-    "summary": "Amelia Earhart was a woman of many 'firsts.' In 1932, she became the first woman to fly solo across the Atlantic Ocean. In 1935, she also became the first woman to fly across the Pacific. From her early years to her mysterious 1937 disappearance while attempting a flight around the world, readers will find Amelia Earhart's life a fascinating story.",
-    "lexile_measure": 610,
-    "author": "Kate Boehm",
-    "genres": [
-      "mystery-id"
-    ]
-  },
-  {
-    "_id": "ice-wreck-id",
-    "title": "Ice Wreck",
-    "cover_photo_url": "http://someurl.com",
-    "amazon_popularity": 4.4,
-    "num_pages": 48,
-    "isbn": "9780618689484",
-    "summary": "A hundred years ago, Ernest Shackleton and his crew set out for the South Pole. They never made it. Within sight of land, the ship ran into dangerous waters filled with chunks of ice. Then the sea froze around them! There was no hope of rescue. Could Shackleton find a way to save himself and his men?",
-    "lexile_measure": 610,
-    "author": "Lucille Recht",
-    "genres": [
-      "adventure-id"
-    ]
-  },
-  {
-    "_id": "quest-id",
-    "title": "Quest",
-    "cover_photo_url": "http://someurl.com",
-    "amazon_popularity": 4.7,
-    "num_pages": 256,
-    "isbn": "9781416933861",
-    "summary": "When seventeen-year-old John Hudson sets sail aboard the Discovery with his father, Henry Hudson, he is eager to explore the open seas and the New World. He is not, however, anxious to leave behind his girlfriend, Isabella Digges, a nobleman's daughter. But Isabella has adventures of her own in store as an undercover spy for the king. And while Richard Hudson simply wants his older brother, John, to come home to London, John's shipmate Seth Syms is desperate to avoid returning to the city any time soon.",
-    "lexile_measure": 820,
-    "author": "Kathleen Benner",
-    "genres": [
-      "science-id"
-    ]
-  },
-  {
-    "_id": "kings-fifth-id",
-    "title": "The King's Fifth",
-    "cover_photo_url": "http://someurl.com",
-    "amazon_popularity": 4.5,
-    "num_pages": 256,
-    "isbn": "9781456933861",
-    "summary": "While awaiting trial for murder and withholding from the king the obligatory fifth of the gold found in Cibola, Esteban, a seventeen-year-old cartographer, recalls his adventures with a band of conquistadors.",
-    "lexile_measure": 840,
-    "author": "Scott O'dell",
-    "genres": [
-      "science-id"
-    ]
-  },
-  {
-    "_id": "hobbit-id",
-    "title": "The Hobbit",
-    "cover_photo_url": "http://someurl.com",
-    "amazon_popularity": 4.7,
-    "num_pages": 384,
-    "isbn": "9780544174221",
-    "summary": "THE GREATEST FANTASY EPIC OF OUR TIME Bilbo Baggins was a hobbit who wanted to be left alone in quiet comfort. But the wizard Gandalf came along with a band of homeless dwarves. Soon Bilbo was drawn into their quest, facing evil orcs, savage wolves, giant spiders, and worse unknown dangers.",
+    "_id": "phantom-id",
+    "title": "The Phantom Tollbooth",
+    "isbn": "394821998",
+    "num_pages": 255,
+    "authors": [
+      "zQVPADjR10"
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/phantom_tollbooth.jpg",
     "lexile_measure": 1000,
-    "author": "J.R.R Tolkien",
+    "summary": "Illustrated in black-and-white. This ingenious fantasy centers around Milo, a bored ten-year-old who comes home to find a large toy tollbooth sitting in his room. Joining forces with a watchdog named Tock, Milo drives through the tollbooth's gates and begins a memorable journey. He meets such characters as the foolish, yet lovable Humbug, the Mathemagician, and the not-so-wicked \"Which,\" Faintly Macabre, who gives Milo the \"impossible\" mission of returning two princesses to the Kingdom of Wisdom.",
     "genres": [
-      "poetry-id"
-    ]
+      "SyQXQOorX"
+    ],
+    "goodreads_rating": "4.21"
+  },
+  {
+    "_id": "blue-dolphins-id",
+    "title": "Island of the Blue Dolphins",
+    "isbn": "318572540",
+    "num_pages": 900,
+    "authors": [
+      "qzQOMGq6wP"
+    ],
+    "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/island_of_dolphins.jpg",
+    "lexile_measure": 1000,
+    "summary": "In the Pacific there is an island that looks like a big fish sunning itself in the sea. Around it, blue dolphins swim, otters play, and sea elephants and sea birds abound. Once, Indians also lived on the island. And when they left and sailed to the east, one young girl was left behind.\n\nThis is the story of Karana, the Indian girl who lived alone for years on the Island of the Blue Dolphins. Year after year, she watched one season pass into another and waited for a ship to take her away. But while she waited, she kept herself alive by building shelter, making weapons, finding food, and fighting her enemies, the wild dogs. It is not only an unusual adventure of survival, but also a tale of natural beauty and personal discovery.",
+    "genres": [
+      "r1eZGuiB7"
+    ],
+    "goodreads_rating": "3.81"
   }
 ]

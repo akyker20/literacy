@@ -35,12 +35,7 @@
       "r1ECmusSQ": 1,
       "B1Z_NdiB7": 2
     },
-    "bookmarked_books": [
-      "2RGRHqjxRer",
-      "7Hx_LeCfUix",
-      "ZzqGNL0p_5",
-      "KQ854Z9eZqi"
-    ]
+    "bookmarked_books": []
   },
   {
     "_id": "bonnie-stewart",
@@ -79,11 +74,7 @@
     "parent_emails": [],
     "type": "Student",
     "status": "active",
-    "bookmarked_books": [
-      "0ILhj3wn050",
-      "ZzqGNL0p_5",
-      "WUnoG5Lonx0"
-    ],
+    "bookmarked_books": [],
     "genre_interests": {
       "Sk8dbOjr7": 4,
       "r1eZGuiB7": 1,
@@ -125,11 +116,7 @@
     "parent_emails": [],
     "type": "Student",
     "status": "active",
-    "bookmarked_books": [
-      "tuzGzfNiIAb",
-      "AL-mdr97rC",
-      "fSukwObGEWr"
-    ],
+    "bookmarked_books": [],
     "genre_interests": {
       "Sk8dbOjr7": 4,
       "r1eZGuiB7": 4,
@@ -173,12 +160,7 @@
     ],
     "type": "Student",
     "status": "active",
-    "bookmarked_books": [
-      "AivLlkABjud",
-      "z_kvoxNw4st",
-      "4iwX_qU_ls3",
-      "0ILhj3wn050"
-    ],
+    "bookmarked_books": [],
     "genre_interests": {
       "Sk8dbOjr7": 4,
       "r1eZGuiB7": 3,
@@ -220,11 +202,7 @@
     "parent_emails": [],
     "type": "Student",
     "status": "active",
-    "bookmarked_books": [
-      "ZzqGNL0p_5",
-      "AivLlkABjud",
-      "nviYIUu7cyk"
-    ],
+    "bookmarked_books": [],
     "genre_interests": {
       "Sk8dbOjr7": 4,
       "r1eZGuiB7": 3,
@@ -251,10 +229,7 @@
     "parent_emails": [],
     "type": "Student",
     "status": "active",
-    "bookmarked_books": [
-      "AivLlkABjud",
-      "7Hx_LeCfUix"
-    ],
+    "bookmarked_books": [],
     "genre_interests": {
       "Sk8dbOjr7": 4,
       "r1eZGuiB7": 1,

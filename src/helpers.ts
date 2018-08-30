@@ -74,7 +74,7 @@ function computeLexileMultiplier(lexileDiff: number) {
 }
 
 const FactorWeights = {
-  AmazonPopularity: 1,
+  GoodReadsRating: 1,
   AvgBookRatingByRRStudents: 2,
   StudentsAvgRatingOfOtherBooksBySameAuthor: 3,
   StudentAvgGenreInterest: 2
@@ -85,7 +85,7 @@ const FactorWeights = {
  * @param bookReviews all reviews for the book
  * @param student  contains student genre interests and lexile measure
  * @param studentBookReviews the reviews of books by the student, used to compute current lexile measure
- * @param book contains book lexile measure, and amazon popularity, and genres
+ * @param book contains book lexile measure, and goodreads rating, and genres
  */
 export function computeMatchScoreForBook(
   book: Models.IBook,
@@ -112,17 +112,17 @@ export function computeMatchScoreForBook(
   // compute normalized world popularity
   // any books that have over 4.2/5 are considered perfect.
   // Everything under 4.2 is divided by 4.2.
-  const amazonPopPerfectThresh = 4.5;
-  const normalizedAmazonPopularity = (book.amazon_popularity >= amazonPopPerfectThresh) ? 1.0 : book.amazon_popularity / amazonPopPerfectThresh;
-  console.log('amazon pop: ' + normalizedAmazonPopularity);
-  weight += FactorWeights.AmazonPopularity;
-  matchSum += FactorWeights.AmazonPopularity * normalizedAmazonPopularity;
+  const goodreadsRatingPerfectThresh = 4.5;
+  const normalizedGoodreadsRating = (book.goodreads_rating >= goodreadsRatingPerfectThresh) ? 1.0 : book.goodreads_rating / goodreadsRatingPerfectThresh;
+  console.log('goodreads rating: ' + normalizedGoodreadsRating);
+  weight += FactorWeights.GoodReadsRating;
+  matchSum += FactorWeights.GoodReadsRating * normalizedGoodreadsRating;
 
   // compute normalized average popularity of books by ReadingReward.org students
 
   if (!_.isEmpty(bookReviews)) {
     const normalizedAvgRatingForBook = _.meanBy(bookReviews, 'interest') / 5.0;
-    console.log('Average Student Rating of Book: ' + normalizedAmazonPopularity);
+    console.log('Average Student Rating of Book: ' + normalizedAvgRatingForBook);
     weight += FactorWeights.AvgBookRatingByRRStudents;
     matchSum += FactorWeights.AvgBookRatingByRRStudents * normalizedAvgRatingForBook;
   }
@@ -134,7 +134,7 @@ export function computeMatchScoreForBook(
     br => _.includes(idsOfBooksBySameAuthor, br.book_id));
   if (!_.isEmpty(studentReviewsOfOtherBooksBySameAuthor)) {
     const normalizedStudentsAvgRatingOfOtherBooksBySameAuthor = _.meanBy(studentReviewsOfOtherBooksBySameAuthor, 'interest') / 5.0;
-    console.log('Average student rating of other books by author: ' + normalizedAmazonPopularity);
+    console.log('Average student rating of other books by author: ' + normalizedStudentsAvgRatingOfOtherBooksBySameAuthor);
     weight += FactorWeights.StudentsAvgRatingOfOtherBooksBySameAuthor;
     matchSum += FactorWeights.StudentsAvgRatingOfOtherBooksBySameAuthor * normalizedStudentsAvgRatingOfOtherBooksBySameAuthor;
   }

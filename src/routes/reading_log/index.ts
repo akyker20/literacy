@@ -113,19 +113,42 @@ export function ReadingLogRoutes(
       Middle.authorize([M.UserType.Admin, M.UserType.Student]),
       Middle.authorizeAgents([M.UserType.Admin]),
       unwrapData(async (req: IRequest<null>) => {
-        const { logId } = req.params;
-        const deletedLog = await readingLogData.deleteLog(logId);
-        if (_.isNull(deletedLog)) {
-          throw new ResourceNotFoundError(`Reading log ${logId} does not exist`)
+        
+        const { logId, userId } = req.params;
+
+        const log = await readingLogData.getLogById(logId);
+
+        if (_.isNull(log)) {
+          throw new ResourceNotFoundError(`Log ${logId} does not exist`);
         }
+
+        if (userId !== log.student_id) {
+          throw new BadRequestError(`Log ${logId} was not logged by student ${userId}`)
+        }
+
+        const allLogsByStudent = await readingLogData.getLogsForStudent(log.student_id);
+
+        const mostRecentLogForBook = _.chain(allLogsByStudent)
+          .filter({ book_id: log.book_id })
+          .orderBy('date', 'desc')
+          .first()
+          .value()
+        
+        if (mostRecentLogForBook._id !== log._id) {
+          throw new BadRequestError(`Log ${logId} is not the most recent log for Book ${log.book_id}`);
+        }
+
+        const deletedLog = await readingLogData.deleteLog(logId);
+        
         return { deletedLog }
+
       }),
       Middle.handlePromise
     ],
 
     getLogsForStudent: [
       Middle.authenticate,
-      Middle.authorize([M.UserType.Admin, M.UserType.Student]),
+      Middle.authorize([M.UserType.Admin]),
       Middle.authorizeAgents([M.UserType.Admin]),
       unwrapData(async (req: IRequest<null>) => {
 

@@ -1,13 +1,13 @@
 // 3rd party dependencies
 
 import { Response, Next } from 'restify';
-import { Models as M } from 'reading_rewards';
+import { Models as M, Helpers } from 'reading_rewards';
 import * as _ from 'lodash';
 
 // internal dependencies
 
 import { IBookData } from '../../data/books';
-import { IRequest, unwrapData } from '../extensions';
+import { IRequest, unwrapData, validateUser } from '../extensions';
 import * as Middle from '../../middleware';
 import { computeMatchScoreForBook } from '../../helpers';
 import { ResourceNotFoundError, BadRequestError, ForbiddenError } from 'restify-errors';
@@ -18,6 +18,7 @@ import { IQuizData } from '../../data/quizzes';
 import { IAuthorData } from '../../data/authors';
 import { ISeriesData } from '../../data/series';
 import { BodyValidators as Val } from './joi';
+import { INotificationSys } from '../../notifications';
 
 export function BookRoutes(
   genreData: IGenreData,
@@ -26,7 +27,8 @@ export function BookRoutes(
   bookReviewData: IBookReviewData,
   userData: IUserData,
   quizData: IQuizData,
-  seriesData: ISeriesData
+  seriesData: ISeriesData,
+  notifications: INotificationSys
 ) {
 
   // Helpers
@@ -39,6 +41,19 @@ export function BookRoutes(
 
     if (!_.isEmpty(invalidGenres)) {
       return invalidGenres;
+    }
+
+    return null;
+  }
+
+  async function checkBookForInvalidAuthors(candidate: M.IBook): Promise<string[]> {
+    
+    const existingAuthors = await authorData.getAllAuthors();
+    const existingAuthorsIds = _.map(existingAuthors, '_id');
+    const invalidAuthors = _.difference(candidate.authors, existingAuthorsIds);
+
+    if (!_.isEmpty(invalidAuthors)) {
+      return invalidAuthors;
     }
 
     return null;
@@ -67,33 +82,17 @@ export function BookRoutes(
       Middle.handlePromise
     ],
 
-    getAllSeries: [
-      Middle.authenticate,
-      unwrapData(async () => seriesData.getAllSeries()),
-      Middle.handlePromise
-    ],
-
     getAllAuthors: [
       Middle.authenticate,
       unwrapData(async () => authorData.getAllAuthors()),
       Middle.handlePromise
     ],
 
-    getAuthor: [
-      Middle.authenticate,
-      unwrapData(async (req) => authorData.getAuthorById(req.params.authorId)),
-      Middle.handlePromise
-    ],
-
-    getBooksByAuthor: [
-      Middle.authenticate,
-      unwrapData(async (req) => bookData.getBooksByAuthor(req.params.authorId)),
-      Middle.handlePromise
-    ],
-
     createBookReview: [
       Middle.authenticate,
       Middle.authorize([M.UserType.Student, M.UserType.Admin]),
+      Middle.authorizeAgents([M.UserType.Admin]),
+      Middle.valIdsSame({ paramKey: 'bookId', bodyKey: 'book_id' }),
       (req: IRequest<M.IBookReviewBody>, res: Response, next: Next) => {
         const { type, _id: userId } = req.authToken;
         if ((type !== M.UserType.Admin) && (userId !== req.body.student_id)) {
@@ -108,16 +107,14 @@ export function BookRoutes(
 
         const student = await userData.getUserById(student_id);
 
-        if (_.isNull(student)) {
-          throw new BadRequestError(`User ${student_id} does not exist`);
-        }
+        validateUser(student_id, student);
 
         // verify the book actually exists
 
         const book = await bookData.getBook(book_id);
 
         if (_.isNull(book)) {
-          throw new BadRequestError(`Book ${book_id} does not exist`);
+          throw new ResourceNotFoundError(`Book ${book_id} does not exist`);
         }
 
         // verify the student already passed the quiz.
@@ -126,7 +123,7 @@ export function BookRoutes(
         const passedSubmissionForBook = _.find(studentSubmissions, { passed: true, book_id });
 
         if (_.isUndefined(passedSubmissionForBook)) {
-          throw new ForbiddenError(`User has not passed a quiz for book ${book_id}. The user must do this before posting a review.`)
+          throw new BadRequestError(`User has not passed a quiz for book ${book_id}. The user must do this before posting a review.`)
         }
 
         // verify the student has not already reviewed the book.
@@ -134,18 +131,24 @@ export function BookRoutes(
         const existingBookReview = await bookReviewData.getBookReview(student_id, book_id);
         
         if (!_.isNull(existingBookReview)) {
-          throw new ForbiddenError(`Student ${student_id} has already posted a book review for book ${book_id}`);
+          throw new BadRequestError(`Student ${student_id} has already posted a book review for book ${book_id}`);
         }
+
+        // slack notification
+
+        const slackMessage = `*${Helpers.getFullName(student)}* reviewed *${book.title}*\n>>>${JSON.stringify(req.body, null, 2)}`;
+        notifications.sendMessage(slackMessage);
 
         // build book review and save it to database.
 
-        const bookReview: M.IBookReview = _.assign({}, req.body, {
+        const bookReview: M.IBookReview = {
+          ...req.body,
           date_created: new Date().toISOString(),
           book_lexile_measure: book.lexile_measure,
           is_active: true,
           student_initials: `${student.first_name.charAt(0)}${student.last_name.charAt(0)}`.toUpperCase()
-        })
-        
+        }
+
         return bookReviewData.createBookReview(bookReview);
 
       }),
@@ -221,6 +224,12 @@ export function BookRoutes(
 
         const bookCandidate = req.body;
 
+        const invalidAuthors = await checkBookForInvalidAuthors(bookCandidate);
+
+        if (!_.isEmpty(invalidAuthors)) {
+          throw new BadRequestError(`Author ids ${invalidAuthors.join(', ')} are invalid.`)
+        }
+
         const invalidGenres = await checkBookForInvalidGenres(bookCandidate);
 
         if (!_.isEmpty(invalidGenres)) {
@@ -245,6 +254,7 @@ export function BookRoutes(
     ],
     getAllBooks: [
       Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
       unwrapData(async () => bookData.getAllBooks()),
       Middle.handlePromise
     ],
@@ -273,12 +283,9 @@ export function BookRoutes(
         const matchScores: { [bookId: string]: number } = {};
         _.forEach(allBooks, book => {
 
-          const bookAuthorIds = _.map(book.authors, 'id');
-
-          const otherBooksBySameAuthor = _.filter(allBooks, b => {
-            const isSameBook = (b._id === book._id);
-            const candidateAuthorIds = _.map(book.authors, 'id');
-            const shareAuthor = _.isEmpty(_.intersection(bookAuthorIds, candidateAuthorIds));
+          const otherBooksBySameAuthor = _.filter(allBooks, candidateBook => {
+            const isSameBook = (candidateBook._id === book._id);
+            const shareAuthor = _.isEmpty(_.intersection(candidateBook.authors, book.authors));
             return !isSameBook && shareAuthor;
           })
 

@@ -1,14 +1,11 @@
 [
   {
-    "_id": "AL-mdr97rC",
+    "_id": "rCTHKiRki9",
     "title": "Baseball in April and Other Stories",
     "isbn": "015205720X",
     "num_pages": 111,
     "authors": [
-      {
-        "id": "vKexEljxh",
-        "name": "Gary Soto"
-      }
+      "5uFnJVq03"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/baseball.jpg",
     "lexile_measure": 830,
@@ -17,18 +14,15 @@
       "HyBbXujB7",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "3.65"
+    "goodreads_rating": "3.65"
   },
   {
-    "_id": "JqwczfT6vv",
+    "_id": "WUSH-vMfeN",
     "title": "Hatchet",
     "isbn": "27701301",
     "num_pages": 192,
     "authors": [
-      {
-        "id": "2Rx8mztenr",
-        "name": "Gary Paulsen"
-      }
+      "u_nVo3QKe3"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/hatchet.jpg",
     "lexile_measure": 1020,
@@ -36,18 +30,15 @@
     "genres": [
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "3.69"
+    "goodreads_rating": "3.69"
   },
   {
-    "_id": "YSTyGrpIfS",
+    "_id": "1R_bF_0tap",
     "title": "Peak",
     "isbn": "152024174",
     "num_pages": 246,
     "authors": [
-      {
-        "id": "2p0qYDVPJR",
-        "name": "Roland Smith"
-      }
+      "E_uJcUmZAE"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/peak.jpg",
     "lexile_measure": 760,
@@ -55,18 +46,15 @@
     "genres": [
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "3.98"
+    "goodreads_rating": "3.98"
   },
   {
-    "_id": "Jmr8IT47ET",
+    "_id": "tPy9QXbk10",
     "title": "The Phantom Tollbooth",
     "isbn": "394821998",
     "num_pages": 255,
     "authors": [
-      {
-        "id": "ZZaL_L4j7S",
-        "name": "Norton Juster"
-      }
+      "zQVPADjR10"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/phantom_tollbooth.jpg",
     "lexile_measure": 1000,
@@ -74,18 +62,15 @@
     "genres": [
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.21"
+    "goodreads_rating": "4.21"
   },
   {
-    "_id": "4yuDdFp_g4",
+    "_id": "sqFAqJsgp2",
     "title": "Island of the Blue Dolphins",
     "isbn": "318572540",
     "num_pages": 192,
     "authors": [
-      {
-        "id": "uiIRN4Land",
-        "name": "Scott O'Dell"
-      }
+      "qzQOMGq6wP"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/island_of_dolphins.jpg",
     "lexile_measure": 1000,
@@ -93,18 +78,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "3.81"
+    "goodreads_rating": "3.81"
   },
   {
-    "_id": "ZzqGNL0p_5",
+    "_id": "cG4E8zwK-5",
     "title": "The Lightning Thief",
     "isbn": "9781417732470",
     "num_pages": 377,
     "authors": [
-      {
-        "id": "ADCF3Pf5NJ",
-        "name": "Rick Riordan"
-      }
+      "aF2zJf4swH"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/lightning_thief.jpg",
     "lexile_measure": 740,
@@ -112,23 +94,20 @@
     "genres": [
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.24",
+    "goodreads_rating": "4.24",
     "series": {
-      "id": "vtuABe8bq7",
+      "id": "1mfH46IvBi",
       "series_title": "Percy Jackson & the Olympians",
       "book_num": 1
     }
   },
   {
-    "_id": "5mea4RRcfl",
+    "_id": "xv3dAlYnbh",
     "title": "Holes",
     "isbn": "440414806",
     "num_pages": 233,
     "authors": [
-      {
-        "id": "yhrd_ZPaOQ",
-        "name": "Louis Sachar"
-      }
+      "PHjBOP_jKa"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/holes.jpg",
     "lexile_measure": 660,
@@ -136,18 +115,15 @@
     "genres": [
       "Hy4HM_sB7"
     ],
-    "amazon_popularity": "3.94"
+    "goodreads_rating": "3.94"
   },
   {
-    "_id": "YCd5dqglLbc",
+    "_id": "9VrmXpy14X9",
     "title": "Tuck Everlasting",
     "isbn": "312369816",
     "num_pages": 160,
     "authors": [
-      {
-        "id": "qlZu1n-ZbB",
-        "name": "Natalie Babbitt"
-      }
+      "j1ZKw74h5A"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/tuck.jpg",
     "lexile_measure": 770,
@@ -155,18 +131,15 @@
     "genres": [
       "SyQXQOorX"
     ],
-    "amazon_popularity": "3.86"
+    "goodreads_rating": "3.86"
   },
   {
-    "_id": "Ih1zUYOiyLe",
+    "_id": "Xo2OBRHGWlR",
     "title": "Redwall",
     "isbn": "142302376",
     "num_pages": 352,
     "authors": [
-      {
-        "id": "palGr_aVMED",
-        "name": "Brian Jacques"
-      }
+      "MdHf0lh4yfp"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/redwall_1.jpg",
     "lexile_measure": 800,
@@ -176,23 +149,20 @@
       "Sk8dbOjr7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.12",
+    "goodreads_rating": "4.12",
     "series": {
-      "id": "VHQ6i6mECH_",
+      "id": "73yPLwP8g5J",
       "series_title": "Redwall",
       "book_num": 1
     }
   },
   {
-    "_id": "nviYIUu7cyk",
+    "_id": "xrXi2XeF93m",
     "title": "Mossflower",
     "isbn": "142302384",
     "num_pages": 432,
     "authors": [
-      {
-        "id": "palGr_aVMED",
-        "name": "Brian Jacques"
-      }
+      "MdHf0lh4yfp"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/redwall_2.jpg",
     "lexile_measure": 780,
@@ -202,23 +172,20 @@
       "Sk8dbOjr7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.1",
+    "goodreads_rating": "4.1",
     "series": {
-      "id": "VHQ6i6mECH_",
+      "id": "73yPLwP8g5J",
       "series_title": "Redwall",
       "book_num": 2
     }
   },
   {
-    "_id": "TnCoPS1QM9g",
+    "_id": "1CRBZGgyRlc",
     "title": "Mattimeo",
     "isbn": "142302406",
     "num_pages": 448,
     "authors": [
-      {
-        "id": "palGr_aVMED",
-        "name": "Brian Jacques"
-      }
+      "MdHf0lh4yfp"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/redwall_3.jpg",
     "lexile_measure": 820,
@@ -228,23 +195,20 @@
       "Sk8dbOjr7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.03",
+    "goodreads_rating": "4.03",
     "series": {
-      "id": "VHQ6i6mECH_",
+      "id": "73yPLwP8g5J",
       "series_title": "Redwall",
       "book_num": 3
     }
   },
   {
-    "_id": "-al-l1W1EYE",
+    "_id": "4vgGz9wnC7L",
     "title": "Mariel of Redwall",
     "isbn": "142302392",
     "num_pages": 400,
     "authors": [
-      {
-        "id": "palGr_aVMED",
-        "name": "Brian Jacques"
-      }
+      "MdHf0lh4yfp"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/redwall_4.jpg",
     "lexile_measure": 900,
@@ -254,23 +218,20 @@
       "Sk8dbOjr7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "3.97",
+    "goodreads_rating": "3.97",
     "series": {
-      "id": "VHQ6i6mECH_",
+      "id": "73yPLwP8g5J",
       "series_title": "Redwall",
       "book_num": 4
     }
   },
   {
-    "_id": "0ILhj3wn050",
+    "_id": "CmtKgrAQzZA",
     "title": "A Wrinkle in Time",
     "isbn": "312367546",
     "num_pages": 256,
     "authors": [
-      {
-        "id": "SKgk5og95Xz",
-        "name": "Madeleine L'Engle"
-      }
+      "v3bzgYvRMBH"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/wrinkle.jpg",
     "lexile_measure": 740,
@@ -278,18 +239,15 @@
     "genres": [
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.02"
+    "goodreads_rating": "4.02"
   },
   {
-    "_id": "QqDtT8Tfcsc",
+    "_id": "Zo3SFJSrrq-",
     "title": "Treasure Island",
     "isbn": "1505297400",
     "num_pages": 122,
     "authors": [
-      {
-        "id": "Y1TGEp-rbW-",
-        "name": "Robert Louis Stevenson"
-      }
+      "9ZNQecYEsMY"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/treasure_island.jpg",
     "lexile_measure": 610,
@@ -298,18 +256,15 @@
       "SyQXQOorX",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "3.82"
+    "goodreads_rating": "3.82"
   },
   {
-    "_id": "h6mShxU6X67",
+    "_id": "n1AvsILGI_F",
     "title": "Maniac Magee",
     "isbn": "316809063",
     "num_pages": 180,
     "authors": [
-      {
-        "id": "NGG4PCZtuHI",
-        "name": "Jerry Spinelli"
-      }
+      "yeifnTepS1L"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/maniac_magee.jpg",
     "lexile_measure": 820,
@@ -317,18 +272,15 @@
     "genres": [
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "3.87"
+    "goodreads_rating": "3.87"
   },
   {
-    "_id": "WNONiao1Nbj",
+    "_id": "41fHSvy0M44",
     "title": "Wonder",
     "isbn": "375969020",
     "num_pages": 320,
     "authors": [
-      {
-        "id": "a9m6FKsUMkD",
-        "name": "RJ Palacio"
-      }
+      "ljDQCTxw_wj"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/wonder.jpg",
     "lexile_measure": 790,
@@ -336,18 +288,15 @@
     "genres": [
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "4.45"
+    "goodreads_rating": "4.45"
   },
   {
-    "_id": "TlwM8tHeupR",
+    "_id": "v0L_qL96HcL",
     "title": "Hoot",
     "isbn": "440419395",
     "num_pages": 292,
     "authors": [
-      {
-        "id": "MlmmgkI4a9l",
-        "name": "Carl Hiaasen"
-      }
+      "IllSe9zLT_5"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/hoot.jpg",
     "lexile_measure": 760,
@@ -357,18 +306,15 @@
       "SyQXQOorX",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "3.81"
+    "goodreads_rating": "3.81"
   },
   {
-    "_id": "z_kvoxNw4st",
+    "_id": "ipK0TLzwZO9",
     "title": "The Westing Game",
     "isbn": "014240120X",
     "num_pages": 192,
     "authors": [
-      {
-        "id": "8GZU-MUN-zs",
-        "name": "Ellen Raskin"
-      }
+      "1DpkU5XLYJT"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/westing_game.jpg",
     "lexile_measure": 750,
@@ -377,18 +323,15 @@
       "Hy4HM_sB7",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "4.03"
+    "goodreads_rating": "4.03"
   },
   {
-    "_id": "tuzGzfNiIAb",
+    "_id": "z0-pEfww-pR",
     "title": "Stone Fox",
     "isbn": "64401324",
     "num_pages": 96,
     "authors": [
-      {
-        "id": "wTlV2wThsQL",
-        "name": "John Reynolds Gardiner"
-      }
+      "kkBpz6dKRFZ"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/stone_fox.jpg",
     "lexile_measure": 610,
@@ -397,18 +340,15 @@
       "rktJmOsHQ",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "4.03"
+    "goodreads_rating": "4.03"
   },
   {
-    "_id": "xe0D4QqNbi8",
+    "_id": "2K3E1POF8Ro",
     "title": "Ella Enchanted",
     "isbn": "64407055",
     "num_pages": 240,
     "authors": [
-      {
-        "id": "OXSILDG4fbv",
-        "name": "Gail Carson Levine"
-      }
+      "Fpi7O3D6kZV"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/ella_enchanted.jpg",
     "lexile_measure": 670,
@@ -416,18 +356,15 @@
     "genres": [
       "SyQXQOorX"
     ],
-    "amazon_popularity": "3.97"
+    "goodreads_rating": "3.97"
   },
   {
-    "_id": "jSptdP9o0Oy",
+    "_id": "mtGAtWIOTFw",
     "title": "The Crossover",
     "isbn": "544107713",
     "num_pages": 240,
     "authors": [
-      {
-        "id": "rpxVd5MDov4",
-        "name": "Kwame Alexander"
-      }
+      "3Md0dRomm5h"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/crossover.jpg",
     "lexile_measure": 750,
@@ -436,18 +373,15 @@
       "HyBbXujB7",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "4.24"
+    "goodreads_rating": "4.24"
   },
   {
-    "_id": "e3lW589KoSV",
+    "_id": "vfpH3o1WOc1",
     "title": "The Girl who drank the moon",
     "isbn": "1616205679",
     "num_pages": 400,
     "authors": [
-      {
-        "id": "kbLfESo5xOM",
-        "name": "Kelly Barnhill"
-      }
+      "Cjs19mYm0oP"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/girl_who_drank_moon.jpg",
     "lexile_measure": 640,
@@ -456,18 +390,15 @@
       "SyQXQOorX",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "4.18"
+    "goodreads_rating": "4.18"
   },
   {
-    "_id": "gvRSCOCKjhg",
+    "_id": "Zb6yOoIpwSK",
     "title": "Ghost",
     "isbn": "1481450166",
     "num_pages": 208,
     "authors": [
-      {
-        "id": "VAkrqIdURfr",
-        "name": "Jason Reynolds"
-      }
+      "BPJFZtQtpjK"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/ghost.jpg",
     "lexile_measure": 730,
@@ -476,18 +407,15 @@
       "HyBbXujB7",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "4.22"
+    "goodreads_rating": "4.22"
   },
   {
-    "_id": "mPijQWNHx3V",
+    "_id": "WE4e8XAJxGR",
     "title": "Fish in a tree",
     "isbn": "142426423",
     "num_pages": 320,
     "authors": [
-      {
-        "id": "JaNggtwevyv",
-        "name": "Lynda Mullaly Hunt"
-      }
+      "PYkPI55C02A"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/fish_in_a_tree.jpg",
     "lexile_measure": 550,
@@ -495,18 +423,15 @@
     "genres": [
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "4.3"
+    "goodreads_rating": "4.3"
   },
   {
-    "_id": "3fDgIXjdfoS",
+    "_id": "zfPWYQYUkJN",
     "title": "The keeper: the unguarded story of Tim Howard",
     "isbn": "62387588",
     "num_pages": 288,
     "authors": [
-      {
-        "id": "_fuYoLoJYVU",
-        "name": "Tim Howard"
-      }
+      "3cVlu1lJWAU"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/keeper_howard.jpg",
     "lexile_measure": 700,
@@ -515,18 +440,15 @@
       "r1ECmusSQ",
       "HyBbXujB7"
     ],
-    "amazon_popularity": "4.38"
+    "goodreads_rating": "4.38"
   },
   {
-    "_id": "PcYXXPsiauy",
+    "_id": "dp7SztXMCp4",
     "title": "Because of Winn-dixie",
     "isbn": "763680869",
     "num_pages": 208,
     "authors": [
-      {
-        "id": "cBcLo4xoLx3",
-        "name": "Kate DiCamillo"
-      }
+      "mRPI6qZkNVt"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/winn_dixie.jpg",
     "lexile_measure": 670,
@@ -535,18 +457,15 @@
       "rktJmOsHQ",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "4.02"
+    "goodreads_rating": "4.02"
   },
   {
-    "_id": "vFOVttmxFrh",
+    "_id": "g_I3Km6Jtgn",
     "title": "Walk Two Moons",
     "isbn": "60560134",
     "num_pages": 304,
     "authors": [
-      {
-        "id": "-FTQA32TuHz",
-        "name": "Sharon Creech"
-      }
+      "A9AI9EE_e4Z"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/walk_two_moons.jpg",
     "lexile_measure": 770,
@@ -554,18 +473,15 @@
     "genres": [
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "3.96"
+    "goodreads_rating": "3.96"
   },
   {
-    "_id": "j3o76t3qAL_",
+    "_id": "jVgyrkxgHiz",
     "title": "Seedfolks",
     "isbn": "590511904",
     "num_pages": 70,
     "authors": [
-      {
-        "id": "JH6CN_7sXIH",
-        "name": "Paul Fleischman"
-      }
+      "dhf2wE-AsQf"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/seedfolks.jpg",
     "lexile_measure": 710,
@@ -573,18 +489,15 @@
     "genres": [
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "3.72"
+    "goodreads_rating": "3.72"
   },
   {
-    "_id": "vdWbWheUs-6",
+    "_id": "C2HTow_akQY",
     "title": "Oggie Cooder",
     "isbn": "9781531878566",
     "num_pages": 188,
     "authors": [
-      {
-        "id": "V4NgDwEGIBm",
-        "name": "Sarah Weeks"
-      }
+      "6NkoVtreHCS"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/oggie.jpg",
     "lexile_measure": 880,
@@ -592,18 +505,15 @@
     "genres": [
       "r11Vzdirm"
     ],
-    "amazon_popularity": "3.69"
+    "goodreads_rating": "3.69"
   },
   {
-    "_id": "Vu2_jsiT1Wa",
+    "_id": "FzWpFJcwQCO",
     "title": "My Side of the Mountain",
     "isbn": "142401110",
     "num_pages": 192,
     "authors": [
-      {
-        "id": "bsYJdEWWmYv",
-        "name": "Jean Craighead George"
-      }
+      "_o-wdlzB0EP"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/my_side_of_mountain.jpg",
     "lexile_measure": 810,
@@ -612,18 +522,15 @@
       "Sk8dbOjr7",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "4.04"
+    "goodreads_rating": "4.04"
   },
   {
-    "_id": "RPDm3YJy5_K",
+    "_id": "O4KGiIuaEv5",
     "title": "Give Me Liberty!",
     "isbn": "60744235",
     "num_pages": 384,
     "authors": [
-      {
-        "id": "qaW-9z-uJ_r",
-        "name": "L.M. Elliott"
-      }
+      "qufp3isDchG"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/Give_me_liberty.jpg",
     "lexile_measure": 810,
@@ -631,18 +538,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "3.76"
+    "goodreads_rating": "3.76"
   },
   {
-    "_id": "KQ854Z9eZqi",
+    "_id": "u5_0Qdx-gVh",
     "title": "The Miraculous Journey of Edward Tulane",
     "isbn": "763680907",
     "num_pages": 240,
     "authors": [
-      {
-        "id": "cBcLo4xoLx3",
-        "name": "Kate DiCamillo"
-      }
+      "mRPI6qZkNVt"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/edward_tulane.jpg",
     "lexile_measure": 700,
@@ -651,18 +555,15 @@
       "SyQXQOorX",
       "rktJmOsHQ"
     ],
-    "amazon_popularity": "4.35"
+    "goodreads_rating": "4.35"
   },
   {
-    "_id": "98ju4jUxMbF",
+    "_id": "lyLhqgD8BXF",
     "title": "Clementine",
     "isbn": "786838833",
     "num_pages": 160,
     "authors": [
-      {
-        "id": "APsHUQz1Cus",
-        "name": "Sara Pennypacker"
-      }
+      "9mottg2b8cX"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/clementine.jpg",
     "lexile_measure": 790,
@@ -670,18 +571,15 @@
     "genres": [
       "r11Vzdirm"
     ],
-    "amazon_popularity": "3.91"
+    "goodreads_rating": "3.91"
   },
   {
-    "_id": "nwyVaJzMVvh",
+    "_id": "PwQRKza5EwS",
     "title": "The Secret School",
     "isbn": "152046992",
     "num_pages": 176,
     "authors": [
-      {
-        "id": "rMZfpfHBUzL",
-        "name": "Avi"
-      }
+      "9uwPym_jWca"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/secret_school.jpg",
     "lexile_measure": 540,
@@ -689,18 +587,15 @@
     "genres": [
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "3.77"
+    "goodreads_rating": "3.77"
   },
   {
-    "_id": "a2oLBbed7Fc",
+    "_id": "9KuKTC7DxLT",
     "title": "Nasty, Stinky Sneakers",
     "isbn": "64405079",
     "num_pages": 128,
     "authors": [
-      {
-        "id": "gVF_JYNsuk8",
-        "name": "Eve Bunting"
-      }
+      "NPnMpE82Q9D"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/nasty_stinky.jpg",
     "lexile_measure": 510,
@@ -708,18 +603,15 @@
     "genres": [
       "r11Vzdirm"
     ],
-    "amazon_popularity": "3.43"
+    "goodreads_rating": "3.43"
   },
   {
-    "_id": "hO1KksMk1HP",
+    "_id": "LGFEGZK9wG8",
     "title": "The Homework Machine",
     "isbn": "689876793",
     "num_pages": 176,
     "authors": [
-      {
-        "id": "Nlb0_XbxfXG",
-        "name": "Dan Gutman"
-      }
+      "1GJSn78l-aX"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/homework_machine.jpg",
     "lexile_measure": 680,
@@ -727,18 +619,15 @@
     "genres": [
       "SyQXQOorX"
     ],
-    "amazon_popularity": "3.82"
+    "goodreads_rating": "3.82"
   },
   {
-    "_id": "g-9FvpMhLcT",
+    "_id": "einFsXWS8Py",
     "title": "My Dog, My Hero",
     "isbn": "9781466867055",
     "num_pages": 56,
     "authors": [
-      {
-        "id": "muKjTcAMbcl",
-        "name": "Betsy Byars"
-      }
+      "aQsjNN4O1uc"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/dog_hero.jpg",
     "lexile_measure": 670,
@@ -746,18 +635,15 @@
     "genres": [
       "rktJmOsHQ"
     ],
-    "amazon_popularity": "4.14"
+    "goodreads_rating": "4.14"
   },
   {
-    "_id": "-Nk-6NSBLiE",
+    "_id": "11N1N3gnq5z",
     "title": "Number the Stars",
     "isbn": "547577095",
     "num_pages": 160,
     "authors": [
-      {
-        "id": "Ucp4Xx_Ozze",
-        "name": "Lois Lowry"
-      }
+      "RwJF041Nu2N"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/number_the_stars.jpg",
     "lexile_measure": 670,
@@ -766,18 +652,15 @@
       "r1eZGuiB7",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "4.12"
+    "goodreads_rating": "4.12"
   },
   {
-    "_id": "gt_nOKBlA8H",
+    "_id": "mHvkBtpgDxW",
     "title": "The Graveyard Book",
     "isbn": "60530944",
     "num_pages": 352,
     "authors": [
-      {
-        "id": "CwvKhoeYrDp",
-        "name": "Neil Gaiman"
-      }
+      "EpfLY6C2y9w"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/graveyard_book.jpg",
     "lexile_measure": 820,
@@ -785,18 +668,15 @@
     "genres": [
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.12"
+    "goodreads_rating": "4.12"
   },
   {
-    "_id": "9RyUKlPT9Ex",
+    "_id": "Qz7DqwtD1FA",
     "title": "All Creatures Great and Small",
     "isbn": "1250057833",
     "num_pages": 457,
     "authors": [
-      {
-        "id": "bdADJSkvGsd",
-        "name": "James Herriot"
-      }
+      "9-eLvfDkYbR"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/all_creatures.jpg",
     "lexile_measure": 990,
@@ -805,18 +685,15 @@
       "rktJmOsHQ",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "4.31"
+    "goodreads_rating": "4.31"
   },
   {
-    "_id": "WUnoG5Lonx0",
+    "_id": "x8VZwXF4xwH",
     "title": "The City of Ember",
     "isbn": "375822747",
     "num_pages": 270,
     "authors": [
-      {
-        "id": "wQZSe7y7IqD",
-        "name": "Jeanne DuPrau"
-      }
+      "vjo4IAe-qiX"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/city_of_ember.jpg",
     "lexile_measure": 680,
@@ -825,18 +702,15 @@
       "SyQXQOorX",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "3.86"
+    "goodreads_rating": "3.86"
   },
   {
-    "_id": "yPwQ-wE_GEe",
+    "_id": "0x7TkfMF-EV",
     "title": "Bud not buddy",
     "isbn": "440413281",
     "num_pages": 272,
     "authors": [
-      {
-        "id": "aGYcIKc9tve",
-        "name": "Christopher Paul Curtis"
-      }
+      "1A6j7q9H-SX"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/bud_not_buddy.jpg",
     "lexile_measure": 950,
@@ -845,18 +719,15 @@
       "r1eZGuiB7",
       "H1cjM_jB7"
     ],
-    "amazon_popularity": "3.9"
+    "goodreads_rating": "3.9"
   },
   {
-    "_id": "2YlYPnydoQ1",
+    "_id": "Xn1PywNYrhb",
     "title": "King of the Mound: My Summer with Satchel Paige",
     "isbn": "1442433477",
     "num_pages": 160,
     "authors": [
-      {
-        "id": "fgqXZRFeFWY",
-        "name": "Wes Tooke"
-      }
+      "NP7IwxePMKB"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/king_mound.jpg",
     "lexile_measure": 900,
@@ -865,18 +736,15 @@
       "HyBbXujB7",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "3.93"
+    "goodreads_rating": "3.93"
   },
   {
-    "_id": "h8p3DOK26F-",
+    "_id": "aJ2GLPW7tVt",
     "title": "Hero Two Doors Down",
     "isbn": "545804523",
     "num_pages": 208,
     "authors": [
-      {
-        "id": "Pck5hlDDetM",
-        "name": "Sharon Robinson"
-      }
+      "EwLqZY_fDgR"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/hero_two_doors.jpg",
     "lexile_measure": 640,
@@ -885,18 +753,15 @@
       "HyBbXujB7",
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "3.82"
+    "goodreads_rating": "3.82"
   },
   {
-    "_id": "xGEumzaZULX",
+    "_id": "0qnBDwjpE9t",
     "title": "Soar",
     "isbn": "147513154",
     "num_pages": 320,
     "authors": [
-      {
-        "id": "khMrpwNa9OS",
-        "name": "Joan Bauer"
-      }
+      "CUjEb7IQpLX"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/soar.jpg",
     "lexile_measure": 510,
@@ -905,18 +770,15 @@
       "HyBbXujB7",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "4.18"
+    "goodreads_rating": "4.18"
   },
   {
-    "_id": "B9AW7hOe1jh",
+    "_id": "PX6dnITib1c",
     "title": "Booked",
     "isbn": "544570987",
     "num_pages": 320,
     "authors": [
-      {
-        "id": "rpxVd5MDov4",
-        "name": "Kwame Alexander"
-      }
+      "3Md0dRomm5h"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/booked.png",
     "lexile_measure": 660,
@@ -924,18 +786,15 @@
     "genres": [
       "HyBbXujB7"
     ],
-    "amazon_popularity": "4.19"
+    "goodreads_rating": "4.19"
   },
   {
-    "_id": "NoLEv0CWuub",
+    "_id": "dnR4-zYua0v",
     "title": "Athlete vs. Mathlete",
     "isbn": "1599909154",
     "num_pages": 208,
     "authors": [
-      {
-        "id": "eTlOoQt-w6W",
-        "name": "WC Mack"
-      }
+      "y9N5GhALfJa"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/athlete_mathlete.jpg",
     "lexile_measure": 610,
@@ -943,18 +802,15 @@
     "genres": [
       "HyBbXujB7"
     ],
-    "amazon_popularity": "3.94"
+    "goodreads_rating": "3.94"
   },
   {
-    "_id": "FwCemVV0Ikg",
+    "_id": "ZuI_mSPB4Pu",
     "title": "A Handful of Stars",
     "isbn": "545700280",
     "num_pages": 192,
     "authors": [
-      {
-        "id": "mZuhFZx8h_Z",
-        "name": "Cynthia Lord"
-      }
+      "8Vjlexp7FvD"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/handful_of_stars.jpg",
     "lexile_measure": 690,
@@ -963,18 +819,15 @@
       "rktJmOsHQ",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "4.16"
+    "goodreads_rating": "4.16"
   },
   {
-    "_id": "7Hx_LeCfUix",
+    "_id": "SOK80fkQQ4R",
     "title": "Rain Reign",
     "isbn": "1250073979",
     "num_pages": 256,
     "authors": [
-      {
-        "id": "BKf8jVSGW8G",
-        "name": "Ann Martin"
-      }
+      "13UaLWJDHmy"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/rain_reign.jpg",
     "lexile_measure": 720,
@@ -983,18 +836,15 @@
       "rktJmOsHQ",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "4.21"
+    "goodreads_rating": "4.21"
   },
   {
-    "_id": "SkVxA58vtm6",
+    "_id": "q1MWa63OzJ5",
     "title": "Woof (Bowser and Birdie)",
     "isbn": "545643325",
     "num_pages": 293,
     "authors": [
-      {
-        "id": "3rdPHJalA1h",
-        "name": "Spencer Quinn"
-      }
+      "kr8pH1n54DQ"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/woof.jpg",
     "lexile_measure": 650,
@@ -1003,38 +853,32 @@
       "rktJmOsHQ",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "3.91"
+    "goodreads_rating": "3.91"
   },
   {
-    "_id": "Uu6ECK_mCOE",
+    "_id": "MXGyS5kBuvf",
     "title": "Shiloh",
     "isbn": "689835825",
     "num_pages": 146,
     "authors": [
-      {
-        "id": "isd1S6Sse4o",
-        "name": "Phyllis Reynolds Naylor"
-      }
+      "bCyNjQClHaD"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/shiloh.jpg",
-    "lexile_measure": 890,
+    "lexile_measure": 940,
     "summary": "Marty will do anything to save his new friend Shiloh in this Newbery Medal–winning novel from Phillis Reynolds Naylor.\n\nWhen Marty Preston comes across a young beagle in the hills behind his home, it's love at first sight—and also big trouble. It turns out the dog, which Marty names Shiloh, belongs to Judd Travers, who drinks too much and has a gun—and abuses his dogs. So when Shiloh runs away from Judd to Marty, Marty just has to hide him and protect him from Judd. But Marty's secret becomes too big for him to keep to himself, and it exposes his entire family to Judd's anger. How far will Marty have to go to make Shiloh his?",
     "genres": [
       "rktJmOsHQ",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "3.92"
+    "goodreads_rating": "3.92"
   },
   {
-    "_id": "RSoYJAT7Onx",
+    "_id": "opKqcgpMoNr",
     "title": "A Dog's Life",
     "isbn": "439717000",
     "num_pages": 208,
     "authors": [
-      {
-        "id": "BKf8jVSGW8G",
-        "name": "Ann Martin"
-      }
+      "13UaLWJDHmy"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/dogs_life.jpg",
     "lexile_measure": 870,
@@ -1042,18 +886,15 @@
     "genres": [
       "rktJmOsHQ"
     ],
-    "amazon_popularity": "4.19"
+    "goodreads_rating": "4.19"
   },
   {
-    "_id": "oF6fJ6R9lLi",
+    "_id": "Iiobu-oxR_G",
     "title": "Five Lives of our cat Zook",
     "isbn": "1419705253",
     "num_pages": 240,
     "authors": [
-      {
-        "id": "PmOn4lzaPiH",
-        "name": "Joanne Rocklin"
-      }
+      "NtWIe8SgH6l"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/five_lives_zook.png",
     "lexile_measure": 760,
@@ -1061,18 +902,15 @@
     "genres": [
       "rktJmOsHQ"
     ],
-    "amazon_popularity": "3.81"
+    "goodreads_rating": "3.81"
   },
   {
-    "_id": "uetTJ1MFXni",
+    "_id": "HHiSjDHiieG",
     "title": "Into the Wild",
     "isbn": "62366963",
     "num_pages": 320,
     "authors": [
-      {
-        "id": "Qve2u3TTuPR",
-        "name": "Erin Hunter"
-      }
+      "3HzoF6qN0z0"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_1.jpg",
     "lexile_measure": 790,
@@ -1082,23 +920,20 @@
       "Sk8dbOjr7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.28",
+    "goodreads_rating": "4.28",
     "series": {
-      "id": "xMuFs1hyzdk",
+      "id": "oAP8a0b_yqL",
       "series_title": "Warriors",
       "book_num": 1
     }
   },
   {
-    "_id": "eiM2ltAJr31",
+    "_id": "NlDYS2PkXQ6",
     "title": "Fire and Ice",
     "isbn": "62366971",
     "num_pages": 368,
     "authors": [
-      {
-        "id": "Qve2u3TTuPR",
-        "name": "Erin Hunter"
-      }
+      "3HzoF6qN0z0"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_2.jpg",
     "lexile_measure": 800,
@@ -1108,23 +943,20 @@
       "Sk8dbOjr7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.37",
+    "goodreads_rating": "4.37",
     "series": {
-      "id": "xMuFs1hyzdk",
+      "id": "oAP8a0b_yqL",
       "series_title": "Warriors",
       "book_num": 2
     }
   },
   {
-    "_id": "PGJ0pl7Hisi",
+    "_id": "ptKivax5oU7",
     "title": "Forest of Secrets",
     "isbn": "006236698X",
     "num_pages": 368,
     "authors": [
-      {
-        "id": "Qve2u3TTuPR",
-        "name": "Erin Hunter"
-      }
+      "3HzoF6qN0z0"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_3.jpg",
     "lexile_measure": 900,
@@ -1134,23 +966,20 @@
       "Sk8dbOjr7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.41",
+    "goodreads_rating": "4.41",
     "series": {
-      "id": "xMuFs1hyzdk",
+      "id": "oAP8a0b_yqL",
       "series_title": "Warriors",
       "book_num": 3
     }
   },
   {
-    "_id": "iTebWKSDe5r",
+    "_id": "9t8_XWQse7P",
     "title": "Rising Storm",
     "isbn": "62366998",
     "num_pages": 312,
     "authors": [
-      {
-        "id": "Qve2u3TTuPR",
-        "name": "Erin Hunter"
-      }
+      "3HzoF6qN0z0"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_4.jpg",
     "lexile_measure": 890,
@@ -1160,23 +989,20 @@
       "Sk8dbOjr7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.39",
+    "goodreads_rating": "4.39",
     "series": {
-      "id": "xMuFs1hyzdk",
+      "id": "oAP8a0b_yqL",
       "series_title": "Warriors",
       "book_num": 4
     }
   },
   {
-    "_id": "bT5NccSUJZx",
+    "_id": "vvb97hp5WRA",
     "title": "A Dangerous Path",
     "isbn": "62367005",
     "num_pages": 313,
     "authors": [
-      {
-        "id": "Qve2u3TTuPR",
-        "name": "Erin Hunter"
-      }
+      "3HzoF6qN0z0"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_5.jpg",
     "lexile_measure": 840,
@@ -1186,23 +1012,20 @@
       "Sk8dbOjr7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.43",
+    "goodreads_rating": "4.43",
     "series": {
-      "id": "xMuFs1hyzdk",
+      "id": "oAP8a0b_yqL",
       "series_title": "Warriors",
       "book_num": 5
     }
   },
   {
-    "_id": "MQ7AcqnudeR",
+    "_id": "KZUWpRiIZfz",
     "title": "The Darkest Hour",
     "isbn": "62367013",
     "num_pages": 315,
     "authors": [
-      {
-        "id": "Qve2u3TTuPR",
-        "name": "Erin Hunter"
-      }
+      "3HzoF6qN0z0"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/warriors_6.jpg",
     "lexile_measure": 880,
@@ -1212,23 +1035,20 @@
       "Sk8dbOjr7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.52",
+    "goodreads_rating": "4.52",
     "series": {
-      "id": "xMuFs1hyzdk",
+      "id": "oAP8a0b_yqL",
       "series_title": "Warriors",
       "book_num": 6
     }
   },
   {
-    "_id": "g2S5G35dIEm",
+    "_id": "HG9iIhGx6ep",
     "title": "Ghetto Cowboy",
     "isbn": "763664537",
     "num_pages": 224,
     "authors": [
-      {
-        "id": "ZU3eJhDoSnn",
-        "name": "Greg Neri"
-      }
+      "cR3gRwNTaVz"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/ghetto_cowboy.jpg",
     "lexile_measure": 660,
@@ -1237,18 +1057,15 @@
       "rktJmOsHQ",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "3.86"
+    "goodreads_rating": "3.86"
   },
   {
-    "_id": "5eY1t2ndCPv",
+    "_id": "9ws02q6AXFE",
     "title": "Some Kind of Courage",
     "isbn": "545665825",
     "num_pages": 240,
     "authors": [
-      {
-        "id": "DCDMCoG7gtR",
-        "name": "Dan Gemeinhart"
-      }
+      "TuYZ7sDZ3_l"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/some_kind_of_courage.jpg",
     "lexile_measure": 760,
@@ -1257,18 +1074,15 @@
       "rktJmOsHQ",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "4.37"
+    "goodreads_rating": "4.37"
   },
   {
-    "_id": "-llqjvreXvt",
+    "_id": "TWFE1CNq8d-",
     "title": "The War that saved my life",
     "isbn": "147510481",
     "num_pages": 352,
     "authors": [
-      {
-        "id": "J2wdN6GU6gh",
-        "name": "Kimberly Brubaker Bradley"
-      }
+      "F5fVXv4xggQ"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/war_saved_my_life.jpg",
     "lexile_measure": 580,
@@ -1276,18 +1090,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "4.48"
+    "goodreads_rating": "4.48"
   },
   {
-    "_id": "c0qT6tCA5LB",
+    "_id": "v7saWYXpjQ8",
     "title": "Weedflower",
     "isbn": "1416975667",
     "num_pages": 272,
     "authors": [
-      {
-        "id": "_hkuSt_wpBc",
-        "name": "Cynthia Kadohata"
-      }
+      "ohshjY6a7gQ"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/weedflower.jpg",
     "lexile_measure": 750,
@@ -1295,18 +1106,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "3.89"
+    "goodreads_rating": "3.89"
   },
   {
-    "_id": "Zp3XG1iR5Ez",
+    "_id": "Uw4bX0iE6BJ",
     "title": "On the Wings of Heroes",
     "isbn": "014241204X",
     "num_pages": 160,
     "authors": [
-      {
-        "id": "ZgRUkOgNG6N",
-        "name": "Richard Peck"
-      }
+      "vIVR_EfOySf"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/wings_of_heroes.jpg",
     "lexile_measure": 730,
@@ -1314,18 +1122,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "3.91"
+    "goodreads_rating": "3.91"
   },
   {
-    "_id": "jSRtMqsrZPB",
+    "_id": "4ULFi6FVG_-",
     "title": "Paper Wishes",
     "isbn": "1250104149",
     "num_pages": 192,
     "authors": [
-      {
-        "id": "BykB_icQJJp",
-        "name": "Lois Sepahban"
-      }
+      "5oNlm8yxn6P"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/paper_wishes.jpg",
     "lexile_measure": 550,
@@ -1333,18 +1138,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "4.06"
+    "goodreads_rating": "4.06"
   },
   {
-    "_id": "KTfYbWsprxi",
+    "_id": "UHV4W6B2KVk",
     "title": "Black Radishes",
     "isbn": "9781613830208",
     "num_pages": 242,
     "authors": [
-      {
-        "id": "vtqqQvkbdDW",
-        "name": "Susan Meyer"
-      }
+      "bhboMaqBotl"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/black_radishes.jpg",
     "lexile_measure": 790,
@@ -1352,18 +1154,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "3.9"
+    "goodreads_rating": "3.9"
   },
   {
-    "_id": "19WjEUpb5ZK",
+    "_id": "zEKAnAGnvUd",
     "title": "Jump Into the Sky",
     "isbn": "440421403",
     "num_pages": 352,
     "authors": [
-      {
-        "id": "9DjG4pZ9L8H",
-        "name": "Shelley Pearsall"
-      }
+      "sxnrK7re_6s"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/jump_sky.jpg",
     "lexile_measure": 940,
@@ -1371,18 +1170,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "3.85"
+    "goodreads_rating": "3.85"
   },
   {
-    "_id": "nmF8xxgwOJT",
+    "_id": "LG1ayBZUJKu",
     "title": "Elijah of Buxton",
     "isbn": "439023459",
     "num_pages": 368,
     "authors": [
-      {
-        "id": "aGYcIKc9tve",
-        "name": "Christopher Paul Curtis"
-      }
+      "1A6j7q9H-SX"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/elijah_buxton.jpg",
     "lexile_measure": 1070,
@@ -1390,18 +1186,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "3.91"
+    "goodreads_rating": "3.91"
   },
   {
-    "_id": "7Iv08TWoHtK",
+    "_id": "OfC4Qxt0z_Z",
     "title": "My Name is Sally Little Song",
     "isbn": "014240943X",
     "num_pages": 192,
     "authors": [
-      {
-        "id": "OgB4qde8GNR",
-        "name": "Brenda Woods"
-      }
+      "A8W9aGVcmmQ"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/sally_little_song.jpg",
     "lexile_measure": 780,
@@ -1409,18 +1202,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "3.85"
+    "goodreads_rating": "3.85"
   },
   {
-    "_id": "K15evY0OphB",
+    "_id": "uW5fBKkVLyt",
     "title": "The Mostly True Adventures of Homer P Figg",
     "isbn": "439668212",
     "num_pages": 240,
     "authors": [
-      {
-        "id": "mTUT2wnEQww",
-        "name": "Rodman Philbrick"
-      }
+      "LJO0KdsAs8d"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/homer_figg.jpg",
     "lexile_measure": 950,
@@ -1428,18 +1218,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "3.68"
+    "goodreads_rating": "3.68"
   },
   {
-    "_id": "Ao7nHUnPQ0D",
+    "_id": "JMUncSdyNyL",
     "title": "I Survived: The Battle of Gettysburg, 1863",
     "isbn": "545459362",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "n-OyYamuOw_",
-        "name": "Lauren Tarshis"
-      }
+      "kFdf0WxyMp3"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_gettysburg.jpg",
     "lexile_measure": 660,
@@ -1447,18 +1234,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "4.16"
+    "goodreads_rating": "4.16"
   },
   {
-    "_id": "NTWJMZjbPsx",
+    "_id": "JnhBzKsSLOg",
     "title": "I Survived: The Attacks of September 11, 2001",
     "isbn": "545207002",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "n-OyYamuOw_",
-        "name": "Lauren Tarshis"
-      }
+      "kFdf0WxyMp3"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_911.jpg",
     "lexile_measure": 630,
@@ -1466,18 +1250,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "4.24"
+    "goodreads_rating": "4.24"
   },
   {
-    "_id": "cecs3rYlSRc",
+    "_id": "3gRkDo8EY3B",
     "title": "I Survived: Hurricane Katrina, 2005",
     "isbn": "545206960",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "n-OyYamuOw_",
-        "name": "Lauren Tarshis"
-      }
+      "kFdf0WxyMp3"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_katrina.jpg",
     "lexile_measure": 590,
@@ -1485,18 +1266,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "4.2"
+    "goodreads_rating": "4.2"
   },
   {
-    "_id": "GjXVuCln_3w",
+    "_id": "UKEGvYGKPcg",
     "title": "I Survived: The Sinking of the Titanic, 1912",
     "isbn": "545206944",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "n-OyYamuOw_",
-        "name": "Lauren Tarshis"
-      }
+      "kFdf0WxyMp3"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_titanic.jpg",
     "lexile_measure": 590,
@@ -1504,18 +1282,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "4.1"
+    "goodreads_rating": "4.1"
   },
   {
-    "_id": "rhz9tw-Gcb5",
+    "_id": "nlODdtESlGK",
     "title": "I Survived: The Nazi Invasion, 1944",
     "isbn": "545459389",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "n-OyYamuOw_",
-        "name": "Lauren Tarshis"
-      }
+      "kFdf0WxyMp3"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_nazi.jpg",
     "lexile_measure": 740,
@@ -1523,18 +1298,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "4.25"
+    "goodreads_rating": "4.25"
   },
   {
-    "_id": "rIX-wUwkHoq",
+    "_id": "EQMd2BWw-kp",
     "title": "I Survived: The Shark Attacks of 1916",
     "isbn": "545206952",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "n-OyYamuOw_",
-        "name": "Lauren Tarshis"
-      }
+      "kFdf0WxyMp3"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/survived_shark.jpg",
     "lexile_measure": 610,
@@ -1542,18 +1314,15 @@
     "genres": [
       "r1eZGuiB7"
     ],
-    "amazon_popularity": "4.15"
+    "goodreads_rating": "4.15"
   },
   {
-    "_id": "s3rS4dIgmga",
+    "_id": "aLS8iaZbrao",
     "title": "Who was Abraham Lincoln?",
     "isbn": "448448866",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "T-Iv1egRv6E",
-        "name": "Janet Pascal"
-      }
+      "p-K_zhKPzA7"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_abe.jpg",
     "lexile_measure": 720,
@@ -1561,18 +1330,15 @@
     "genres": [
       "r1ECmusSQ"
     ],
-    "amazon_popularity": "4.11"
+    "goodreads_rating": "4.11"
   },
   {
-    "_id": "pX1nOW-I1Ke",
+    "_id": "UixlDxMus73",
     "title": "Who Was Albert Einstein?",
     "isbn": "448424967",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "3rxPL3GFpcE",
-        "name": "Jess Brallier"
-      }
+      "OUF3OX_PkvZ"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_einstein.jpg",
     "lexile_measure": 810,
@@ -1580,18 +1346,15 @@
     "genres": [
       "r1ECmusSQ"
     ],
-    "amazon_popularity": "4.19"
+    "goodreads_rating": "4.19"
   },
   {
-    "_id": "BUOao2Q502d",
+    "_id": "zlAp7D5bdUK",
     "title": "Who was Isaac Newton?",
     "isbn": "448479133",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "T-Iv1egRv6E",
-        "name": "Janet Pascal"
-      }
+      "p-K_zhKPzA7"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_newton.jpg",
     "lexile_measure": 840,
@@ -1599,18 +1362,15 @@
     "genres": [
       "r1ECmusSQ"
     ],
-    "amazon_popularity": "4.06"
+    "goodreads_rating": "4.06"
   },
   {
-    "_id": "Atuf_A8OnUs",
+    "_id": "9rWPZkVhemn",
     "title": "Who Was Leonardo da Vinci?",
     "isbn": "448443015",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "VhOibEqEe2I",
-        "name": "Roberta Edwards"
-      }
+      "TkrEuJ80GHe"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_leonardo.jpg",
     "lexile_measure": 640,
@@ -1619,18 +1379,15 @@
       "r1ECmusSQ",
       "H1cjM_jB7"
     ],
-    "amazon_popularity": "4.1"
+    "goodreads_rating": "4.1"
   },
   {
-    "_id": "-xeJ0I8PpJl",
+    "_id": "BKajdrIkz3x",
     "title": "Who Was Thomas Alva Edison?",
     "isbn": "448437651",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "KoDd62_2h7a",
-        "name": "Margaret Frith"
-      }
+      "iKYuYuGRYEc"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_edison.jpg",
     "lexile_measure": 790,
@@ -1638,18 +1395,15 @@
     "genres": [
       "r1ECmusSQ"
     ],
-    "amazon_popularity": "4.11"
+    "goodreads_rating": "4.11"
   },
   {
-    "_id": "uQJI6q11DeN",
+    "_id": "0rTHNZca_gf",
     "title": "Who was Marie Curie?",
     "isbn": "044847896X",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "7AfkqLmvZ8u",
-        "name": "Megan Stine"
-      }
+      "BoxdvEZInVR"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_curie.jpg",
     "lexile_measure": 690,
@@ -1657,18 +1411,15 @@
     "genres": [
       "r1ECmusSQ"
     ],
-    "amazon_popularity": "4.32"
+    "goodreads_rating": "4.32"
   },
   {
-    "_id": "AivLlkABjud",
+    "_id": "jolPfvMHwI7",
     "title": "Who was Martin Luther King Jr.",
     "isbn": "448447231",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "R0SmUR2wDiq",
-        "name": "Bonnie Bader"
-      }
+      "Dkle6r6ac_w"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_mlk.jpg",
     "lexile_measure": 750,
@@ -1676,18 +1427,15 @@
     "genres": [
       "r1ECmusSQ"
     ],
-    "amazon_popularity": "4.3"
+    "goodreads_rating": "4.3"
   },
   {
-    "_id": "Gwl5F3zwNfM",
+    "_id": "IO8iLTl0L1J",
     "title": "Who was Amelia Earhart?",
     "isbn": "448428563",
     "num_pages": 106,
     "authors": [
-      {
-        "id": "TqUyqZkL_e0",
-        "name": "Kate Boehm Jerome"
-      }
+      "AaXzfZXGYtR"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_earhart.jpg",
     "lexile_measure": 610,
@@ -1695,18 +1443,15 @@
     "genres": [
       "r1ECmusSQ"
     ],
-    "amazon_popularity": "4.08"
+    "goodreads_rating": "4.08"
   },
   {
-    "_id": "fSukwObGEWr",
+    "_id": "ZY506Jtepo_",
     "title": "Who was Jackie Robinson?",
     "isbn": "448455579",
     "num_pages": 112,
     "authors": [
-      {
-        "id": "BbtvQOjKiFZ",
-        "name": "Gail Herman"
-      }
+      "l_tDsHUlCp2"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/whowas_jackie.jpg",
     "lexile_measure": 670,
@@ -1715,18 +1460,15 @@
       "HyBbXujB7",
       "r1ECmusSQ"
     ],
-    "amazon_popularity": "4.23"
+    "goodreads_rating": "4.23"
   },
   {
-    "_id": "J8aO42TcoFM",
+    "_id": "HOn3kZyOCWZ",
     "title": "It Ain't So Awful, Falafel",
     "isbn": "132874096X",
     "num_pages": 384,
     "authors": [
-      {
-        "id": "kqmYXj2MJyf",
-        "name": "Firoozeh Dumas"
-      }
+      "d8SEAJWT5R9"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/awful_falafel.jpg",
     "lexile_measure": 730,
@@ -1734,18 +1476,15 @@
     "genres": [
       "r11Vzdirm"
     ],
-    "amazon_popularity": "4.26"
+    "goodreads_rating": "4.26"
   },
   {
-    "_id": "tx62GmviRo2",
+    "_id": "SBwFxDQ5Azx",
     "title": "Invisible Emmie",
     "isbn": "62484931",
     "num_pages": 192,
     "authors": [
-      {
-        "id": "BctruvFzrKu",
-        "name": "Terri Libenson"
-      }
+      "zj3CyO3eyob"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/invisible_emmie.jpg",
     "lexile_measure": 570,
@@ -1753,18 +1492,15 @@
     "genres": [
       "r11Vzdirm"
     ],
-    "amazon_popularity": "3.83"
+    "goodreads_rating": "3.83"
   },
   {
-    "_id": "BSrSAY0z1Sz",
+    "_id": "EQSTdA-7Uwf",
     "title": "Jacky Ha-ha",
     "isbn": "316432539",
     "num_pages": 384,
     "authors": [
-      {
-        "id": "l_vxxFBaMd9",
-        "name": "James Patterson"
-      }
+      "MtsulAcpIxi"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/jacky_haha.jpg",
     "lexile_measure": 740,
@@ -1772,18 +1508,15 @@
     "genres": [
       "r11Vzdirm"
     ],
-    "amazon_popularity": "4.3"
+    "goodreads_rating": "4.3"
   },
   {
-    "_id": "Hovh18jHbAm",
+    "_id": "VbmCenZeIfD",
     "title": "Chomp",
     "isbn": "375868275",
     "num_pages": 290,
     "authors": [
-      {
-        "id": "MlmmgkI4a9l",
-        "name": "Carl Hiaasen"
-      }
+      "IllSe9zLT_5"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/chomp.jpg",
     "lexile_measure": 800,
@@ -1793,18 +1526,15 @@
       "B1Z_NdiB7",
       "Hy4HM_sB7"
     ],
-    "amazon_popularity": "3.94"
+    "goodreads_rating": "3.94"
   },
   {
-    "_id": "Bx5W-1GGKrp",
+    "_id": "bljznBx7LmL",
     "title": "Flush",
     "isbn": "375861254",
     "num_pages": 288,
     "authors": [
-      {
-        "id": "MlmmgkI4a9l",
-        "name": "Carl Hiaasen"
-      }
+      "IllSe9zLT_5"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/flush.jpg",
     "lexile_measure": 830,
@@ -1814,18 +1544,15 @@
       "Hy4HM_sB7",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "3.87"
+    "goodreads_rating": "3.87"
   },
   {
-    "_id": "q6qX6GTp3pt",
+    "_id": "M6EyruwsVak",
     "title": "Scat",
     "isbn": "440421047",
     "num_pages": 400,
     "authors": [
-      {
-        "id": "MlmmgkI4a9l",
-        "name": "Carl Hiaasen"
-      }
+      "IllSe9zLT_5"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/scat.jpg",
     "lexile_measure": 810,
@@ -1835,18 +1562,15 @@
       "B1Z_NdiB7",
       "Hy4HM_sB7"
     ],
-    "amazon_popularity": "3.94"
+    "goodreads_rating": "3.94"
   },
   {
-    "_id": "TbCO6BpAi5v",
+    "_id": "4-P951iuyQr",
     "title": "The Wednesday Wars",
     "isbn": "054723760X",
     "num_pages": 272,
     "authors": [
-      {
-        "id": "hSaatUbL6hL",
-        "name": "Gary Schmidt"
-      }
+      "l4OpCHyDEIj"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/wednesday_wars.jpg",
     "lexile_measure": 990,
@@ -1854,18 +1578,15 @@
     "genres": [
       "r11Vzdirm"
     ],
-    "amazon_popularity": "4.06"
+    "goodreads_rating": "4.06"
   },
   {
-    "_id": "nDQSEVM6xOh",
+    "_id": "KLZAbwtt5bf",
     "title": "Timmy Failure: Mistakes Were Made",
     "isbn": "076366927X",
     "num_pages": 320,
     "authors": [
-      {
-        "id": "j7kKljRS3mY",
-        "name": "Stephan Pastis"
-      }
+      "b0e3g8cvWBd"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/mistakes_made.jpg",
     "lexile_measure": 520,
@@ -1873,18 +1594,15 @@
     "genres": [
       "r11Vzdirm"
     ],
-    "amazon_popularity": "3.87"
+    "goodreads_rating": "3.87"
   },
   {
-    "_id": "43Rnrzhv87l",
+    "_id": "4Qrnel3PxEB",
     "title": "The Tapper Twins Go To War (with eachother)",
     "isbn": "316315974",
     "num_pages": 240,
     "authors": [
-      {
-        "id": "RKim5v-PfHE",
-        "name": "Geoff Rodkey"
-      }
+      "TXqCJc-muQ7"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/tapper_twins_war.jpg",
     "lexile_measure": 880,
@@ -1892,23 +1610,20 @@
     "genres": [
       "r11Vzdirm"
     ],
-    "amazon_popularity": "4.03",
+    "goodreads_rating": "4.03",
     "series": {
-      "id": "2G1LlodOkS1",
+      "id": "YUWy5B2LD76",
       "series_title": "The Tapper Twins",
       "book_num": 1
     }
   },
   {
-    "_id": "IdZftHC-H_L",
+    "_id": "xzOrV5Z3fmI",
     "title": "The Tapper Twins Run For President",
     "isbn": "316316008",
     "num_pages": 304,
     "authors": [
-      {
-        "id": "RKim5v-PfHE",
-        "name": "Geoff Rodkey"
-      }
+      "TXqCJc-muQ7"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/tapper_president.jpg",
     "lexile_measure": 800,
@@ -1916,23 +1631,20 @@
     "genres": [
       "r11Vzdirm"
     ],
-    "amazon_popularity": "4.35",
+    "goodreads_rating": "4.35",
     "series": {
-      "id": "2G1LlodOkS1",
+      "id": "YUWy5B2LD76",
       "series_title": "The Tapper Twins",
       "book_num": 2
     }
   },
   {
-    "_id": "4iwX_qU_ls3",
+    "_id": "-tTbKxscJcc",
     "title": "From the Mixed-Up Files of Mrs. Basil E. Frankweiler",
     "isbn": "689711816",
     "num_pages": 168,
     "authors": [
-      {
-        "id": "5FD2ppI9mqe",
-        "name": "E.L. Konigsburg"
-      }
+      "VewFMYKeFQ3"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/mixed_up_files.jpg",
     "lexile_measure": 700,
@@ -1942,18 +1654,15 @@
       "Sk8dbOjr7",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "4.15"
+    "goodreads_rating": "4.15"
   },
   {
-    "_id": "zT84oaGSC8S",
+    "_id": "-WEucdfOsn9",
     "title": "The Invention of Hugo Cabret",
     "isbn": "1407103482",
     "num_pages": 533,
     "authors": [
-      {
-        "id": "Z6SKeMjUe9D",
-        "name": "Brian Selznick"
-      }
+      "1uPKNuqxyzz"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/hugo_cabret.jpg",
     "lexile_measure": 820,
@@ -1963,18 +1672,15 @@
       "r1eZGuiB7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.23"
+    "goodreads_rating": "4.23"
   },
   {
-    "_id": "OX2R1OFowPq",
+    "_id": "5CetOpi8JYA",
     "title": "Encyclopedia Brown Boy Detective",
     "isbn": "142408883",
     "num_pages": 96,
     "authors": [
-      {
-        "id": "bII8KIluYr4",
-        "name": "Donald Sobol"
-      }
+      "bB6_i7xaxVe"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/encyclopedia_brown.jpg",
     "lexile_measure": 560,
@@ -1982,18 +1688,15 @@
     "genres": [
       "Hy4HM_sB7"
     ],
-    "amazon_popularity": "4.04"
+    "goodreads_rating": "4.04"
   },
   {
-    "_id": "jxwHHjq0b5h",
+    "_id": "t3yd3MJ2bnS",
     "title": "Harriet the Spy",
     "isbn": "440416795",
     "num_pages": 320,
     "authors": [
-      {
-        "id": "_UM3UiDvT-C",
-        "name": "Louise Fitzhugh"
-      }
+      "g9dzYXrAL_V"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/harriet_the_spy.jpg",
     "lexile_measure": 760,
@@ -2001,18 +1704,15 @@
     "genres": [
       "Hy4HM_sB7"
     ],
-    "amazon_popularity": "3.95"
+    "goodreads_rating": "3.95"
   },
   {
-    "_id": "nSOc1_nrkIm",
+    "_id": "b8ZzRCJt1zW",
     "title": "The Mysterious Benedict Society",
     "isbn": "9780316003957",
     "num_pages": 512,
     "authors": [
-      {
-        "id": "FyHuRd20XS0",
-        "name": "Trenton Lee Stewart"
-      }
+      "x6SeH9kn8Q_"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/bensociety_1.jpg",
     "lexile_measure": 840,
@@ -2021,23 +1721,20 @@
       "Hy4HM_sB7",
       "SyQXQOorX"
     ],
-    "amazon_popularity": "4.15",
+    "goodreads_rating": "4.15",
     "series": {
-      "id": "unlWkJ1vOpP",
+      "id": "sgXVxKzCeW-",
       "series_title": "The Mysterious Benedict Society",
       "book_num": 1
     }
   },
   {
-    "_id": "2RGRHqjxRer",
+    "_id": "BaVR4-Laamd",
     "title": "The Mysterious Benedict Society and the Perolous Journey",
     "isbn": "9780316036733",
     "num_pages": 464,
     "authors": [
-      {
-        "id": "FyHuRd20XS0",
-        "name": "Trenton Lee Stewart"
-      }
+      "x6SeH9kn8Q_"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/bensociety_2.jpg",
     "lexile_measure": 890,
@@ -2046,23 +1743,20 @@
       "Hy4HM_sB7",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "4.2",
+    "goodreads_rating": "4.2",
     "series": {
-      "id": "unlWkJ1vOpP",
+      "id": "sgXVxKzCeW-",
       "series_title": "The Mysterious Benedict Society",
       "book_num": 2
     }
   },
   {
-    "_id": "rLyS2EfmV8h",
+    "_id": "t3diLbCYOou",
     "title": "The Mysterious Benedict Society and the Prisoner's Dilemma",
     "isbn": "316045500",
     "num_pages": 400,
     "authors": [
-      {
-        "id": "FyHuRd20XS0",
-        "name": "Trenton Lee Stewart"
-      }
+      "x6SeH9kn8Q_"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/bensociety_3.jpg",
     "lexile_measure": 900,
@@ -2071,23 +1765,20 @@
       "Hy4HM_sB7",
       "Sk8dbOjr7"
     ],
-    "amazon_popularity": "4.28",
+    "goodreads_rating": "4.28",
     "series": {
-      "id": "unlWkJ1vOpP",
+      "id": "sgXVxKzCeW-",
       "series_title": "The Mysterious Benedict Society",
       "book_num": 3
     }
   },
   {
-    "_id": "YRtH2pijNJC",
+    "_id": "6eVDfnl5vy1",
     "title": "The Way to Stay in Destiny",
     "isbn": "9780545788694",
     "num_pages": 197,
     "authors": [
-      {
-        "id": "miMq7Nj9xmM",
-        "name": "Augusta Scattergood"
-      }
+      "ptdx9H0dtaC"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/stay_destiny.jpg",
     "lexile_measure": 650,
@@ -2097,18 +1788,15 @@
       "r1eZGuiB7",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "3.74"
+    "goodreads_rating": "3.74"
   },
   {
-    "_id": "bTq5-h1Ye6j",
+    "_id": "9-fy9NRIVNr",
     "title": "A Crooked Kind of Perfect",
     "isbn": "015206608X",
     "num_pages": 224,
     "authors": [
-      {
-        "id": "Siu_pJPYxh6",
-        "name": "Linda Urban"
-      }
+      "VTOOdiSHE_e"
     ],
     "cover_photo_url": "https://storage.googleapis.com/reading-rewards-books/crooked_perfect.jpg",
     "lexile_measure": 730,
@@ -2117,6 +1805,6 @@
       "H1cjM_jB7",
       "B1Z_NdiB7"
     ],
-    "amazon_popularity": "3.85"
+    "goodreads_rating": "3.85"
   }
 ]

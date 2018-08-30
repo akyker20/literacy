@@ -2,7 +2,7 @@
   {
     "_id": "submission-1",
     "student_id": "katelynn-kyker",
-    "book_id": "harry-potter-id",
+    "book_id": "baseball-id",
     "quiz_id": "quiz-harry",
     "date_created": "2018-05-16T17:55:56.479Z",
     "score": 100,
@@ -28,7 +28,7 @@
   {
     "_id": "submission-2",
     "student_id": "katelynn-kyker",
-    "book_id": "exchange-student-id",
+    "book_id": "hatchet-id",
     "quiz_id": "quiz-id-1",
     "date_created": "2018-05-10T17:55:56.479Z",
     "score": 60,
@@ -54,7 +54,7 @@
   {
     "_id": "submission-3",
     "student_id": "katelynn-kyker",
-    "book_id": "exchange-student-id",
+    "book_id": "hatchet-id",
     "quiz_id": "quiz-id-1",
     "date_created": "2018-05-11T17:55:56.479Z",
     "score": 60,
@@ -80,7 +80,7 @@
   {
     "_id": "submission-4",
     "student_id": "katelynn-kyker",
-    "book_id": "exchange-student-id",
+    "book_id": "hatchet-id",
     "quiz_id": "quiz-id-2",
     "date_created": "2018-05-12T17:55:56.479Z",
     "score": 60,
@@ -106,7 +106,7 @@
   {
     "_id": "submission-5",
     "student_id": "chase-malik",
-    "book_id": "hobbit-id",
+    "book_id": "peak-id",
     "quiz_id": "quiz-id-2",
     "date_created": "2018-05-12T17:55:56.479Z",
     "score": 80,

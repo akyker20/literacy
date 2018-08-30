@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { ForbiddenError, ResourceNotFoundError, BadRequestError } from 'restify-errors';
+import { ResourceNotFoundError, BadRequestError } from 'restify-errors';
 import { Models as M, Constants as SC, Helpers } from 'reading_rewards';
 
 import {
@@ -16,12 +16,14 @@ import { INotificationSys } from '../../notifications';
 import { IEmail, IEmailContent } from '../../email';
 import { EmailTemplates } from '../../email/templates';
 import { BodyValidators as Val } from './joi';
+import { IReadingLogData } from '../../data/reading_log';
 
 
 export function QuizRoutes(
   userData: IUserData,
   quizData: IQuizData,
   bookData: IBookData,
+  readingLogData: IReadingLogData,
   notifications: INotificationSys,
   email: IEmail
 ) {
@@ -134,21 +136,7 @@ export function QuizRoutes(
         const student = await userData.getUserById(student_id) as M.IStudent;
         validateUser(student_id, student);
 
-        const submissions = await quizData.getSubmissionsForStudent(student_id);
-
-        if (Helpers.needsToWaitToTakeNextQuiz(submissions)) {
-          throw new ForbiddenError(`User must wait to attempt another quiz.`);
-        }
-
-        if (Helpers.hasPassedQuizForBook(book_id, submissions)) {
-          throw new ForbiddenError(`User has already passed quiz for book ${req.body.book_id}`);
-        }
-
-        if (Helpers.hasExhaustedAttemptsForBook(book_id, submissions)) {
-          throw new ForbiddenError(`User has exhausted all attempts to pass quiz for book ${req.body.book_id}`);
-        }
-
-        // verify book actually exists
+        // verify book exists
 
         const book = await bookData.getBook(req.body.book_id);
 
@@ -156,12 +144,39 @@ export function QuizRoutes(
           throw new ResourceNotFoundError(`No book with id ${req.body.book_id} exists`)
         }
 
-        // verify quiz actually exists
+        // verify quiz exists
 
         const quiz = await quizData.getQuizById(req.body.quiz_id);
 
         if (quiz === null) {
           throw new ResourceNotFoundError(`No quiz with id ${req.body.quiz_id} exists`)
+        }
+
+        // ensure finished reading log exists for the book.
+
+        const studentLogs = await readingLogData.getLogsForStudent(student_id);
+        const finalLogForBook = _.find(studentLogs, {
+          book_id,
+          is_last_log_for_book: true
+        })
+        if (_.isUndefined(finalLogForBook)) {
+          throw new BadRequestError(`Student ${Helpers.getFullName(student)} has not logged to the end of ${book.title}`)
+        }
+
+        // check submissions
+
+        const submissions = await quizData.getSubmissionsForStudent(student_id);
+
+        if (Helpers.needsToWaitToTakeNextQuiz(submissions)) {
+          throw new BadRequestError(`User must wait to attempt another quiz.`);
+        }
+
+        if (Helpers.hasPassedQuizForBook(book_id, submissions)) {
+          throw new BadRequestError(`User has already passed quiz for book ${req.body.book_id}`);
+        }
+
+        if (Helpers.hasExhaustedAttemptsForBook(book_id, submissions)) {
+          throw new BadRequestError(`User has exhausted all attempts to pass quiz for book ${req.body.book_id}`);
         }
 
         // should be the same number of questions as answers

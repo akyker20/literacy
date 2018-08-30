@@ -12,7 +12,7 @@ import * as moment from 'moment';
 import * as supertest from 'supertest';
 import * as bcrypt from 'bcryptjs';
 import * as _ from 'lodash';
-import { Models, Mockers, Constants as SC } from 'reading_rewards';
+import { Models, Mockers, Constants as SC, Helpers } from 'reading_rewards';
 import { assert } from 'chai';
 
 import * as BEC from '../constants'
@@ -39,11 +39,12 @@ const initialBooks: Models.IBook[] = JSON.parse(fs.readFileSync(Path.join(__dirn
 const initialGenres: Models.IGenre[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/genres.json'), 'utf8'));
 const initialQuizzes: Models.IQuiz[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/quizzes.json'), 'utf8'));
 const initialUsers: Models.IUser[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/users.json'), 'utf8'));
-const initialQuizSubmissions = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/quiz_submissions.json'), 'utf8'));
+const initialQuizSubmissions: Models.IQuizSubmission[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/quiz_submissions.json'), 'utf8'));
 const initialBookReviews: Models.IBookReview[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/book_reviews.json'), 'utf8'));
 const initialPrizes: Models.IPrize[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/prizes.json'), 'utf8'));
 const initialPrizeOrders: Models.IPrizeOrder[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/prize_orders.json'), 'utf8'));
 const initialReadingLogs: Models.IReadingLog[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/reading_logs.json'), 'utf8'));
+const initialAuthors: Models.IAuthor[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/authors.json'), 'utf8'));
 
 // convenience variables
 
@@ -130,7 +131,6 @@ function checkErrMsg(msg: string) {
   };
 }
 
-
 describe('End to End tests', function () {
 
   beforeEach(async function () {
@@ -143,7 +143,8 @@ describe('End to End tests', function () {
       setData(usersCollection, initialUsers),
       setData(prizeCollection, initialPrizes),
       setData(prizeOrderCollection, initialPrizeOrders),
-      setData(readingLogCollection, initialReadingLogs)
+      setData(readingLogCollection, initialReadingLogs),
+      setData(authorCollection, initialAuthors)
     ]);
   });
 
@@ -366,11 +367,11 @@ describe('End to End tests', function () {
 
     })
 
-    describe('#setPrizeOrderStatusToOrdered', function() {
-      
+    describe('#setPrizeOrderStatusToOrdered', function () {
+
       const unorderedPrizeOrder = _.find(initialPrizeOrders, { status: Models.PrizeOrderStatus.Pending });
       const orderedPrizeOrder = _.find(initialPrizeOrders, { status: Models.PrizeOrderStatus.Ordered });
-      
+
       it('should 401 when no auth token in header', function () {
         return agent
           .post(`/prize_orders/${unorderedPrizeOrder._id}/ordered`)
@@ -555,18 +556,43 @@ describe('End to End tests', function () {
 
   describe('Book Routes', function () {
 
-    describe.only('#createBook', function () {
+    describe('#getAllAuthors', function () {
 
-      let validBookBody = Mockers.mockBook({
-        genres: [initialGenres[0]._id]
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .get('/authors')
+          .expect(401);
+      });
+
+      it('should return all authors', function () {
+        return agent
+          .get('/authors')
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(200)
+          .then(({ body }) => assert.sameDeepMembers(body, initialAuthors))
+      })
+
+    })
+
+    describe('#createBook', function () {
+
+      let validBookBody: Models.IBook = Mockers.mockBook({
+        genres: [initialGenres[0]._id],
+        authors: [_.sample(initialAuthors)._id as string]
       });
       delete validBookBody._id;
-
 
       it('should 401 when no auth token in header', function () {
         return agent
           .post('/books')
           .expect(401);
+      });
+
+      it('should 403 if non-admin making request', function () {
+        return agent
+          .post(`/books`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403);
       });
 
       it('should 400 if invalid genres', function () {
@@ -582,11 +608,17 @@ describe('End to End tests', function () {
           .then(checkErrMsg(`Genre ids ${invalidId} are invalid.`))
       });
 
-      it('should 403 if non-admin making request', function () {
+      it('should 400 if invalid authors', function () {
+        const invalidBody = _.cloneDeep(validBookBody);
+        const invalidId = shortid.generate();
+        invalidBody.authors = [invalidId];
+
         return agent
           .post(`/books`)
-          .set(SC.AuthHeaderField, katelynnToken)
-          .expect(403);
+          .set(SC.AuthHeaderField, austinToken)
+          .send(invalidBody)
+          .expect(400)
+          .then(checkErrMsg(`Author ids ${invalidId} are invalid.`))
       });
 
       it('should save the book', function () {
@@ -655,20 +687,19 @@ describe('End to End tests', function () {
           .expect(401);
       });
 
-      it('should return all books when no query param provided', function () {
+      it('should 403 if not admin', function () {
         return agent
           .get('/books')
           .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should return all books', function () {
+        return agent
+          .get('/books')
+          .set(SC.AuthHeaderField, austinToken)
           .expect(200)
           .then(({ body }) => assert.sameDeepMembers(body, initialBooks))
-      })
-
-      it('should return books with matching titles to query', function () {
-        return agent
-          .get('/books?q=Harry+Potter')
-          .set(SC.AuthHeaderField, katelynnToken)
-          .expect(200)
-          .then(({ body }) => assert.sameDeepMembers(body, [_.find(initialBooks, { _id: "harry-potter-id" })]))
       })
 
     })
@@ -709,7 +740,8 @@ describe('End to End tests', function () {
       const bookId = bookToUpdate._id;
       const update: Models.IBook = Mockers.mockBook({
         _id: bookToUpdate._id,
-        genres: _.cloneDeep(bookToUpdate.genres)
+        genres: _.cloneDeep(bookToUpdate.genres),
+        authors: _.cloneDeep(bookToUpdate.authors)
       });
 
       it('should 401 when no auth token in header', function () {
@@ -743,7 +775,7 @@ describe('End to End tests', function () {
     describe('#createBookReview', function () {
 
       // chase has not submitted a quiz for this book
-      const bookNotReadId = 'kings-fifth-id';
+      const bookNotReadId = 'baseball-id';
       const reviewForBookNotRead = Mockers.mockBookReview({
         student_id: chase._id,
         book_id: bookNotReadId
@@ -754,7 +786,20 @@ describe('End to End tests', function () {
       delete reviewForBookNotRead.is_active;
       delete reviewForBookNotRead.student_initials;
 
-      const bookChaseReadId = 'hobbit-id';
+      const katelynnReview = _.find(initialBookReviews, { student_id: katelynn._id });
+      assert.isDefined(katelynnReview);
+      const repeatReview: Models.IBookReviewBody = {
+        student_id: katelynn._id,
+        book_id: katelynnReview.book_id,
+        comprehension: 5,
+        interest: 4,
+        review: 'another review'
+      }
+
+      const bookChaseReadId = _.find(initialQuizSubmissions, { student_id: chase._id, passed: true }).book_id;
+      if (_.isUndefined(bookChaseReadId)) {
+        throw new Error('issue with test')
+      }
       const reviewForBookRead = Mockers.mockBookReview({
         student_id: chase._id,
         book_id: bookChaseReadId
@@ -767,60 +812,68 @@ describe('End to End tests', function () {
 
       it('should 401 when no auth token in header', function () {
         return agent
-          .post(`/book_reviews`)
+          .post(`/books/${_.sample(initialBooks)._id}/book_reviews`)
           .expect(401);
-      });
-
-      it('should 403 if student has not submitted a quiz for book', function () {
-        return agent
-          .post(`/book_reviews`)
-          .set(SC.AuthHeaderField, chaseToken)
-          .send(reviewForBookNotRead)
-          .expect(403)
-          .then(checkErrMsg(`User has not passed a quiz for book ${bookNotReadId}. The user must do this before posting a review.`))
       });
 
       it('should 403 if student submitting for another student', function () {
         return agent
-          .post(`/book_reviews`)
+          .post(`/books/${bookChaseReadId}/book_reviews`)
           .set(SC.AuthHeaderField, katelynnToken)
           .send(reviewForBookRead)
           .expect(403)
           .then(checkErrMsg(`User ${katelynn._id} cannot write book review for user ${chase._id}`))
       });
 
+      it('should 404 if the book does not exist', function () {
+        const invalidId = shortid.generate();
+        return agent
+          .post(`/books/${invalidId}/book_reviews`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send({
+            ...reviewForBookNotRead,
+            book_id: invalidId
+          })
+          .expect(404)
+      });
+
+      it('should 400 if student has not passed a quiz for book', function () {
+        return agent
+          .post(`/books/${reviewForBookNotRead.book_id}/book_reviews`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(reviewForBookNotRead)
+          .expect(400)
+          .then(checkErrMsg(`User has not passed a quiz for book ${bookNotReadId}. The user must do this before posting a review.`))
+      });
+
+      it('should 400 if student has already submitted a review for the book', function () {
+        return agent
+          .post(`/books/${katelynnReview.book_id}/book_reviews`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(repeatReview)
+          .expect(400)
+          .then(checkErrMsg(`Student ${katelynn._id} has already posted a book review for book ${repeatReview.book_id}`))
+      });
+
       it('should 200 and create the review', function () {
         return agent
-          .post(`/book_reviews`)
+          .post(`/books/${reviewForBookRead.book_id}/book_reviews`)
           .set(SC.AuthHeaderField, chaseToken)
           .send(reviewForBookRead)
           .expect(200)
           .then(({ body }) => {
             delete body.date_created;
             delete body._id;
-            const expected = _.assign({}, reviewForBookRead, {
-              book_lexile_measure: 1000,
+            const expected = {
+              ...reviewForBookRead,
+              book_lexile_measure: _.find(initialBooks, { _id: reviewForBookRead.book_id }).lexile_measure,
               is_active: true,
               student_initials: 'CM'
-            })
+            }
             assert.deepEqual(body, expected);
+            return bookReviewCollection.find({})
           })
-      });
-
-      it('should 403 if submitting another review for same book', function () {
-
-        // "student_id": "katelynn-kyker",
-        // "book_id": "harry-potter-id",
-        const copy = _.cloneDeep(initialBookReviews[0]);
-        delete copy._id;
-        delete copy.date_created;
-
-        return agent
-          .post(`/book_reviews`)
-          .set(SC.AuthHeaderField, katelynnToken)
-          .send(copy)
-          .expect(403)
-          .then(checkErrMsg(`Student ${katelynn._id} has already posted a book review for book ${copy.book_id}`))
+          .then(reviews => assert.lengthOf(reviews, initialBookReviews.length + 1))
       });
 
     })
@@ -829,13 +882,31 @@ describe('End to End tests', function () {
 
   describe('Quiz Routes', function () {
 
+    const allBookIds = _.map(initialBooks, '_id');
+    const idsOfBooksWithQuizzes = _.chain(initialQuizzes)
+      .filter(q => !_.isEmpty(q.book_id))
+      .map('book_id')
+      .value();
+    const booksWithoutQuiz = _.difference(allBookIds, idsOfBooksWithQuizzes);
+
+    const bookWithQuiz = _.find(initialBooks, b => _.includes(idsOfBooksWithQuizzes, b._id));
+    const bookWithoutQuiz = _.find(initialBooks, b => _.includes(booksWithoutQuiz, b._id));
+
     describe('#createQuiz', function () {
 
-      let validQuiz = Mockers.mockQuiz({
-        questions: _.times(5, () => Mockers.mockQuizQuestion())
+      let validQuizBody = Mockers.mockQuiz({
+        questions: _.times(5, () => Mockers.mockQuizQuestion()),
+        book_id: bookWithoutQuiz._id
       })
-      delete validQuiz._id;
-      delete validQuiz.date_created;
+      delete validQuizBody._id;
+      delete validQuizBody.date_created;
+
+      let repeatQuizBody = Mockers.mockQuiz({
+        questions: _.times(5, () => Mockers.mockQuizQuestion()),
+        book_id: bookWithQuiz._id
+      })
+      delete validQuizBody._id;
+      delete validQuizBody.date_created;
 
       it('should 401 when no auth token in header', function () {
         return agent
@@ -850,16 +921,35 @@ describe('End to End tests', function () {
           .expect(403);
       });
 
+      it('should 404 if book does not exist', function () {
+        return agent
+          .post(`/quizzes`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send({
+            ...validQuizBody,
+            book_id: shortid.generate()
+          })
+          .expect(404);
+      });
+
+      it('should 400 if quiz already exists for book', function () {
+        return agent
+          .post(`/quizzes`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send(repeatQuizBody)
+          .expect(400);
+      });
+
       it('should create a new quiz', function () {
         return agent
           .post(`/quizzes`)
           .set(SC.AuthHeaderField, austinToken)
-          .send(validQuiz)
+          .send(validQuizBody)
           .expect(200)
           .then(({ body }) => {
             delete body._id;
             delete body.date_created;
-            assert.deepEqual(body, validQuiz);
+            assert.deepEqual(body, validQuizBody);
             return quizCollection.find({})
           })
           .then(quizzes => assert.lengthOf(quizzes, initialQuizzes.length + 1))
@@ -930,6 +1020,29 @@ describe('End to End tests', function () {
           .expect(403);
       });
 
+      it('should 404 if quiz does not exist', function () {
+        const invalidId = shortid.generate()
+        return agent
+          .put(`/quizzes/${invalidId}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send({
+            ...update,
+            _id: invalidId
+          })
+          .expect(404)
+      });
+
+      it('should 404 if book does not exist', function () {
+        return agent
+          .put(`/quizzes/${update._id}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send({
+            ...update,
+            book_id: shortid.generate()
+          })
+          .expect(404)
+      });
+
       it('should update the quiz', function () {
         return agent
           .put(`/quizzes/${quizId}`)
@@ -947,11 +1060,11 @@ describe('End to End tests', function () {
 
     describe('#submitQuiz', function () {
 
-      const genericQuiz = _.find(initialQuizzes, { _id: "quiz-id-1" })
+      const genericQuiz = _.find(initialQuizzes, q => _.isUndefined(q.book_id))
 
-      const passingValidSubmissionQuiz1Body = {
+      const chasePassQuizSubBody = {
         student_id: chase._id,
-        book_id: initialBooks[0]._id,
+        book_id: 'baseball-id',
         quiz_id: genericQuiz._id,
         answers: [
           { answer_index: 3 },
@@ -962,9 +1075,9 @@ describe('End to End tests', function () {
         ]
       }
 
-      const failingSubmissionQuiz1Body = {
+      const chaseFailedQuizSubBody = {
         student_id: chase._id,
-        book_id: initialBooks[0]._id,
+        book_id: 'baseball-id',
         quiz_id: genericQuiz._id,
         answers: [
           { answer_index: 4 },
@@ -975,9 +1088,9 @@ describe('End to End tests', function () {
         ]
       }
 
-      const quizUserAlreadyPassed = {
+      const kkQuizSubForBookAlreadyPassed = {
         student_id: katelynn._id,
-        book_id: initialBooks[0]._id,
+        book_id: 'baseball-id',
         quiz_id: genericQuiz._id,
         answers: [
           { answer_index: 3 },
@@ -988,24 +1101,9 @@ describe('End to End tests', function () {
         ]
       }
 
-      const userExhaustedAllAttemptsSubmission = {
+      const kkQuizSubForBookAlreadyFailed = {
         student_id: katelynn._id,
-        book_id: initialBooks[0]._id,
-        quiz_id: genericQuiz._id,
-        answers: [
-          { answer_index: 3 },
-          { answer_index: 2 },
-          { answer_index: 2 },
-          { answer_index: 2 },
-          { answer_index: 0 }
-        ]
-      }
-
-      // katelynn already failed quiz for exchange-student-id three times
-      // she failed quiz-id-1 twice and quiz-id-2 once
-      const quizForBookAlreadyFailedThreeTime = {
-        student_id: katelynn._id,
-        book_id: 'exchange-student-id',
+        book_id: 'hatchet-id',
         quiz_id: genericQuiz._id,
         answers: [
           { answer_index: 3 },
@@ -1018,57 +1116,68 @@ describe('End to End tests', function () {
 
       it('should 401 when no auth token in header', function () {
         return agent
-          .post(`/quiz_submissions`)
+          .post(`/students/${katelynn._id}/quiz_submissions`)
           .expect(401);
       });
 
-      it('should 400 if quiz is invalid', function () {
-        const copy = _.cloneDeep(passingValidSubmissionQuiz1Body);
+      it('should 404 if quiz is invalid', function () {
+        const copy = _.cloneDeep(chasePassQuizSubBody);
         copy.quiz_id = shortid.generate();
         return agent
-          .post('/quiz_submissions')
+          .post(`/students/${chase._id}/quiz_submissions`)
           .set(SC.AuthHeaderField, chaseToken)
           .send(copy)
-          .expect(400)
+          .expect(404)
           .then(checkErrMsg(`No quiz with id ${copy.quiz_id} exists`))
       })
 
-      it('should 400 if book is invalid', function () {
-        const copy = _.cloneDeep(passingValidSubmissionQuiz1Body);
+      it('should 404 if book is invalid', function () {
+        const copy = _.cloneDeep(chasePassQuizSubBody);
         copy.book_id = shortid.generate();
         return agent
-          .post('/quiz_submissions')
+          .post(`/students/${chase._id}/quiz_submissions`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(copy)
+          .expect(404)
+          .then(checkErrMsg(`No book with id ${copy.book_id} exists`))
+      });
+
+      it('should 400 if student has not logged to the end of the book', function () {
+        const copy = _.cloneDeep(chasePassQuizSubBody);
+        copy.book_id = 'hatchet-id';
+        return agent
+          .post(`/students/${chase._id}/quiz_submissions`)
           .set(SC.AuthHeaderField, chaseToken)
           .send(copy)
           .expect(400)
-          .then(checkErrMsg(`No book with id ${copy.book_id} exists`))
+          .then(checkErrMsg(`Student ${Helpers.getFullName(chase)} has not logged to the end of ${_.find(initialBooks, { _id: copy.book_id }).title}`))
       })
 
       it('should 403 when students submits on behalf another student', function () {
         return agent
-          .post('/quiz_submissions')
+          .post(`/students/${chase._id}/quiz_submissions`)
           .set(SC.AuthHeaderField, katelynnToken)
-          .send(passingValidSubmissionQuiz1Body)
+          .send(chasePassQuizSubBody)
           .expect(403)
-          .then(checkErrMsg('Students cannot submit quizzes for other students'))
+          .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chasePassQuizSubBody.student_id}`))
       })
 
-      it('should 403 if user has already passed quiz', function () {
+      it('should 400 if user has already passed quiz', function () {
         return agent
-          .post('/quiz_submissions')
+          .post(`/students/${katelynn._id}/quiz_submissions`)
           .set(SC.AuthHeaderField, katelynnToken)
-          .send(quizUserAlreadyPassed)
-          .expect(403)
-          .then(checkErrMsg(`User has already passed quiz for book ${quizUserAlreadyPassed.book_id}`))
+          .send(kkQuizSubForBookAlreadyPassed)
+          .expect(400)
+          .then(checkErrMsg(`User has already passed quiz for book ${kkQuizSubForBookAlreadyPassed.book_id}`))
       })
 
-      it('should 403 if user has already failed three times', function () {
+      it('should 400 if user has already failed three times', function () {
         return agent
-          .post('/quiz_submissions')
+          .post(`/students/${katelynn._id}/quiz_submissions`)
           .set(SC.AuthHeaderField, katelynnToken)
-          .send(quizForBookAlreadyFailedThreeTime)
-          .expect(403)
-          .then(checkErrMsg(`User has exhausted all attempts to pass quiz for book ${quizForBookAlreadyFailedThreeTime.book_id}`))
+          .send(kkQuizSubForBookAlreadyFailed)
+          .expect(400)
+          .then(checkErrMsg(`User has exhausted all attempts to pass quiz for book ${kkQuizSubForBookAlreadyFailed.book_id}`))
       })
 
       it('should prevent user from attempting another quiz without waiting', function () {
@@ -1088,10 +1197,10 @@ describe('End to End tests', function () {
           .then(() => {
 
             return agent
-              .post('/quiz_submissions')
+              .post(`/students/${katelynn._id}/quiz_submissions`)
               .set(SC.AuthHeaderField, katelynnToken)
-              .send(userExhaustedAllAttemptsSubmission)
-              .expect(403)
+              .send(kkQuizSubForBookAlreadyFailed)
+              .expect(400)
               .then(checkErrMsg(`User must wait to attempt another quiz.`))
 
           })
@@ -1100,15 +1209,15 @@ describe('End to End tests', function () {
 
       it('should 200 and return passed quiz', function () {
         return agent
-          .post('/quiz_submissions')
+          .post(`/students/${chase._id}/quiz_submissions`)
           .set(SC.AuthHeaderField, chaseToken)
-          .send(passingValidSubmissionQuiz1Body)
+          .send(chasePassQuizSubBody)
           .expect(200)
           .then(({ body }) => {
             delete body._id;
             delete body.date_created;
             assert.deepEqual(body, {
-              ...passingValidSubmissionQuiz1Body,
+              ...chasePassQuizSubBody,
               passed: true,
               score: 100,
               book_title: initialBooks[0].title
@@ -1120,15 +1229,15 @@ describe('End to End tests', function () {
 
       it('should 200 and return failed quiz', function () {
         return agent
-          .post('/quiz_submissions')
+          .post(`/students/${chase._id}/quiz_submissions`)
           .set(SC.AuthHeaderField, chaseToken)
-          .send(failingSubmissionQuiz1Body)
+          .send(chaseFailedQuizSubBody)
           .expect(200)
           .then(({ body }) => {
             delete body._id;
             delete body.date_created;
             assert.deepEqual(body, {
-              ...failingSubmissionQuiz1Body,
+              ...chaseFailedQuizSubBody,
               passed: false,
               score: 60,
               book_title: initialBooks[0].title
@@ -1139,9 +1248,6 @@ describe('End to End tests', function () {
     })
 
     describe('#getQuizForBook', function () {
-
-      const bookWithQuiz = _.find(initialBooks, { _id: 'harry-potter-id' });
-      const bookWithoutQuiz = _.find(initialBooks, { _id: 'hobbit-id' })
 
       it('should 401 when no auth token in header', function () {
         return agent
@@ -1159,12 +1265,13 @@ describe('End to End tests', function () {
       });
 
       it('should 200 and return book specific quiz', function () {
-        const quizForHarryPotter = _.find(initialQuizzes, { book_id: bookWithQuiz._id })
+        const bookSpecificQuiz = _.find(initialQuizzes, q => !_.isEmpty(q.book_id));
+        assert.isDefined(bookSpecificQuiz);
         return agent
-          .get(`/books/${bookWithQuiz._id}/quiz`)
+          .get(`/books/${bookSpecificQuiz.book_id}/quiz`)
           .set(SC.AuthHeaderField, chaseToken)
           .expect(200)
-          .then(({ body }) => assert.deepEqual(body, quizForHarryPotter))
+          .then(({ body }) => assert.deepEqual(body, bookSpecificQuiz))
       });
 
       it('should 200 and return generic book quiz', function () {
@@ -1181,821 +1288,925 @@ describe('End to End tests', function () {
 
     })
 
-    describe('Reading Log Routes', function () {
+    describe('#getAllQuizzes', function () {
 
-      const validReadingLog: Models.IReadingLogBody = {
-        student_id: katelynn._id as string,
-        book_id: _.find(initialBooks, book => book.num_pages > SC.ReadingLogMaxPagesPossibleInLog + 10)._id as string,
-        start_page: 0,
-        final_page: 100,
-        duration_min: 100,
-        summary: faker.lorem.sentence(4),
-        read_with: Models.ReadingWith.ByMyself,
-        is_last_log_for_book: false
-      }
-
-      describe('#createReadingLog', function () {
-
-        it('should 401 when no auth token in header', function () {
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .expect(401);
-        });
-
-        it('should 400 when student id in url does not match student in body', function () {
-          return agent
-            .post(`/students/${chase._id}/reading_logs`)
-            .set(SC.AuthHeaderField, austinToken)
-            .send(validReadingLog)
-            .expect(400);
-        });
-
-        it('should 403 if student posting for another student', function () {
-          return agent
-            .post(`/students/${chase._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(validReadingLog)
-            .expect(403);
-        });
-
-        it('should 400 if final_page is equal to end_page', function () {
-
-          const invalid = {
-            ...validReadingLog,
-            start_page: 10,
-            final_page: 10
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg('Final page should be greater than start page'))
-
-        });
-
-        it('should 400 if final_page is less than to end_page', function () {
-
-          const invalid = {
-            ...validReadingLog,
-            start_page: 10,
-            final_page: 5
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg('Final page should be greater than start page'))
-
-        });
-
-        it('should 400 if final_page is greater than number of pages in book', function () {
-
-          const book = _.find(initialBooks, { _id: validReadingLog.book_id });
-
-          const invalid = {
-            ...validReadingLog,
-            start_page: book.num_pages - 20,
-            final_page: book.num_pages + 10
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg(`Final page (${invalid.final_page}) exceeds number of pages in book (${book.num_pages})`))
-
-        });
-
-        it('should 400 if too many pages logged', function () {
-
-          const invalid: Models.IReadingLogBody = {
-            ...validReadingLog,
-            start_page: 0,
-            final_page: SC.ReadingLogMaxPagesPossibleInLog + 10
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg(`The maximum number of pages you can log is ${SC.ReadingLogMaxPagesPossibleInLog}`))
-
-        });
-
-        it('should 400 if final_page is last page of book, but not last log set', function () {
-
-          const book = _.find(initialBooks, { _id: validReadingLog.book_id });
-
-          const invalid: Models.IReadingLogBody = {
-            ...validReadingLog,
-            start_page: book.num_pages - 20,
-            final_page: book.num_pages,
-            is_last_log_for_book: false
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg('Final page cannot be last page, yet not the last log for the book'))
-
-        });
-
-        it('should 400 if duration_min too small', function () {
-
-          const invalid: Models.IReadingLogBody = {
-            ...validReadingLog,
-            duration_min: SC.ReadingLogMinMinutes - 1
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg(`Reading log duration must be between ${SC.ReadingLogMinMinutes} and ${SC.ReadingLogMaxMinutes} minutes`))
-
-        });
-
-        it('should 400 if duration_min too large', function () {
-
-          const invalid: Models.IReadingLogBody = {
-            ...validReadingLog,
-            duration_min: SC.ReadingLogMaxMinutes + 1
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg(`Reading log duration must be between ${SC.ReadingLogMinMinutes} and ${SC.ReadingLogMaxMinutes} minutes`))
-
-        });
-
-        it('should 400 if is last log, but final_page is not last page of book', function () {
-
-          const book = _.find(initialBooks, { _id: validReadingLog.book_id });
-
-          const invalid: Models.IReadingLogBody = {
-            ...validReadingLog,
-            start_page: book.num_pages - 20,
-            final_page: book.num_pages - 10,
-            is_last_log_for_book: true
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg('Final page is not last page of book, yet this is a last log for the book'))
-
-        });
-
-        it('should 400 if first log and doesn\'t start at page 0', function () {
-
-          const bookNotLogged = _.find(initialBooks, book => {
-            const idsOfBooksLogged = _.map(initialReadingLogs, 'book_id');
-            return !_.includes(idsOfBooksLogged, book._id)
-          })
-
-          const invalid = {
-            ...validReadingLog,
-            book_id: bookNotLogged._id,
-            start_page: 1,
-            final_page: 10
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg(`First log for book ${bookNotLogged.title} must have start_page = 0`))
-
-        })
-
-        it('should 400 if trying to log a book already finished logging', function () {
-
-          const book = _.find(initialBooks, { _id: 'harry-potter-id' })
-
-          const invalid = {
-            ...validReadingLog,
-            book_id: book._id,
-            start_page: 1,
-            final_page: 10
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg(`You have already logged that you finished ${book.title}`))
-
-        })
-
-        it('should 400 if log does not start where last log ended', function () {
-
-          const unfinishedLog = _.find(initialReadingLogs, { _id: 'unfinished_log' })
-          const book = _.find(initialBooks, { _id: unfinishedLog.book_id })
-
-          const invalid = {
-            ...validReadingLog,
-            book_id: book._id,
-            start_page: unfinishedLog.final_page + 2,
-            final_page: unfinishedLog.final_page + 10
-          }
-
-          return agent
-            .post(`/students/${katelynn._id}/reading_logs`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(invalid)
-            .expect(400)
-            .then(checkErrMsg(`Your last log for ${book.title} ended on ${unfinishedLog.final_page}. This next log must start on that page.`))
-
-        })
-
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .get('/quizzes')
+          .expect(401);
       });
 
-
-
-    });
-
-    describe('User Routes', function () {
-
-      describe('#studentSignin', function () {
-
-        const validAdminCreds: Models.IUserLoginCreds = {
-          username: austin.username,
-          password: 'password'
-        }
-
-        const validStudentCreds: Models.IUserLoginCreds = {
-          username: katelynn.username,
-          password: 'password'
-        }
-
-        const inactiveStudentCreds: Models.IUserLoginCreds = {
-          username: inactiveStudent.username,
-          password: 'password'
-        }
-
-        it('should 400 if no user exists with email', function () {
-          const invalidEmail = 'invalid@gmail.com'
-          return agent
-            .post(`/students/signin`)
-            .send({ email: invalidEmail, password: 'pass' })
-            .expect(400)
-            .then(checkErrMsg(`No user with email ${invalidEmail}`))
-        })
-
-        it('should 400 if user is admin', function () {
-          return agent
-            .post(`/students/signin`)
-            .send(validAdminCreds)
-            .expect(400)
-            .then(checkErrMsg('User must be a student.'))
-        })
-
-        it('should 400 if student is not active', function () {
-          return agent
-            .post('/students/signin')
-            .send(inactiveStudentCreds)
-            .expect(400)
-            .then(checkErrMsg('This student account is not yet activated.'))
-        })
-
-        it('should 400 if invalid email/password combo', function () {
-          const invalidPass = 'invalid';
-          const invalidCreds = {
-            ...validStudentCreds,
-            password: invalidPass
-          }
-          return agent
-            .post(`/students/signin`)
-            .send(invalidCreds)
-            .expect(400)
-            .then(checkErrMsg('Invalid email/password combination.'))
-        })
-
-        it('should 200 if credentials valid', function () {
-          return agent
-            .post(`/students/signin`)
-            .expect(200)
-            .send(validStudentCreds)
-            .then(({ body }) => {
-              const actualClaims = jwt.verify(body.auth_token, BEC.JWTSecret) as any
-              assert.equal(actualClaims._id, katelynn._id);
-              assert.equal(actualClaims.type, katelynn.type)
-              assert.deepEqual(body.dto.info, katelynn)
-            })
-        })
-
-      })
-
-      describe('#createEducator', function () {
-
-        const validReqBody: Models.IEducatorBody = {
-          gender: Models.Gender.Female,
-          first_name: 'Bonnie',
-          last_name: 'Stewart',
-          username: 'tjones@parktudor.org',
-          email: 'tjones@parktudor.org',
-          password: 'taylors_password'
-        }
-
-        it('should 401 when no auth token in header', function () {
-          return agent
-            .post(`/educators`)
-            .expect(401);
-        });
-
-        it('should 403 if non-admin making request', function () {
-          return agent
-            .post('/educators')
-            .set(SC.AuthHeaderField, chaseToken)
-            .expect(403);
-        });
-
-        it('should 200 and save the educator', function () {
-
-          return agent
-            .post('/educators')
-            .set(SC.AuthHeaderField, austinToken)
-            .send(validReqBody)
-            .expect(200)
-            .then(({ body }) => {
-
-              assert.hasAllKeys(body, [
-                '_id',
-                'date_created',
-                'username',
-                'email',
-                'first_name',
-                'hashed_password',
-                'last_name',
-                'notification_settings',
-                'student_ids',
-                'type'
-              ])
-
-              // bcrypt will produce different hashes for the same
-              // string. In other words, hash(validReqBody.password) !== body.hashed_password
-              assert.isTrue(bcrypt.compareSync(validReqBody.password, body.hashed_password));
-
-              delete body._id;
-              delete body.date_created;
-              delete body.hashed_password;
-              delete validReqBody.password;
-
-              const expected = _.assign({}, validReqBody, {
-                type: Models.UserType.Educator,
-                student_ids: [],
-                notification_settingsn: {
-                  reading_logs: true,
-                  quiz_submissions: true,
-                  prizes_ordered: true
-                }
-              });
-
-              assert.deepEqual(expected, body);
-              return usersCollection.find({});
-
-            })
-            .then(allUsers => assert.lengthOf(allUsers, initialUsers.length + 1))
-        });
-
+      it('should 403 if not admin', function () {
+        return agent
+          .get('/quizzes')
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403);
       });
 
-      describe('#updateEducatorNotificationSettings', function () {
-
-        const validNoteSettings: Models.IEducatorNoteSettings = {
-          reading_logs: true,
-          quiz_submissions: false,
-          prizes_ordered: true
-        }
-
-        it('should 401 when no auth token in header', function () {
-          return agent
-            .put(`/educators/${bonnie._id}/notification_settings`)
-            .expect(401);
-        });
-
-        it('should 403 if not a teacher', function () {
-          return agent
-            .put(`/educators/${chase._id}/notification_settings`)
-            .set(SC.AuthHeaderField, bonnieToken)
-            .send(validNoteSettings)
-            .expect(403);
-        });
-
-        it('should 400 if invalid body', function () {
-          let invalidSettings = _.cloneDeep(validNoteSettings);
-          delete invalidSettings.prizes_ordered;
-          return agent
-            .put(`/educators/${bonnie._id}/notification_settings`)
-            .set(SC.AuthHeaderField, bonnieToken)
-            .send(invalidSettings)
-            .expect(400);
-        });
-
-        it('should 200 and update the settings', function () {
-
-          return agent
-            .put(`/educators/${bonnie._id}/notification_settings`)
-            .set(SC.AuthHeaderField, bonnieToken)
-            .send(validNoteSettings)
-            .expect(200)
-            .then(() => mongoUserData.getUserById(bonnie._id))
-            .then((educator: Models.IEducator) => assert.deepEqual(educator.notification_settings, validNoteSettings))
-        });
-
+      it('should return all books', function () {
+        return agent
+          .get('/quizzes')
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(200)
+          .then(({ body }) => assert.sameDeepMembers(body, initialQuizzes))
       })
+    })
 
-      describe('#updateStudentsForEducator', function () {
-
-        const invalidWithBadStudent = [katelynn._id, shortid.generate()];
-        const invalidWithEducator = [katelynn._id, austin._id];
-        const validStudentIds = [katelynn._id, chase._id];
-
-        it('should 401 when no auth token in header', function () {
-          return agent
-            .put(`/educators/${bonnie._id}/students`)
-            .expect(401);
-        });
-
-        it('should 403 if non-admin making request', function () {
-          return agent
-            .put(`/educators/${bonnie._id}/students`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .expect(403);
-        });
-
-        it('should 403 if educator making request on behalf another educator', function () {
-          return agent
-            .put(`/educators/${bonnie._id}/students`)
-            .set(SC.AuthHeaderField, genAuthToken(Models.UserType.Educator, shortid.generate()))
-            .expect(403);
-        });
-
-        it('should 400 if invalid student ids in body', function () {
-          return agent
-            .put(`/educators/${bonnie._id}/students`)
-            .set(SC.AuthHeaderField, bonnieToken)
-            .send({ student_ids: invalidWithBadStudent })
-            .expect(400);
-        });
-
-        it('should 400 if not all ids are for student users', function () {
-          return agent
-            .put(`/educators/${bonnie._id}/students`)
-            .set(SC.AuthHeaderField, bonnieToken)
-            .send({ student_ids: invalidWithEducator })
-            .expect(400);
-        });
-
-        it('should 200 and save students on educator', function () {
-          return agent
-            .put(`/educators/${bonnie._id}/students`)
-            .set(SC.AuthHeaderField, bonnieToken)
-            .send({ student_ids: validStudentIds })
-            .expect(200)
-            .then(() => usersCollection.findOne({ _id: bonnie._id }))
-            .then(user => assert.sameDeepMembers(user.student_ids, validStudentIds))
-        });
-
-      })
-
-      describe('#updateStudentsParentsEmails', function () {
-
-        it('should 401 when no auth token in header', function () {
-          return agent
-            .put(`/students/${katelynn._id}/parent_emails`)
-            .expect(401);
-        });
-
-        it('should 403 if non-admin making request', function () {
-          return agent
-            .put(`/students/${katelynn._id}/parent_emails`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .expect(403);
-        });
-
-        it('should 400 if too many emails provided', function () {
-          return agent
-            .put(`/students/${katelynn._id}/parent_emails`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send({
-              parent_emails: _.times(SC.MaxParentEmailsPerStudent + 1, () => faker.internet.email())
-            })
-            .expect(400)
-            .then(checkErrMsg('Invalid/missing field parent_emails'))
-        });
-
-        it('should 400 if duplicate emails provided', function () {
-          return agent
-            .put(`/students/${katelynn._id}/parent_emails`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send({
-              parent_emails: ["austin@gmail.com", "austin@gmail.com"]
-            })
-            .expect(400)
-            .then(checkErrMsg('Invalid/missing field parent_emails'));
-        });
-
-        it('should 200 and save emails', function () {
-          const updatedEmails = ["sam@gmail.com", "sarah@gmail.com"];
-          return agent
-            .put(`/students/${katelynn._id}/parent_emails`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send({
-              parent_emails: updatedEmails
-            })
-            .expect(200)
-            .then(() => mongoUserData.getUserById(katelynn._id))
-            .then((updatedStudent: Models.IStudent) => {
-              assert.sameMembers(updatedStudent.parent_emails, updatedEmails);
-            })
-        });
-
-      })
-
-      // describe('#createStudent', function () {
-
-      //   const validReqBody: Models.IStudentBody = {
-      //     first_name: 'Taylor',
-      //     last_name: 'Jones',
-      //     gender: Models.Gender.Female,
-      //     initial_lexile_measure: 400,
-      //     email: 'tjones@parktudor.org',
-      //     password: 'taylors_password',
-      //     parent_emails: []
-      //   }
-
-      //   it('should 401 when no auth token in header', function () {
-      //     return agent
-      //       .post(`/students`)
-      //       .expect(401);
-      //   });
-
-      //   it('should 403 if non-admin making request', function () {
-      //     return agent
-      //       .post('/students')
-      //       .set(SC.AuthHeaderField, chaseToken)
-      //       .expect(403);
-      //   });
-
-      //   it('should 200 and save the student', function () {
-
-      //     return agent
-      //       .post('/students')
-      //       .set(SC.AuthHeaderField, austinToken)
-      //       .send(validReqBody)
-      //       .expect(200)
-      //       .then(({ body }) => {
-
-      //         assert.hasAllKeys(body, [
-      //           '_id',
-      //           'date_created',
-      //           'date_activated',
-      //           'email',
-      //           'first_name',
-      //           'last_name',
-      //           'gender',
-      //           'genre_interests',
-      //           'hashed_password',
-      //           'initial_lexile_measure',
-      //           'bookmarked_books',
-      //           'type',
-      //           'status',
-      //           'parent_emails'
-      //         ])
-
-      //         // bcrypt will produce different hashes for the same
-      //         // string. In other words, hash(validReqBody.password) !== body.hashed_password
-      //         assert.isTrue(bcrypt.compareSync(validReqBody.password, body.hashed_password));
-
-      //         delete body._id;
-      //         delete body.date_created;
-      //         delete body.date_activated;
-      //         delete body.hashed_password;
-      //         delete validReqBody.password;
-
-      //         const expected = _.assign({}, validReqBody, {
-      //           type: Models.UserType.Student,
-      //           genre_interests: null,
-      //           bookmarked_books: [],
-      //           status: Models.StudentStatus.Active
-      //         });
-
-      //         assert.deepEqual(expected, body);
-      //         return usersCollection.find({});
-
-      //       })
-      //       .then(allUsers => assert.lengthOf(allUsers, initialUsers.length + 1))
-      //   })
-
-      // })
-
-
-      describe('#createGenreInterests', function () {
-
-        const genreIds = _.map(initialGenres, '_id');
-
-        let validGenreMap: Models.GenreInterestMap = {};
-        _.each(genreIds, id => validGenreMap[id] = _.random(1, 4) as 1 | 2 | 3 | 4)
-
-        it('should 401 when no auth token in header', function () {
-          return agent
-            .post(`/students/${chase._id}/genre_interests`)
-            .expect(401);
-        });
-
-        it('should 403 if student making request on behalf another student', function () {
-          return agent
-            .post(`/students/${chase._id}/genre_interests`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .expect(403)
-            .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
-        });
-
-        it('should 400 if some genre ids are missing', function () {
-
-          const copy = _.cloneDeep(validGenreMap);
-          delete copy[initialGenres[0]._id];
-
-          return agent
-            .post(`/students/${chase._id}/genre_interests`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .send(copy)
-            .expect(400)
-            .then(checkErrMsg('There is a discrepancy between existing genres and genres user provided interest levels for.'))
-
-        });
-
-        it('should 400 if values are not between 1 and 4', function () {
-
-          const copy: any = _.cloneDeep(validGenreMap);
-          copy[initialGenres[0]._id] = 5;
-
-          return agent
-            .post(`/students/${chase._id}/genre_interests`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .send(copy)
-            .expect(400)
-
-        });
-
-        it('should 400 if same number of genre keys, but one is invalid', function () {
-
-          const copy: any = _.cloneDeep(validGenreMap);
-          const invalidGenreId = shortid.generate();
-          copy[invalidGenreId] = 4;
-          delete copy[initialGenres[0]._id];
-
-          return agent
-            .post(`/students/${chase._id}/genre_interests`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .send(copy)
-            .expect(400)
-            .then(checkErrMsg(`There is a discrepancy between existing genres and genres user provided interest levels for.`))
-
-        });
-
-        it('should 404 if user does not exist', function () {
-
-          const invalidId = shortid.generate();
-
-          return agent
-            .post(`/students/${invalidId}/genre_interests`)
-            .set(SC.AuthHeaderField, austinToken)
-            .send(validGenreMap)
-            .expect(404)
-            .then(checkErrMsg(`User ${invalidId} does not exist.`))
-
-        });
-
-        it('should 403 if user is not Student', function () {
-
-          return agent
-            .post(`/students/${austin._id}/genre_interests`)
-            .set(SC.AuthHeaderField, austinToken)
-            .send(validGenreMap)
-            .expect(403)
-            .then(checkErrMsg(`Can only post genre interests for student users`))
-
-        });
-
-        it('should 403 if user has already posted genre interests', function () {
-
-          return agent
-            .post(`/students/${katelynn._id}/genre_interests`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(validGenreMap)
-            .expect(403)
-            .then(checkErrMsg('User already has created genre interests'))
-
-        });
-
-        it('should 200 and save genre interests', function () {
-
-          return agent
-            .post(`/students/${chase._id}/genre_interests`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .send(validGenreMap)
-            .expect(200)
-            .then(({ body }) => usersCollection.findOne({ _id: chase._id }))
-            .then(user => {
-              const expected = _.assign({}, chase, {
-                genre_interests: validGenreMap
-              })
-              assert.deepEqual(expected, user);
-            })
-
-        });
-
-      });
-
-      describe('#editGenreInterest', function () {
-
-        const genreId = initialGenres[0]._id;
-
-        const validBody = {
-          interest_value: _.random(1, 4)
-        }
-
-        it('should 401 when no auth token in header', function () {
-          return agent
-            .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
-            .expect(401);
-        });
-
-        it('should 403 if student making request on behalf another student', function () {
-          return agent
-            .put(`/students/${chase._id}/genre_interests/${genreId}`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .expect(403)
-            .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
-        });
-
-        it('should 400 if interest value is invalid', function () {
-          const copy = _.cloneDeep(validBody);
-          copy.interest_value = 5;
-          return agent
-            .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(copy)
-            .expect(400);
-        });
-
-        it('should 403 if student has not created genre interests', function () {
-          return agent
-            .put(`/students/${chase._id}/genre_interests/${genreId}`)
-            .set(SC.AuthHeaderField, chaseToken)
-            .send(validBody)
-            .expect(403)
-            .then(checkErrMsg('User cannot edit genre interests, until they have been created.'))
-        });
-
-        it('should 400 if genre id is invalid', function () {
-          const invalidGenreId = shortid.generate();
-          return agent
-            .put(`/students/${katelynn._id}/genre_interests/${invalidGenreId}`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(validBody)
-            .expect(400)
-            .then(checkErrMsg(`Genre ${invalidGenreId} does not exist.`))
-        });
-
-        it('should 200 and update the genre interest', function () {
-          return agent
-            .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
-            .set(SC.AuthHeaderField, katelynnToken)
-            .send(validBody)
-            .expect(200)
-            .then(() => usersCollection.findOne({ _id: katelynn._id }))
-            .then(user => {
-              const expectedGenreInterests = _.assign({}, katelynn.genre_interests, {
-                [genreId]: validBody.interest_value
-              })
-              assert.deepEqual(user.genre_interests, expectedGenreInterests);
-            })
-        });
-
-      });
-
-    });
-    
   })
+
+  describe('Reading Log Routes', function () {
+
+    const validReadingLog: Models.IReadingLogBody = {
+      student_id: katelynn._id as string,
+      book_id: _.find(initialBooks, { _id: 'blue-dolphins-id' })._id as string,
+      start_page: 0,
+      final_page: 100,
+      duration_min: 100,
+      summary: faker.lorem.sentence(4),
+      read_with: Models.ReadingWith.ByMyself,
+      is_last_log_for_book: false
+    }
+
+    describe('#createReadingLog', function () {
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .expect(401);
+      });
+
+      it('should 400 when student id in url does not match student in body', function () {
+        return agent
+          .post(`/students/${chase._id}/reading_logs`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validReadingLog)
+          .expect(400);
+      });
+
+      it('should 403 if student posting for another student', function () {
+        return agent
+          .post(`/students/${chase._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(validReadingLog)
+          .expect(403);
+      });
+
+      it('should 400 if final_page is equal to end_page', function () {
+
+        const invalid = {
+          ...validReadingLog,
+          start_page: 10,
+          final_page: 10
+        }
+
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg('Final page should be greater than start page'))
+
+      });
+
+      it('should 400 if final_page is less than to end_page', function () {
+
+        const invalid = {
+          ...validReadingLog,
+          start_page: 10,
+          final_page: 5
+        }
+
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg('Final page should be greater than start page'))
+
+      });
+
+      it('should 400 if final_page is greater than number of pages in book', function () {
+
+        const book = _.find(initialBooks, { _id: validReadingLog.book_id });
+
+        const invalid = {
+          ...validReadingLog,
+          start_page: book.num_pages - 20,
+          final_page: book.num_pages + 10
+        }
+
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg(`Final page (${invalid.final_page}) exceeds number of pages in book (${book.num_pages})`))
+
+      });
+
+      it('should 400 if too many pages logged', function () {
+
+        const invalid: Models.IReadingLogBody = {
+          ...validReadingLog,
+          start_page: 0,
+          final_page: SC.ReadingLogMaxPagesPossibleInLog + 10
+        }
+
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg(`The maximum number of pages you can log is ${SC.ReadingLogMaxPagesPossibleInLog}`))
+
+      });
+
+      it('should 400 if final_page is last page of book, but not last log set', function () {
+
+        const book = _.find(initialBooks, { _id: validReadingLog.book_id });
+
+        const invalid: Models.IReadingLogBody = {
+          ...validReadingLog,
+          start_page: book.num_pages - 20,
+          final_page: book.num_pages,
+          is_last_log_for_book: false
+        }
+
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg('Final page cannot be last page, yet not the last log for the book'))
+
+      });
+
+      it('should 400 if duration_min too small', function () {
+
+        const invalid: Models.IReadingLogBody = {
+          ...validReadingLog,
+          duration_min: SC.ReadingLogMinMinutes - 1
+        }
+
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg(`Reading log duration must be between ${SC.ReadingLogMinMinutes} and ${SC.ReadingLogMaxMinutes} minutes`))
+
+      });
+
+      it('should 400 if duration_min too large', function () {
+
+        const invalid: Models.IReadingLogBody = {
+          ...validReadingLog,
+          duration_min: SC.ReadingLogMaxMinutes + 1
+        }
+
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg(`Reading log duration must be between ${SC.ReadingLogMinMinutes} and ${SC.ReadingLogMaxMinutes} minutes`))
+
+      });
+
+      it('should 400 if is last log, but final_page is not last page of book', function () {
+
+        const book = _.find(initialBooks, { _id: validReadingLog.book_id });
+
+        const invalid: Models.IReadingLogBody = {
+          ...validReadingLog,
+          start_page: book.num_pages - 20,
+          final_page: book.num_pages - 10,
+          is_last_log_for_book: true
+        }
+
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg('Final page is not last page of book, yet this is a last log for the book'))
+
+      });
+
+      it('should 400 if first log and doesn\'t start at page 0', function () {
+
+        const bookNotLogged = _.find(initialBooks, book => {
+          const idsOfBooksLogged = _.map(initialReadingLogs, 'book_id');
+          return !_.includes(idsOfBooksLogged, book._id)
+        })
+
+        const invalid = {
+          ...validReadingLog,
+          book_id: bookNotLogged._id,
+          start_page: 1,
+          final_page: 10
+        }
+
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg(`First log for book ${bookNotLogged.title} must have start_page = 0`))
+
+      })
+
+      it('should 400 if trying to log a book already finished logging', function () {
+
+        // katelynn has logged to the end of hatchet
+        const book = _.find(initialBooks, { _id: 'hatchet-id' })
+
+        const invalid = {
+          ...validReadingLog,
+          book_id: book._id,
+          start_page: 1,
+          final_page: 10
+        }
+
+        return agent
+          .post(`/students/${katelynn._id}/reading_logs`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg(`You have already logged that you finished ${book.title}`))
+
+      })
+
+      it('should 400 if log does not start where last log ended', function () {
+
+        // chase has started, but not finished logging Hatchet
+        const unfinishedLog = _.find(initialReadingLogs, { _id: 'chase_unfinished_hatchet_2' })
+        assert.isDefined(unfinishedLog);
+        const book = _.find(initialBooks, { _id: 'hatchet-id' })
+
+        const invalid: Models.IReadingLogBody = {
+          is_last_log_for_book: false,
+          summary: faker.lorem.sentence(4),
+          read_with: Models.ReadingWith.WithParent,
+          duration_min: 30,
+          student_id: chase._id,
+          book_id: book._id,
+          start_page: unfinishedLog.final_page + 2,
+          final_page: unfinishedLog.final_page + 10
+        }
+
+        return agent
+          .post(`/students/${chase._id}/reading_logs`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(invalid)
+          .expect(400)
+          .then(checkErrMsg(`Your last log for ${book.title} ended on ${unfinishedLog.final_page}. This next log must start on that page.`))
+
+      })
+
+    });
+
+    // todo
+
+    describe('#deleteReadingLog', function () {
+
+      const firstLogForHatchetChase = _.find(initialReadingLogs, { _id: 'chase_unfinished_hatchet_1' });
+      const lastLogForHatchetChase = _.find(initialReadingLogs, { _id: 'chase_unfinished_hatchet_2' })
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .del(`/students/${chase._id}/reading_logs/${lastLogForHatchetChase._id}`)
+          .expect(401);
+      });
+
+      it('should 404 if log does not exist', function () {
+        return agent
+          .del(`/students/${chase._id}/reading_logs/${shortid.generate()}`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(404)
+      });
+
+      it('should 400 if not last log for book', function () {
+        return agent
+          .del(`/students/${chase._id}/reading_logs/${firstLogForHatchetChase._id}`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(400)
+          .then(checkErrMsg(`Log ${firstLogForHatchetChase._id} is not the most recent log for Book ${firstLogForHatchetChase.book_id}`))
+      });
+
+      it('should delete the log', function () {
+        return agent
+          .del(`/students/${chase._id}/reading_logs/${lastLogForHatchetChase._id}`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(200)
+          .then(({ body }) => {
+            assert.deepEqual(body, {
+              deletedLog: lastLogForHatchetChase
+            })
+            return readingLogCollection.find({})
+          })
+          .then(allReadingLogs => assert.lengthOf(allReadingLogs, initialReadingLogs.length - 1))
+      })
+
+    })
+
+    describe('#getLogsForStudent', function() {
+
+      it('should require authentication', function() {
+        return agent
+          .get(`/students/${chase._id}/reading_logs`)
+          .expect(401)
+      })
+
+      it('should 403 if not admin', function() {
+        return agent
+          .get(`/students/${chase._id}/reading_logs`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(403)
+      })
+
+      it('should 404 if student doesnt exist', function() {
+        return agent
+          .get(`/students/${shortid.generate()}/reading_logs`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(404)
+      })
+
+      it('should return student logs', function() {
+        return agent
+          .get(`/students/${chase._id}/reading_logs`)
+          .set(SC.AuthHeaderField, austinToken)
+          .then(({ body }) => assert.sameDeepMembers(body, _.filter(initialReadingLogs, { student_id: chase._id })))
+      })
+
+    })
+
+  });
+
+  // describe('User Routes', function () {
+
+  //   describe('#studentSignin', function () {
+
+  //     const validAdminCreds: Models.IUserLoginCreds = {
+  //       username: austin.username,
+  //       password: 'password'
+  //     }
+
+  //     const validStudentCreds: Models.IUserLoginCreds = {
+  //       username: katelynn.username,
+  //       password: 'password'
+  //     }
+
+  //     const inactiveStudentCreds: Models.IUserLoginCreds = {
+  //       username: inactiveStudent.username,
+  //       password: 'password'
+  //     }
+
+  //     it('should 400 if no user exists with email', function () {
+  //       const invalidEmail = 'invalid@gmail.com'
+  //       return agent
+  //         .post(`/students/signin`)
+  //         .send({ email: invalidEmail, password: 'pass' })
+  //         .expect(400)
+  //         .then(checkErrMsg(`No user with email ${invalidEmail}`))
+  //     })
+
+  //     it('should 400 if user is admin', function () {
+  //       return agent
+  //         .post(`/students/signin`)
+  //         .send(validAdminCreds)
+  //         .expect(400)
+  //         .then(checkErrMsg('User must be a student.'))
+  //     })
+
+  //     it('should 400 if student is not active', function () {
+  //       return agent
+  //         .post('/students/signin')
+  //         .send(inactiveStudentCreds)
+  //         .expect(400)
+  //         .then(checkErrMsg('This student account is not yet activated.'))
+  //     })
+
+  //     it('should 400 if invalid email/password combo', function () {
+  //       const invalidPass = 'invalid';
+  //       const invalidCreds = {
+  //         ...validStudentCreds,
+  //         password: invalidPass
+  //       }
+  //       return agent
+  //         .post(`/students/signin`)
+  //         .send(invalidCreds)
+  //         .expect(400)
+  //         .then(checkErrMsg('Invalid email/password combination.'))
+  //     })
+
+  //     it('should 200 if credentials valid', function () {
+  //       return agent
+  //         .post(`/students/signin`)
+  //         .expect(200)
+  //         .send(validStudentCreds)
+  //         .then(({ body }) => {
+  //           const actualClaims = jwt.verify(body.auth_token, BEC.JWTSecret) as any
+  //           assert.equal(actualClaims._id, katelynn._id);
+  //           assert.equal(actualClaims.type, katelynn.type)
+  //           assert.deepEqual(body.dto.info, katelynn)
+  //         })
+  //     })
+
+  //   })
+
+  //   describe('#createEducator', function () {
+
+  //     const validReqBody: Models.IEducatorBody = {
+  //       gender: Models.Gender.Female,
+  //       first_name: 'Bonnie',
+  //       last_name: 'Stewart',
+  //       username: 'tjones@parktudor.org',
+  //       email: 'tjones@parktudor.org',
+  //       password: 'taylors_password'
+  //     }
+
+  //     it('should 401 when no auth token in header', function () {
+  //       return agent
+  //         .post(`/educators`)
+  //         .expect(401);
+  //     });
+
+  //     it('should 403 if non-admin making request', function () {
+  //       return agent
+  //         .post('/educators')
+  //         .set(SC.AuthHeaderField, chaseToken)
+  //         .expect(403);
+  //     });
+
+  //     it('should 200 and save the educator', function () {
+
+  //       return agent
+  //         .post('/educators')
+  //         .set(SC.AuthHeaderField, austinToken)
+  //         .send(validReqBody)
+  //         .expect(200)
+  //         .then(({ body }) => {
+
+  //           assert.hasAllKeys(body, [
+  //             '_id',
+  //             'date_created',
+  //             'username',
+  //             'email',
+  //             'first_name',
+  //             'hashed_password',
+  //             'last_name',
+  //             'notification_settings',
+  //             'student_ids',
+  //             'type'
+  //           ])
+
+  //           // bcrypt will produce different hashes for the same
+  //           // string. In other words, hash(validReqBody.password) !== body.hashed_password
+  //           assert.isTrue(bcrypt.compareSync(validReqBody.password, body.hashed_password));
+
+  //           delete body._id;
+  //           delete body.date_created;
+  //           delete body.hashed_password;
+  //           delete validReqBody.password;
+
+  //           const expected = _.assign({}, validReqBody, {
+  //             type: Models.UserType.Educator,
+  //             student_ids: [],
+  //             notification_settingsn: {
+  //               reading_logs: true,
+  //               quiz_submissions: true,
+  //               prizes_ordered: true
+  //             }
+  //           });
+
+  //           assert.deepEqual(expected, body);
+  //           return usersCollection.find({});
+
+  //         })
+  //         .then(allUsers => assert.lengthOf(allUsers, initialUsers.length + 1))
+  //     });
+
+  //   });
+
+  //   describe('#updateEducatorNotificationSettings', function () {
+
+  //     const validNoteSettings: Models.IEducatorNoteSettings = {
+  //       reading_logs: true,
+  //       quiz_submissions: false,
+  //       prizes_ordered: true
+  //     }
+
+  //     it('should 401 when no auth token in header', function () {
+  //       return agent
+  //         .put(`/educators/${bonnie._id}/notification_settings`)
+  //         .expect(401);
+  //     });
+
+  //     it('should 403 if not a teacher', function () {
+  //       return agent
+  //         .put(`/educators/${chase._id}/notification_settings`)
+  //         .set(SC.AuthHeaderField, bonnieToken)
+  //         .send(validNoteSettings)
+  //         .expect(403);
+  //     });
+
+  //     it('should 400 if invalid body', function () {
+  //       let invalidSettings = _.cloneDeep(validNoteSettings);
+  //       delete invalidSettings.prizes_ordered;
+  //       return agent
+  //         .put(`/educators/${bonnie._id}/notification_settings`)
+  //         .set(SC.AuthHeaderField, bonnieToken)
+  //         .send(invalidSettings)
+  //         .expect(400);
+  //     });
+
+  //     it('should 200 and update the settings', function () {
+
+  //       return agent
+  //         .put(`/educators/${bonnie._id}/notification_settings`)
+  //         .set(SC.AuthHeaderField, bonnieToken)
+  //         .send(validNoteSettings)
+  //         .expect(200)
+  //         .then(() => mongoUserData.getUserById(bonnie._id))
+  //         .then((educator: Models.IEducator) => assert.deepEqual(educator.notification_settings, validNoteSettings))
+  //     });
+
+  //   })
+
+  //   describe('#updateStudentsForEducator', function () {
+
+  //     const invalidWithBadStudent = [katelynn._id, shortid.generate()];
+  //     const invalidWithEducator = [katelynn._id, austin._id];
+  //     const validStudentIds = [katelynn._id, chase._id];
+
+  //     it('should 401 when no auth token in header', function () {
+  //       return agent
+  //         .put(`/educators/${bonnie._id}/students`)
+  //         .expect(401);
+  //     });
+
+  //     it('should 403 if non-admin making request', function () {
+  //       return agent
+  //         .put(`/educators/${bonnie._id}/students`)
+  //         .set(SC.AuthHeaderField, chaseToken)
+  //         .expect(403);
+  //     });
+
+  //     it('should 403 if educator making request on behalf another educator', function () {
+  //       return agent
+  //         .put(`/educators/${bonnie._id}/students`)
+  //         .set(SC.AuthHeaderField, genAuthToken(Models.UserType.Educator, shortid.generate()))
+  //         .expect(403);
+  //     });
+
+  //     it('should 400 if invalid student ids in body', function () {
+  //       return agent
+  //         .put(`/educators/${bonnie._id}/students`)
+  //         .set(SC.AuthHeaderField, bonnieToken)
+  //         .send({ student_ids: invalidWithBadStudent })
+  //         .expect(400);
+  //     });
+
+  //     it('should 400 if not all ids are for student users', function () {
+  //       return agent
+  //         .put(`/educators/${bonnie._id}/students`)
+  //         .set(SC.AuthHeaderField, bonnieToken)
+  //         .send({ student_ids: invalidWithEducator })
+  //         .expect(400);
+  //     });
+
+  //     it('should 200 and save students on educator', function () {
+  //       return agent
+  //         .put(`/educators/${bonnie._id}/students`)
+  //         .set(SC.AuthHeaderField, bonnieToken)
+  //         .send({ student_ids: validStudentIds })
+  //         .expect(200)
+  //         .then(() => usersCollection.findOne({ _id: bonnie._id }))
+  //         .then(user => assert.sameDeepMembers(user.student_ids, validStudentIds))
+  //     });
+
+  //   })
+
+  //   describe('#updateStudentsParentsEmails', function () {
+
+  //     it('should 401 when no auth token in header', function () {
+  //       return agent
+  //         .put(`/students/${katelynn._id}/parent_emails`)
+  //         .expect(401);
+  //     });
+
+  //     it('should 403 if non-admin making request', function () {
+  //       return agent
+  //         .put(`/students/${katelynn._id}/parent_emails`)
+  //         .set(SC.AuthHeaderField, chaseToken)
+  //         .expect(403);
+  //     });
+
+  //     it('should 400 if too many emails provided', function () {
+  //       return agent
+  //         .put(`/students/${katelynn._id}/parent_emails`)
+  //         .set(SC.AuthHeaderField, katelynnToken)
+  //         .send({
+  //           parent_emails: _.times(SC.MaxParentEmailsPerStudent + 1, () => faker.internet.email())
+  //         })
+  //         .expect(400)
+  //         .then(checkErrMsg('Invalid/missing field parent_emails'))
+  //     });
+
+  //     it('should 400 if duplicate emails provided', function () {
+  //       return agent
+  //         .put(`/students/${katelynn._id}/parent_emails`)
+  //         .set(SC.AuthHeaderField, katelynnToken)
+  //         .send({
+  //           parent_emails: ["austin@gmail.com", "austin@gmail.com"]
+  //         })
+  //         .expect(400)
+  //         .then(checkErrMsg('Invalid/missing field parent_emails'));
+  //     });
+
+  //     it('should 200 and save emails', function () {
+  //       const updatedEmails = ["sam@gmail.com", "sarah@gmail.com"];
+  //       return agent
+  //         .put(`/students/${katelynn._id}/parent_emails`)
+  //         .set(SC.AuthHeaderField, katelynnToken)
+  //         .send({
+  //           parent_emails: updatedEmails
+  //         })
+  //         .expect(200)
+  //         .then(() => mongoUserData.getUserById(katelynn._id))
+  //         .then((updatedStudent: Models.IStudent) => {
+  //           assert.sameMembers(updatedStudent.parent_emails, updatedEmails);
+  //         })
+  //     });
+
+  //   })
+
+  //   // describe('#createStudent', function () {
+
+  //   //   const validReqBody: Models.IStudentBody = {
+  //   //     first_name: 'Taylor',
+  //   //     last_name: 'Jones',
+  //   //     gender: Models.Gender.Female,
+  //   //     initial_lexile_measure: 400,
+  //   //     email: 'tjones@parktudor.org',
+  //   //     password: 'taylors_password',
+  //   //     parent_emails: []
+  //   //   }
+
+  //   //   it('should 401 when no auth token in header', function () {
+  //   //     return agent
+  //   //       .post(`/students`)
+  //   //       .expect(401);
+  //   //   });
+
+  //   //   it('should 403 if non-admin making request', function () {
+  //   //     return agent
+  //   //       .post('/students')
+  //   //       .set(SC.AuthHeaderField, chaseToken)
+  //   //       .expect(403);
+  //   //   });
+
+  //   //   it('should 200 and save the student', function () {
+
+  //   //     return agent
+  //   //       .post('/students')
+  //   //       .set(SC.AuthHeaderField, austinToken)
+  //   //       .send(validReqBody)
+  //   //       .expect(200)
+  //   //       .then(({ body }) => {
+
+  //   //         assert.hasAllKeys(body, [
+  //   //           '_id',
+  //   //           'date_created',
+  //   //           'date_activated',
+  //   //           'email',
+  //   //           'first_name',
+  //   //           'last_name',
+  //   //           'gender',
+  //   //           'genre_interests',
+  //   //           'hashed_password',
+  //   //           'initial_lexile_measure',
+  //   //           'bookmarked_books',
+  //   //           'type',
+  //   //           'status',
+  //   //           'parent_emails'
+  //   //         ])
+
+  //   //         // bcrypt will produce different hashes for the same
+  //   //         // string. In other words, hash(validReqBody.password) !== body.hashed_password
+  //   //         assert.isTrue(bcrypt.compareSync(validReqBody.password, body.hashed_password));
+
+  //   //         delete body._id;
+  //   //         delete body.date_created;
+  //   //         delete body.date_activated;
+  //   //         delete body.hashed_password;
+  //   //         delete validReqBody.password;
+
+  //   //         const expected = _.assign({}, validReqBody, {
+  //   //           type: Models.UserType.Student,
+  //   //           genre_interests: null,
+  //   //           bookmarked_books: [],
+  //   //           status: Models.StudentStatus.Active
+  //   //         });
+
+  //   //         assert.deepEqual(expected, body);
+  //   //         return usersCollection.find({});
+
+  //   //       })
+  //   //       .then(allUsers => assert.lengthOf(allUsers, initialUsers.length + 1))
+  //   //   })
+
+  //   // })
+
+
+  //   describe('#createGenreInterests', function () {
+
+  //     const genreIds = _.map(initialGenres, '_id');
+
+  //     let validGenreMap: Models.GenreInterestMap = {};
+  //     _.each(genreIds, id => validGenreMap[id] = _.random(1, 4) as 1 | 2 | 3 | 4)
+
+  //     it('should 401 when no auth token in header', function () {
+  //       return agent
+  //         .post(`/students/${chase._id}/genre_interests`)
+  //         .expect(401);
+  //     });
+
+  //     it('should 403 if student making request on behalf another student', function () {
+  //       return agent
+  //         .post(`/students/${chase._id}/genre_interests`)
+  //         .set(SC.AuthHeaderField, katelynnToken)
+  //         .expect(403)
+  //         .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
+  //     });
+
+  //     it('should 400 if some genre ids are missing', function () {
+
+  //       const copy = _.cloneDeep(validGenreMap);
+  //       delete copy[initialGenres[0]._id];
+
+  //       return agent
+  //         .post(`/students/${chase._id}/genre_interests`)
+  //         .set(SC.AuthHeaderField, chaseToken)
+  //         .send(copy)
+  //         .expect(400)
+  //         .then(checkErrMsg('There is a discrepancy between existing genres and genres user provided interest levels for.'))
+
+  //     });
+
+  //     it('should 400 if values are not between 1 and 4', function () {
+
+  //       const copy: any = _.cloneDeep(validGenreMap);
+  //       copy[initialGenres[0]._id] = 5;
+
+  //       return agent
+  //         .post(`/students/${chase._id}/genre_interests`)
+  //         .set(SC.AuthHeaderField, chaseToken)
+  //         .send(copy)
+  //         .expect(400)
+
+  //     });
+
+  //     it('should 400 if same number of genre keys, but one is invalid', function () {
+
+  //       const copy: any = _.cloneDeep(validGenreMap);
+  //       const invalidGenreId = shortid.generate();
+  //       copy[invalidGenreId] = 4;
+  //       delete copy[initialGenres[0]._id];
+
+  //       return agent
+  //         .post(`/students/${chase._id}/genre_interests`)
+  //         .set(SC.AuthHeaderField, chaseToken)
+  //         .send(copy)
+  //         .expect(400)
+  //         .then(checkErrMsg(`There is a discrepancy between existing genres and genres user provided interest levels for.`))
+
+  //     });
+
+  //     it('should 404 if user does not exist', function () {
+
+  //       const invalidId = shortid.generate();
+
+  //       return agent
+  //         .post(`/students/${invalidId}/genre_interests`)
+  //         .set(SC.AuthHeaderField, austinToken)
+  //         .send(validGenreMap)
+  //         .expect(404)
+  //         .then(checkErrMsg(`User ${invalidId} does not exist.`))
+
+  //     });
+
+  //     it('should 403 if user is not Student', function () {
+
+  //       return agent
+  //         .post(`/students/${austin._id}/genre_interests`)
+  //         .set(SC.AuthHeaderField, austinToken)
+  //         .send(validGenreMap)
+  //         .expect(403)
+  //         .then(checkErrMsg(`Can only post genre interests for student users`))
+
+  //     });
+
+  //     it('should 403 if user has already posted genre interests', function () {
+
+  //       return agent
+  //         .post(`/students/${katelynn._id}/genre_interests`)
+  //         .set(SC.AuthHeaderField, katelynnToken)
+  //         .send(validGenreMap)
+  //         .expect(403)
+  //         .then(checkErrMsg('User already has created genre interests'))
+
+  //     });
+
+  //     it('should 200 and save genre interests', function () {
+
+  //       return agent
+  //         .post(`/students/${chase._id}/genre_interests`)
+  //         .set(SC.AuthHeaderField, chaseToken)
+  //         .send(validGenreMap)
+  //         .expect(200)
+  //         .then(({ body }) => usersCollection.findOne({ _id: chase._id }))
+  //         .then(user => {
+  //           const expected = _.assign({}, chase, {
+  //             genre_interests: validGenreMap
+  //           })
+  //           assert.deepEqual(expected, user);
+  //         })
+
+  //     });
+
+  //   });
+
+  //   describe('#editGenreInterest', function () {
+
+  //     const genreId = initialGenres[0]._id;
+
+  //     const validBody = {
+  //       interest_value: _.random(1, 4)
+  //     }
+
+  //     it('should 401 when no auth token in header', function () {
+  //       return agent
+  //         .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
+  //         .expect(401);
+  //     });
+
+  //     it('should 403 if student making request on behalf another student', function () {
+  //       return agent
+  //         .put(`/students/${chase._id}/genre_interests/${genreId}`)
+  //         .set(SC.AuthHeaderField, katelynnToken)
+  //         .expect(403)
+  //         .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
+  //     });
+
+  //     it('should 400 if interest value is invalid', function () {
+  //       const copy = _.cloneDeep(validBody);
+  //       copy.interest_value = 5;
+  //       return agent
+  //         .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
+  //         .set(SC.AuthHeaderField, katelynnToken)
+  //         .send(copy)
+  //         .expect(400);
+  //     });
+
+  //     it('should 403 if student has not created genre interests', function () {
+  //       return agent
+  //         .put(`/students/${chase._id}/genre_interests/${genreId}`)
+  //         .set(SC.AuthHeaderField, chaseToken)
+  //         .send(validBody)
+  //         .expect(403)
+  //         .then(checkErrMsg('User cannot edit genre interests, until they have been created.'))
+  //     });
+
+  //     it('should 400 if genre id is invalid', function () {
+  //       const invalidGenreId = shortid.generate();
+  //       return agent
+  //         .put(`/students/${katelynn._id}/genre_interests/${invalidGenreId}`)
+  //         .set(SC.AuthHeaderField, katelynnToken)
+  //         .send(validBody)
+  //         .expect(400)
+  //         .then(checkErrMsg(`Genre ${invalidGenreId} does not exist.`))
+  //     });
+
+  //     it('should 200 and update the genre interest', function () {
+  //       return agent
+  //         .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
+  //         .set(SC.AuthHeaderField, katelynnToken)
+  //         .send(validBody)
+  //         .expect(200)
+  //         .then(() => usersCollection.findOne({ _id: katelynn._id }))
+  //         .then(user => {
+  //           const expectedGenreInterests = _.assign({}, katelynn.genre_interests, {
+  //             [genreId]: validBody.interest_value
+  //           })
+  //           assert.deepEqual(user.genre_interests, expectedGenreInterests);
+  //         })
+  //     });
+
+  //   });
+
+  // });
 
   after(async function () {
     await Promise.all([
@@ -2011,6 +2222,5 @@ describe('End to End tests', function () {
     ]);
     db.close();
   })
-
 
 })

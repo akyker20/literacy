@@ -6,6 +6,7 @@ import { Models as M } from 'reading_rewards';
 type ReadingLog = M.IReadingLog;
 
 export interface IReadingLogData {
+  getLogById: (id: string) => Promise<ReadingLog>;
   createLog: (log: ReadingLog) => Promise<ReadingLog>;
   getLogsForStudent: (studentId: string) => Promise<ReadingLog[]>;
   getLogsForStudents: (studentIds: string[]) => Promise<ReadingLog[]>;
@@ -19,6 +20,10 @@ export class MongoReadingLogData implements IReadingLogData {
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
     this.readingLogs = db.get('reading_logs', { castIds: false });
+  }
+
+  getLogById(id: string): Promise<ReadingLog> {
+    return this.readingLogs.findOne({ _id: id });
   }
 
   createLog(log: ReadingLog): Promise<ReadingLog> {

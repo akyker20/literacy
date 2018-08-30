@@ -11,32 +11,25 @@ export namespace BodyValidators {
     student_id: shortidSchema.required()
   }).required()
 
-  export const sharedBookSchema = joi.object({
-    cover_photo_url: joi.string().required().error(genFieldErr('cover_photo_url')),
-    amazon_popularity: joi.number().min(0).max(5).required().error(genFieldErr('amazon_popularity')),
-    title: joi.string().required().error(genFieldErr('title')),
-    summary: joi.string().min(100).max(1000).required().error(genFieldErr('summary')),
-    lexile_measure: lexileMeasureSchema.error(genFieldErr('lexile_measure')),
-    num_pages: joi.number().min(40).max(3000).required().error(genFieldErr('num_pages')),
-    isbn: joi.string().regex(/^(97(8|9))?\d{9}(\d|X)$/).required().error(genFieldErr('isbn')),
-    genres: joi.array().items(joi.string()).min(1).max(5).unique().required().error(genFieldErr('genres')),
+  export const InputBookSchema = joi.object({
+    cover_photo_url: joi.string().required(),
+    goodreads_rating: joi.number().min(0).max(5).required(),
+    title: joi.string().required(),
+    summary: joi.string().min(100).max(1000).required(),
+    lexile_measure: lexileMeasureSchema,
+    num_pages: joi.number().min(40).max(3000).required(),
+    isbn: joi.string().regex(/^(97(8|9))?\d{9}(\d|X)$/).required(),
+    genres: joi.array().items(shortidSchema).min(1).max(5).unique().required().error(genFieldErr('genres')),
     series: joi.object({
       book_num: joi.number().integer().min(1).max(20).required(),
       id: shortidSchema,
       series_title: joi.string().required()
     }).optional(),
+    authors: joi.array().items(shortidSchema).min(1).max(5).unique().required()
   }).strict().required();
-
-  export const InputBookSchema = sharedBookSchema.keys({
-    author_ids: joi.array().items(shortidSchema).required().error(genFieldErr('author_ids'))
-  }).strict().required();
-
-  export const CreatedBookSchema = sharedBookSchema.keys({
-    _id: shortidSchema.required().error(genFieldErr('_id')),
-    authors: joi.array().items(joi.object({
-      id: shortidSchema,
-      name: joi.string().required()
-    }).min(1).max(4).required())
+  
+  export const CreatedBookSchema = InputBookSchema.keys({
+    _id: shortidSchema
   }).required();
 
   export const InputGenreSchema = joi.object({
@@ -45,7 +38,7 @@ export namespace BodyValidators {
   }).required();
 
   export const CreatedGenreSchema = InputGenreSchema.keys({
-    _id: shortidSchema.required().error(genFieldErr('_id'))
+    _id: shortidSchema
   }).required();
 
 }

@@ -124,29 +124,26 @@ export default class App {
       bookReviewData,
       userData,
       quizData,
-      seriesData
+      seriesData,
+      notifications
     );
 
-    this.server.get('/series', bookRoutes.getAllSeries);
-
-    this.server.get('/authors', bookRoutes.getAllAuthors);
-    this.server.get('/authors/:authorId/books', bookRoutes.getBooksByAuthor);
-    this.server.get('/authors/:authorId', bookRoutes.getAuthor);
+    this.server.get('/authors', bookRoutes.getAllAuthors); // TESTED
 
     this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent); // TEST
-    this.server.post('/book_reviews', bookRoutes.createBookReview);
+    this.server.post('/books/:bookId/book_reviews', bookRoutes.createBookReview); // TESTED
 
     this.server.post('/genres', bookRoutes.createGenre); // TESTED
     this.server.get('/genres', bookRoutes.getGenres); // TESTED
     this.server.put('/genres/:genreId', bookRoutes.updateGenre); // TESTED
     this.server.del('/genres/:genreId', bookRoutes.deleteGenre); // TESTED
 
-    this.server.get('/books', bookRoutes.getAllBooks);
-    this.server.get('/books/:bookId/reviews', bookRoutes.getBookReviewsForBook);
-    this.server.post('/books', bookRoutes.createBook);
-    this.server.put('/books/:bookId', bookRoutes.updateBook);
-    this.server.get('/books/:bookId', bookRoutes.getBook);
-    this.server.del('/books/:bookId', bookRoutes.deleteBook);
+    this.server.get('/books', bookRoutes.getAllBooks); // TESTED
+    this.server.get('/books/:bookId/reviews', bookRoutes.getBookReviewsForBook); // TESTED
+    this.server.post('/books', bookRoutes.createBook); // TESTED
+    this.server.put('/books/:bookId', bookRoutes.updateBook); // TESTED
+    this.server.get('/books/:bookId', bookRoutes.getBook); // TESTED
+    this.server.del('/books/:bookId', bookRoutes.deleteBook); // TESTED
 
     // configure quiz routes
 
@@ -154,19 +151,17 @@ export default class App {
       userData,
       quizData,
       bookData,
+      readingLogData,
       notifications,
       email
     )
 
-    this.server.get('/books/:bookId/quiz', quizRoutes.getQuizForBook);
-
-    this.server.get('/quizzes', quizRoutes.getAllQuizzes); // TODO: remove
-
-    this.server.post('/students/:userId/quiz_submissions', quizRoutes.submitQuiz);
-
-    this.server.post('/quizzes', quizRoutes.createQuiz);
-    this.server.del('/quizzes/:quizId', quizRoutes.deleteQuiz);
-    this.server.put('/quizzes/:quizId', quizRoutes.updateQuiz);
+    this.server.get('/books/:bookId/quiz', quizRoutes.getQuizForBook); // TESTED
+    this.server.post('/students/:userId/quiz_submissions', quizRoutes.submitQuiz); // TESTED
+    this.server.post('/quizzes', quizRoutes.createQuiz); // TESTED
+    this.server.get('/quizzes', quizRoutes.getAllQuizzes); // TESTED
+    this.server.del('/quizzes/:quizId', quizRoutes.deleteQuiz); // TESTED
+    this.server.put('/quizzes/:quizId', quizRoutes.updateQuiz); // TESTED
 
     // configure prize routes
 
