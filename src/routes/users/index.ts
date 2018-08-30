@@ -68,9 +68,9 @@ export function UserRoutes(
   notifications: INotificationSys
 ) {
 
-  async function userExistsWithEmail(email: string): Promise<boolean> {
-    const existingUserWithEmail = await userData.getUserByEmail(email);
-    return !_.isNull(existingUserWithEmail);
+  async function userExistsWithUsername(username: string): Promise<boolean> {
+    const existingUserWithUsername = await userData.getUserByUsername(username);
+    return !_.isNull(existingUserWithUsername);
   }
 
   async function getEducatorDTO(educator: M.IEducator): Promise<M.IEducatorDTO> {
@@ -528,8 +528,8 @@ export function UserRoutes(
         const teacher = await userData.getUserById(req.params.userId) as M.IEducator;
         validateUser(teacherId, teacher, M.UserType.Educator);
 
-        if (await userExistsWithEmail(req.body.email)) {
-          throw new BadRequestError(`User with email ${req.body.email} already exists.`);
+        if (await userExistsWithUsername(req.body.username)) {
+          throw new BadRequestError(`User with username ${req.body.username} already exists.`);
         }
 
         const pendingUser: M.IStudent = {
@@ -558,9 +558,9 @@ export function UserRoutes(
       Middle.handlePromise
     ],
 
-    getStudentByEmail: [
-      Middle.valQueryParams({ name: 'email', schema: joi.string().email().required() }),
-      unwrapData(async ({ query }: IRequest<null>) => await userData.getUserByEmail(query.email)),
+    getStudentByUsername: [
+      Middle.valQueryParams({ name: 'username', schema: joi.string().required() }),
+      unwrapData(async ({ query }: IRequest<null>) => await userData.getUserByUsername(query.username)),
       Middle.handlePromise
     ],
 
@@ -627,11 +627,11 @@ export function UserRoutes(
     createEducator: [
       Middle.authenticate,
       Middle.authorize([M.UserType.Admin]),
-      Middle.valBody(Val.UserSchema),
-      unwrapData(async (req: IRequest<M.IUserBody>) => {
+      Middle.valBody(Val.EducatorSchema),
+      unwrapData(async (req: IRequest<M.IEducatorBody>) => {
 
-        if (await userExistsWithEmail(req.body.email)) {
-          throw new BadRequestError(`User with email ${req.body.email} already exists.`);
+        if (await userExistsWithUsername(req.body.username)) {
+          throw new BadRequestError(`User with username ${req.body.username} already exists.`);
         }
 
         const hashedPassword = await bcrypt.hash(req.body.password, Constants.HashedPassSaltLen);
@@ -666,12 +666,12 @@ export function UserRoutes(
       Middle.valBody(Val.UserAuthSchema),
       unwrapData(async (req: IRequest<M.IUserLoginCreds>) => {
 
-        const { email, password } = req.body;
+        const { username, password } = req.body;
 
-        const user = await userData.getUserByEmail(email) as M.IStudent;
+        const user = await userData.getUserByUsername(username) as M.IStudent;
 
         if (user === null) {
-          throw new BadRequestError(`No user with email ${email}`);
+          throw new BadRequestError(`No user with username ${username} exists.`);
         }
 
         if (user.type !== M.UserType.Student) {
@@ -687,7 +687,7 @@ export function UserRoutes(
         const isPasswordCorrect = await bcrypt.compare(password, user.hashed_password);
 
         if (!isPasswordCorrect) {
-          throw new BadRequestError('Invalid email/password combination.');
+          throw new BadRequestError('Invalid username/password combination.');
         }
 
         const slackMessage = `*${Helpers.getFullName(user)} signed in*`
@@ -706,12 +706,12 @@ export function UserRoutes(
       Middle.valBody(Val.UserAuthSchema),
       unwrapData(async (req: IRequest<M.IUserLoginCreds>) => {
 
-        const { email, password } = req.body;
+        const { username, password } = req.body;
 
-        const user = await userData.getUserByEmail(email) as M.IEducator;
+        const user = await userData.getUserByUsername(username) as M.IEducator;
 
         if (user === null) {
-          throw new BadRequestError(`No user with email ${email}`);
+          throw new BadRequestError(`No user with username ${username} exists.`);
         }
 
         if (user.type !== M.UserType.Educator) {
@@ -721,7 +721,7 @@ export function UserRoutes(
         const isPasswordCorrect = await bcrypt.compare(password, user.hashed_password);
 
         if (!isPasswordCorrect) {
-          throw new BadRequestError('Invalid email/password combination.');
+          throw new BadRequestError('Invalid username/password combination.');
         }
 
         const slackMessage = `*${Helpers.getFullName(user)} signed in*`

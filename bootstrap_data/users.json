@@ -1,0 +1,274 @@
+[
+  {
+    "_id": "austin-kyker",
+    "username": "akyker20@gmail.com",
+    "first_name": "Austin",
+    "last_name": "Kyker",
+    "type": "Admin",
+    "date_created": "2018-08-15T21:40:11.181Z",
+    "hashed_password": "$2a$08$pW7N3Q7PdTmoOHdUIBPkse3tNhqxUdYRdI3Q7o.ZwYq0ZEdBNRkU6"
+  },
+  {
+    "_id": "katelynn-kyker",
+    "username": "kkyker@gmail.com",
+    "first_name": "Katelynn",
+    "last_name": "Kyker",
+    "status": "active",
+    "type": "Student",
+    "date_created": "2018-08-15T21:40:11.225Z",
+    "date_activated": "2018-08-15T21:40:11.225Z",
+    "hashed_password": "$2a$08$GMniny560m6U2vhloz9jre152RpZSqbqX8QbJt57PuUmiBZD0JOAq",
+    "initial_lexile_measure": 700,
+    "gender": "F",
+    "parent_emails": [
+      "jkyker217@gmail.com"
+    ],
+    "genre_interests": {
+      "Sk8dbOjr7": 3,
+      "r1eZGuiB7": 2,
+      "r11Vzdirm": 1,
+      "Hy4HM_sB7": 2,
+      "H1cjM_jB7": 3,
+      "rktJmOsHQ": 4,
+      "HyBbXujB7": 1,
+      "SyQXQOorX": 3,
+      "r1ECmusSQ": 1,
+      "B1Z_NdiB7": 2
+    },
+    "bookmarked_books": [
+      "2RGRHqjxRer",
+      "7Hx_LeCfUix",
+      "ZzqGNL0p_5",
+      "KQ854Z9eZqi"
+    ]
+  },
+  {
+    "_id": "bonnie-stewart",
+    "gender": "F",
+    "username": "kykercomputing@gmail.com",
+    "email": "kykercomputing@gmail.com",
+    "first_name": "Bonnie",
+    "last_name": "Stewart",
+    "type": "Educator",
+    "date_created": "2018-08-15T21:40:11.252Z",
+    "hashed_password": "$2a$08$hDvx2GeMS2WqNcdRKUNtQeYDefF1veYY9dJHirNctOYWbv4G5QaMy",
+    "student_ids": [
+      "katelynn-kyker",
+      "47WMU1RPi",
+      "lo815NVbS",
+      "pdB3V0QYx",
+      "U1sAvUwJy",
+      "E9B24l7mS",
+      "8FNvmQLpd",
+      "dpIusvulq",
+      "3RlfD6onP"
+    ],
+    "notification_settings": {
+      "reading_logs": true,
+      "quiz_submissions": true,
+      "prizes_ordered": true
+    }
+  },
+  {
+    "_id": "47WMU1RPi",
+    "gender": "F",
+    "username": "elizabeth064@aol.com",
+    "first_name": "Margi",
+    "last_name": "Higgs",
+    "initial_lexile_measure": 700,
+    "parent_emails": [],
+    "type": "Student",
+    "status": "active",
+    "bookmarked_books": [
+      "0ILhj3wn050",
+      "ZzqGNL0p_5",
+      "WUnoG5Lonx0"
+    ],
+    "genre_interests": {
+      "Sk8dbOjr7": 4,
+      "r1eZGuiB7": 1,
+      "r11Vzdirm": 3,
+      "Hy4HM_sB7": 4,
+      "H1cjM_jB7": 3,
+      "rktJmOsHQ": 3,
+      "HyBbXujB7": 2,
+      "SyQXQOorX": 4,
+      "r1ECmusSQ": 1,
+      "B1Z_NdiB7": 3
+    },
+    "date_created": "2018-08-16T19:39:20.485Z",
+    "date_activated": "2018-08-16T20:12:52.226Z",
+    "hashed_password": "$2a$08$g34pIxSrTq0KGTWsp1XbEeTcwSzvh5jELEQBOFuXg7.oySzP0xDui"
+  },
+  {
+    "_id": "lo815NVbS",
+    "gender": "F",
+    "username": "principsam75@yahoo.com",
+    "first_name": "Samra",
+    "last_name": "Rogers",
+    "initial_lexile_measure": 700,
+    "parent_emails": [],
+    "type": "Student",
+    "status": "pending",
+    "bookmarked_books": [],
+    "genre_interests": null,
+    "date_created": "2018-08-16T19:39:47.462Z",
+    "date_activated": null
+  },
+  {
+    "_id": "pdB3V0QYx",
+    "gender": "M",
+    "username": "jfmdrr@yahoo.com",
+    "first_name": "Jim",
+    "last_name": "McDonald",
+    "initial_lexile_measure": 700,
+    "parent_emails": [],
+    "type": "Student",
+    "status": "active",
+    "bookmarked_books": [
+      "tuzGzfNiIAb",
+      "AL-mdr97rC",
+      "fSukwObGEWr"
+    ],
+    "genre_interests": {
+      "Sk8dbOjr7": 4,
+      "r1eZGuiB7": 4,
+      "r11Vzdirm": 2,
+      "Hy4HM_sB7": 4,
+      "H1cjM_jB7": 3,
+      "rktJmOsHQ": 2,
+      "HyBbXujB7": 4,
+      "SyQXQOorX": 3,
+      "r1ECmusSQ": 4,
+      "B1Z_NdiB7": 4
+    },
+    "date_created": "2018-08-17T02:54:33.352Z",
+    "date_activated": "2018-08-17T03:19:23.891Z",
+    "hashed_password": "$2a$08$4Et1e2OEXWQG6glfBTYgC.TYabSi6W2plfj1z88yQ7UOdpKh3i/HC"
+  },
+  {
+    "_id": "U1sAvUwJy",
+    "gender": "M",
+    "username": "jwhite@themindtrust.org",
+    "first_name": "Joe",
+    "last_name": "White",
+    "initial_lexile_measure": 700,
+    "parent_emails": [],
+    "type": "Student",
+    "status": "pending",
+    "bookmarked_books": [],
+    "genre_interests": null,
+    "date_created": "2018-08-17T18:23:57.255Z",
+    "date_activated": null
+  },
+  {
+    "_id": "E9B24l7mS",
+    "gender": "F",
+    "username": "jkyker217@gmail.com",
+    "first_name": "Jimmie",
+    "last_name": "Kyker",
+    "initial_lexile_measure": 700,
+    "parent_emails": [
+      "mkyker@gmail.com"
+    ],
+    "type": "Student",
+    "status": "active",
+    "bookmarked_books": [
+      "AivLlkABjud",
+      "z_kvoxNw4st",
+      "4iwX_qU_ls3",
+      "0ILhj3wn050"
+    ],
+    "genre_interests": {
+      "Sk8dbOjr7": 4,
+      "r1eZGuiB7": 3,
+      "r11Vzdirm": 3,
+      "Hy4HM_sB7": 4,
+      "H1cjM_jB7": 2,
+      "rktJmOsHQ": 2,
+      "HyBbXujB7": 4,
+      "SyQXQOorX": 3,
+      "r1ECmusSQ": 4,
+      "B1Z_NdiB7": 4
+    },
+    "date_created": "2018-08-18T21:26:21.525Z",
+    "date_activated": "2018-08-19T02:44:48.991Z",
+    "hashed_password": "$2a$08$7wdniFERnrUQWs30MlUJJeps77o23mpRg2XbCHacMtybTUi66ZWCG"
+  },
+  {
+    "_id": "8FNvmQLpd",
+    "gender": "F",
+    "username": "wellsma@myips.org",
+    "first_name": "Melissa",
+    "last_name": "Wells",
+    "initial_lexile_measure": 700,
+    "parent_emails": [],
+    "type": "Student",
+    "status": "pending",
+    "bookmarked_books": [],
+    "genre_interests": null,
+    "date_created": "2018-08-20T19:11:51.960Z",
+    "date_activated": null
+  },
+  {
+    "_id": "dpIusvulq",
+    "gender": "F",
+    "username": "jsmith@gmail.com",
+    "first_name": "Jamie",
+    "last_name": "Smith",
+    "initial_lexile_measure": 700,
+    "parent_emails": [],
+    "type": "Student",
+    "status": "active",
+    "bookmarked_books": [
+      "ZzqGNL0p_5",
+      "AivLlkABjud",
+      "nviYIUu7cyk"
+    ],
+    "genre_interests": {
+      "Sk8dbOjr7": 4,
+      "r1eZGuiB7": 3,
+      "r11Vzdirm": 4,
+      "Hy4HM_sB7": 3,
+      "H1cjM_jB7": 3,
+      "rktJmOsHQ": 2,
+      "HyBbXujB7": 2,
+      "SyQXQOorX": 3,
+      "r1ECmusSQ": 4,
+      "B1Z_NdiB7": 2
+    },
+    "date_created": "2018-08-23T02:04:20.584Z",
+    "date_activated": "2018-08-23T02:04:46.342Z",
+    "hashed_password": "$2a$08$AnBeKX44D5hy.avGHQkB/usomogSeXoQlDPJw9yVKoQ/N.ghW8b/a"
+  },
+  {
+    "_id": "3RlfD6onP",
+    "gender": "M",
+    "username": "akyker@gmail.com",
+    "first_name": "Austin",
+    "last_name": "Kyker",
+    "initial_lexile_measure": 700,
+    "parent_emails": [],
+    "type": "Student",
+    "status": "active",
+    "bookmarked_books": [
+      "AivLlkABjud",
+      "7Hx_LeCfUix"
+    ],
+    "genre_interests": {
+      "Sk8dbOjr7": 4,
+      "r1eZGuiB7": 1,
+      "r11Vzdirm": 3,
+      "Hy4HM_sB7": 4,
+      "H1cjM_jB7": 2,
+      "rktJmOsHQ": 3,
+      "HyBbXujB7": 4,
+      "SyQXQOorX": 3,
+      "r1ECmusSQ": 4,
+      "B1Z_NdiB7": 3
+    },
+    "date_created": "2018-08-23T12:39:42.020Z",
+    "date_activated": "2018-08-23T12:40:50.659Z",
+    "hashed_password": "$2a$08$LtsexGFj5ReWneYPXMKKRuqqUrVbhmcYZ5LUS1KQiRc/42uBU.bB2"
+  }
+]

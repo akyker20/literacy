@@ -34,9 +34,14 @@ export namespace BodyValidators {
   export const UserSchema = joi.object({
     first_name: joi.string().required().error(genFieldErr('first_name')),
     last_name: joi.string().required().error(genFieldErr('last_name')),
-    email: joi.string().email().required().error(genFieldErr('email')),
+    username: joi.string().required().error(genFieldErr('username')),
     password: joi.string().required().error(genFieldErr('password')),
   }).required();
+
+  export const EducatorSchema = UserSchema.keys({
+    gender: joi.string().valid(_.values(M.Gender)).required().error(genFieldErr('gender')),
+    email: joi.string().email().required().error(genFieldErr('email')),
+  }).required()
 
   export const ActivateUserSchema = joi.object({
     password: joi.string().required()
@@ -51,14 +56,14 @@ export namespace BodyValidators {
   export const PendingStudentSchema = joi.object({
     first_name: joi.string().required(),
     last_name: joi.string().required(),
-    email: joi.string().email().required(),
+    username: joi.string().required(),
     initial_lexile_measure: lexileMeasureSchema,
     gender: joi.string().valid(_.values(M.Gender)).required(),
     parent_emails: parentEmailsSchema
   }).required();
 
   export const UserAuthSchema = joi.object({
-    email: joi.string().email().required().error(genFieldErr('email')),
+    username: joi.string().required().error(genFieldErr('username')),
     password: joi.string().required().error(genFieldErr('password')),
   }).required();
 

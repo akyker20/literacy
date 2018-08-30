@@ -99,7 +99,7 @@ export default class App {
 
     this.server.get('/students/:userId', userRoutes.getStudent);
     this.server.post('/students/:userId/activate', userRoutes.activatePendingStudent);
-    this.server.get('/students', userRoutes.getStudentByEmail);
+    this.server.get('/students', userRoutes.getStudentByUsername);
     this.server.post('/educators/:userId/students', userRoutes.createPendingStudent);
     this.server.post('/students/:userId/genre_interests', userRoutes.createGenreInterests);
     this.server.put('/students/:userId/genre_interests/:genreId', userRoutes.editGenreInterest);

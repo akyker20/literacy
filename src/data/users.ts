@@ -9,7 +9,7 @@ export interface IUserData {
   createUser: (user: IUser) => Promise<IUser>;
   getUserById: (id: string) => Promise<IUser>;
   getUsersWithIds: (ids: string[]) => Promise<IUser[]>;
-  getUserByEmail: (email: string) => Promise<IUser>;
+  getUserByUsername: (username: string) => Promise<IUser>;
   getAllUsers: () => Promise<IUser[]>;
   updateUser: (user: IUser) => Promise<IUser>;
   deleteUser: (userId: string) => Promise<IUser>;
@@ -36,8 +36,8 @@ export class MongoUserData implements IUserData {
     return this.users.findOne({ _id: userId });
   }
 
-  getUserByEmail(email: string): Promise<IUser> {
-    return this.users.findOne({ email });
+  getUserByUsername(username: string): Promise<IUser> {
+    return this.users.findOne({ username });
   }
 
   getUsersWithIds(ids: string[]): Promise<IUser[]> {

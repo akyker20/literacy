@@ -1388,17 +1388,17 @@ describe('End to End tests', function () {
       describe('#studentSignin', function () {
 
         const validAdminCreds: Models.IUserLoginCreds = {
-          email: austin.email,
+          username: austin.username,
           password: 'password'
         }
 
         const validStudentCreds: Models.IUserLoginCreds = {
-          email: katelynn.email,
+          username: katelynn.username,
           password: 'password'
         }
 
         const inactiveStudentCreds: Models.IUserLoginCreds = {
-          email: inactiveStudent.email,
+          username: inactiveStudent.username,
           password: 'password'
         }
 
@@ -1457,9 +1457,11 @@ describe('End to End tests', function () {
 
       describe('#createEducator', function () {
 
-        const validReqBody: Models.IUserBody = {
+        const validReqBody: Models.IEducatorBody = {
+          gender: Models.Gender.Female,
           first_name: 'Bonnie',
           last_name: 'Stewart',
+          username: 'tjones@parktudor.org',
           email: 'tjones@parktudor.org',
           password: 'taylors_password'
         }
@@ -1489,6 +1491,7 @@ describe('End to End tests', function () {
               assert.hasAllKeys(body, [
                 '_id',
                 'date_created',
+                'username',
                 'email',
                 'first_name',
                 'hashed_password',
