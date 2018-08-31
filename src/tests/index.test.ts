@@ -32,9 +32,9 @@ import { MockEmail } from '../email/mock';
 import { MongoSeriesData } from '../data/series';
 import { MongoBookRequestData } from '../data/book_requests';
 
-
 // Load all the data
 
+const initialBookRequests: Models.IBookRequest[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/book_requests.json'), 'utf8'));
 const initialBooks: Models.IBook[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/books.json'), 'utf8'));
 const initialGenres: Models.IGenre[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/genres.json'), 'utf8'));
 const initialQuizzes: Models.IQuiz[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/quizzes.json'), 'utf8'));
@@ -81,6 +81,7 @@ const genreCollection = db.get('genres', { castIds: false });
 const prizeCollection = db.get('prizes', { castIds: false });
 const prizeOrderCollection = db.get('prize_orders', { castIds: false });
 const readingLogCollection = db.get('reading_logs', { castIds: false });
+const bookRequestCollection = db.get('book_requests', { castIds: false });
 
 async function setData(collection: monk.ICollection, data: any) {
   await collection.remove({});
@@ -144,7 +145,8 @@ describe('End to End tests', function () {
       setData(prizeCollection, initialPrizes),
       setData(prizeOrderCollection, initialPrizeOrders),
       setData(readingLogCollection, initialReadingLogs),
-      setData(authorCollection, initialAuthors)
+      setData(authorCollection, initialAuthors),
+      setData(bookRequestCollection, initialBookRequests)
     ]);
   });
 
@@ -1566,8 +1568,6 @@ describe('End to End tests', function () {
 
     });
 
-    // todo
-
     describe('#deleteReadingLog', function () {
 
       const firstLogForHatchetChase = _.find(initialReadingLogs, { _id: 'chase_unfinished_hatchet_1' });
@@ -1610,29 +1610,29 @@ describe('End to End tests', function () {
 
     })
 
-    describe('#getLogsForStudent', function() {
+    describe('#getLogsForStudent', function () {
 
-      it('should require authentication', function() {
+      it('should require authentication', function () {
         return agent
           .get(`/students/${chase._id}/reading_logs`)
           .expect(401)
       })
 
-      it('should 403 if not admin', function() {
+      it('should 403 if not admin', function () {
         return agent
           .get(`/students/${chase._id}/reading_logs`)
           .set(SC.AuthHeaderField, chaseToken)
           .expect(403)
       })
 
-      it('should 404 if student doesnt exist', function() {
+      it('should 404 if student doesnt exist', function () {
         return agent
           .get(`/students/${shortid.generate()}/reading_logs`)
           .set(SC.AuthHeaderField, austinToken)
           .expect(404)
       })
 
-      it('should return student logs', function() {
+      it('should return student logs', function () {
         return agent
           .get(`/students/${chase._id}/reading_logs`)
           .set(SC.AuthHeaderField, austinToken)
@@ -1643,570 +1643,921 @@ describe('End to End tests', function () {
 
   });
 
-  // describe('User Routes', function () {
-
-  //   describe('#studentSignin', function () {
-
-  //     const validAdminCreds: Models.IUserLoginCreds = {
-  //       username: austin.username,
-  //       password: 'password'
-  //     }
-
-  //     const validStudentCreds: Models.IUserLoginCreds = {
-  //       username: katelynn.username,
-  //       password: 'password'
-  //     }
-
-  //     const inactiveStudentCreds: Models.IUserLoginCreds = {
-  //       username: inactiveStudent.username,
-  //       password: 'password'
-  //     }
-
-  //     it('should 400 if no user exists with email', function () {
-  //       const invalidEmail = 'invalid@gmail.com'
-  //       return agent
-  //         .post(`/students/signin`)
-  //         .send({ email: invalidEmail, password: 'pass' })
-  //         .expect(400)
-  //         .then(checkErrMsg(`No user with email ${invalidEmail}`))
-  //     })
-
-  //     it('should 400 if user is admin', function () {
-  //       return agent
-  //         .post(`/students/signin`)
-  //         .send(validAdminCreds)
-  //         .expect(400)
-  //         .then(checkErrMsg('User must be a student.'))
-  //     })
-
-  //     it('should 400 if student is not active', function () {
-  //       return agent
-  //         .post('/students/signin')
-  //         .send(inactiveStudentCreds)
-  //         .expect(400)
-  //         .then(checkErrMsg('This student account is not yet activated.'))
-  //     })
-
-  //     it('should 400 if invalid email/password combo', function () {
-  //       const invalidPass = 'invalid';
-  //       const invalidCreds = {
-  //         ...validStudentCreds,
-  //         password: invalidPass
-  //       }
-  //       return agent
-  //         .post(`/students/signin`)
-  //         .send(invalidCreds)
-  //         .expect(400)
-  //         .then(checkErrMsg('Invalid email/password combination.'))
-  //     })
-
-  //     it('should 200 if credentials valid', function () {
-  //       return agent
-  //         .post(`/students/signin`)
-  //         .expect(200)
-  //         .send(validStudentCreds)
-  //         .then(({ body }) => {
-  //           const actualClaims = jwt.verify(body.auth_token, BEC.JWTSecret) as any
-  //           assert.equal(actualClaims._id, katelynn._id);
-  //           assert.equal(actualClaims.type, katelynn.type)
-  //           assert.deepEqual(body.dto.info, katelynn)
-  //         })
-  //     })
-
-  //   })
-
-  //   describe('#createEducator', function () {
-
-  //     const validReqBody: Models.IEducatorBody = {
-  //       gender: Models.Gender.Female,
-  //       first_name: 'Bonnie',
-  //       last_name: 'Stewart',
-  //       username: 'tjones@parktudor.org',
-  //       email: 'tjones@parktudor.org',
-  //       password: 'taylors_password'
-  //     }
-
-  //     it('should 401 when no auth token in header', function () {
-  //       return agent
-  //         .post(`/educators`)
-  //         .expect(401);
-  //     });
-
-  //     it('should 403 if non-admin making request', function () {
-  //       return agent
-  //         .post('/educators')
-  //         .set(SC.AuthHeaderField, chaseToken)
-  //         .expect(403);
-  //     });
-
-  //     it('should 200 and save the educator', function () {
-
-  //       return agent
-  //         .post('/educators')
-  //         .set(SC.AuthHeaderField, austinToken)
-  //         .send(validReqBody)
-  //         .expect(200)
-  //         .then(({ body }) => {
-
-  //           assert.hasAllKeys(body, [
-  //             '_id',
-  //             'date_created',
-  //             'username',
-  //             'email',
-  //             'first_name',
-  //             'hashed_password',
-  //             'last_name',
-  //             'notification_settings',
-  //             'student_ids',
-  //             'type'
-  //           ])
-
-  //           // bcrypt will produce different hashes for the same
-  //           // string. In other words, hash(validReqBody.password) !== body.hashed_password
-  //           assert.isTrue(bcrypt.compareSync(validReqBody.password, body.hashed_password));
-
-  //           delete body._id;
-  //           delete body.date_created;
-  //           delete body.hashed_password;
-  //           delete validReqBody.password;
-
-  //           const expected = _.assign({}, validReqBody, {
-  //             type: Models.UserType.Educator,
-  //             student_ids: [],
-  //             notification_settingsn: {
-  //               reading_logs: true,
-  //               quiz_submissions: true,
-  //               prizes_ordered: true
-  //             }
-  //           });
-
-  //           assert.deepEqual(expected, body);
-  //           return usersCollection.find({});
-
-  //         })
-  //         .then(allUsers => assert.lengthOf(allUsers, initialUsers.length + 1))
-  //     });
-
-  //   });
-
-  //   describe('#updateEducatorNotificationSettings', function () {
-
-  //     const validNoteSettings: Models.IEducatorNoteSettings = {
-  //       reading_logs: true,
-  //       quiz_submissions: false,
-  //       prizes_ordered: true
-  //     }
-
-  //     it('should 401 when no auth token in header', function () {
-  //       return agent
-  //         .put(`/educators/${bonnie._id}/notification_settings`)
-  //         .expect(401);
-  //     });
-
-  //     it('should 403 if not a teacher', function () {
-  //       return agent
-  //         .put(`/educators/${chase._id}/notification_settings`)
-  //         .set(SC.AuthHeaderField, bonnieToken)
-  //         .send(validNoteSettings)
-  //         .expect(403);
-  //     });
-
-  //     it('should 400 if invalid body', function () {
-  //       let invalidSettings = _.cloneDeep(validNoteSettings);
-  //       delete invalidSettings.prizes_ordered;
-  //       return agent
-  //         .put(`/educators/${bonnie._id}/notification_settings`)
-  //         .set(SC.AuthHeaderField, bonnieToken)
-  //         .send(invalidSettings)
-  //         .expect(400);
-  //     });
-
-  //     it('should 200 and update the settings', function () {
-
-  //       return agent
-  //         .put(`/educators/${bonnie._id}/notification_settings`)
-  //         .set(SC.AuthHeaderField, bonnieToken)
-  //         .send(validNoteSettings)
-  //         .expect(200)
-  //         .then(() => mongoUserData.getUserById(bonnie._id))
-  //         .then((educator: Models.IEducator) => assert.deepEqual(educator.notification_settings, validNoteSettings))
-  //     });
-
-  //   })
-
-  //   describe('#updateStudentsForEducator', function () {
-
-  //     const invalidWithBadStudent = [katelynn._id, shortid.generate()];
-  //     const invalidWithEducator = [katelynn._id, austin._id];
-  //     const validStudentIds = [katelynn._id, chase._id];
-
-  //     it('should 401 when no auth token in header', function () {
-  //       return agent
-  //         .put(`/educators/${bonnie._id}/students`)
-  //         .expect(401);
-  //     });
-
-  //     it('should 403 if non-admin making request', function () {
-  //       return agent
-  //         .put(`/educators/${bonnie._id}/students`)
-  //         .set(SC.AuthHeaderField, chaseToken)
-  //         .expect(403);
-  //     });
-
-  //     it('should 403 if educator making request on behalf another educator', function () {
-  //       return agent
-  //         .put(`/educators/${bonnie._id}/students`)
-  //         .set(SC.AuthHeaderField, genAuthToken(Models.UserType.Educator, shortid.generate()))
-  //         .expect(403);
-  //     });
-
-  //     it('should 400 if invalid student ids in body', function () {
-  //       return agent
-  //         .put(`/educators/${bonnie._id}/students`)
-  //         .set(SC.AuthHeaderField, bonnieToken)
-  //         .send({ student_ids: invalidWithBadStudent })
-  //         .expect(400);
-  //     });
-
-  //     it('should 400 if not all ids are for student users', function () {
-  //       return agent
-  //         .put(`/educators/${bonnie._id}/students`)
-  //         .set(SC.AuthHeaderField, bonnieToken)
-  //         .send({ student_ids: invalidWithEducator })
-  //         .expect(400);
-  //     });
-
-  //     it('should 200 and save students on educator', function () {
-  //       return agent
-  //         .put(`/educators/${bonnie._id}/students`)
-  //         .set(SC.AuthHeaderField, bonnieToken)
-  //         .send({ student_ids: validStudentIds })
-  //         .expect(200)
-  //         .then(() => usersCollection.findOne({ _id: bonnie._id }))
-  //         .then(user => assert.sameDeepMembers(user.student_ids, validStudentIds))
-  //     });
-
-  //   })
-
-  //   describe('#updateStudentsParentsEmails', function () {
-
-  //     it('should 401 when no auth token in header', function () {
-  //       return agent
-  //         .put(`/students/${katelynn._id}/parent_emails`)
-  //         .expect(401);
-  //     });
-
-  //     it('should 403 if non-admin making request', function () {
-  //       return agent
-  //         .put(`/students/${katelynn._id}/parent_emails`)
-  //         .set(SC.AuthHeaderField, chaseToken)
-  //         .expect(403);
-  //     });
-
-  //     it('should 400 if too many emails provided', function () {
-  //       return agent
-  //         .put(`/students/${katelynn._id}/parent_emails`)
-  //         .set(SC.AuthHeaderField, katelynnToken)
-  //         .send({
-  //           parent_emails: _.times(SC.MaxParentEmailsPerStudent + 1, () => faker.internet.email())
-  //         })
-  //         .expect(400)
-  //         .then(checkErrMsg('Invalid/missing field parent_emails'))
-  //     });
-
-  //     it('should 400 if duplicate emails provided', function () {
-  //       return agent
-  //         .put(`/students/${katelynn._id}/parent_emails`)
-  //         .set(SC.AuthHeaderField, katelynnToken)
-  //         .send({
-  //           parent_emails: ["austin@gmail.com", "austin@gmail.com"]
-  //         })
-  //         .expect(400)
-  //         .then(checkErrMsg('Invalid/missing field parent_emails'));
-  //     });
-
-  //     it('should 200 and save emails', function () {
-  //       const updatedEmails = ["sam@gmail.com", "sarah@gmail.com"];
-  //       return agent
-  //         .put(`/students/${katelynn._id}/parent_emails`)
-  //         .set(SC.AuthHeaderField, katelynnToken)
-  //         .send({
-  //           parent_emails: updatedEmails
-  //         })
-  //         .expect(200)
-  //         .then(() => mongoUserData.getUserById(katelynn._id))
-  //         .then((updatedStudent: Models.IStudent) => {
-  //           assert.sameMembers(updatedStudent.parent_emails, updatedEmails);
-  //         })
-  //     });
-
-  //   })
-
-  //   // describe('#createStudent', function () {
-
-  //   //   const validReqBody: Models.IStudentBody = {
-  //   //     first_name: 'Taylor',
-  //   //     last_name: 'Jones',
-  //   //     gender: Models.Gender.Female,
-  //   //     initial_lexile_measure: 400,
-  //   //     email: 'tjones@parktudor.org',
-  //   //     password: 'taylors_password',
-  //   //     parent_emails: []
-  //   //   }
-
-  //   //   it('should 401 when no auth token in header', function () {
-  //   //     return agent
-  //   //       .post(`/students`)
-  //   //       .expect(401);
-  //   //   });
-
-  //   //   it('should 403 if non-admin making request', function () {
-  //   //     return agent
-  //   //       .post('/students')
-  //   //       .set(SC.AuthHeaderField, chaseToken)
-  //   //       .expect(403);
-  //   //   });
-
-  //   //   it('should 200 and save the student', function () {
-
-  //   //     return agent
-  //   //       .post('/students')
-  //   //       .set(SC.AuthHeaderField, austinToken)
-  //   //       .send(validReqBody)
-  //   //       .expect(200)
-  //   //       .then(({ body }) => {
-
-  //   //         assert.hasAllKeys(body, [
-  //   //           '_id',
-  //   //           'date_created',
-  //   //           'date_activated',
-  //   //           'email',
-  //   //           'first_name',
-  //   //           'last_name',
-  //   //           'gender',
-  //   //           'genre_interests',
-  //   //           'hashed_password',
-  //   //           'initial_lexile_measure',
-  //   //           'bookmarked_books',
-  //   //           'type',
-  //   //           'status',
-  //   //           'parent_emails'
-  //   //         ])
-
-  //   //         // bcrypt will produce different hashes for the same
-  //   //         // string. In other words, hash(validReqBody.password) !== body.hashed_password
-  //   //         assert.isTrue(bcrypt.compareSync(validReqBody.password, body.hashed_password));
-
-  //   //         delete body._id;
-  //   //         delete body.date_created;
-  //   //         delete body.date_activated;
-  //   //         delete body.hashed_password;
-  //   //         delete validReqBody.password;
-
-  //   //         const expected = _.assign({}, validReqBody, {
-  //   //           type: Models.UserType.Student,
-  //   //           genre_interests: null,
-  //   //           bookmarked_books: [],
-  //   //           status: Models.StudentStatus.Active
-  //   //         });
-
-  //   //         assert.deepEqual(expected, body);
-  //   //         return usersCollection.find({});
-
-  //   //       })
-  //   //       .then(allUsers => assert.lengthOf(allUsers, initialUsers.length + 1))
-  //   //   })
-
-  //   // })
-
-
-  //   describe('#createGenreInterests', function () {
-
-  //     const genreIds = _.map(initialGenres, '_id');
-
-  //     let validGenreMap: Models.GenreInterestMap = {};
-  //     _.each(genreIds, id => validGenreMap[id] = _.random(1, 4) as 1 | 2 | 3 | 4)
-
-  //     it('should 401 when no auth token in header', function () {
-  //       return agent
-  //         .post(`/students/${chase._id}/genre_interests`)
-  //         .expect(401);
-  //     });
-
-  //     it('should 403 if student making request on behalf another student', function () {
-  //       return agent
-  //         .post(`/students/${chase._id}/genre_interests`)
-  //         .set(SC.AuthHeaderField, katelynnToken)
-  //         .expect(403)
-  //         .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
-  //     });
-
-  //     it('should 400 if some genre ids are missing', function () {
-
-  //       const copy = _.cloneDeep(validGenreMap);
-  //       delete copy[initialGenres[0]._id];
-
-  //       return agent
-  //         .post(`/students/${chase._id}/genre_interests`)
-  //         .set(SC.AuthHeaderField, chaseToken)
-  //         .send(copy)
-  //         .expect(400)
-  //         .then(checkErrMsg('There is a discrepancy between existing genres and genres user provided interest levels for.'))
-
-  //     });
-
-  //     it('should 400 if values are not between 1 and 4', function () {
-
-  //       const copy: any = _.cloneDeep(validGenreMap);
-  //       copy[initialGenres[0]._id] = 5;
-
-  //       return agent
-  //         .post(`/students/${chase._id}/genre_interests`)
-  //         .set(SC.AuthHeaderField, chaseToken)
-  //         .send(copy)
-  //         .expect(400)
-
-  //     });
-
-  //     it('should 400 if same number of genre keys, but one is invalid', function () {
-
-  //       const copy: any = _.cloneDeep(validGenreMap);
-  //       const invalidGenreId = shortid.generate();
-  //       copy[invalidGenreId] = 4;
-  //       delete copy[initialGenres[0]._id];
-
-  //       return agent
-  //         .post(`/students/${chase._id}/genre_interests`)
-  //         .set(SC.AuthHeaderField, chaseToken)
-  //         .send(copy)
-  //         .expect(400)
-  //         .then(checkErrMsg(`There is a discrepancy between existing genres and genres user provided interest levels for.`))
-
-  //     });
-
-  //     it('should 404 if user does not exist', function () {
-
-  //       const invalidId = shortid.generate();
-
-  //       return agent
-  //         .post(`/students/${invalidId}/genre_interests`)
-  //         .set(SC.AuthHeaderField, austinToken)
-  //         .send(validGenreMap)
-  //         .expect(404)
-  //         .then(checkErrMsg(`User ${invalidId} does not exist.`))
-
-  //     });
-
-  //     it('should 403 if user is not Student', function () {
-
-  //       return agent
-  //         .post(`/students/${austin._id}/genre_interests`)
-  //         .set(SC.AuthHeaderField, austinToken)
-  //         .send(validGenreMap)
-  //         .expect(403)
-  //         .then(checkErrMsg(`Can only post genre interests for student users`))
-
-  //     });
-
-  //     it('should 403 if user has already posted genre interests', function () {
-
-  //       return agent
-  //         .post(`/students/${katelynn._id}/genre_interests`)
-  //         .set(SC.AuthHeaderField, katelynnToken)
-  //         .send(validGenreMap)
-  //         .expect(403)
-  //         .then(checkErrMsg('User already has created genre interests'))
-
-  //     });
-
-  //     it('should 200 and save genre interests', function () {
-
-  //       return agent
-  //         .post(`/students/${chase._id}/genre_interests`)
-  //         .set(SC.AuthHeaderField, chaseToken)
-  //         .send(validGenreMap)
-  //         .expect(200)
-  //         .then(({ body }) => usersCollection.findOne({ _id: chase._id }))
-  //         .then(user => {
-  //           const expected = _.assign({}, chase, {
-  //             genre_interests: validGenreMap
-  //           })
-  //           assert.deepEqual(expected, user);
-  //         })
-
-  //     });
-
-  //   });
-
-  //   describe('#editGenreInterest', function () {
-
-  //     const genreId = initialGenres[0]._id;
-
-  //     const validBody = {
-  //       interest_value: _.random(1, 4)
-  //     }
-
-  //     it('should 401 when no auth token in header', function () {
-  //       return agent
-  //         .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
-  //         .expect(401);
-  //     });
-
-  //     it('should 403 if student making request on behalf another student', function () {
-  //       return agent
-  //         .put(`/students/${chase._id}/genre_interests/${genreId}`)
-  //         .set(SC.AuthHeaderField, katelynnToken)
-  //         .expect(403)
-  //         .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
-  //     });
-
-  //     it('should 400 if interest value is invalid', function () {
-  //       const copy = _.cloneDeep(validBody);
-  //       copy.interest_value = 5;
-  //       return agent
-  //         .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
-  //         .set(SC.AuthHeaderField, katelynnToken)
-  //         .send(copy)
-  //         .expect(400);
-  //     });
-
-  //     it('should 403 if student has not created genre interests', function () {
-  //       return agent
-  //         .put(`/students/${chase._id}/genre_interests/${genreId}`)
-  //         .set(SC.AuthHeaderField, chaseToken)
-  //         .send(validBody)
-  //         .expect(403)
-  //         .then(checkErrMsg('User cannot edit genre interests, until they have been created.'))
-  //     });
-
-  //     it('should 400 if genre id is invalid', function () {
-  //       const invalidGenreId = shortid.generate();
-  //       return agent
-  //         .put(`/students/${katelynn._id}/genre_interests/${invalidGenreId}`)
-  //         .set(SC.AuthHeaderField, katelynnToken)
-  //         .send(validBody)
-  //         .expect(400)
-  //         .then(checkErrMsg(`Genre ${invalidGenreId} does not exist.`))
-  //     });
-
-  //     it('should 200 and update the genre interest', function () {
-  //       return agent
-  //         .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
-  //         .set(SC.AuthHeaderField, katelynnToken)
-  //         .send(validBody)
-  //         .expect(200)
-  //         .then(() => usersCollection.findOne({ _id: katelynn._id }))
-  //         .then(user => {
-  //           const expectedGenreInterests = _.assign({}, katelynn.genre_interests, {
-  //             [genreId]: validBody.interest_value
-  //           })
-  //           assert.deepEqual(user.genre_interests, expectedGenreInterests);
-  //         })
-  //     });
-
-  //   });
-
-  // });
+  describe.only('User Routes', function () {
+
+    const validAdminCreds: Models.IUserLoginCreds = {
+      username: austin.username,
+      password: 'password'
+    }
+
+    const validEducatorCreds: Models.IUserLoginCreds = {
+      username: bonnie.username,
+      password: 'password'
+    }
+
+    const validStudentCreds: Models.IUserLoginCreds = {
+      username: katelynn.username,
+      password: 'password'
+    }
+
+    const inactiveStudentCreds: Models.IUserLoginCreds = {
+      username: inactiveStudent.username,
+      password: 'password'
+    }
+
+    describe('#getStudentByUsername', function () {
+
+      it('should require query', function () {
+        return agent
+          .get(`/students`)
+          .expect(400)
+          .then(checkErrMsg('Query param error for username'))
+      })
+
+      it('should return 400 if student is an educator', function () {
+        return agent
+          .get(`/students?username=${bonnie.username}`)
+          .expect(400)
+          .then(checkErrMsg(`User with username ${bonnie.username} is not a student.`))
+      })
+
+      it('should return 400 if student is an admin', function () {
+        return agent
+          .get(`/students?username=${austin.username}`)
+          .expect(400)
+          .then(checkErrMsg(`User with username ${austin.username} is not a student.`))
+      })
+
+      it('should return 404 if student does not exist', function () {
+        return agent
+          .get(`/students?username=blah`)
+          .expect(404)
+      })
+
+      it('should return 200 and the student', function () {
+        return agent
+          .get(`/students?username=${chase.username}`)
+          .expect(200)
+          .then(({ body }) => assert.deepEqual(body, chase))
+      })
+
+    })
+
+    describe('#studentSignin', function () {
+
+      it('should 400 if no user exists with username', function () {
+        const invalidUsername = 'invalid@gmail.com'
+        return agent
+          .post(`/students/signin`)
+          .send({ username: invalidUsername, password: 'pass' })
+          .expect(400)
+          .then(checkErrMsg(`No user with username ${invalidUsername} exists.`))
+      })
+
+      it('should 400 if user is admin', function () {
+        return agent
+          .post(`/students/signin`)
+          .send(validAdminCreds)
+          .expect(400)
+          .then(checkErrMsg('User must be a student.'))
+      })
+
+      it('should 400 if user is educator', function () {
+        return agent
+          .post(`/students/signin`)
+          .send(validEducatorCreds)
+          .expect(400)
+          .then(checkErrMsg('User must be a student.'))
+      })
+
+      it('should 400 if student is not active', function () {
+        return agent
+          .post('/students/signin')
+          .send(inactiveStudentCreds)
+          .expect(400)
+          .then(checkErrMsg('This student account is not yet activated.'))
+      })
+
+      it('should 400 if invalid username/password combo', function () {
+        const invalidPass = 'invalid';
+        const invalidCreds = {
+          ...validStudentCreds,
+          password: invalidPass
+        }
+        return agent
+          .post(`/students/signin`)
+          .send(invalidCreds)
+          .expect(400)
+          .then(checkErrMsg('Invalid username/password combination.'))
+      })
+
+      it('should 200 if credentials valid', function () {
+        return agent
+          .post(`/students/signin`)
+          .expect(200)
+          .send(validStudentCreds)
+          .then(({ body }) => {
+            const actualClaims = jwt.verify(body.auth_token, BEC.JWTSecret) as any
+            assert.equal(actualClaims._id, katelynn._id);
+            assert.equal(actualClaims.type, katelynn.type)
+            assert.deepEqual(body.dto.info, katelynn)
+          })
+      })
+
+    })
+
+    describe('#educatorSignin', function () {
+
+      it('should 400 if no user exists with username', function () {
+        const invalidUsername = 'invalid-user'
+        return agent
+          .post(`/educators/signin`)
+          .send({ username: invalidUsername, password: 'pass' })
+          .expect(400)
+          .then(checkErrMsg(`No user with username ${invalidUsername} exists.`))
+      })
+
+      it('should 400 if user is admin', function () {
+        return agent
+          .post(`/educators/signin`)
+          .send(validAdminCreds)
+          .expect(400)
+          .then(checkErrMsg('User must be an educator.'))
+      })
+
+      it('should 400 if user is student', function () {
+        return agent
+          .post(`/educators/signin`)
+          .send(validStudentCreds)
+          .expect(400)
+          .then(checkErrMsg('User must be an educator.'))
+      })
+
+      it('should 400 if invalid username/password combo', function () {
+        const invalidPass = 'invalid';
+        const invalidCreds = {
+          ...validEducatorCreds,
+          password: invalidPass
+        }
+        return agent
+          .post(`/educators/signin`)
+          .send(invalidCreds)
+          .expect(400)
+          .then(checkErrMsg('Invalid username/password combination.'))
+      })
+
+      it('should 200 if credentials valid', function () {
+        return agent
+          .post(`/educators/signin`)
+          .expect(200)
+          .send(validEducatorCreds)
+          .then(({ body }: { body: Models.IAuthEducatorDTO }) => {
+            const actualClaims = jwt.verify(body.auth_token, BEC.JWTSecret) as any
+            assert.equal(actualClaims._id, bonnie._id);
+            assert.equal(actualClaims.type, bonnie.type)
+            assert.deepEqual(body.dto.educator, bonnie)
+          })
+      })
+
+    })
+
+    describe('#activatePendingStudent', function () {
+
+      const validBody = {
+        password: 'my-password'
+      }
+
+      it('should 404 if student does not exist', function () {
+        return agent
+          .post(`/students/${shortid.generate()}/activate`)
+          .send(validBody)
+          .expect(404);
+      });
+
+      it('should 400 if user is not a student (admin case)', function () {
+        return agent
+          .post(`/students/${austin._id}/activate`)
+          .send(validBody)
+          .expect(400)
+          .then(checkErrMsg(`User ${austin._id} is not a student`))
+      });
+
+      it('should 400 if user is not a student (educator case)', function () {
+        return agent
+          .post(`/students/${bonnie._id}/activate`)
+          .send(validBody)
+          .expect(400)
+          .then(checkErrMsg(`User ${bonnie._id} is not a student`))
+      });
+
+      it('should 400 if student is already activated', function () {
+        return agent
+          .post(`/students/${chase._id}/activate`)
+          .send(validBody)
+          .expect(400)
+          .then(checkErrMsg(`Student ${chase._id} is already activated.`))
+      });
+
+      it('should 200 and update the status + hashed password', function () {
+        const pendingStudent = _.find(initialUsers, { status: Models.StudentStatus.Pending }) as Models.IStudent;
+        assert.isDefined(pendingStudent, 'Necessary for test.');
+        return agent
+          .post(`/students/${pendingStudent._id}/activate`)
+          .send(validBody)
+          .expect(200)
+          .then(() => usersCollection.findOne({ _id: pendingStudent._id }))
+          .then((activatedStudent: Models.IStudent) => {
+            assert.equal(activatedStudent.status, Models.StudentStatus.Active);
+            assert.isTrue(bcrypt.compareSync(validBody.password, activatedStudent.hashed_password));
+          })
+      });
+
+    })
+
+    describe('#createEducator', function () {
+
+      const validReqBody: Models.IEducatorBody = {
+        gender: Models.Gender.Female,
+        first_name: 'Bonnie',
+        last_name: 'Stewart',
+        username: 'tjones',
+        email: 'tjones@parktudor.org',
+        password: 'taylors_password'
+      }
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post(`/educators`)
+          .expect(401);
+      });
+
+      it('should 403 if non-admin making request', function () {
+        return agent
+          .post('/educators')
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(403);
+      });
+
+      it('should 200 and save the educator', function () {
+
+        return agent
+          .post('/educators')
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validReqBody)
+          .expect(200)
+          .then(({ body }) => {
+
+            assert.hasAllKeys(body, [
+              '_id',
+              'date_created',
+              'username',
+              'email',
+              'gender',
+              'first_name',
+              'hashed_password',
+              'last_name',
+              'notification_settings',
+              'student_ids',
+              'type'
+            ])
+
+            // bcrypt will produce different hashes for the same
+            // string. In other words, hash(validReqBody.password) !== body.hashed_password
+            assert.isTrue(bcrypt.compareSync(validReqBody.password, body.hashed_password));
+
+            delete body._id;
+            delete body.date_created;
+            delete body.hashed_password;
+            delete validReqBody.password;
+
+            const expected = _.assign({}, validReqBody, {
+              type: Models.UserType.Educator,
+              student_ids: [],
+              notification_settings: {
+                reading_logs: true,
+                quiz_submissions: true,
+                prizes_ordered: true
+              }
+            });
+
+            assert.deepEqual(expected, body);
+            return usersCollection.find({});
+
+          })
+          .then(allUsers => assert.lengthOf(allUsers, initialUsers.length + 1))
+      });
+
+    });
+
+    describe('#updateEducatorNotificationSettings', function () {
+
+      const validNoteSettings: Models.IEducatorNoteSettings = {
+        reading_logs: true,
+        quiz_submissions: false,
+        prizes_ordered: true
+      }
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .put(`/educators/${bonnie._id}/notification_settings`)
+          .expect(401);
+      });
+
+      it('should 403 if not a teacher', function () {
+        return agent
+          .put(`/educators/${chase._id}/notification_settings`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .send(validNoteSettings)
+          .expect(403);
+      });
+
+      it('should 400 if invalid body', function () {
+        let invalidSettings = _.cloneDeep(validNoteSettings);
+        delete invalidSettings.prizes_ordered;
+        return agent
+          .put(`/educators/${bonnie._id}/notification_settings`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .send(invalidSettings)
+          .expect(400);
+      });
+
+      it('should 200 and update the settings', function () {
+
+        return agent
+          .put(`/educators/${bonnie._id}/notification_settings`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .send(validNoteSettings)
+          .expect(200)
+          .then(() => mongoUserData.getUserById(bonnie._id))
+          .then((educator: Models.IEducator) => assert.deepEqual(educator.notification_settings, validNoteSettings))
+      });
+
+    })
+
+    describe('#updateStudentsParentsEmails', function () {
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .put(`/students/${katelynn._id}/parent_emails`)
+          .expect(401);
+      });
+
+      it('should 403 if non-admin making request', function () {
+        return agent
+          .put(`/students/${katelynn._id}/parent_emails`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(403);
+      });
+
+      it('should 400 if too many emails provided', function () {
+        return agent
+          .put(`/students/${katelynn._id}/parent_emails`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send({
+            parent_emails: _.times(SC.MaxParentEmailsPerStudent + 1, () => faker.internet.email())
+          })
+          .expect(400)
+          .then(checkErrMsg('Invalid/missing field parent_emails'))
+      });
+
+      it('should 400 if duplicate emails provided', function () {
+        return agent
+          .put(`/students/${katelynn._id}/parent_emails`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send({
+            parent_emails: ["austin@gmail.com", "austin@gmail.com"]
+          })
+          .expect(400)
+          .then(checkErrMsg('Invalid/missing field parent_emails'));
+      });
+
+      it('should 200 and save emails', function () {
+        const updatedEmails = ["sam@gmail.com", "sarah@gmail.com"];
+        return agent
+          .put(`/students/${katelynn._id}/parent_emails`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send({
+            parent_emails: updatedEmails
+          })
+          .expect(200)
+          .then(() => mongoUserData.getUserById(katelynn._id))
+          .then((updatedStudent: Models.IStudent) => {
+            assert.sameMembers(updatedStudent.parent_emails, updatedEmails);
+          })
+      });
+
+    })
+
+    describe('#createPendingStudent', function () {
+
+      const validReqBody: Models.IPendingStudentBody = {
+        first_name: 'Taylor',
+        last_name: 'Jones',
+        gender: Models.Gender.Male,
+        initial_lexile_measure: 600,
+        username: 'tjones',
+        parent_emails: []
+      }
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post(`/educators/${bonnie._id}/students`)
+          .expect(401);
+      });
+
+      it('should 400 if url param userId is not a teacher', function () {
+        return agent
+          .post(`/educators/${katelynn._id}/students`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validReqBody)
+          .expect(400)
+          .then(checkErrMsg(`User ${katelynn._id} is not a educator`));
+      });
+
+      it('should 400 if user already exists with that username', function () {
+        const invalidReqBody = {
+          ...validReqBody,
+          username: chase.username
+        }
+        return agent
+          .post(`/educators/${bonnie._id}/students`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .send(invalidReqBody)
+          .expect(400)
+          .then(checkErrMsg(`User with username ${invalidReqBody.username} already exists.`));
+      });
+
+      it('should 200 and create a pending student', function () {
+
+        let createdStudentId: string;
+
+        return agent
+          .post(`/educators/${bonnie._id}/students`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .send(validReqBody)
+          .expect(200)
+          .then(({ body }) => {
+
+            assert.hasAllKeys(body, [
+              'updatedEducator',
+              'createdStudent'
+            ]);
+
+            return usersCollection.findOne({ _id: body.createdStudent._id })
+
+          })
+          .then((createdStudent: Models.IStudent) => {
+
+            assert.hasAllKeys(createdStudent, [
+              '_id',
+              'date_created',
+              'username',
+              'date_activated',
+              'first_name',
+              'last_name',
+              'gender',
+              'genre_interests',
+              'initial_lexile_measure',
+              'bookmarked_books',
+              'type',
+              'status',
+              'parent_emails'
+            ])
+
+            assert.equal(createdStudent.type, Models.UserType.Student);
+            assert.isEmpty(createdStudent.bookmarked_books);
+            assert.isNull(createdStudent.genre_interests);
+            assert.isNull(createdStudent.date_activated);
+            assert.equal(createdStudent.status, Models.StudentStatus.Pending);
+
+            createdStudentId = createdStudent._id;
+
+            delete createdStudent.bookmarked_books;
+            delete createdStudent.type;
+            delete createdStudent.status;
+            delete createdStudent._id;
+            delete createdStudent.date_created;
+            delete createdStudent.date_activated;
+            delete createdStudent.genre_interests;
+
+            assert.deepEqual(createdStudent, validReqBody);
+            return usersCollection.findOne({ _id: bonnie._id })
+          })
+          .then((updatedEducator: Models.IEducator) => {
+            assert.lengthOf(updatedEducator.student_ids, bonnie.student_ids.length + 1);
+            assert.sameDeepMembers(updatedEducator.student_ids, [
+              ...bonnie.student_ids,
+              createdStudentId
+            ])
+          })
+      })
+
+    })
+
+    describe('#deletePendingStudent', function () {
+
+      const pendingStudent = _.find(initialUsers, { status: Models.StudentStatus.Pending }) as Models.IStudent;
+      assert.isDefined(pendingStudent);
+
+      it('should 401 if not authenticated', function () {
+        return agent
+          .del(`/educators/${bonnie._id}/students/${pendingStudent._id}`)
+          .expect(401);
+      });
+
+      it('should 403 if not an educator', function () {
+        return agent
+          .del(`/educators/${bonnie._id}/students/${pendingStudent._id}`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(403);
+      });
+
+      it('should 404 if educator does not exist.', function () {
+        const invalidEducatorId = shortid.generate();
+        return agent
+          .del(`/educators/${invalidEducatorId}/students/${pendingStudent._id}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(404)
+          .then(checkErrMsg(`User ${invalidEducatorId} does not exist.`))
+      });
+
+      it('should 400 if student not in teacher\'s class', function () {
+        return agent
+          .del(`/educators/${bonnie._id}/students/${katelynn._id}`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .expect(400)
+          .then(checkErrMsg(`Student ${katelynn._id} is not in educator bonnie-stewart's list of students`))
+      });
+
+      it('should 400 if student is already activated', function () {
+        return agent
+          .del(`/educators/${bonnie._id}/students/${chase._id}`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .expect(400)
+          .then(checkErrMsg(`Student ${chase._id} cannot be deleted as they are already active`))
+      });
+
+      it('should 200 and delete the student', function () {
+        return agent
+          .del(`/educators/${bonnie._id}/students/${pendingStudent._id}`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .expect(200)
+          .then(() => usersCollection.findOne({ _id: pendingStudent._id }))
+          .then(prevExistingStudent => {
+            assert.isNull(prevExistingStudent);
+            return usersCollection.findOne({ _id: bonnie._id })
+          })
+          .then((updatedEducator: Models.IEducator) => {
+            assert.sameDeepMembers(updatedEducator.student_ids, _.without(bonnie.student_ids, pendingStudent._id))
+          })
+      });
+
+    })
+
+
+    describe('#createGenreInterests', function () {
+
+      const genreIds = _.map(initialGenres, '_id');
+
+      let validGenreMap: Models.GenreInterestMap = {};
+      _.each(genreIds, id => validGenreMap[id] = _.random(1, 4) as 1 | 2 | 3 | 4)
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .post(`/students/${chase._id}/genre_interests`)
+          .expect(401);
+      });
+
+      it('should 403 if student making request on behalf another student', function () {
+        return agent
+          .post(`/students/${chase._id}/genre_interests`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403)
+          .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
+      });
+
+      it('should 400 if some genre ids are missing', function () {
+
+        const copy = _.cloneDeep(validGenreMap);
+        delete copy[initialGenres[0]._id];
+
+        return agent
+          .post(`/students/${chase._id}/genre_interests`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(copy)
+          .expect(400)
+          .then(checkErrMsg('There is a discrepancy between existing genres and genres user provided interest levels for.'))
+
+      });
+
+      it('should 400 if values are not between 1 and 4', function () {
+
+        const copy: any = _.cloneDeep(validGenreMap);
+        copy[initialGenres[0]._id] = 5;
+
+        return agent
+          .post(`/students/${chase._id}/genre_interests`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(copy)
+          .expect(400)
+
+      });
+
+      it('should 400 if same number of genre keys, but one is invalid', function () {
+
+        const copy: any = _.cloneDeep(validGenreMap);
+        const invalidGenreId = shortid.generate();
+        copy[invalidGenreId] = 4;
+        delete copy[initialGenres[0]._id];
+
+        return agent
+          .post(`/students/${chase._id}/genre_interests`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(copy)
+          .expect(400)
+          .then(checkErrMsg(`There is a discrepancy between existing genres and genres user provided interest levels for.`))
+
+      });
+
+      it('should 404 if user does not exist', function () {
+
+        const invalidId = shortid.generate();
+
+        return agent
+          .post(`/students/${invalidId}/genre_interests`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validGenreMap)
+          .expect(404)
+          .then(checkErrMsg(`User ${invalidId} does not exist.`))
+
+      });
+
+      it('should 400 if user is not Student', function () {
+
+        return agent
+          .post(`/students/${austin._id}/genre_interests`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validGenreMap)
+          .expect(400)
+          .then(checkErrMsg(`User ${austin._id} is not a student`))
+
+      });
+
+      it('should 403 if user has already posted genre interests', function () {
+
+        return agent
+          .post(`/students/${katelynn._id}/genre_interests`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(validGenreMap)
+          .expect(400)
+          .then(checkErrMsg(`${Helpers.getFullName(katelynn)} already has created genre interests`))
+
+      });
+
+      it('should 200 and save genre interests', function () {
+
+        return agent
+          .post(`/students/${chase._id}/genre_interests`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(validGenreMap)
+          .expect(200)
+          .then(({ body }) => usersCollection.findOne({ _id: chase._id }))
+          .then(user => {
+            const expected = _.assign({}, chase, {
+              genre_interests: validGenreMap
+            })
+            assert.deepEqual(expected, user);
+          })
+
+      });
+
+    });
+
+    describe('#editGenreInterest', function () {
+
+      const genreId = initialGenres[0]._id;
+
+      const validBody = {
+        interest_value: _.random(1, 4)
+      }
+
+      it('should 401 when no auth token in header', function () {
+        return agent
+          .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
+          .expect(401);
+      });
+
+      it('should 403 if student making request on behalf another student', function () {
+        return agent
+          .put(`/students/${chase._id}/genre_interests/${genreId}`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403)
+          .then(checkErrMsg(`User ${katelynn._id} cannot act as an agent for user ${chase._id}`))
+      });
+
+      it('should 400 if interest value is invalid', function () {
+        const copy = _.cloneDeep(validBody);
+        copy.interest_value = 5;
+        return agent
+          .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(copy)
+          .expect(400);
+      });
+
+      it('should 403 if student has not created genre interests', function () {
+        return agent
+          .put(`/students/${chase._id}/genre_interests/${genreId}`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(validBody)
+          .expect(403)
+          .then(checkErrMsg('Student cannot edit genre interests, until they have been created.'))
+      });
+
+      it('should 404 if genre id is invalid', function () {
+        const invalidGenreId = shortid.generate();
+        return agent
+          .put(`/students/${katelynn._id}/genre_interests/${invalidGenreId}`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(validBody)
+          .expect(404)
+          .then(checkErrMsg(`Genre ${invalidGenreId} does not exist.`))
+      });
+
+      it('should 200 and update the genre interest', function () {
+        return agent
+          .put(`/students/${katelynn._id}/genre_interests/${genreId}`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(validBody)
+          .expect(200)
+          .then(() => usersCollection.findOne({ _id: katelynn._id }))
+          .then(user => {
+            const expectedGenreInterests = _.assign({}, katelynn.genre_interests, {
+              [genreId]: validBody.interest_value
+            })
+            assert.deepEqual(user.genre_interests, expectedGenreInterests);
+          })
+      });
+
+    });
+
+    describe('#bookmarkBook', function () {
+
+      // chase has not bookmarked this book
+      const validBody = {
+        bookId: 'baseball-id'
+      }
+
+      it('should 401 if not authenticated', function () {
+        return agent
+          .post(`/students/${chase._id}/bookmarked_books`)
+          .expect(401);
+      });
+
+      it('should 403 if student on behalf another student', function () {
+        return agent
+          .post(`/students/${chase._id}/bookmarked_books`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(validBody)
+          .expect(403)
+      });
+
+      it('should 404 if the user does not exist', function () {
+        const invalidUserId = shortid.generate();
+        return agent
+          .post(`/students/${invalidUserId}/bookmarked_books`)
+          .send(validBody)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(404)
+          .then(checkErrMsg(`User ${invalidUserId} does not exist.`))
+      });
+
+      it('should 400 if the user is not a student', function () {
+        return agent
+          .post(`/students/${bonnie._id}/bookmarked_books`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validBody)
+          .expect(400)
+          .then(checkErrMsg(`User ${bonnie._id} is not a student`))
+      });
+
+      it('should 404 if the book does not exist', function () {
+        const invalidBookId = shortid.generate()
+        return agent
+          .post(`/students/${chase._id}/bookmarked_books`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send({ bookId: invalidBookId })
+          .expect(404)
+          .then(checkErrMsg(`Book ${invalidBookId} does not exist.`))
+      });
+
+      it('should 400 if the book is already bookmarked', function () {
+        const idOfBookAlreadyBookmarked = chase.bookmarked_books[0];
+        return agent
+          .post(`/students/${chase._id}/bookmarked_books`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send({ bookId: idOfBookAlreadyBookmarked })
+          .expect(400)
+          .then(checkErrMsg(`${Helpers.getFullName(chase)} already bookmarked book ${idOfBookAlreadyBookmarked}.`))
+      });
+
+      it('should 200 and bookmark the book', function () {
+        return agent
+          .post(`/students/${chase._id}/bookmarked_books`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(validBody)
+          .expect(200)
+          .then(() => usersCollection.findOne({ _id: chase._id }))
+          .then((updatedChase: Models.IStudent) => assert.sameDeepOrderedMembers(
+            updatedChase.bookmarked_books,
+            [
+              validBody.bookId,
+              ...chase.bookmarked_books
+            ]
+          ))
+      });
+
+    })
+
+    describe('#unbookmarkBook', function () {
+
+      const cmBookmarkedBookId = chase.bookmarked_books[0];
+      
+      it('should 401 if not authenticated', function () {
+        return agent
+          .del(`/students/${chase._id}/bookmarked_books/${cmBookmarkedBookId}`)
+          .expect(401);
+      });
+
+      it('should 403 if unbookmark on behalf another student', function () {
+        return agent
+          .del(`/students/${chase._id}/bookmarked_books/${cmBookmarkedBookId}`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should 404 if the user does not exist', function () {
+        const invalidUserId = shortid.generate();
+        return agent
+          .del(`/students/${invalidUserId}/bookmarked_books/${cmBookmarkedBookId}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(404)
+          .then(checkErrMsg(`User ${invalidUserId} does not exist.`))
+      });
+
+      it('should 400 if the user is not a student', function () {
+        return agent
+        .del(`/students/${bonnie._id}/bookmarked_books/${cmBookmarkedBookId}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(400)
+          .then(checkErrMsg(`User ${bonnie._id} is not a student`))
+      });
+
+      it('should 404 if the book does not exist', function () {
+        const invalidBookId = shortid.generate()
+        return agent
+          .del(`/students/${chase._id}/bookmarked_books/${invalidBookId}`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(404)
+          .then(checkErrMsg(`Book ${invalidBookId} does not exist.`))
+      });
+
+      it('should 400 if the book was not book marked', function () {
+        const idOfBookChaseDidNotBookmark = _.difference(_.map(initialBooks, '_id'), chase.bookmarked_books)[0] as string;
+        return agent
+          .del(`/students/${chase._id}/bookmarked_books/${idOfBookChaseDidNotBookmark}`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(400)
+          .then(checkErrMsg(`${Helpers.getFullName(chase)} never bookmarked book ${idOfBookChaseDidNotBookmark}.`))
+      });
+
+      it.only('should 400 if there is a non-collected book request for the book', function () {
+        const uncollectedBookRequest = _.find(initialBookRequests, {
+          student_id: chase._id,
+          status: Models.BookRequestStatus.Requested
+        })
+        assert.isDefined(uncollectedBookRequest, 'Needed for test')
+        return agent
+          .del(`/students/${chase._id}/bookmarked_books/${uncollectedBookRequest.book_id}`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(400)
+          .then(checkErrMsg(`A request (${uncollectedBookRequest._id}) exists with status ${uncollectedBookRequest.status}. You cannot unbookmark this book.`))
+      });
+
+      it('should 200 and unbookmark the book', function () {
+        return agent
+          .del(`/students/${chase._id}/bookmarked_books/${cmBookmarkedBookId}`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(200)
+          .then(() => usersCollection.findOne({ _id: chase._id }))
+          .then((updatedChase: Models.IStudent) => assert.sameDeepOrderedMembers(
+            updatedChase.bookmarked_books,
+            _.without(chase.bookmarked_books, cmBookmarkedBookId)
+          ))
+      });
+    })
+
+  });
 
   after(async function () {
     await Promise.all([
@@ -2218,7 +2569,8 @@ describe('End to End tests', function () {
       bookReviewCollection.drop(),
       prizeCollection.drop(),
       prizeOrderCollection.drop(),
-      authorCollection.drop()
+      authorCollection.drop(),
+      bookRequestCollection.drop()
     ]);
     db.close();
   })

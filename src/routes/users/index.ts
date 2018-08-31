@@ -340,23 +340,6 @@ export function UserRoutes(
           throw new BadRequestError(`${Helpers.getFullName(student)} already bookmarked book ${bookId}.`)
         }
 
-        const studentQuizSubmissions = await quizData.getSubmissionsForStudent(studentId);
-        const studentReadingLogs = await readingLogData.getLogsForStudent(studentId);
-
-        const studentBookQuizStatus = Helpers.getStudentBookQuizStatus(
-          book._id,
-          studentQuizSubmissions,
-          studentReadingLogs
-        );
-
-        if (studentBookQuizStatus === M.StudentBookQuizStatus.Failed) {
-          throw new BadRequestError(`${Helpers.getFullName(student)} cannot bookmark ${book.title} because they have failed the quiz.`)
-        }
-
-        if (studentBookQuizStatus === M.StudentBookQuizStatus.Passed) {
-          throw new BadRequestError(`${Helpers.getFullName(student)} cannot bookmark ${book.title} because they have already passed the quiz.`)
-        }
-
         const updatedStudent: M.IStudent = {
           ...student,
           bookmarked_books: [
@@ -421,7 +404,7 @@ export function UserRoutes(
         validateUser(studentId, student);
 
         if (!_.isEmpty(student.genre_interests)) {
-          throw new ForbiddenError(`${Helpers.getFullName(student)} already has created genre interests`);
+          throw new BadRequestError(`${Helpers.getFullName(student)} already has created genre interests`);
         }
 
         const existingGenres = await genreData.getAllGenres();
@@ -544,7 +527,7 @@ export function UserRoutes(
 
         const createdStudent = await userData.createUser(pendingUser);
 
-        const updatedTeacher: M.IEducator = {
+        const updatedEducator: M.IEducator = {
           ...teacher,
           student_ids: [
             ...teacher.student_ids,
@@ -552,7 +535,12 @@ export function UserRoutes(
           ]
         }
 
-        return await userData.updateUser(updatedTeacher);
+        await userData.updateUser(updatedEducator);
+
+        return {
+          updatedEducator,
+          createdStudent
+        }
 
       }),
       Middle.handlePromise
@@ -560,7 +548,22 @@ export function UserRoutes(
 
     getStudentByUsername: [
       Middle.valQueryParams({ name: 'username', schema: joi.string().required() }),
-      unwrapData(async ({ query }: IRequest<null>) => await userData.getUserByUsername(query.username)),
+      unwrapData(async ({ query }: IRequest<null>) => {
+
+        const { username } = query;
+        const student = await userData.getUserByUsername(username);
+
+        if (_.isNull(student)) {
+          throw new ResourceNotFoundError(`No user with username ${username} exists.`)
+        }
+
+        if (student.type !== M.UserType.Student) {
+          throw new BadRequestError(`User with username ${username} is not a student.`)
+        }
+
+        return student;
+
+      }),
       Middle.handlePromise
     ],
 
@@ -595,7 +598,6 @@ export function UserRoutes(
           auth_token: getAuthToken(activatedStudent),
           dto: await getStudentDTO(activatedStudent)
         }
-
 
       }),
       Middle.handlePromise
@@ -652,13 +654,6 @@ export function UserRoutes(
         return await userData.createUser(educator);
 
       }),
-      Middle.handlePromise
-    ],
-
-    getAllUsers: [
-      Middle.authenticate,
-      Middle.authorize([M.UserType.Admin]),
-      unwrapData(async () => await userData.getAllUsers()),
       Middle.handlePromise
     ],
 

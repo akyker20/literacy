@@ -90,27 +90,25 @@ export default class App {
       readingLogData,
       notifications
     );
-    
-    this.server.get('/users', userRoutes.getAllUsers);
 
     this.server.get('/whoami', userRoutes.whoami);
-    this.server.post('/students/signin', userRoutes.studentSignin);
-    this.server.post('/educators/signin', userRoutes.educatorSignin);
+    this.server.post('/students/signin', userRoutes.studentSignin); // TESTED
+    this.server.post('/educators/signin', userRoutes.educatorSignin); // TESTED
 
     this.server.get('/students/:userId', userRoutes.getStudent);
-    this.server.post('/students/:userId/activate', userRoutes.activatePendingStudent);
-    this.server.get('/students', userRoutes.getStudentByUsername);
-    this.server.post('/educators/:userId/students', userRoutes.createPendingStudent);
-    this.server.post('/students/:userId/genre_interests', userRoutes.createGenreInterests);
-    this.server.put('/students/:userId/genre_interests/:genreId', userRoutes.editGenreInterest);
-    this.server.put('/students/:userId/parent_emails', userRoutes.updateStudentsParentsEmails);
-    
-    this.server.post('/educators', userRoutes.createEducator);
-    this.server.put('/educators/:userId/notification_settings', userRoutes.updateEducatorNotificationSettings)
-    this.server.del('/educators/:userId/students/:studentId', userRoutes.deletePendingStudent);
+    this.server.post('/students/:userId/activate', userRoutes.activatePendingStudent); // TESTED
+    this.server.get('/students', userRoutes.getStudentByUsername); // TESTED
+    this.server.post('/students/:userId/genre_interests', userRoutes.createGenreInterests); // TESTED
+    this.server.put('/students/:userId/genre_interests/:genreId', userRoutes.editGenreInterest); // TESTED
+    this.server.put('/students/:userId/parent_emails', userRoutes.updateStudentsParentsEmails); // TESTED
 
-    this.server.post('/students/:userId/bookmarked_books', userRoutes.bookmarkBook);
-    this.server.del('/students/:userId/bookmarked_books/:bookId', userRoutes.unbookmarkBook)
+    this.server.post('/educators', userRoutes.createEducator); // TESTED
+    this.server.post('/educators/:userId/students', userRoutes.createPendingStudent); // TESTED
+    this.server.put('/educators/:userId/notification_settings', userRoutes.updateEducatorNotificationSettings); // TESTED
+    this.server.del('/educators/:userId/students/:studentId', userRoutes.deletePendingStudent); // TESTED
+
+    this.server.post('/students/:userId/bookmarked_books', userRoutes.bookmarkBook); // TESTED
+    this.server.del('/students/:userId/bookmarked_books/:bookId', userRoutes.unbookmarkBook); // TESTED
     this.server.post('/students/:userId/book_requests', userRoutes.createBookRequest);
     this.server.del('/students/:userId/book_requests/:requestId', userRoutes.deleteBookRequest);
     this.server.put('/requests/:requestId/status', userRoutes.updateBookRequestStatus);
@@ -130,7 +128,7 @@ export default class App {
 
     this.server.get('/authors', bookRoutes.getAllAuthors); // TESTED
 
-    this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent); // TEST
+    this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent); // TODO
     this.server.post('/books/:bookId/book_reviews', bookRoutes.createBookReview); // TESTED
 
     this.server.post('/genres', bookRoutes.createGenre); // TESTED
@@ -190,9 +188,9 @@ export default class App {
       email
     )
 
-    this.server.get('/students/:userId/reading_logs', readingLogRoutes.getLogsForStudent);
-    this.server.post('/students/:userId/reading_logs', readingLogRoutes.createLog);
-    this.server.del('/students/:userId/reading_logs/:logId', readingLogRoutes.deleteLog);
+    this.server.get('/students/:userId/reading_logs', readingLogRoutes.getLogsForStudent); // TESTED
+    this.server.post('/students/:userId/reading_logs', readingLogRoutes.createLog); // TESTED
+    this.server.del('/students/:userId/reading_logs/:logId', readingLogRoutes.deleteLog); // TESTED
 
 
     /**
