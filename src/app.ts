@@ -110,8 +110,8 @@ export default class App {
     this.server.post('/students/:userId/bookmarked_books', userRoutes.bookmarkBook); // TESTED
     this.server.del('/students/:userId/bookmarked_books/:bookId', userRoutes.unbookmarkBook); // TESTED
     this.server.post('/students/:userId/book_requests', userRoutes.createBookRequest); // TESTED
-    this.server.del('/students/:userId/book_requests/:requestId', userRoutes.deleteBookRequest); // *** TODO
-    this.server.put('/requests/:requestId/status', userRoutes.updateBookRequestStatus); // *** TODO
+    this.server.del('/students/:userId/book_requests/:requestId', userRoutes.deleteBookRequest); // TESTED
+    this.server.put('/requests/:requestId/status', userRoutes.updateBookRequestStatus); // TESTED
 
     // configure book routes
 

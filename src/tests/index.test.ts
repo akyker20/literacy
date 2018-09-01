@@ -2713,6 +2713,57 @@ describe('End to End tests', function () {
 
     })
 
+    describe.only('#updateBookRequestStatus', function() {
+
+      const request = _.sample(initialBookRequests);
+      assert.isDefined(request, 'Needed for test');
+
+      it('should 401 if not authenticated', function () {
+        return agent
+          .put(`/requests/${request._id}/status`)
+          .expect(401);
+      });
+
+      it('should 403 if not admin', function () {
+        return agent
+          .put(`/requests/${request._id}/status`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(403);
+      });
+
+      it('should 404 if the request does not exist', function () {
+        const invalidReqId = shortid.generate();
+        return agent
+          .put(`/requests/${invalidReqId}/status`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send({ updated_status: Models.BookRequestStatus.Collected })
+          .expect(404)
+          .then(checkErrMsg(`Request ${invalidReqId} does not exist`))
+      });
+
+      it('should 400 if status is invalid', function() {
+        return agent
+          .put(`/requests/${request._id}/status`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send({ updated_status: 'blah' })
+          .expect(400)
+      })
+
+      it('should 200 and update the status of the book request', function () {
+        return agent
+          .put(`/requests/${request._id}/status`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send({ updated_status: Models.BookRequestStatus.Collected })
+          .expect(200)
+          .then(() => bookRequestCollection.findOne({ _id: request._id }))
+          .then(updatedReq => assert.deepEqual(updatedReq, {
+            ...request,
+            status: Models.BookRequestStatus.Collected
+          }))
+      });      
+
+    });
+
   });
 
   after(async function () {
