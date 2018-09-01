@@ -91,7 +91,7 @@ export default class App {
       notifications
     );
 
-    this.server.get('/whoami', userRoutes.whoami); // *** TODO
+    this.server.get('/whoami', userRoutes.whoami); // TESTED
     this.server.post('/students/signin', userRoutes.studentSignin); // TESTED
     this.server.post('/educators/signin', userRoutes.educatorSignin); // TESTED
 

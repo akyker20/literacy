@@ -8,7 +8,6 @@ import { Models as M, Helpers } from 'reading_rewards';
 import {
   BadRequestError,
   ResourceNotFoundError,
-  UnauthorizedError,
   ForbiddenError
 } from 'restify-errors';
 
@@ -154,7 +153,7 @@ export function UserRoutes(
         const user = await userData.getUserById(userId);
 
         if (_.isNull(user)) {
-          throw new UnauthorizedError('Valid token, but user no longer exists.');
+          throw new ResourceNotFoundError(`Valid token, but user ${userId} no longer exists.`);
         }
 
         switch (user.type) {
@@ -271,7 +270,7 @@ export function UserRoutes(
         const { userId: studentId, requestId } = req.params;
 
         // verify student exists
-        
+
         const student = await userData.getUserById(studentId) as M.IStudent;
         validateUser(studentId, student)
 

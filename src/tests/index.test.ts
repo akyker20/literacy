@@ -57,6 +57,9 @@ const bonnieToken = genAuthTokenForUser(bonnie);
 const katelynn = _.find(initialUsers, { _id: 'katelynn-kyker' }) as Models.IStudent;
 const katelynnToken = genAuthTokenForUser(katelynn);
 
+const jb = _.find(initialUsers, { _id: 'jb-rapp' }) as Models.IStudent;
+const jbToken = genAuthTokenForUser(jb);
+
 const inactiveStudent = _.find(initialUsers, { status: Models.StudentStatus.Pending }) as Models.IStudent;
 
 const chase = _.find(initialUsers, { _id: 'chase-malik' }) as Models.IStudent;
@@ -2559,21 +2562,21 @@ describe('End to End tests', function () {
 
     describe('#createBookRequest', function () {
 
-      const validKatelynnRequest = {
+      const validJBRequest = {
         bookId: 'hatchet-id'
       }
 
       it('should 401 if not authenticated', function () {
         return agent
-          .post(`/students/${katelynn._id}/book_requests`)
+          .post(`/students/${jb._id}/book_requests`)
           .expect(401);
       });
 
       it('should 404 if the book does not exist', function () {
         const invalidBookId = shortid.generate();
         return agent
-          .post(`/students/${katelynn._id}/book_requests`)
-          .set(SC.AuthHeaderField, katelynnToken)
+          .post(`/students/${jb._id}/book_requests`)
+          .set(SC.AuthHeaderField, jbToken)
           .send({ bookId: invalidBookId })
           .expect(404)
           .then(checkErrMsg(`Book ${invalidBookId} does not exist.`))
@@ -2584,7 +2587,7 @@ describe('End to End tests', function () {
         return agent
           .post(`/students/${invalidUserId}/book_requests`)
           .set(SC.AuthHeaderField, austinToken)
-          .send(validKatelynnRequest)
+          .send(validJBRequest)
           .expect(404)
           .then(checkErrMsg(`User ${invalidUserId} does not exist.`))
       });
@@ -2593,16 +2596,16 @@ describe('End to End tests', function () {
         return agent
           .post(`/students/${bonnie._id}/book_requests`)
           .set(SC.AuthHeaderField, austinToken)
-          .send(validKatelynnRequest)
+          .send(validJBRequest)
           .expect(400)
           .then(checkErrMsg(`User ${bonnie._id} is not a student`))
       });
 
       it('should 403 if student requesting book on behalf another student', function () {
         return agent
-          .post(`/students/${katelynn._id}/book_requests`)
+          .post(`/students/${jb._id}/book_requests`)
           .set(SC.AuthHeaderField, chaseToken)
-          .send(validKatelynnRequest)
+          .send(validJBRequest)
           .expect(403)
       });
 
@@ -2620,9 +2623,9 @@ describe('End to End tests', function () {
 
       it('should 200 and create the book request', function () {
         return agent
-          .post(`/students/${katelynn._id}/book_requests`)
-          .set(SC.AuthHeaderField, katelynnToken)
-          .send(validKatelynnRequest)
+          .post(`/students/${jb._id}/book_requests`)
+          .set(SC.AuthHeaderField, jbToken)
+          .send(validJBRequest)
           .expect(200)
           .then(({ body }) => {
             assert.hasAllKeys(body, [
@@ -2642,8 +2645,8 @@ describe('End to End tests', function () {
 
     describe('#deleteBookRequest', function () {
 
-      const cmRequestedRequest = _.find(initialBookRequests, { _id: 'cm-peak-request' });
-      const kkOrderedRequest = _.find(initialBookRequests, { _id: 'kk-peak-request' });
+      const cmRequestedRequest = _.find(initialBookRequests, { student_id: chase._id });
+      const kkOrderedRequest = _.find(initialBookRequests, { student_id: katelynn._id });
       assert.isDefined(cmRequestedRequest, 'Needed for test');
       assert.isDefined(kkOrderedRequest, 'Needed for test');
 
@@ -2713,7 +2716,7 @@ describe('End to End tests', function () {
 
     })
 
-    describe.only('#updateBookRequestStatus', function() {
+    describe('#updateBookRequestStatus', function () {
 
       const request = _.sample(initialBookRequests);
       assert.isDefined(request, 'Needed for test');
@@ -2741,7 +2744,7 @@ describe('End to End tests', function () {
           .then(checkErrMsg(`Request ${invalidReqId} does not exist`))
       });
 
-      it('should 400 if status is invalid', function() {
+      it('should 400 if status is invalid', function () {
         return agent
           .put(`/requests/${request._id}/status`)
           .set(SC.AuthHeaderField, austinToken)
@@ -2760,7 +2763,80 @@ describe('End to End tests', function () {
             ...request,
             status: Models.BookRequestStatus.Collected
           }))
-      });      
+      });
+
+    });
+
+    describe('#whoami', function () {
+
+      it('should 401 if not authenticated', function () {
+        return agent
+          .get('/whoami')
+          .expect(401);
+      });
+
+      it('should 400 if valid token not corresponding to user', function() {
+        const idOfOldUser = shortid.generate();
+        return agent
+          .get('/whoami')
+          .set(SC.AuthHeaderField, genAuthToken(Models.UserType.Student, idOfOldUser))
+          .expect(404)
+          .then(checkErrMsg(`Valid token, but user ${idOfOldUser} no longer exists.`))
+      })
+
+      it('should return the admin', function () {
+        return agent
+          .get('/whoami')
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(200)
+          .then(({ body }) => assert.deepEqual(body, austin))
+      });
+
+      it('should return the studentDTO', function () {
+        return agent
+          .get('/whoami')
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(200)
+          .then(({ body }) => {
+            assert.hasAllKeys(body, [
+              "book_requests",
+              "book_reviews",
+              "bookmarked_books",
+              "current_lexile_measure",
+              "info",
+              "passed_quiz_books",
+              "prize_orders",
+              "prizes_ordered",
+              "quiz_submissions",
+              "reading_logs"
+            ])
+            assert.deepEqual(body.info, katelynn);
+            assert.sameDeepMembers(body.reading_logs, _.filter(initialReadingLogs, { student_id: katelynn._id }));
+            assert.sameDeepMembers(body.book_requests, _.filter(initialBookRequests, { student_id: katelynn._id }));
+            assert.sameDeepMembers(body.prize_orders, _.filter(initialPrizeOrders, { student_id: katelynn._id }));
+            assert.sameDeepMembers(body.quiz_submissions, _.filter(initialQuizSubmissions, { student_id: katelynn._id }));
+            assert.isNumber(body.current_lexile_measure);
+          })
+      })
+
+      it('should return the educator dto', function() {
+        return agent
+          .get('/whoami')
+          .set(SC.AuthHeaderField, bonnieToken)
+          .expect(200)
+          .then(({ body }) => {
+            assert.hasAllKeys(body, [
+              "educator",
+              "student_progress",
+              "students"
+            ])
+            assert.deepEqual(body.educator, bonnie);
+            assert.sameDeepMembers(body.students, [
+              chase,
+              _.find(initialUsers, { _id: 'sam-smith' })
+            ])
+          })
+      })
 
     });
 

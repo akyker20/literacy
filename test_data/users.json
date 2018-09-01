@@ -83,5 +83,28 @@
     "bookmarked_books": [],
     "parent_emails": [],
     "gender": "M"
+  },
+  {
+    "_id": "jb-rapp",
+    "type": "Student",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "date_activated": "2018-05-16T18:55:56.479Z",
+    "status": "active",
+    "first_name": "JB",
+    "last_name": "Rapp",
+    "username": "jb@gmail.com",
+    "hashed_password": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
+    "genre_interests": {
+      "science-id": 4,
+      "history-id": 2,
+      "mystery-id": 3,
+      "fantasy-id": 1,
+      "poetry-id": 1,
+      "adventure-id": 1
+    },
+    "initial_lexile_measure": 600,
+    "bookmarked_books": [],
+    "parent_emails": [],
+    "gender": "M"
   }
 ]
