@@ -128,7 +128,7 @@ export default class App {
 
     this.server.get('/authors', bookRoutes.getAllAuthors); // TESTED
 
-    this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent); // *** TODO
+    this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent); // TESTED
     this.server.post('/books/:bookId/book_reviews', bookRoutes.createBookReview); // TESTED
 
     this.server.post('/genres', bookRoutes.createGenre); // TESTED

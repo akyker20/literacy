@@ -265,14 +265,11 @@ export function BookRoutes(
 
         const { userId } = req.params;
         
-        const user = await userData.getUserById(userId) as M.IStudent;
+        const student = await userData.getUserById(userId) as M.IStudent;
+        validateUser(userId, student);
 
-        if (user === null) {
-          throw new ResourceNotFoundError(`User with id ${req.params.userId} does not exist.`);
-        }
-
-        if (_.isEmpty(user.genre_interests)) {
-          throw new ForbiddenError(`Student ${userId} has not provided genre interests`)
+        if (_.isEmpty(student.genre_interests)) {
+          throw new BadRequestError(`Student ${userId} has not provided genre interests`)
         }
 
         const allBookReviews = await bookReviewData.getAllBookReviews();
@@ -293,7 +290,7 @@ export function BookRoutes(
 
           matchScores[book._id] = computeMatchScoreForBook(
             book,
-            user,
+            student,
             otherBooksBySameAuthor,
             studentBookReviews,
             bookReviewsForBook

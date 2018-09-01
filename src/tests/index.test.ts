@@ -2840,7 +2840,7 @@ describe('End to End tests', function () {
 
     });
 
-    describe.only('#getStudent', function() {
+    describe('#getStudent', function() {
 
       it('should 401 if not authenticated', function() {
         return agent
@@ -2891,6 +2891,54 @@ describe('End to End tests', function () {
           .set(SC.AuthHeaderField, bonnieToken)
           .expect(200)
           .then(({ body }) => assert.deepEqual(body.info, chase))
+      });
+
+    });
+
+    describe('#getBooksForStudent', function() {
+
+      it('should 401 if not authenticated', function() {
+        return agent
+          .get(`/students/${chase._id}/books`)
+          .expect(401)
+      });
+
+      it('should 400 if genre interests null', function() {
+        return agent
+          .get(`/students/${jb._id}/books`)
+          .set(SC.AuthHeaderField, jbToken)
+          .expect(400)
+          .then(checkErrMsg(`Student ${jb._id} has not provided genre interests`))
+      });
+
+      it('should 404 if student does not exist', function() {
+        return agent
+          .get(`/students/${shortid.generate()}/books`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(404)
+      });
+
+      it('should 400 if user not a student', function() {
+        return agent
+          .get(`/students/${bonnie._id}/books`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(400)
+          .then(checkErrMsg(`User ${bonnie._id} is not a student`))
+      });
+
+      it('should 200 and return the book recommendations', function() {
+        return agent
+          .get(`/students/${katelynn._id}/books`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .expect(200)
+          .then(({ body }) => {
+            assert.hasAllKeys(body, [
+              'match_scores',
+              'books'
+            ])
+            assert.sameDeepMembers(body.books, initialBooks);
+            assert.hasAllKeys(body.match_scores, _.map(initialBooks, '_id'))
+          });
       });
 
     });

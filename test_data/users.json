@@ -94,14 +94,7 @@
     "last_name": "Rapp",
     "username": "jb@gmail.com",
     "hashed_password": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
-    "genre_interests": {
-      "science-id": 4,
-      "history-id": 2,
-      "mystery-id": 3,
-      "fantasy-id": 1,
-      "poetry-id": 1,
-      "adventure-id": 1
-    },
+    "genre_interests": null,
     "initial_lexile_measure": 600,
     "bookmarked_books": [],
     "parent_emails": [],

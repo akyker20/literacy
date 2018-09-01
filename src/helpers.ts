@@ -95,16 +95,16 @@ export function computeMatchScoreForBook(
   bookReviews: Models.IBookReview[]
 ): number {
 
-  console.log(`Computing Match Score for ${book.title}`)
+  // console.log(`Computing Match Score for ${book.title}`)
 
   // compute lexile multiplier which we be multiplied at the end
 
   const studentCLM = computeCurrentLexileMeasure(student.initial_lexile_measure, studentBookReviews);
-  console.log(`Student CLM: ${studentCLM}`)
+  // console.log(`Student CLM: ${studentCLM}`)
   const lexileDiff = book.lexile_measure - studentCLM;
-  console.log(`Book Lexile Diff: ${lexileDiff}`)
+  // console.log(`Book Lexile Diff: ${lexileDiff}`)
   const lexileMult = computeLexileMultiplier(lexileDiff);
-  console.log(`Computed Lexile Mult: ${lexileMult}`)
+  // console.log(`Computed Lexile Mult: ${lexileMult}`)
 
   let weight = 0;
   let matchSum = 0;
@@ -114,7 +114,7 @@ export function computeMatchScoreForBook(
   // Everything under 4.2 is divided by 4.2.
   const goodreadsRatingPerfectThresh = 4.5;
   const normalizedGoodreadsRating = (book.goodreads_rating >= goodreadsRatingPerfectThresh) ? 1.0 : book.goodreads_rating / goodreadsRatingPerfectThresh;
-  console.log('goodreads rating: ' + normalizedGoodreadsRating);
+  // console.log('goodreads rating: ' + normalizedGoodreadsRating);
   weight += FactorWeights.GoodReadsRating;
   matchSum += FactorWeights.GoodReadsRating * normalizedGoodreadsRating;
 
@@ -122,7 +122,7 @@ export function computeMatchScoreForBook(
 
   if (!_.isEmpty(bookReviews)) {
     const normalizedAvgRatingForBook = _.meanBy(bookReviews, 'interest') / 5.0;
-    console.log('Average Student Rating of Book: ' + normalizedAvgRatingForBook);
+    // console.log('Average Student Rating of Book: ' + normalizedAvgRatingForBook);
     weight += FactorWeights.AvgBookRatingByRRStudents;
     matchSum += FactorWeights.AvgBookRatingByRRStudents * normalizedAvgRatingForBook;
   }
@@ -134,7 +134,7 @@ export function computeMatchScoreForBook(
     br => _.includes(idsOfBooksBySameAuthor, br.book_id));
   if (!_.isEmpty(studentReviewsOfOtherBooksBySameAuthor)) {
     const normalizedStudentsAvgRatingOfOtherBooksBySameAuthor = _.meanBy(studentReviewsOfOtherBooksBySameAuthor, 'interest') / 5.0;
-    console.log('Average student rating of other books by author: ' + normalizedStudentsAvgRatingOfOtherBooksBySameAuthor);
+    // console.log('Average student rating of other books by author: ' + normalizedStudentsAvgRatingOfOtherBooksBySameAuthor);
     weight += FactorWeights.StudentsAvgRatingOfOtherBooksBySameAuthor;
     matchSum += FactorWeights.StudentsAvgRatingOfOtherBooksBySameAuthor * normalizedStudentsAvgRatingOfOtherBooksBySameAuthor;
   }
@@ -155,18 +155,18 @@ export function computeMatchScoreForBook(
       }
       return DefaultGenreInterestLevel;
     }) / (4.0 * numGenresForBook); // max genre interest level is 4
-    console.log('Average Genre Interest: ' + normalizedAvgGenreInterest);
+    // console.log('Average Genre Interest: ' + normalizedAvgGenreInterest);
     weight += FactorWeights.StudentAvgGenreInterest;
     matchSum += FactorWeights.StudentAvgGenreInterest * normalizedAvgGenreInterest;
   }
 
   const interestLevel = matchSum / weight;
 
-  console.log('interest level: ' + interestLevel)
+  // console.log('interest level: ' + interestLevel)
 
   const matchScore = interestLevel * lexileMult;
 
-  console.log('matchScore: ' + matchScore)
+  // console.log('matchScore: ' + matchScore)
 
   return matchScore;
 
