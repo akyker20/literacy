@@ -264,15 +264,21 @@ export function UserRoutes(
 
     deleteBookRequest: [
       Middle.authenticate,
+      Middle.authorize([M.UserType.Student, M.UserType.Admin]),
       Middle.authorizeAgents([M.UserType.Admin]),
       unwrapData(async (req: IRequest<null>) => {
 
         const { userId: studentId, requestId } = req.params;
 
+        // verify student exists
+        
+        const student = await userData.getUserById(studentId) as M.IStudent;
+        validateUser(studentId, student)
+
         const request = await bookRequestData.getRequestById(requestId);
 
         if (_.isNull(request)) {
-          throw new BadRequestError(`Request ${requestId} does not exist.`)
+          throw new ResourceNotFoundError(`Request ${requestId} does not exist.`)
         }
 
         if (request.student_id !== studentId) {
