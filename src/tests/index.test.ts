@@ -1643,7 +1643,7 @@ describe('End to End tests', function () {
 
   });
 
-  describe.only('User Routes', function () {
+  describe('User Routes', function () {
 
     const validAdminCreds: Models.IUserLoginCreds = {
       username: austin.username,
@@ -2531,7 +2531,7 @@ describe('End to End tests', function () {
           .then(checkErrMsg(`${Helpers.getFullName(chase)} never bookmarked book ${idOfBookChaseDidNotBookmark}.`))
       });
 
-      it.only('should 400 if there is a non-collected book request for the book', function () {
+      it('should 400 if there is a non-collected book request for the book', function () {
         const uncollectedBookRequest = _.find(initialBookRequests, {
           student_id: chase._id,
           status: Models.BookRequestStatus.Requested
@@ -2555,6 +2555,89 @@ describe('End to End tests', function () {
             _.without(chase.bookmarked_books, cmBookmarkedBookId)
           ))
       });
+    })
+
+    describe('#createBookRequest', function() {
+
+      const validKatelynnRequest = {
+        bookId: 'hatchet-id'
+      }
+
+      it('should 401 if not authenticated', function() {
+        return agent
+          .post(`/students/${katelynn._id}/book_requests`)
+          .expect(401);
+      });
+
+      it('should 404 if the book does not exist', function() {
+        const invalidBookId = shortid.generate();
+        return agent
+          .post(`/students/${katelynn._id}/book_requests`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send({ bookId: invalidBookId })
+          .expect(404)
+          .then(checkErrMsg(`Book ${invalidBookId} does not exist.`))
+      });
+
+      it('should 404 if student does not exist', function() {
+        const invalidUserId = shortid.generate();
+        return agent
+          .post(`/students/${invalidUserId}/book_requests`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validKatelynnRequest)
+          .expect(404)
+          .then(checkErrMsg(`User ${invalidUserId} does not exist.`))
+      });
+
+      it('should 400 if user is not a student', function() {
+        return agent
+          .post(`/students/${bonnie._id}/book_requests`)
+          .set(SC.AuthHeaderField, austinToken)
+          .send(validKatelynnRequest)
+          .expect(400)
+          .then(checkErrMsg(`User ${bonnie._id} is not a student`))
+      });
+
+      it('should 403 if student requesting book on behalf another student', function() {
+        return agent
+          .post(`/students/${katelynn._id}/book_requests`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send(validKatelynnRequest)
+          .expect(403)
+      });
+
+      it('should 400 if user has an outstanding request', function() {
+        const chaseRequest = _.find(initialBookRequests, { student_id: chase._id })
+        assert.isDefined(chaseRequest);
+        return agent
+          .post(`/students/${chase._id}/book_requests`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .send({ bookId: chaseRequest.book_id })
+          .expect(400)
+          .then(checkErrMsg(`A request (${chaseRequest._id}) exists. Cannot create a new book request.`))
+
+      })
+
+      it('should 200 and create the book request', function() {
+        return agent
+          .post(`/students/${katelynn._id}/book_requests`)
+          .set(SC.AuthHeaderField, katelynnToken)
+          .send(validKatelynnRequest)
+          .expect(200)
+          .then(({ body }) => {
+            assert.hasAllKeys(body, [
+              '_id',
+              'student_id',
+              'book_id',
+              'status',
+              'date_requested'
+            ])
+            assert.equal(body.status, Models.BookRequestStatus.Requested);
+            return bookRequestCollection.findOne({ _id: body._id })
+          })
+          .then(assert.isNotNull)
+      });
+
     })
 
   });

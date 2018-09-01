@@ -229,7 +229,7 @@ export function UserRoutes(
         const book = await bookData.getBook(bookId);
 
         if (_.isNull(book)) {
-          throw new BadRequestError(`Book ${bookId} does not exist.`)
+          throw new ResourceNotFoundError(`Book ${bookId} does not exist.`)
         }
 
         const student = (await userData.getUserById(studentId)) as M.IStudent

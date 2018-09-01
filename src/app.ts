@@ -91,11 +91,11 @@ export default class App {
       notifications
     );
 
-    this.server.get('/whoami', userRoutes.whoami);
+    this.server.get('/whoami', userRoutes.whoami); // *** TODO
     this.server.post('/students/signin', userRoutes.studentSignin); // TESTED
     this.server.post('/educators/signin', userRoutes.educatorSignin); // TESTED
 
-    this.server.get('/students/:userId', userRoutes.getStudent);
+    this.server.get('/students/:userId', userRoutes.getStudent); // *** TODO
     this.server.post('/students/:userId/activate', userRoutes.activatePendingStudent); // TESTED
     this.server.get('/students', userRoutes.getStudentByUsername); // TESTED
     this.server.post('/students/:userId/genre_interests', userRoutes.createGenreInterests); // TESTED
@@ -109,9 +109,9 @@ export default class App {
 
     this.server.post('/students/:userId/bookmarked_books', userRoutes.bookmarkBook); // TESTED
     this.server.del('/students/:userId/bookmarked_books/:bookId', userRoutes.unbookmarkBook); // TESTED
-    this.server.post('/students/:userId/book_requests', userRoutes.createBookRequest);
-    this.server.del('/students/:userId/book_requests/:requestId', userRoutes.deleteBookRequest);
-    this.server.put('/requests/:requestId/status', userRoutes.updateBookRequestStatus);
+    this.server.post('/students/:userId/book_requests', userRoutes.createBookRequest); // TESTED
+    this.server.del('/students/:userId/book_requests/:requestId', userRoutes.deleteBookRequest); // *** TODO
+    this.server.put('/requests/:requestId/status', userRoutes.updateBookRequestStatus); // *** TODO
 
     // configure book routes
 
@@ -128,7 +128,7 @@ export default class App {
 
     this.server.get('/authors', bookRoutes.getAllAuthors); // TESTED
 
-    this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent); // TODO
+    this.server.get('/students/:userId/books', bookRoutes.getBooksForStudent); // *** TODO
     this.server.post('/books/:bookId/book_reviews', bookRoutes.createBookReview); // TESTED
 
     this.server.post('/genres', bookRoutes.createGenre); // TESTED
