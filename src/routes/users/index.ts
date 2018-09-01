@@ -171,7 +171,7 @@ export function UserRoutes(
 
     getStudent: [
       Middle.authenticate,
-      Middle.authorizeAgents([M.UserType.Educator, M.UserType.Admin]),
+      Middle.authorize([M.UserType.Educator, M.UserType.Admin]),
       unwrapData(async (req: IRequest<null>) => {
 
         const { userId } = req.params;

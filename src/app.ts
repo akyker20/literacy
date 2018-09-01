@@ -95,7 +95,7 @@ export default class App {
     this.server.post('/students/signin', userRoutes.studentSignin); // TESTED
     this.server.post('/educators/signin', userRoutes.educatorSignin); // TESTED
 
-    this.server.get('/students/:userId', userRoutes.getStudent); // *** TODO
+    this.server.get('/students/:userId', userRoutes.getStudent); // TESTED
     this.server.post('/students/:userId/activate', userRoutes.activatePendingStudent); // TESTED
     this.server.get('/students', userRoutes.getStudentByUsername); // TESTED
     this.server.post('/students/:userId/genre_interests', userRoutes.createGenreInterests); // TESTED

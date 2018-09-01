@@ -2641,7 +2641,7 @@ describe('End to End tests', function () {
           .then(assert.isNotNull)
       });
 
-    })
+    });
 
     describe('#deleteBookRequest', function () {
 
@@ -2837,6 +2837,61 @@ describe('End to End tests', function () {
             ])
           })
       })
+
+    });
+
+    describe.only('#getStudent', function() {
+
+      it('should 401 if not authenticated', function() {
+        return agent
+          .get(`/students/${chase._id}`)
+          .expect(401)
+      });
+
+      it('should 403 if student makes request', function() {
+        return agent
+          .get(`/students/${chase._id}`)
+          .set(SC.AuthHeaderField, chaseToken)
+          .expect(403)
+      });
+
+      it('should 404 if user does not exist', function() {
+        return agent
+          .get(`/students/${shortid.generate()}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(404)
+      });
+
+      it('should 404 if user is not a student', function() {
+        return agent
+          .get(`/students/${bonnie._id}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(400)
+          .then(checkErrMsg(`User ${bonnie._id} is not a student`))
+      });
+
+      it('should 403 if student is not in teachers class', function() {
+        return agent
+          .get(`/students/${katelynn._id}`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .expect(403)
+          .then(checkErrMsg(`Teacher ${bonnie._id} does not have access to student ${katelynn._id}`))
+      });
+
+      it('should 200 and return the student if admin makes call', function() {
+        return agent
+          .get(`/students/${chase._id}`)
+          .set(SC.AuthHeaderField, austinToken)
+          .expect(200)
+      });
+
+      it('should 200 and return the student if teacher of student makes call', function() {
+        return agent
+          .get(`/students/${chase._id}`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .expect(200)
+          .then(({ body }) => assert.deepEqual(body.info, chase))
+      });
 
     });
 
