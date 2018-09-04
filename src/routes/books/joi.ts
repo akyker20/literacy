@@ -1,12 +1,13 @@
 import * as joi from 'joi';
 import { shortidSchema, genFieldErr, lexileMeasureSchema } from '../extensions';
+import { Constants as SC } from 'reading_rewards';
 
 export namespace BodyValidators {
 
   export const InputBookReview = joi.object({
     interest: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required(),
     comprehension: joi.number().integer().strict().valid([1, 2, 3, 4, 5]).required(),
-    review: joi.string().max(500).optional(),
+    review: joi.string().max(SC.MaxBookReviewChars).optional(),
     book_id: shortidSchema.required(),
     student_id: shortidSchema.required()
   }).required()
