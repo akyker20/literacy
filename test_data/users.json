@@ -17,10 +17,21 @@
     "username": "bstewart@parktudor.com",
     "email": "bstewart@parktudor.com",
     "hashed_password": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
-    "student_ids": [
-      "chase-malik",
-      "sam-smith"
-    ],
+    "notification_settings": {
+      "reading_logs": false,
+      "quiz_submissions": false,
+      "prize_ordered": false
+    }
+  },
+  {
+    "_id": "mike-phillips",
+    "type": "Educator",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "first_name": "Mike",
+    "last_name": "Phillips",
+    "username": "mphillips@parktudor.com",
+    "email": "mphillips@parktudor.com",
+    "hashed_password": "$2a$08$i/s9SvwkvcWa8NIJF6du0uXEMmQ9S8tNHS9PjQ97LK2bubK09L/iG",
     "notification_settings": {
       "reading_logs": false,
       "quiz_submissions": false,

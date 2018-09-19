@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "class-1",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "date_ended": null,
+    "reward_model": "ClassInitiative",
+    "school_id": "blah-school",
+    "teacher_id": "bonnie-stewart",
+    "student_ids": [
+      "chase-malik",
+      "sam-smith"
+    ]
+  }
+]

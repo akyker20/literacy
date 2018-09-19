@@ -15,15 +15,45 @@ export interface IUserData {
   deleteUser: (userId: string) => Promise<IUser>;
 
   getEducatorOfStudent: (studentId: string) => Promise<M.IEducator>;
+
+  getClassTaughtByTeacher: (teacherId: string) => Promise<M.IClass>;
+  getClassWithStudent: (studentId: string) => Promise<M.IClass>;
+
+  getClassById: (classId: string) => Promise<M.IClass>;
+  updateClass: (update: M.IClass) => Promise<M.IClass>;
 }
 
 export class MongoUserData implements IUserData {
 
-  private users: monk.ICollection; 
+  private users: monk.ICollection;
+  private classes: monk.ICollection; 
 
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
     this.users = db.get('users', { castIds: false });
+    this.classes = db.get('classes', { castIds: false });
+  }
+
+  getClassById(classId: string) {
+    return this.classes.findOne({ _id: classId });
+  }
+
+  updateClass(update: M.IClass): Promise<M.IClass> {
+    return this.classes.findOneAndUpdate({ _id: update._id }, update)
+  }
+
+  getClassTaughtByTeacher(teacherId: string) {
+    return this.classes.findOne({ 
+      teacher_id: teacherId,
+      date_ended: null
+    });
+  }
+
+  getClassWithStudent(studentId: string) {
+    return this.classes.findOne({
+      student_ids: studentId,
+      date_ended: null
+    });
   }
 
   createUser(user: IUser): Promise<IUser> {

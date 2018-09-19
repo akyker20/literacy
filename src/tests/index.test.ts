@@ -34,6 +34,7 @@ import { MongoBookRequestData } from '../data/book_requests';
 
 // Load all the data
 
+const initialClasses: Models.IClass[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/classes.json'), 'utf8'));
 const initialBookRequests: Models.IBookRequest[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/book_requests.json'), 'utf8'));
 const initialBooks: Models.IBook[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/books.json'), 'utf8'));
 const initialGenres: Models.IGenre[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../test_data/genres.json'), 'utf8'));
@@ -53,6 +54,11 @@ const austinToken = genAuthTokenForUser(austin);
 
 const bonnie = _.find(initialUsers, { _id: 'bonnie-stewart' }) as Models.IEducator;
 const bonnieToken = genAuthTokenForUser(bonnie);
+
+const bonnieClass: Models.IClass = _.find(initialClasses, { teacher_id: bonnie._id });
+
+const mikePhillips = _.find(initialUsers, { _id: 'mike-phillips' }) as Models.IEducator;
+const mikePhillipsToken = genAuthTokenForUser(mikePhillips);
 
 const katelynn = _.find(initialUsers, { _id: 'katelynn-kyker' }) as Models.IStudent;
 const katelynnToken = genAuthTokenForUser(katelynn);
@@ -74,6 +80,7 @@ const connectionStr = `mongodb://${dbHost}:${dbPort}/${dbName}`;
 const db = monk.default(connectionStr);
 db.addMiddleware(require('monk-middleware-debug'))
 
+const classCollection = db.get('classes', { castIds: false });
 const authorCollection = db.get('authors', { castIds: false });
 const bookCollection = db.get('books', { castIds: false });
 const bookReviewCollection = db.get('book_reviews', { castIds: false });
@@ -139,6 +146,7 @@ describe('End to End tests', function () {
 
   beforeEach(async function () {
     await Promise.all([
+      setData(classCollection, initialClasses),
       setData(bookCollection, initialBooks),
       setData(bookReviewCollection, initialBookReviews),
       setData(genreCollection, initialGenres),
@@ -2064,17 +2072,25 @@ describe('End to End tests', function () {
 
       it('should 401 when no auth token in header', function () {
         return agent
-          .post(`/educators/${bonnie._id}/students`)
+          .post(`/classes/${bonnieClass._id}/students`)
           .expect(401);
       });
 
-      it('should 400 if url param userId is not a teacher', function () {
+      it('should 403 if requester does not teach the class', function () {
         return agent
-          .post(`/educators/${katelynn._id}/students`)
+          .post(`/classes/${bonnieClass._id}/students`)
+          .set(SC.AuthHeaderField, mikePhillipsToken)
+          .send(validReqBody)
+          .expect(403)
+          .then(checkErrMsg(`Educator ${mikePhillips._id} does not teach class ${bonnieClass._id}`))
+      });
+
+      it('should 404 if class does not exist', function () {
+        return agent
+          .post(`/classes/invalid-id/students`)
           .set(SC.AuthHeaderField, austinToken)
           .send(validReqBody)
-          .expect(400)
-          .then(checkErrMsg(`User ${katelynn._id} is not a educator`));
+          .expect(404)
       });
 
       it('should 400 if user already exists with that username', function () {
@@ -2083,7 +2099,7 @@ describe('End to End tests', function () {
           username: chase.username
         }
         return agent
-          .post(`/educators/${bonnie._id}/students`)
+          .post(`/classes/${bonnieClass._id}/students`)
           .set(SC.AuthHeaderField, bonnieToken)
           .send(invalidReqBody)
           .expect(400)
@@ -2095,14 +2111,14 @@ describe('End to End tests', function () {
         let createdStudentId: string;
 
         return agent
-          .post(`/educators/${bonnie._id}/students`)
+          .post(`/classes/${bonnieClass._id}/students`)
           .set(SC.AuthHeaderField, bonnieToken)
           .send(validReqBody)
           .expect(200)
           .then(({ body }) => {
 
             assert.hasAllKeys(body, [
-              'updatedEducator',
+              'updatedClass',
               'createdStudent'
             ]);
 
@@ -2144,12 +2160,12 @@ describe('End to End tests', function () {
             delete createdStudent.genre_interests;
 
             assert.deepEqual(createdStudent, validReqBody);
-            return usersCollection.findOne({ _id: bonnie._id })
+            return classCollection.findOne({ _id: bonnieClass._id })
           })
-          .then((updatedEducator: Models.IEducator) => {
-            assert.lengthOf(updatedEducator.student_ids, bonnie.student_ids.length + 1);
-            assert.sameDeepMembers(updatedEducator.student_ids, [
-              ...bonnie.student_ids,
+          .then((updatedClass: Models.IClass) => {
+            assert.lengthOf(updatedClass.student_ids, bonnieClass.student_ids.length + 1);
+            assert.sameDeepMembers(updatedClass.student_ids, [
+              ...bonnieClass.student_ids,
               createdStudentId
             ])
           })
@@ -2164,37 +2180,36 @@ describe('End to End tests', function () {
 
       it('should 401 if not authenticated', function () {
         return agent
-          .del(`/educators/${bonnie._id}/students/${pendingStudent._id}`)
+          .del(`/classes/${bonnieClass._id}/students/${pendingStudent._id}`)
           .expect(401);
       });
 
-      it('should 403 if not an educator', function () {
+      it('should 404 if class does not exist', function () {
         return agent
-          .del(`/educators/${bonnie._id}/students/${pendingStudent._id}`)
-          .set(SC.AuthHeaderField, chaseToken)
-          .expect(403);
+          .del(`/classes/invalid-class/students/${pendingStudent._id}`)
+          .set(SC.AuthHeaderField, bonnieToken)
+          .expect(404);
       });
 
-      it('should 404 if educator does not exist.', function () {
-        const invalidEducatorId = shortid.generate();
+      it('should 403 if requester does not teach the class', function () {
         return agent
-          .del(`/educators/${invalidEducatorId}/students/${pendingStudent._id}`)
-          .set(SC.AuthHeaderField, austinToken)
-          .expect(404)
-          .then(checkErrMsg(`User ${invalidEducatorId} does not exist.`))
+          .del(`/classes/${bonnieClass._id}/students/${pendingStudent._id}`)
+          .set(SC.AuthHeaderField, mikePhillipsToken)
+          .expect(403)
+          .then(checkErrMsg(`Educator ${mikePhillips._id} does not teach class ${bonnieClass._id}`))
       });
 
       it('should 400 if student not in teacher\'s class', function () {
         return agent
-          .del(`/educators/${bonnie._id}/students/${katelynn._id}`)
+          .del(`/classes/${bonnieClass._id}/students/${katelynn._id}`)
           .set(SC.AuthHeaderField, bonnieToken)
           .expect(400)
-          .then(checkErrMsg(`Student ${katelynn._id} is not in educator bonnie-stewart's list of students`))
+          .then(checkErrMsg(`Student ${katelynn._id} is not in class ${bonnieClass._id}`))
       });
 
       it('should 400 if student is already activated', function () {
         return agent
-          .del(`/educators/${bonnie._id}/students/${chase._id}`)
+          .del(`/classes/${bonnieClass._id}/students/${chase._id}`)
           .set(SC.AuthHeaderField, bonnieToken)
           .expect(400)
           .then(checkErrMsg(`Student ${chase._id} cannot be deleted as they are already active`))
@@ -2202,16 +2217,16 @@ describe('End to End tests', function () {
 
       it('should 200 and delete the student', function () {
         return agent
-          .del(`/educators/${bonnie._id}/students/${pendingStudent._id}`)
+          .del(`/classes/${bonnieClass._id}/students/${pendingStudent._id}`)
           .set(SC.AuthHeaderField, bonnieToken)
           .expect(200)
           .then(() => usersCollection.findOne({ _id: pendingStudent._id }))
           .then(prevExistingStudent => {
             assert.isNull(prevExistingStudent);
-            return usersCollection.findOne({ _id: bonnie._id })
+            return classCollection.findOne({ _id: bonnieClass._id })
           })
-          .then((updatedEducator: Models.IEducator) => {
-            assert.sameDeepMembers(updatedEducator.student_ids, _.without(bonnie.student_ids, pendingStudent._id))
+          .then((updatedClass: Models.IClass) => {
+            assert.sameDeepMembers(updatedClass.student_ids, _.without(bonnieClass.student_ids, pendingStudent._id))
           })
       });
 
@@ -2808,7 +2823,8 @@ describe('End to End tests', function () {
               "prize_orders",
               "prizes_ordered",
               "quiz_submissions",
-              "reading_logs"
+              "reading_logs",
+              "class"
             ])
             assert.deepEqual(body.info, katelynn);
             assert.sameDeepMembers(body.reading_logs, _.filter(initialReadingLogs, { student_id: katelynn._id }));

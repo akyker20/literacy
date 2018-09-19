@@ -74,11 +74,13 @@ export function UserRoutes(
 
   async function getEducatorDTO(educator: M.IEducator): Promise<M.IEducatorDTO> {
 
-    const studentsInClass = await userData.getUsersWithIds(educator.student_ids) as M.IStudent[];
+    const classTaughtByTeacher = await userData.getClassTaughtByTeacher(educator._id);
+
+    const studentsInClass = await userData.getUsersWithIds(classTaughtByTeacher.student_ids) as M.IStudent[];
     const activeStudentsInClass = _.filter(studentsInClass, Helpers.isStudentActive);
 
-    const readingLogsByStudentsInClass = await readingLogData.getLogsForStudents(educator.student_ids);
-    const quizSubmissionsByStudentsInClass = await quizData.getSubmissionsForStudents(educator.student_ids);
+    const readingLogsByStudentsInClass = await readingLogData.getLogsForStudents(classTaughtByTeacher.student_ids);
+    const quizSubmissionsByStudentsInClass = await quizData.getSubmissionsForStudents(classTaughtByTeacher.student_ids);
 
     const studentProgress: M.IStudentProgress[] = _.map(activeStudentsInClass, student => {
       const studentReadingLogs = _.filter(readingLogsByStudentsInClass, { student_id: student._id });
@@ -128,6 +130,8 @@ export function UserRoutes(
 
     const studentBookmarkedBooks = await bookData.getBooksWithIds(student.bookmarked_books);
 
+    const classWithStudent = await userData.getClassWithStudent(student._id);
+    
     return {
       info: student,
       current_lexile_measure: studentCLM,
@@ -138,7 +142,8 @@ export function UserRoutes(
       reading_logs: studentReadingLogs,
       bookmarked_books: studentBookmarkedBooks,
       prizes_ordered: studentPrizesOrdered,
-      passed_quiz_books: studentPassedQuizBooks
+      passed_quiz_books: studentPassedQuizBooks,
+      class: classWithStudent
     }
 
   }
@@ -180,11 +185,11 @@ export function UserRoutes(
         validateUser(userId, student);
 
         // if teacher, check student is one of teacher's students.
-        const { type, _id } = req.authToken;
+        const { type, _id: educatorId } = req.authToken;
         if (type === M.UserType.Educator) {
-          const educator = await userData.getUserById(_id) as M.IEducator;
-          if (!_.includes(educator.student_ids, userId)) {
-            throw new ForbiddenError(`Teacher ${educator._id} does not have access to student ${userId}`)
+          const classTaughtByTeacher = await userData.getClassTaughtByTeacher(educatorId);
+          if (!_.includes(classTaughtByTeacher.student_ids, userId)) {
+            throw new ForbiddenError(`Teacher ${educatorId} does not have access to student ${userId}`)
           }
         }
 
@@ -472,16 +477,26 @@ export function UserRoutes(
     deletePendingStudent: [
       Middle.authenticate,
       Middle.authorize([M.UserType.Admin, M.UserType.Educator]),
-      Middle.authorizeAgents([M.UserType.Admin]),
       unwrapData(async (req: IRequest<null>) => {
 
-        const { userId: educatorId, studentId } = req.params;
+        const { classId, studentId } = req.params;
 
-        const educator = await userData.getUserById(educatorId) as M.IEducator;
-        validateUser(educatorId, educator, M.UserType.Educator);
+        const classFromId = await userData.getClassById(classId);
+        if (_.isNull(classFromId)) {
+          throw new ResourceNotFoundError(`No class with id ${classId}`);
+        }
 
-        if (!_.includes(educator.student_ids, studentId)) {
-          throw new BadRequestError(`Student ${studentId} is not in educator ${educatorId}'s list of students`)
+        const { _id: requesterId, type: requesterType } = req.authToken;
+        const isRequesterEductor = requesterType === M.UserType.Educator;
+        if (isRequesterEductor && (requesterId !== classFromId.teacher_id)) {
+          throw new ForbiddenError(`Educator ${requesterId} does not teach class ${classId}`);
+        }
+
+        const educator = await userData.getUserById(classFromId.teacher_id) as M.IEducator;
+        validateUser(classFromId.teacher_id, educator, M.UserType.Educator);
+
+        if (!_.includes(classFromId.student_ids, studentId)) {
+          throw new BadRequestError(`Student ${studentId} is not in class ${classId}`)
         }
 
         const student = await userData.getUserById(studentId) as M.IStudent;
@@ -493,12 +508,12 @@ export function UserRoutes(
 
         await userData.deleteUser(studentId);
 
-        const updatedEducator: M.IEducator = {
-          ...educator,
-          student_ids: _.without(educator.student_ids, studentId)
+        const updatedClass: M.IClass = {
+          ...classFromId,
+          student_ids: _.without(classFromId.student_ids, studentId)
         }
 
-        return await userData.updateUser(updatedEducator);
+        return await userData.updateClass(updatedClass);
 
       }),
       Middle.handlePromise
@@ -507,18 +522,29 @@ export function UserRoutes(
     createPendingStudent: [
       Middle.authenticate,
       Middle.authorize([M.UserType.Admin, M.UserType.Educator]),
-      Middle.authorizeAgents([M.UserType.Admin]),
       Middle.valBody(Val.PendingStudentSchema),
       unwrapData(async (req: IRequest<M.IPendingStudentBody>) => {
 
-        const { userId: teacherId } = req.params;
-
-        const teacher = await userData.getUserById(req.params.userId) as M.IEducator;
-        validateUser(teacherId, teacher, M.UserType.Educator);
+        const { classId } = req.params;
 
         if (await userExistsWithUsername(req.body.username)) {
           throw new BadRequestError(`User with username ${req.body.username} already exists.`);
         }
+
+        const classFromId = await userData.getClassById(classId);
+        if (_.isNull(classFromId)) {
+          throw new ResourceNotFoundError(`No class with id ${classId}`);
+        }
+
+        const { _id: requesterId, type: requesterType } = req.authToken;
+        const isRequesterEductor = requesterType === M.UserType.Educator;
+        if (isRequesterEductor && (requesterId !== classFromId.teacher_id)) {
+          throw new ForbiddenError(`Educator ${requesterId} does not teach class ${classId}`);
+        }
+
+        const educatorId = classFromId.teacher_id;
+        const teacher = await userData.getUserById(educatorId) as M.IEducator;
+        validateUser(educatorId, teacher, M.UserType.Educator);
 
         const pendingUser: M.IStudent = {
           ...req.body,
@@ -532,18 +558,18 @@ export function UserRoutes(
 
         const createdStudent = await userData.createUser(pendingUser);
 
-        const updatedEducator: M.IEducator = {
-          ...teacher,
+        const updatedClass: M.IClass = {
+          ...classFromId,
           student_ids: [
-            ...teacher.student_ids,
+            ...classFromId.student_ids,
             createdStudent._id as string
           ]
         }
 
-        await userData.updateUser(updatedEducator);
+        await userData.updateClass(updatedClass);
 
         return {
-          updatedEducator,
+          updatedClass,
           createdStudent
         }
 

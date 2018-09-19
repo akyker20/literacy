@@ -103,10 +103,9 @@ export default class App {
     this.server.put('/students/:userId/parent_emails', userRoutes.updateStudentsParentsEmails); // TESTED
 
     this.server.post('/educators', userRoutes.createEducator); // TESTED
-    this.server.post('/educators/:userId/students', userRoutes.createPendingStudent); // TESTED
+    this.server.post('/classes/:classId/students', userRoutes.createPendingStudent); // TESTED
+    this.server.del('/classes/:classId/students/:studentId', userRoutes.deletePendingStudent); // TESTED
     this.server.put('/educators/:userId/notification_settings', userRoutes.updateEducatorNotificationSettings); // TESTED
-    this.server.del('/educators/:userId/students/:studentId', userRoutes.deletePendingStudent); // TESTED
-
     this.server.post('/students/:userId/bookmarked_books', userRoutes.bookmarkBook); // TESTED
     this.server.del('/students/:userId/bookmarked_books/:bookId', userRoutes.unbookmarkBook); // TESTED
     this.server.post('/students/:userId/book_requests', userRoutes.createBookRequest); // TESTED
