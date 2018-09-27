@@ -11,13 +11,14 @@ import { IBookReviewData } from './data/book_reviews';
 import { Constants as SC } from 'reading_rewards';
 import { IPrizeData } from './data/prizes';
 import { IPrizeOrderData } from './data/prize_orders';
-import { PrizeRoutes } from './routes';
+import { PrizeRoutes, InitiativeRoutes } from './routes';
 import { INotificationSys } from './notifications';
 import { IReadingLogData } from './data/reading_log';
 import { IEmail } from './email';
 import { IAuthorData } from './data/authors';
 import { ISeriesData } from './data/series';
 import { IBookRequestData } from './data/book_requests';
+import { IClassInitiativeData } from './data/initiatives';
 
 // logger configuration
 
@@ -39,6 +40,7 @@ export default class App {
   server: restify.Server;
 
   constructor(
+    initiativeData: IClassInitiativeData,
     bookData: IBookData,
     userData: IUserData,
     genreData: IGenreData,
@@ -112,6 +114,17 @@ export default class App {
     this.server.del('/students/:userId/book_requests/:requestId', userRoutes.deleteBookRequest); // TESTED
     this.server.put('/requests/:requestId/status', userRoutes.updateBookRequestStatus); // TESTED
 
+    // configure initiative routes
+
+    const initiativeRoutes = InitiativeRoutes(
+      bookData,
+      initiativeData,
+      quizData,
+      userData
+    );
+    
+    this.server.get('/classes/:classId/initiative', initiativeRoutes.getClassInitiative);
+    
     // configure book routes
 
     const bookRoutes = Routes.BookRoutes(

@@ -15,13 +15,15 @@ import { IEmail } from './email';
 import { MockEmail } from './email/mock';
 import { MongoSeriesData } from './data/series';
 import { MongoBookRequestData } from './data/book_requests';
+import { MongoClassInitiativeData } from './data/initiatives';
 
 const dbHost = process.env.MONGO_HOST || 'localhost';
 const dbPort = process.env.MONGO_PORT || '27017';
-const dbName = process.env.MONGO_DB_NAME || 'local';
+const dbName = process.env.MONGO_DB_NAME || 'rr_local';
 
 const connectionStr = `mongodb://${dbHost}:${dbPort}/${dbName}`;
 
+const mongoClassInitiativeData = new MongoClassInitiativeData(connectionStr);
 const mongoAuthorData = new MongoAuthorData(connectionStr);
 const mongoBookData = new MongoBookData(connectionStr);
 const mongoUserData = new MongoUserData(connectionStr);
@@ -65,6 +67,7 @@ email = new MockEmail(true /* log emails */)
 // }
 
 const app = new App(
+  mongoClassInitiativeData,
   mongoBookData,
   mongoUserData,
   mongoGenreData,

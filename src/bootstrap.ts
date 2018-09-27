@@ -3,23 +3,32 @@ import * as Path from 'path';
 import * as fs from 'fs';
 import { Models as M } from 'reading_rewards';
 
-const initialUsers: M.IUser[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../bootstrap_data/users.json'), 'utf8'))
-const initialSeries: M.ISeries[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../bootstrap_data/series.json'), 'utf8'))
-const initialAuthors: M.IAuthor[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../bootstrap_data/authors.json'), 'utf8'))
-const initialGenres: M.IGenre[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../bootstrap_data/genres.json'), 'utf8'))
-const initialPrizes: M.IPrize[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../bootstrap_data/prizes.json'), 'utf8'));
-const initialBooks: M.IBook[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../bootstrap_data/books.json'), 'utf8'));
-const initialQuizzes: M.IQuiz[] = JSON.parse(fs.readFileSync(Path.join(__dirname, '../bootstrap_data/quizzes.json'), 'utf8'));
+const DataDir = (process.env.NODE_ENV === 'production') ?
+  Path.join(__dirname, '../bootstrap_prod_data') :
+  Path.join(__dirname, '../bootstrap_dev_data');
+
+const initialSchools: M.ISchool[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'schools.json'), 'utf8'))
+const initialInitiatives: M.IInitiative[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'initiatives.json'), 'utf8'))
+const initialClassInitiatives: M.IClassInitiative[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'class_initiatives.json'), 'utf8'))
+const initialUsers: M.IUser[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'users.json'), 'utf8'))
+const initialSeries: M.ISeries[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'series.json'), 'utf8'))
+const initialAuthors: M.IAuthor[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'authors.json'), 'utf8'))
+const initialGenres: M.IGenre[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'genres.json'), 'utf8'))
+const initialPrizes: M.IPrize[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'prizes.json'), 'utf8'));
+const initialBooks: M.IBook[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'books.json'), 'utf8'));
+const initialQuizzes: M.IQuiz[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'quizzes.json'), 'utf8'));
+const initialClasses: M.IClass[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'classes.json'), 'utf8'));
 
 // Configure database
 
 const host = process.env.MONGO_HOST || 'localhost';
 const port = process.env.MONGO_PORT || 27017;
-const dbName = process.env.MONGO_DB_NAME || 'local';
+const dbName = process.env.MONGO_DB_NAME || 'rr_local';
 
 const connectionStr = `mongodb://${host}:${port}/${dbName}`;
 const db = monk.default(connectionStr);
 
+const schoolCollection = db.get('schools', { castIds: false });
 const bookRequestCollection = db.get('book_requests', { castIds: false });
 const seriesCollection = db.get('series', { castIds: false });
 const authorCollection = db.get('authors', { castIds: false });
@@ -32,6 +41,9 @@ const readingLogCollection = db.get('reading_logs', { castIds: false });
 const quizSubmissionsCollection = db.get('quiz_submissions', { castIds: false })
 const prizeOrdersCollection = db.get('prize_orders', { castIds: false })
 const bookReviewsCollection = db.get('book_reviews', { castIds: false });
+const initiativeCollection = db.get('initiatives', { castIds: false });
+const classInitiativeCollection = db.get('class_initiatives', { castIds: false });
+const classCollection = db.get('classes', { castIds: false });
 
 const quizzes: M.IQuiz[] = [
   ...initialQuizzes,
@@ -71,6 +83,7 @@ async function setData(collection: monk.ICollection, data: any) {
 }
 
 Promise.all([
+  setData(schoolCollection, initialSchools),
   setData(seriesCollection, initialSeries),
   setData(authorCollection, initialAuthors),
   setData(usersCollection, initialUsers),
@@ -82,5 +95,8 @@ Promise.all([
   setData(prizeOrdersCollection, []),
   setData(bookReviewsCollection, bookReviews),
   setData(readingLogCollection, []),
-  setData(bookRequestCollection, [])
+  setData(bookRequestCollection, []),
+  setData(classInitiativeCollection, initialClassInitiatives),
+  setData(initiativeCollection, initialInitiatives),
+  setData(classCollection, initialClasses)
 ]).then(() => process.exit(0))

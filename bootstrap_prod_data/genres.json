@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "Sk8dbOjr7",
+    "title": "Action & Adventure",
+    "description": "Stories involving exciting and potentially dangerous activies."
+  },
+  {
+    "_id": "r1eZGuiB7",
+    "title": "Historical Fiction",
+    "description": "Stories that take place in a setting in the past."
+  },
+  {
+    "_id": "r11Vzdirm",
+    "title": "Humor",
+    "description": "Stories that make you laugh."
+  },
+  {
+    "_id": "Hy4HM_sB7",
+    "title": "Mysteries & Detectives",
+    "description": "Stories about solving a mysterious crime or situation."
+  },
+  {
+    "_id": "H1cjM_jB7",
+    "title": "Art & Music",
+    "description": "Stories about the arts or music."
+  },
+  {
+    "_id": "rktJmOsHQ",
+    "title": "Animals",
+    "description": "Stories involving animals."
+  },
+  {
+    "_id": "HyBbXujB7",
+    "title": "Sports",
+    "description": "Stories involving sports."
+  },
+  {
+    "_id": "SyQXQOorX",
+    "title": "Fantasy",
+    "description": "Magic, unrealistic, and supernatural characters and settings."
+  },
+  {
+    "_id": "r1ECmusSQ",
+    "title": "Biography",
+    "description": "Stories about the lives of people."
+  },
+  {
+    "_id": "B1Z_NdiB7",
+    "title": "Realistic Fiction",
+    "description": "Stories that could have actually happened."
+  }
+]

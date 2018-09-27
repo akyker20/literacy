@@ -19,7 +19,7 @@ export class MongoClassInitiativeData implements IClassInitiativeData {
 
   public async getInitiativeForClass(classId: string) {
     const activeClassInitiative: M.IClassInitiative = await this.classInitiatives.findOne({ 
-      classId: classId,
+      class_id: classId,
       date_ended: null 
     });
     if (_.isNull(activeClassInitiative)) {

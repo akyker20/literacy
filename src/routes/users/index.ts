@@ -97,7 +97,8 @@ export function UserRoutes(
     return {
       educator,
       students: studentsInClass,
-      student_progress: studentProgress
+      student_progress: studentProgress,
+      class: classTaughtByTeacher
     }
 
   }

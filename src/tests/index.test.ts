@@ -31,6 +31,7 @@ import { MongoReadingLogData } from '../data/reading_log';
 import { MockEmail } from '../email/mock';
 import { MongoSeriesData } from '../data/series';
 import { MongoBookRequestData } from '../data/book_requests';
+import { MongoClassInitiativeData } from '../data/initiatives';
 
 // Load all the data
 
@@ -109,8 +110,10 @@ const mongoPrizeOrderData = new MongoPrizeOrderData(connectionStr);
 const readingLogData = new MongoReadingLogData(connectionStr);
 const mongoSeriesData = new MongoSeriesData(connectionStr)
 const mongoBookRequestData = new MongoBookRequestData(connectionStr);
+const mongoClassInitiativeData = new MongoClassInitiativeData(connectionStr);
 
 const app = new App(
+  mongoClassInitiativeData,
   mongoBookData,
   mongoUserData,
   mongoGenreData,
@@ -2842,10 +2845,12 @@ describe('End to End tests', function () {
           .expect(200)
           .then(({ body }) => {
             assert.hasAllKeys(body, [
+              "class",
               "educator",
               "student_progress",
               "students"
             ])
+            assert.deepEqual(body.class, bonnieClass);
             assert.deepEqual(body.educator, bonnie);
             assert.sameDeepMembers(body.students, [
               chase,

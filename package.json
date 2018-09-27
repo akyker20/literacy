@@ -10,7 +10,7 @@
     "debug": "nodemon --inspect -w ./dist ./dist/start.js",
     "start": "npm run build && MONGO_HOST=db MONGO_DB_NAME=prod MONGO_PORT=27017 EMAIL_USER=akyker20@gmail.com EMAIL_PASS=CHELSIE01ak NODE_ENV=production forever ./dist/start.js",
     "bootstrap": "node ./dist/bootstrap.js",
-    "bootstrap-prod": "MONGO_HOST=db MONGO_DB_NAME=prod node ./dist/bootstrap.js"
+    "bootstrap-prod": "NODE_ENV=production MONGO_HOST=db MONGO_DB_NAME=prod node ./dist/bootstrap.js"
   },
   "author": "Austin Kyker",
   "license": "ISC",
@@ -34,7 +34,7 @@
     "moment": "^2.22.1",
     "monk": "^6.0.6",
     "nodemailer": "^4.6.7",
-    "reading_rewards": "^0.1.132",
+    "reading_rewards": "^0.1.135",
     "restify": "^7.1.1",
     "restify-cors-middleware": "^1.1.1",
     "restify-errors": "^6.0.0",

@@ -1,0 +1,39 @@
+[
+  {
+    "_id": "lou-wallace-mwells",
+    "date_created": "2018-09-27T18:42:57.107Z",
+    "date_ended": null,
+    "reward_model": "Prizes",
+    "school_id": "lew_wallace",
+    "teacher_id": "melissa-wells",
+    "student_ids": []
+  },
+  {
+    "_id": "class-1",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "date_ended": null,
+    "reward_model": "ClassInitiative",
+    "school_id": "blah-school",
+    "teacher_id": "bonnie-stewart",
+    "student_ids": [
+      "katelynn-kyker",
+      "47WMU1RPi",
+      "lo815NVbS",
+      "pdB3V0QYx",
+      "U1sAvUwJy",
+      "E9B24l7mS",
+      "8FNvmQLpd",
+      "dpIusvulq",
+      "3RlfD6onP"
+    ]
+  },
+  {
+    "_id": "class-2",
+    "date_created": "2018-05-16T18:55:56.479Z",
+    "date_ended": null,
+    "reward_model": "Prizes",
+    "school_id": "blah-school",
+    "teacher_id": "mike-phillips",
+    "student_ids": []
+  }
+]
