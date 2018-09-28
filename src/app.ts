@@ -96,7 +96,8 @@ export default class App {
     this.server.get('/whoami', userRoutes.whoami); // TESTED
     this.server.post('/students/signin', userRoutes.studentSignin); // TESTED
     this.server.post('/educators/signin', userRoutes.educatorSignin); // TESTED
-
+    
+    this.server.get('/classes/:classId/students', userRoutes.getStudentsInClass);
     this.server.get('/students/:userId', userRoutes.getStudent); // TESTED
     this.server.post('/students/:userId/activate', userRoutes.activatePendingStudent); // TESTED
     this.server.get('/students', userRoutes.getStudentByUsername); // TESTED
@@ -113,6 +114,10 @@ export default class App {
     this.server.post('/students/:userId/book_requests', userRoutes.createBookRequest); // TESTED
     this.server.del('/students/:userId/book_requests/:requestId', userRoutes.deleteBookRequest); // TESTED
     this.server.put('/requests/:requestId/status', userRoutes.updateBookRequestStatus); // TESTED
+    this.server.get('/classes/:classId/book_requests', userRoutes.getBookRequestsForClass);
+    this.server.get('/classes/:classId', userRoutes.getClass);
+    this.server.get('/classes', userRoutes.getAllClasses);
+    this.server.get('/classes/:classId/teacher', userRoutes.getTeacherForClass);
 
     // configure initiative routes
 

@@ -7,6 +7,7 @@ export interface IBookRequestData {
   createBookRequest: (request: Models.IBookRequest) => Promise<M.IBookRequest>;
   getRequestById: (id: string) => Promise<M.IBookRequest>;
   getBookRequestsByStudent: (studentId: string) => Promise<M.IBookRequest[]>;
+  getBookRequestsByStudents: (studentsId: string[]) => Promise<M.IBookRequest[]>;
   getAllBookRequests: () => Promise<M.IBookRequest[]>;
   updateRequest: (req: M.IBookRequest) => Promise<M.IBookRequest>;
   deleteRequest: (id: string) => Promise<M.IBookRequest>;
@@ -37,6 +38,10 @@ export class MongoBookRequestData implements IBookRequestData {
 
   public getBookRequestsByStudent(studentId: string) {
     return this.bookRequests.find({ student_id: studentId });
+  }
+
+  public getBookRequestsByStudents(studentIds: string[]): Promise<M.IBookRequest[]> {
+    return this.bookRequests.find({ student_id: { $in: studentIds } });
   }
 
   public getAllBookRequests() {

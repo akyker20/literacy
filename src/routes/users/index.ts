@@ -175,6 +175,21 @@ export function UserRoutes(
       Middle.handlePromise
     ],
 
+    getStudentsInClass: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
+      unwrapData(async (req: IRequest<null>) => {
+        const { classId } = req.params;
+        const classFromId = await userData.getClassById(classId);
+        if (_.isNull(classFromId)) {
+          throw new ResourceNotFoundError(`Clas ${classId} does not exist`);
+        }
+        const { student_ids } = classFromId;
+        return await userData.getUsersWithIds(student_ids);
+      }),
+      Middle.handlePromise
+    ],
+
     getStudent: [
       Middle.authenticate,
       Middle.authorize([M.UserType.Educator, M.UserType.Admin]),
@@ -300,6 +315,54 @@ export function UserRoutes(
         return await bookRequestData.deleteRequest(requestId);
 
       }),
+      Middle.handlePromise
+    ],
+
+    getBookRequestsForClass: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
+      Middle.valQueryParams({ name: 'status', schema: joi.string().valid(_.values(M.BookRequestStatus)).required() }),
+      unwrapData(async (req: IRequest<null>) => {
+        const { status } = req.query;
+        const { classId } = req.params;
+        const classForId = await userData.getClassById(classId);
+        if (_.isNull(classForId)) {
+          throw new ResourceNotFoundError(`Class ${classId} does not exist`);
+        }
+        const bookRequests = await bookRequestData.getBookRequestsByStudents(classForId.student_ids);
+        return _.chain(bookRequests)
+          .filter({ status })
+          .orderBy('date_requested', 'desc')
+          .value()
+      }),
+      Middle.handlePromise
+    ],
+
+    getClass: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
+      unwrapData(async (req: IRequest<null>) => userData.getClassById(req.params.classId)),
+      Middle.handlePromise
+    ],
+
+    getTeacherForClass: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
+      unwrapData(async (req: IRequest<null>) => {
+        const { classId } = req.params;
+        const classForId = await userData.getClassById(classId);
+        if (_.isNull(classForId)) {
+          throw new ResourceNotFoundError(`Class ${classId} does not exist`);
+        }
+        return userData.getUserById(classForId.teacher_id);
+      }),
+      Middle.handlePromise
+    ],
+
+    getAllClasses: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
+      unwrapData(async () => userData.getAllClasses()),
       Middle.handlePromise
     ],
 

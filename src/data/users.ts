@@ -19,6 +19,7 @@ export interface IUserData {
   getClassTaughtByTeacher: (teacherId: string) => Promise<M.IClass>;
   getClassWithStudent: (studentId: string) => Promise<M.IClass>;
 
+  getAllClasses: () => Promise<M.IClass[]>;
   getClassById: (classId: string) => Promise<M.IClass>;
   updateClass: (update: M.IClass) => Promise<M.IClass>;
 }
@@ -32,6 +33,10 @@ export class MongoUserData implements IUserData {
     let db = monk.default(mongoConnectionStr);
     this.users = db.get('users', { castIds: false });
     this.classes = db.get('classes', { castIds: false });
+  }
+
+  getAllClasses() {
+    return this.classes.find({});
   }
 
   getClassById(classId: string) {
