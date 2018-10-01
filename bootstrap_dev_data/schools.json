@@ -3,5 +3,10 @@
     "_id": "lew_wallace",
     "name": "Lew Wallace School 107",
     "location": "3307 Ashway Dr, Indianapolis, IN 46224"
+  },
+  {
+    "_id": "school-91",
+    "name": "Rousseau McClellan",
+    "location": "5111 Evanston Ave, Indianapolis, IN 46205"
   }
 ]

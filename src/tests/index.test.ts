@@ -436,7 +436,9 @@ describe('End to End tests', function () {
         title: 'Some Prize title',
         description: ['Some prize bullet point'],
         price_usd: 13.5,
-        photo_urls: ['http://some-url']
+        photo_urls: ['http://some-url'],
+        is_active: true,
+        date_created: new Date().toISOString()
       };
 
       it('should 401 when no auth token in header', function () {
@@ -469,47 +471,6 @@ describe('End to End tests', function () {
             return prizeCollection.find({})
           })
           .then(allPrizes => assert.lengthOf(allPrizes, initialPrizes.length + 1))
-      })
-
-    })
-
-    describe('#deletePrize', function () {
-
-      const idOfPrizeToDelete = initialPrizes[0]._id;
-
-      it('should 401 when no auth token in header', function () {
-        return agent
-          .del(`/prizes/${idOfPrizeToDelete}`)
-          .expect(401);
-      });
-
-      it('should 404 if prize does not exist', function () {
-        return agent
-          .del(`/prizes/${shortid.generate()}`)
-          .set(SC.AuthHeaderField, austinToken)
-          .expect(404)
-          .then(checkErrMsg('No prize was deleted'))
-      });
-
-      it('should 403 if non-admin making request', function () {
-        return agent
-          .del(`/prizes/${idOfPrizeToDelete}`)
-          .set(SC.AuthHeaderField, katelynnToken)
-          .expect(403);
-      });
-
-      it('should delete the genre', function () {
-        return agent
-          .del(`/prizes/${idOfPrizeToDelete}`)
-          .set(SC.AuthHeaderField, austinToken)
-          .expect(200)
-          .then(({ body }) => {
-            assert.deepEqual(body, {
-              deletedPrize: _.find(initialPrizes, { _id: idOfPrizeToDelete })
-            })
-            return prizeCollection.find({})
-          })
-          .then(allPrizes => assert.lengthOf(allPrizes, initialPrizes.length - 1))
       })
 
     })
@@ -2741,13 +2702,13 @@ describe('End to End tests', function () {
 
       it('should 401 if not authenticated', function () {
         return agent
-          .put(`/requests/${request._id}/status`)
+          .put(`/book_requests/${request._id}`)
           .expect(401);
       });
 
       it('should 403 if not admin', function () {
         return agent
-          .put(`/requests/${request._id}/status`)
+          .put(`/book_requests/${request._id}`)
           .set(SC.AuthHeaderField, katelynnToken)
           .expect(403);
       });
@@ -2755,31 +2716,29 @@ describe('End to End tests', function () {
       it('should 404 if the request does not exist', function () {
         const invalidReqId = shortid.generate();
         return agent
-          .put(`/requests/${invalidReqId}/status`)
+          .put(`/book_requests/${invalidReqId}`)
           .set(SC.AuthHeaderField, austinToken)
-          .send({ updated_status: Models.BookRequestStatus.Collected })
+          .send({
+            ...request,
+            _id: invalidReqId
+          })
           .expect(404)
           .then(checkErrMsg(`Request ${invalidReqId} does not exist`))
       });
 
-      it('should 400 if status is invalid', function () {
+      it('should 200 and update the request', function () {
         return agent
-          .put(`/requests/${request._id}/status`)
+          .put(`/book_requests/${request._id}`)
           .set(SC.AuthHeaderField, austinToken)
-          .send({ updated_status: 'blah' })
-          .expect(400)
-      })
-
-      it('should 200 and update the status of the book request', function () {
-        return agent
-          .put(`/requests/${request._id}/status`)
-          .set(SC.AuthHeaderField, austinToken)
-          .send({ updated_status: Models.BookRequestStatus.Collected })
+          .send({ 
+            ...request,
+            status: Models.BookRequestStatus.Delivered
+           })
           .expect(200)
           .then(() => bookRequestCollection.findOne({ _id: request._id }))
           .then(updatedReq => assert.deepEqual(updatedReq, {
             ...request,
-            status: Models.BookRequestStatus.Collected
+            status: Models.BookRequestStatus.Delivered
           }))
       });
 

@@ -16,23 +16,37 @@ export interface IUserData {
 
   getEducatorOfStudent: (studentId: string) => Promise<M.IEducator>;
 
+  getAllTeachers: () => Promise<M.IEducator[]>;
+
   getClassTaughtByTeacher: (teacherId: string) => Promise<M.IClass>;
   getClassWithStudent: (studentId: string) => Promise<M.IClass>;
 
   getAllClasses: () => Promise<M.IClass[]>;
   getClassById: (classId: string) => Promise<M.IClass>;
   updateClass: (update: M.IClass) => Promise<M.IClass>;
+
+  getAllSchools: () => Promise<M.ISchool[]>;
 }
 
 export class MongoUserData implements IUserData {
 
   private users: monk.ICollection;
   private classes: monk.ICollection; 
+  private schools: monk.ICollection;
 
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
     this.users = db.get('users', { castIds: false });
     this.classes = db.get('classes', { castIds: false });
+    this.schools = db.get('schools', { castIds: false });
+  }
+
+  getAllTeachers() {
+    return this.users.find({ type: M.UserType.Educator });
+  }
+
+  getAllSchools() {
+    return this.schools.find({});
   }
 
   getAllClasses() {

@@ -19,7 +19,9 @@ export namespace BodyValidators {
     description: joi.array().items(joi.string()).required(),
     price_usd: joi.number().max(1000).required(),
     photo_urls: joi.array().items(joi.string().uri()).required(),
-    amazon_url: joi.string().uri().optional()
+    amazon_url: joi.string().uri().optional(),
+    is_active: joi.bool().required(),
+    date_created: joi.string().isoDate().required()
   }).strict().required();
 
   export const CreatedPrizeSchema = InputPrizeSchema.keys({

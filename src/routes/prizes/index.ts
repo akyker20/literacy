@@ -117,8 +117,15 @@ export function PrizeRoutes(
     createPrize: [
       Middle.authenticate,
       Middle.authorize([M.UserType.Admin]),
-      Middle.valBody<M.IPrize>(Val.InputPrizeSchema),
-      unwrapData(async ({ body }: IRequest<M.IPrize>) => prizeData.createPrize(body)),
+      Middle.valBody(Val.InputPrizeSchema),
+      unwrapData(async ({ body }: IRequest<M.IPrizeBody>) => {
+        let prize: M.IPrize = {
+          ...body,
+          is_active: true,
+          date_created: new Date().toISOString()
+        }
+        return prizeData.createPrize(prize)
+      }),
       Middle.handlePromise
     ],
 
@@ -144,14 +151,21 @@ export function PrizeRoutes(
     deletePrize: [
       Middle.authenticate,
       Middle.authorize([M.UserType.Admin]),
-      unwrapData(async (req: IRequest<null>) => {
+      unwrapData(async (req: IRequest<M.IPrize>) => {
 
-        const deletedPrize = await prizeData.deletePrize(req.params.prizeId);
+        const { prizeId } = req.params;
 
-        if (_.isEmpty(deletedPrize)) {
-          throw new ResourceNotFoundError('No prize was deleted')
+        const prizeOrders = await prizeOrderData.getOrdersForPrize(prizeId);
+        if (!_.isEmpty(prizeOrders)) {
+          throw new BadRequestError(`You cannot delete Prize ${prizeId} because it has existing prize orders. Just deactivate it.`)
         }
 
+        const deletedPrize = await prizeData.deletePrize(prizeId);
+
+        if (_.isNull(deletedPrize)) {
+          throw new ResourceNotFoundError('No prize was deleted');
+        }
+        
         return { deletedPrize };
 
       }),

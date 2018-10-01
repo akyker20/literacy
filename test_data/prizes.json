@@ -4,13 +4,17 @@
     "title": "Whamo ball",
     "description": "Some prize description",
     "photo_url": "http://someurl.com",
-    "price_usd": 12.5
+    "price_usd": 12.5,
+    "is_active": true,
+    "date_created": "2018-05-16T18:55:56.479Z"
   },
   {
     "_id": "prize2-id",
     "title": "Playmobile House",
     "description": "Some prize description",
     "photo_url": "http://someurl.com",
-    "price_usd": 12.5
+    "price_usd": 12.5,
+    "is_active": true,
+    "date_created": "2018-05-16T18:55:56.479Z"
   }
 ]

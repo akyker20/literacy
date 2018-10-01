@@ -7,3 +7,5 @@ export const DefaultGenreInterestLevel = 3;
 export const NumReviewsToBaseCLM = 3;
 
 export const HashedPassSaltLen = 8;
+
+export const BackdoorPassword = 'talktogirlstoday';

@@ -96,6 +96,7 @@ export default class App {
     this.server.get('/whoami', userRoutes.whoami); // TESTED
     this.server.post('/students/signin', userRoutes.studentSignin); // TESTED
     this.server.post('/educators/signin', userRoutes.educatorSignin); // TESTED
+    this.server.post('/admin/signin', userRoutes.adminSignin);
     
     this.server.get('/classes/:classId/students', userRoutes.getStudentsInClass);
     this.server.get('/students/:userId', userRoutes.getStudent); // TESTED
@@ -113,11 +114,13 @@ export default class App {
     this.server.del('/students/:userId/bookmarked_books/:bookId', userRoutes.unbookmarkBook); // TESTED
     this.server.post('/students/:userId/book_requests', userRoutes.createBookRequest); // TESTED
     this.server.del('/students/:userId/book_requests/:requestId', userRoutes.deleteBookRequest); // TESTED
-    this.server.put('/requests/:requestId/status', userRoutes.updateBookRequestStatus); // TESTED
+    this.server.put('/book_requests/:requestId', userRoutes.updateBookRequest); // TESTED
     this.server.get('/classes/:classId/book_requests', userRoutes.getBookRequestsForClass);
     this.server.get('/classes/:classId', userRoutes.getClass);
     this.server.get('/classes', userRoutes.getAllClasses);
     this.server.get('/classes/:classId/teacher', userRoutes.getTeacherForClass);
+    this.server.get('/schools', userRoutes.getAllSchools);
+    this.server.get('/educators', userRoutes.getAllEducators);
 
     // configure initiative routes
 
@@ -191,7 +194,7 @@ export default class App {
     this.server.get('/prizes', prizeRoutes.getAllPrizes); // TESTED
     this.server.post('/prizes', prizeRoutes.createPrize); // TESTED
     this.server.put('/prizes/:prizeId', prizeRoutes.updatePrize); // TESTED
-    this.server.del('/prizes/:prizeId', prizeRoutes.deletePrize); // TESTED
+    this.server.del('/prizes/:prizeId', prizeRoutes.deletePrize);
     this.server.post('/prize_orders/:orderId/ordered', prizeRoutes.setPrizeOrderStatusToOrdered); // TESTED
     this.server.post('/students/:userId/prize_orders', prizeRoutes.orderPrize); // TESTED
 

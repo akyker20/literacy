@@ -9,11 +9,11 @@
     "student_ids": []
   },
   {
-    "_id": "class-1",
+    "_id": "school-91-bstewart",
     "date_created": "2018-05-16T18:55:56.479Z",
     "date_ended": null,
     "reward_model": "ClassInitiative",
-    "school_id": "blah-school",
+    "school_id": "school-91",
     "teacher_id": "bonnie-stewart",
     "student_ids": [
       "katelynn-kyker",
@@ -26,14 +26,5 @@
       "dpIusvulq",
       "3RlfD6onP"
     ]
-  },
-  {
-    "_id": "class-2",
-    "date_created": "2018-05-16T18:55:56.479Z",
-    "date_ended": null,
-    "reward_model": "Prizes",
-    "school_id": "blah-school",
-    "teacher_id": "mike-phillips",
-    "student_ids": []
   }
 ]
