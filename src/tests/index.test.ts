@@ -432,13 +432,11 @@ describe('End to End tests', function () {
 
     describe('#createPrize', function () {
 
-      const validPrizeBody: Models.IPrize = {
+      const validPrizeBody: Models.IPrizeBody = {
         title: 'Some Prize title',
         description: ['Some prize bullet point'],
         price_usd: 13.5,
-        photo_urls: ['http://some-url'],
-        is_active: true,
-        date_created: new Date().toISOString()
+        photo_urls: ['http://some-url']
       };
 
       it('should 401 when no auth token in header', function () {
