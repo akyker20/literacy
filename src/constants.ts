@@ -11,4 +11,4 @@ export const HashedPassSaltLen = 8;
 export const BackdoorPassword = 'talktogirlstoday';
 
 // dont show students books this far above their lexile measure
-export const AboveStudentLexileThreshold = 150
+export const AboveStudentLexileThreshold = 200

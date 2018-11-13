@@ -19,6 +19,7 @@ import { IAuthorData } from '../../data/authors';
 import { ISeriesData } from '../../data/series';
 import { BodyValidators as Val } from './joi';
 import { INotificationSys } from '../../notifications';
+import { AboveStudentLexileThreshold } from '../../constants';
 
 export function BookRoutes(
   genreData: IGenreData,
@@ -279,7 +280,7 @@ export function BookRoutes(
 
         // dont show books +100 above lexile
         const filteredBooks = _.filter(allBooks, (book: M.IBook) => {
-          return (student.initial_lexile_measure + 150) >= book.lexile_measure 
+          return (student.initial_lexile_measure + AboveStudentLexileThreshold) >= book.lexile_measure 
         })
 
         const matchScores: { [bookId: string]: number } = {};
