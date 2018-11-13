@@ -1300,7 +1300,9 @@ describe('End to End tests', function () {
       duration_min: 100,
       summary: faker.lorem.sentence(4),
       read_with: Models.ReadingWith.ByMyself,
-      is_last_log_for_book: false
+      is_last_log_for_book: false,
+      comprehension: 4,
+      interest: 3
     }
 
     describe('#createReadingLog', function () {
@@ -1528,7 +1530,9 @@ describe('End to End tests', function () {
           student_id: chase._id,
           book_id: book._id,
           start_page: unfinishedLog.final_page + 2,
-          final_page: unfinishedLog.final_page + 10
+          final_page: unfinishedLog.final_page + 10,
+          interest: 4,
+          comprehension: 5
         }
 
         return agent

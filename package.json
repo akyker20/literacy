@@ -34,7 +34,7 @@
     "moment": "^2.22.1",
     "monk": "^6.0.6",
     "nodemailer": "^4.6.7",
-    "reading_rewards": "^0.1.159",
+    "reading_rewards": "^0.1.160",
     "restify": "^7.1.1",
     "restify-cors-middleware": "^1.1.1",
     "restify-errors": "^6.0.0",
