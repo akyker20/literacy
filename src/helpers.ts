@@ -1,51 +1,10 @@
 import * as _ from 'lodash';
 import { Models } from 'reading_rewards';
 
-import { DefaultGenreInterestLevel, NumReviewsToBaseCLM } from './constants';
+import { DefaultGenreInterestLevel } from './constants';
 
 export function isProd(): boolean {
   return process.env.NODE_ENV === 'production';
-}
-
-/**
- * 
- * @param studentILM initial lexile measure of the student
- * @param studentBookReviews all the book reviews by the student
- */
-export function computeCurrentLexileMeasure(
-  studentILM: number,
-  studentBookReviews: Models.IBookReview[]
-): number {
-
-  // if user has less than 3 submitted quizzes with comprehension scores
-  // just use the initial lexile measure
-  if (studentBookReviews.length < NumReviewsToBaseCLM) {
-    return studentILM;
-  }
-
-  // find the 3 most recent reviews by the students of books
-  // where book lexile measure exceeded student initial measure above students initial measure
-  // that student somewhat enjoyed (4-5 interest) and have
-  
-  const consideredReviews = _.chain(studentBookReviews)
-    .filter(review => review.book_lexile_measure >= studentILM)
-    .filter(review => review.interest >= 4 && review.comprehension >= 4)
-    .orderBy('book_lexile_measure', 'desc')
-    .slice(0, NumReviewsToBaseCLM)
-    .value();
-
-  if (consideredReviews.length < NumReviewsToBaseCLM) {
-    return studentILM;
-  }
-
-  const clm = _.meanBy(consideredReviews, review => {
-    // comprehension is either 4 or 5
-    // therefore returned value is either book_lexile_measure or (book_lexile_measure + 50)
-    return review.book_lexile_measure + 50 * (review.comprehension - 4);
-  })
-
-  return clm;
-
 }
 
 /**
@@ -99,9 +58,9 @@ export function computeMatchScoreForBook(
 
   // compute lexile multiplier which we be multiplied at the end
 
-  const studentCLM = computeCurrentLexileMeasure(student.initial_lexile_measure, studentBookReviews);
+  const studentLM = student.initial_lexile_measure;
   // console.log(`Student CLM: ${studentCLM}`)
-  const lexileDiff = book.lexile_measure - studentCLM;
+  const lexileDiff = book.lexile_measure - studentLM;
   // console.log(`Book Lexile Diff: ${lexileDiff}`)
   const lexileMult = computeLexileMultiplier(lexileDiff);
   // console.log(`Computed Lexile Mult: ${lexileMult}`)

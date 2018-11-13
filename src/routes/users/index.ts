@@ -17,7 +17,6 @@ import { BodyValidators as Val } from './joi';
 import { IRequest, validateUser, unwrapData } from '../extensions';
 import * as Middle from '../../middleware';
 import * as Constants from '../../constants';
-import { computeCurrentLexileMeasure } from '../../helpers';
 import { IUserData } from '../../data/users';
 import { IQuizData } from '../../data/quizzes';
 import { IBookData } from '../../data/books';
@@ -107,11 +106,6 @@ export function UserRoutes(
 
     const studentBookReviews = await bookReviewData.getBookReviewsForStudent(student._id);
 
-    const studentCLM = computeCurrentLexileMeasure(
-      student.initial_lexile_measure,
-      studentBookReviews
-    )
-
     const studentQuizSubmissions = await quizData.getSubmissionsForStudent(student._id);
 
     const studentPassedQuizBooks = await bookData.getBooksWithIds(Helpers.getIdsOfPassedQuizBooks(studentQuizSubmissions));
@@ -135,7 +129,6 @@ export function UserRoutes(
     
     return {
       info: student,
-      current_lexile_measure: studentCLM,
       quiz_submissions: studentQuizSubmissions,
       book_reviews: studentBookReviews,
       book_requests: studentBookRequests,

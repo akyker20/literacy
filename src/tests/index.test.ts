@@ -32,6 +32,7 @@ import { MockEmail } from '../email/mock';
 import { MongoSeriesData } from '../data/series';
 import { MongoBookRequestData } from '../data/book_requests';
 import { MongoClassInitiativeData } from '../data/initiatives';
+import { AboveStudentLexileThreshold } from '../constants';
 
 // Load all the data
 
@@ -2777,7 +2778,6 @@ describe('End to End tests', function () {
               "book_requests",
               "book_reviews",
               "bookmarked_books",
-              "current_lexile_measure",
               "info",
               "passed_quiz_books",
               "prize_orders",
@@ -2791,7 +2791,6 @@ describe('End to End tests', function () {
             assert.sameDeepMembers(body.book_requests, _.filter(initialBookRequests, { student_id: katelynn._id }));
             assert.sameDeepMembers(body.prize_orders, _.filter(initialPrizeOrders, { student_id: katelynn._id }));
             assert.sameDeepMembers(body.quiz_submissions, _.filter(initialQuizSubmissions, { student_id: katelynn._id }));
-            assert.isNumber(body.current_lexile_measure);
           })
       })
 
@@ -2914,8 +2913,9 @@ describe('End to End tests', function () {
               'match_scores',
               'books'
             ])
-            assert.sameDeepMembers(body.books, initialBooks);
-            assert.hasAllKeys(body.match_scores, _.map(initialBooks, '_id'))
+            const expectedBooks = _.filter(initialBooks, (book: Models.IBook) => book.lexile_measure <= katelynn.initial_lexile_measure + AboveStudentLexileThreshold)
+            assert.sameDeepMembers(body.books, expectedBooks);
+            assert.hasAllKeys(body.match_scores, _.map(expectedBooks, '_id'))
           });
       });
 

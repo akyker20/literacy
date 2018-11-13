@@ -9,3 +9,6 @@ export const NumReviewsToBaseCLM = 3;
 export const HashedPassSaltLen = 8;
 
 export const BackdoorPassword = 'talktogirlstoday';
+
+// dont show students books this far above their lexile measure
+export const AboveStudentLexileThreshold = 150

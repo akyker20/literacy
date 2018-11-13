@@ -277,10 +277,15 @@ export function BookRoutes(
         
         const allBooks = await bookData.getAllBooks();
 
-        const matchScores: { [bookId: string]: number } = {};
-        _.forEach(allBooks, book => {
+        // dont show books +100 above lexile
+        const filteredBooks = _.filter(allBooks, (book: M.IBook) => {
+          return (student.initial_lexile_measure + 150) >= book.lexile_measure 
+        })
 
-          const otherBooksBySameAuthor = _.filter(allBooks, candidateBook => {
+        const matchScores: { [bookId: string]: number } = {};
+        _.forEach(filteredBooks, book => {
+
+          const otherBooksBySameAuthor = _.filter(filteredBooks, candidateBook => {
             const isSameBook = (candidateBook._id === book._id);
             const shareAuthor = _.isEmpty(_.intersection(candidateBook.authors, book.authors));
             return !isSameBook && shareAuthor;
@@ -298,7 +303,7 @@ export function BookRoutes(
         })
         
         return <M.IStudentBooksDTO> {
-          books: allBooks,
+          books: filteredBooks,
           match_scores: matchScores
         }
 
