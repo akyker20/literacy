@@ -106,9 +106,11 @@ export function UserRoutes(
 
     const studentBookReviews = await bookReviewData.getBookReviewsForStudent(student._id);
 
-    const studentQuizSubmissions = await quizData.getSubmissionsForStudent(student._id);
+    const studentBookQuizSubmissions = await quizData.getSubmissionsForStudent(student._id);
 
-    const studentPassedQuizBooks = await bookData.getBooksWithIds(Helpers.getIdsOfPassedQuizBooks(studentQuizSubmissions));
+    const studentArticleQuizSubmissions = await quizData.getArticleQuizSubmissionsForStudent(student._id)
+
+    const studentPassedQuizBooks = await bookData.getBooksWithIds(Helpers.getIdsOfPassedQuizBooks(studentBookQuizSubmissions));
 
     const studentBookRequests = await bookRequestData.getBookRequestsByStudent(student._id);
 
@@ -129,7 +131,8 @@ export function UserRoutes(
     
     return {
       info: student,
-      quiz_submissions: studentQuizSubmissions,
+      article_quiz_submissions: studentArticleQuizSubmissions,
+      book_quiz_submissions: studentBookQuizSubmissions,
       book_reviews: studentBookReviews,
       book_requests: studentBookRequests,
       prize_orders: studentPrizeOrders,

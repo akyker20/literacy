@@ -22,17 +22,32 @@ export interface IQuizData {
   getSubmissionsForStudent: (userId: string) => Promise<IQuizSubmission[]>;
   getSubmissionsForStudents: (studentIds: string[]) => Promise<IQuizSubmission[]>;
   updateQuizSubmission: (quizSubmission: IQuizSubmission) => Promise<IQuizSubmission>;
+
+  createArticleQuizSubmission: (articleQuizSub: M.IArticleQuizSubmission) => Promise<M.IArticleQuizSubmission>
+  getArticleQuizSubmissionsForStudent: (studentId: string) => Promise<M.IArticleQuizSubmission[]>
+  
 }
 
 export class MongoQuizData implements IQuizData {
 
   private quizzes: monk.ICollection;
-  private quizSubmissions: monk.ICollection;
+  private bookQuizSubmissions: monk.ICollection;
+  private articleQuizSubmissions: monk.ICollection;
+  
 
   constructor(mongoConnectionStr: string) {
     let db = monk.default(mongoConnectionStr);
     this.quizzes = db.get('quizzes', { castIds: false });
-    this.quizSubmissions = db.get('quiz_submissions', { castIds: false });
+    this.bookQuizSubmissions = db.get('quiz_submissions', { castIds: false });
+    this.articleQuizSubmissions = db.get('article_quiz_submissions', { castIds: false })
+  }
+
+  createArticleQuizSubmission(sub: M.IArticleQuizSubmission) {
+    return this.articleQuizSubmissions.insert(sub)
+  }
+
+  getArticleQuizSubmissionsForStudent(studentId: string) {
+    return this.articleQuizSubmissions.find({ student_id: studentId })
   }
 
   // Quiz Related
@@ -73,27 +88,27 @@ export class MongoQuizData implements IQuizData {
   createQuizSubmission(quizSubmission: IQuizSubmission): Promise<IQuizSubmission> {
     const copy = _.cloneDeep(quizSubmission);
     copy._id = shortid.generate();
-    return this.quizSubmissions.insert(copy);
+    return this.bookQuizSubmissions.insert(copy);
   }
 
   updateQuizSubmission(quizSubmission: IQuizSubmission): Promise<IQuizSubmission> {
-    return this.quizSubmissions.findOneAndUpdate({ _id: quizSubmission._id }, quizSubmission);
+    return this.bookQuizSubmissions.findOneAndUpdate({ _id: quizSubmission._id }, quizSubmission);
   }
 
   getSubmissionById(submissionId: string): Promise<IQuizSubmission> {
-    return this.quizSubmissions.findOne({ _id: submissionId });
+    return this.bookQuizSubmissions.findOne({ _id: submissionId });
   }
 
   getSubmissionsForQuiz(quizId: string): Promise<IQuizSubmission[]> {
-    return this.quizSubmissions.find({ quiz_id: quizId });
+    return this.bookQuizSubmissions.find({ quiz_id: quizId });
   }
 
   getSubmissionsForStudent(studentId: string): Promise<IQuizSubmission[]> {
-    return this.quizSubmissions.find({ student_id: studentId });
+    return this.bookQuizSubmissions.find({ student_id: studentId });
   }
 
   getSubmissionsForStudents(studentIds: string[]): Promise<IQuizSubmission[]> {
-    return this.quizSubmissions.find({ student_id: { $in: studentIds } });
+    return this.bookQuizSubmissions.find({ student_id: { $in: studentIds } });
   }
 
 }

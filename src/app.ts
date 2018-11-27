@@ -11,7 +11,7 @@ import { IBookReviewData } from './data/book_reviews';
 import { Constants as SC } from 'reading_rewards';
 import { IPrizeData } from './data/prizes';
 import { IPrizeOrderData } from './data/prize_orders';
-import { PrizeRoutes, InitiativeRoutes } from './routes';
+import { PrizeRoutes, InitiativeRoutes, ArticleRoutes } from './routes';
 import { INotificationSys } from './notifications';
 import { IReadingLogData } from './data/reading_log';
 import { IEmail } from './email';
@@ -19,6 +19,7 @@ import { IAuthorData } from './data/authors';
 import { ISeriesData } from './data/series';
 import { IBookRequestData } from './data/book_requests';
 import { IClassInitiativeData } from './data/initiatives';
+import { IArticleData } from './data/articles';
 
 // logger configuration
 
@@ -40,6 +41,7 @@ export default class App {
   server: restify.Server;
 
   constructor(
+    articleData: IArticleData,
     initiativeData: IClassInitiativeData,
     bookData: IBookData,
     userData: IUserData,
@@ -121,6 +123,17 @@ export default class App {
     this.server.get('/classes/:classId/teacher', userRoutes.getTeacherForClass);
     this.server.get('/schools', userRoutes.getAllSchools);
     this.server.get('/educators', userRoutes.getAllEducators);
+
+    // configure article routes
+
+    const articleRoutes = ArticleRoutes(
+      articleData,
+      quizData
+    )
+
+    this.server.get('/articles', articleRoutes.getAllArticles)
+    this.server.get('/articles/:articleId', articleRoutes.getArticleDTO)
+    this.server.post('/students/:studentId/article_quiz_submissions', articleRoutes.submitArticleQuiz)
 
     // configure initiative routes
 

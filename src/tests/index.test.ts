@@ -33,6 +33,7 @@ import { MongoSeriesData } from '../data/series';
 import { MongoBookRequestData } from '../data/book_requests';
 import { MongoClassInitiativeData } from '../data/initiatives';
 import { AboveStudentLexileThreshold } from '../constants';
+import { MongoArticleData } from '../data/articles';
 
 // Load all the data
 
@@ -112,8 +113,10 @@ const readingLogData = new MongoReadingLogData(connectionStr);
 const mongoSeriesData = new MongoSeriesData(connectionStr)
 const mongoBookRequestData = new MongoBookRequestData(connectionStr);
 const mongoClassInitiativeData = new MongoClassInitiativeData(connectionStr);
+const mongoArticleData = new MongoArticleData(connectionStr);
 
 const app = new App(
+  mongoArticleData,
   mongoClassInitiativeData,
   mongoBookData,
   mongoUserData,
