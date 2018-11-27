@@ -14,6 +14,7 @@ import { InternalServerError } from 'restify-errors';
 import { ResourceNotFoundError } from 'restify-errors';
 import { IQuizData } from '../../data/quizzes';
 import shortid = require('shortid');
+import { BodyValidators } from './joi';
 
 function getClosestVersion(lexile: number, versions: M.IArticleVersion[]): M.IArticleVersion | null {
   if (_.isEmpty(versions)) {
@@ -36,6 +37,22 @@ export function ArticleRoutes(
 ) {
 
   return {
+
+    createArticle: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
+      Middle.valBody(BodyValidators.ArticleBody),
+      unwrapData(async (req: IRequest<M.IArticle>) => articleData.createArticle(req.body)),
+      Middle.handlePromise
+    ],
+
+    updateArticle: [
+      Middle.authenticate,
+      Middle.authorize([M.UserType.Admin]),
+      Middle.valBody(BodyValidators.CreatedArticle),
+      unwrapData(async (req: IRequest<M.IArticle>) => articleData.updateArticle(req.body)),
+      Middle.handlePromise
+    ],
 
     submitArticleQuiz: [
       Middle.authenticate,

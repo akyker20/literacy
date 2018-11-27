@@ -132,8 +132,13 @@ export default class App {
     )
 
     this.server.get('/articles', articleRoutes.getAllArticles)
+    this.server.post('/articles', articleRoutes.createArticle)
+    this.server.put('/articles/:articleId', articleRoutes.updateArticle)
+
     this.server.get('/articles/:articleId', articleRoutes.getArticleDTO)
     this.server.post('/students/:studentId/article_quiz_submissions', articleRoutes.submitArticleQuiz)
+
+
 
     // configure initiative routes
 
