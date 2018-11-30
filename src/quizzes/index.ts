@@ -67,15 +67,15 @@ export class QuizGrader {
    * Assumptions: the number of quiz questions and answers are the same.
    */
 
-  gradeQuiz(quiz: M.IQuiz, answers: any[]): number {
+  gradeQuiz(questions: M.IQuestion[], answers: any[]): number {
 
-    assert.isTrue(quiz.questions.length === answers.length, 'Must be the same amount of answers as questions');
-    const maxPossiblePoints = _.chain(quiz.questions).map('points').sum().value();
+    assert.isTrue(questions.length === answers.length, 'Must be the same amount of answers as questions');
+    const maxPossiblePoints = _.chain(questions).map('points').sum().value();
 
     let pointsEarned = 0;
     
-    for (let i = 0; i < quiz.questions.length; i++) {
-      const question = quiz.questions[i];
+    for (let i = 0; i < questions.length; i++) {
+      const question = questions[i];
       const answer = answers[i];
       const { gradingStrategy } = this.strategyMap.get(question.type);
       const isCorrect = gradingStrategy.grade(question, answer);

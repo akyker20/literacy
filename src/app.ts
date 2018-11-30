@@ -95,6 +95,8 @@ export default class App {
       notifications
     );
 
+    this.server.get('/report', userRoutes.getReport)
+
     this.server.get('/whoami', userRoutes.whoami); // TESTED
     this.server.post('/students/signin', userRoutes.studentSignin); // TESTED
     this.server.post('/educators/signin', userRoutes.educatorSignin); // TESTED
@@ -127,13 +129,18 @@ export default class App {
     // configure article routes
 
     const articleRoutes = ArticleRoutes(
+      userData,
       articleData,
-      quizData
+      quizData,
+      notifications
     )
 
     this.server.get('/articles', articleRoutes.getAllArticles)
     this.server.post('/articles', articleRoutes.createArticle)
     this.server.put('/articles/:articleId', articleRoutes.updateArticle)
+
+    this.server.post('/article_versions', articleRoutes.createArticleVersion)
+    this.server.put('/article_versions/:articleVersionId', articleRoutes.updateArticleVersion)
 
     this.server.get('/articles/:articleId', articleRoutes.getArticleDTO)
     this.server.post('/students/:studentId/article_quiz_submissions', articleRoutes.submitArticleQuiz)

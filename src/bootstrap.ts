@@ -7,6 +7,9 @@ const DataDir = (process.env.NODE_ENV === 'production') ?
   Path.join(__dirname, '../bootstrap_prod_data') :
   Path.join(__dirname, '../bootstrap_dev_data');
 
+
+const initialArticles: M.IArticle[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'articles.json'), 'utf8'))
+const initialArticleVersions: M.IArticleVersion[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'article_versions.json'), 'utf8'))
 const initialSchools: M.ISchool[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'schools.json'), 'utf8'))
 const initialInitiatives: M.IInitiative[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'initiatives.json'), 'utf8'))
 const initialClassInitiatives: M.IClassInitiative[] = JSON.parse(fs.readFileSync(Path.join(DataDir, 'class_initiatives.json'), 'utf8'))
@@ -28,6 +31,9 @@ const dbName = process.env.MONGO_DB_NAME || 'rr_local';
 const connectionStr = `mongodb://${host}:${port}/${dbName}`;
 const db = monk.default(connectionStr);
 
+
+const articlesCollection = db.get('articles', { castIds: false });
+const articleVersionsCollection = db.get('article_versions', { castIds: false });
 const schoolCollection = db.get('schools', { castIds: false });
 const bookRequestCollection = db.get('book_requests', { castIds: false });
 const seriesCollection = db.get('series', { castIds: false });
@@ -98,5 +104,7 @@ Promise.all([
   setData(bookRequestCollection, []),
   setData(classInitiativeCollection, initialClassInitiatives),
   setData(initiativeCollection, initialInitiatives),
-  setData(classCollection, initialClasses)
+  setData(classCollection, initialClasses),
+  setData(articlesCollection, initialArticles),
+  setData(articleVersionsCollection, initialArticleVersions)
 ]).then(() => process.exit(0))

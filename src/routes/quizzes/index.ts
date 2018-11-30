@@ -200,7 +200,7 @@ export function QuizRoutes(
 
         // build submission and save to database
 
-        const quizScore = QuizGraderInstance.gradeQuiz(quiz, req.body.answers);
+        const quizScore = QuizGraderInstance.gradeQuiz(quiz.questions, req.body.answers);
 
         const quizSubmission: M.IQuizSubmission = {
           ...req.body,

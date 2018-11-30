@@ -182,13 +182,13 @@ describe('QuizGrader', function() {
 
     it('should grade first set of answers correctly', function() {
       const expectedScore = 12/14 * 100.0;
-      const actualScore = quizGrader.gradeQuiz(quiz, answers1);
+      const actualScore = quizGrader.gradeQuiz(quiz.questions, answers1);
       assert.equal(actualScore, expectedScore);
     })
   
     it('should grade second set of questions correctly', function() {
       const expectedScore = 8/14 * 100.0;
-      const actualScore = quizGrader.gradeQuiz(quiz, answers2);
+      const actualScore = quizGrader.gradeQuiz(quiz.questions, answers2);
       assert.equal(actualScore, expectedScore);
     })
 

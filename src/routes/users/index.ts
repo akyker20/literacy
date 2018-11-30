@@ -1,6 +1,7 @@
 // 3rd party dependencies
 
 import * as joi from 'joi';
+import * as stringify from 'csv-stringify'
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
@@ -27,6 +28,8 @@ import { INotificationSys } from '../../notifications';
 import { IReadingLogData } from '../../data/reading_log';
 import { IBookRequestData } from '../../data/book_requests';
 import { IPrizeData } from '../../data/prizes';
+import { InternalServerError } from 'restify-errors';
+import { Next, Response } from 'restify';
 
 // related interfaces
 
@@ -51,6 +54,11 @@ function getAuthToken(user: M.IUser) {
   };
   const token = jwt.sign(claims, Constants.JWTSecret, { expiresIn: '1y' });
   return token;
+}
+
+function getStudentClass(student: M.IStudent, classes: M.IClass[]): M.IClass | null {
+  const studentsClass = _.find(classes, classObj => _.includes(classObj.student_ids, student._id))
+  return studentsClass || null
 }
 
 export function UserRoutes(
@@ -146,6 +154,67 @@ export function UserRoutes(
   }
 
   return {
+
+    getReport: [
+      unwrapData(async () => {
+        const classes = await userData.getAllClasses()
+        const allReadingLogs = await readingLogData.getAllLogs()
+        const quizSubmissions = await quizData.getAllBookQuizSubmissions()
+        const allUsers = await userData.getAllUsers()
+        const allStudents = _.filter(allUsers, { type: M.UserType.Student }) as M.IStudent[]
+
+        const records: any[] = []
+
+        _.forEach(allStudents, student => {
+          const studentClass = getStudentClass(student, classes)
+          if (studentClass === null) return
+          const readingLogsForStudent = _.filter(allReadingLogs, { student_id: student._id })
+          const pagesRead = _.sumBy(readingLogsForStudent, log => log.final_page - log.start_page)
+          const minutesRead = _.sumBy(readingLogsForStudent, 'duration_min')
+          const passedQuizzes = _.filter(quizSubmissions, {
+            student_id: student._id,
+            passed: true
+          })
+          records.push([
+            Helpers.getFullName(student), 
+            studentClass._id, 
+            student.initial_lexile_measure, 
+            readingLogsForStudent.length, 
+            pagesRead,
+            minutesRead,
+            passedQuizzes.length
+          ])
+        })
+
+        try {
+          const output = await new Promise((res, rej) => {
+            stringify(records, (err, output) => {
+              if (err) {
+                throw err
+              }
+              res(output)
+            })
+          })
+          return output
+        } catch(err) {
+          throw new InternalServerError(err)
+        }
+
+      }),
+      (req: IRequest<any>, res: Response, next: Next) => {
+
+        req.promise
+          .then(result => {
+            res.send(200, result, {
+              'Content-Type': 'text/csv'
+            });
+            return next();
+          })
+          .catch(err => next(err));
+      
+      }
+    ],
+
     whoami: [
       Middle.authenticate,
       unwrapData(async (req: IRequest<null>) => {

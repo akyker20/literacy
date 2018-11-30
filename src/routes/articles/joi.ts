@@ -1,5 +1,6 @@
 import * as joi from 'joi';
-import { shortidSchema } from '../extensions';
+import { shortidSchema, lexileMeasureSchema } from '../extensions';
+import { QuestionSchema } from '../../quizzes/question_schemas';
 
 export namespace BodyValidators {
 
@@ -12,6 +13,17 @@ export namespace BodyValidators {
   export const CreatedArticle = ArticleBody.keys({
     _id: shortidSchema,
     date_created: joi.string().isoDate().required()
+  }).required();
+
+  export const ArticleVersionBody = joi.object({
+    lexile_measure: lexileMeasureSchema,
+    article_id: shortidSchema,
+    article_text: joi.string().required(),
+    questions: joi.array().items(QuestionSchema.unknown(true)).required(),
+  }).required()
+
+  export const CreatedArticleVersion = ArticleVersionBody.keys({
+    _id: shortidSchema,
   }).required();
 
 }

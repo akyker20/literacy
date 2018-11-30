@@ -1,0 +1,1362 @@
+[
+  {
+    "_id": "columbia-200",
+    "lexile_measure": 200,
+    "article_id": "columbia",
+    "article_text": "Tropical beaches. Wet jungles. Snowy mountains. Green hills. Hot valleys. Dry deserts. Colombia has all of these. Let’s learn about them.\n\nLet’s start in the north. First there is the Caribbean coast. It is very hot. It has beautiful beaches. People here eat fish, rice, and plantain. Cartagena is a city here. Cartagena is an old city. It has colorful buildings. It is surrounded by a big wall.\n\nTo the east there is the Guajira desert. It is very dry. The Wayuu people live there. They make colorful bags. The biggest city is Cabo de la Vela. It is on the coast. There is good kite-surfing there.\n\nNow let’s go south. The elevation gets higher. The land becomes greener. It is colder. A city here is Medellin. It is in the mountains. It has cable-cars. These are like buses in the sky. At night, the mountains light up. It is the lights of houses. They look like stars.\n\nLet’s go further south. There is the Zona Cafetera. This means coffee-making region. There are many green hills. There are many small towns. Some towns are Salento, Jardin, and Finlandia. In these towns, people drink lots of tinto. This is black coffee with sugar. They drink it all day. They even drink it at night./n/nLet’s go further south. There is the Valle del Cauca. It is hot here. There are lots of sugar cane farms. These farms smell very good. The capital of the valley is called Cali. Cali is crazy about salsa. There is salsa music everywhere. There are over 200 salsa schools. There are even more discotecas. These are places where people dance at night.\n\nLet’s go west of Cali. There  is Buenaventura. Buenaventura is on the pacific coast. There are no roads to the Pacific coast. You have to go by boat. This makes it unique. There are lots of beaches. There are lots of jungles. There are not many people.\n\nLet’s go east of Cali. There are big mountains. They are above 9000 feet. The Purace volcano is above 15000 feet. Many people hike here.\n\nLet’s go further east. There is a valley. It is hot. It has a desert. It is called the Tatacoa desert. The stars are easy to see. There are cool rocks.\n\nColombia has a lot to offer. There is a lot I didn’t mention, too. There are the Llanos. These are ranch-lands. They are in the east. There’s also the Amazon. The Amazon covers 1/3 of the country. And there’s Bogota. Bogota is the nation’s capital. There is even more too. Maybe one day you will see some of it.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which city is not on the coast?",
+        "options": [
+          "Cabo de la Vela",
+          "Cartagena",
+          "Buenaventura",
+          "Medellin"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does Colombia not have?",
+        "options": [
+          "Jungles",
+          "Beaches",
+          "Mountains",
+          "The Eiffel Tower"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What city is mentioned in the last paragraph?",
+        "options": [
+          "Cali",
+          "Bogota",
+          "Medellin",
+          "Cabo de la Vela"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What dance is Cali known for?",
+        "options": [
+          "Salsa",
+          "Tango",
+          "Bolero",
+          "Bachata"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is the Zona Cafetera known for?",
+        "options": [
+          "Coffee",
+          "Corn",
+          "Rice",
+          "Avocado"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "columbia-400",
+    "lexile_measure": 400,
+    "article_id": "columbia",
+    "article_text": "Tropical beaches. Dense jungles. Snowy mountains. Green hills. Hot valleys. Dry deserts. All of these things couldn’t exist in one country, right? Wrong. In Colombia, all of this and more can be found. Let’s take a trip around this country and see what we find.\n\nLet’s start in the north. First there is the Caribbean coast. This region is very hot. It has beautiful beaches. The typical dish here is fish, rice with coconut, and plantain. One famous city here is Cartagena. Cartagena is an old city. It has colorful buildings. It is surrounded by a big wall.\n\nTo the east there is the Guajira desert. It is a big piece of dry land and sand dunes. La Guajira is home to the Wayuu people. They are known for their colorful hand-made bags. The biggest city here is called Cabo de la Vela. It is on the coast. It is famous for its great kite-surfing.\n\nNow let’s go south. The elevation gets higher. The land becomes greener and colder. Eventually, we get to Medellin. Medellin is a big city in the mountains. It has cable-cars. These are like buses in the sky. At night, the mountains light up. This is because there are many houses with lights. They look like stars.\n\nFurther south, we get to the Zona Cafetera. This means coffee-making region. This area is full of green hills. There are many small towns here. Among these are Salento, Jardin, and Finlandia. In these towns, people drink lots of tinto. This is black coffee with sugar. They drink it all day. They even drink it at night.\n\nFurther south, there is the Valle del Cauca. It is hot here. There are lots of sugar cane farms. These farms smell very good. The capital of the valley is called Cali. Cali is crazy about salsa. There is salsa music everywhere. There are over 200 salsa schools in the city. There are even more discotecas. These are places where people dance at night.\n\nTo the west of Cali is Buenaventura. This is on Colombia’s pacific coast. There are almost no roads to the Pacific coast. You have to go by boat. This makes the Pacific coast different from the rest of the country. There are lots of beaches and jungles. There are not many people.\n\nTo the east of Cali there are big mountains. A lot of the land is above 9000 feet. The Purace volcano is above 15000 feet. Many people hike here.\n\nLet’s go further east. Past the mountains, there is a hot valley. Here there is the Tatacoa desert. People come here to look at stars. There are also interesting rock formations.\n\nColombia has a lot to offer. There is a lot I didn’t mention, too. There are the Llanos. These are ranch-lands in the east. There’s also the Amazon. The Amazon covers over 1/3 of the country. And there’s Bogota, the nation’s capital. The list of interesting places is endless. Maybe one day you will see some of them.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which city is not on the coast?",
+        "options": [
+          "Cabo de la Vela",
+          "Cartagena",
+          "Buenaventura",
+          "Medellin"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does Colombia not have?",
+        "options": [
+          "Jungles",
+          "Beaches",
+          "Mountains",
+          "The Eiffel Tower"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What city is mentioned in the last paragraph?",
+        "options": [
+          "Cali",
+          "Bogota",
+          "Medellin",
+          "Cabo de la Vela"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What dance is Cali known for?",
+        "options": [
+          "Salsa",
+          "Tango",
+          "Bolero",
+          "Bachata"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is the Zona Cafetera known for?",
+        "options": [
+          "Coffee",
+          "Corn",
+          "Rice",
+          "Avocado"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "columbia-600",
+    "lexile_measure": 600,
+    "article_id": "columbia",
+    "article_text": "Tropical beaches. Dense jungles. Snow-capped mountains. Rolling green hills. Steaming hot valleys. Deathly dry deserts. It seems like all of these things couldn’t exist in one single country, right? Wrong. In Colombia, all of this and more can be found. Let’s take a trip around this diverse country and see what we find.\n\nLet’s start in the north. First there is the Caribbean coast. This region is very hot. It has beautiful beaches. The typical dish here is fish, rice with coconut, and pressed plantain. One of the most famous cities of this region is Cartagena. Cartagena is an old colonial city filled with colorful buildings. It is surrounded on four sides by a great wall from colonial times.\n\nTo the east there is the Guajira desert. It is a big piece of dry land and sand dunes. La Guajira is home to the Wayuu people. They are known for their colorful hand-made bags. The biggest city here is called Cabo de la Vela. It is on the coast at the edge of the desert. It is famous for its great kite-surfing.\n\nNow going south, we start to climb in elevation. The land becomes much greener and a bit colder. Eventually, we get to the beautiful city of Medellin. Medellin is a big city in the mountains. You can take cable-car rides between neighborhoods high above the city. At night time, you can see the lights of the houses in the mountains. It looks like a million little stars that you can almost touch.\n\nFurther south, we get to the Zona Cafetera. This means coffee-making region. This area is full of green hills. There are many small towns here. Among these are Salento, Jardin, and Finlandia. In these towns, people drink lots of tinto. This is black coffee with sugar. They drink it at all times of the day, even late at night.\n\nContinuing further south still, we get to the Valle del Cauca. This is a hot valley with lots of sugar cane farms. These farms give off a sweet, warm smell that welcomes everyone driving through. The capital of the valley is called Cali. It is known as the world’s capital of salsa. Cali is crazy about salsa. No matter what part of the city you’re in, you’ll probably hear salsa music coming from some restaurant. There are over 200 salsa schools in the city. There are even more discotecas where people dance every night of the week. \n\nTo the west of Cali is the port of Buenaventura. This is the gateway to Colombia’s pacific coast. There are almost no roads going to the Pacific coast. The only way to get to most places here is by boat. This makes the Pacific coast different from the rest of the country. Think of long stretches of black beaches and dark jungles with few people.\n\nTo the east of Cali there are big mountains. A lot of the land is above 9000 feet. The Purace volcano is above 15000 feet. Many people go to this region to hike and enjoy nature.\n\nFurther east, past the mountains, there is a hot valley. Here there is the Tatacoa desert. People come here to look at stars. There are also interesting rock formations.\n\nAs you can see, Colombia has a lot to offer. There are tons of things I didn’t mention, too. There are the Llanos, which are ranch-lands in the east. There’s also the Amazon, which covers over 1/3 of the country. And there’s Bogota, the nation’s capital. The list of natural wonders and interesting cities is endless. Maybe one day you will see some of them.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which city is not on the coast?",
+        "options": [
+          "Cabo de la Vela",
+          "Cartagena",
+          "Buenaventura",
+          "Medellin"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does Colombia not have?",
+        "options": [
+          "Jungles",
+          "Beaches",
+          "Mountains",
+          "The Eiffel Tower"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What city is mentioned in the last paragraph?",
+        "options": [
+          "Cali",
+          "Bogota",
+          "Medellin",
+          "Cabo de la Vela"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What dance is Cali known for?",
+        "options": [
+          "Salsa",
+          "Tango",
+          "Bolero",
+          "Bachata"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is the Zona Cafetera known for?",
+        "options": [
+          "Coffee",
+          "Corn",
+          "Rice",
+          "Avocado"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "columbia-800",
+    "lexile_measure": 800,
+    "article_id": "columbia",
+    "article_text": "Pristine tropical beaches. Dense untamed jungles. Towering snow-capped mountains. Lush rolling green hills. Steaming hot valleys. Deathly dry deserts. It seems like all of these things couldn’t exist in one single country, right? Wrong. In Colombia, all of this and more can be found. Let’s take a trip around this diverse country and see what we find.\n\nStarting in the north, we have the Caribbean coast. This region is very hot and is home to beautiful beaches. The typical dish here is fresh-caught fish, rice with coconut, and pressed plantain. One of the most famous cities of this region is Cartagena. Cartagena is an old colonial city filled with charming, colorful buildings draped with flowers. It is surrounded on four sides by a great wall from colonial times.\n\nGoing a bit to the east, we have the Guajira desert, a vast expanse of dry land and sand dunes. La Guajira is home to the Wayuu people, well-known for their colorful hand-weaved bags. The biggest city here is called Cabo de la Vela. It is situated in a remote region on the coast at the edge of the desert. It is famous for its great kite-surfing.\n\nNow going south, we start to climb in elevation. The land becomes much greener and a bit colder. Eventually, we get to the beautiful city of Medellin. One thing that makes Medellin unique is that it is a big city built into the side of mountains. You can take cable-car rides between neighborhoods high above the city. At night time, all of the lights of the houses in the mountains look like a million little stars that you can almost touch.\n\nFurther south, we get to the Zona Cafetera, or coffee-making region. This area is full of lush green hills. There are also many small, charming towns dotting the region. Among these are Salento, Jardin, and Finlandia. In these towns, people drink lots of tinto, which is black coffee with sugar. They drink it at all times of the day, even late at night.\n\nContinuing further south still, we get to the Valle del Cauca. This is a hot valley with lots of sugar cane farms. These farms give off a sweet, warm smell that welcomes everyone driving through. The capital of the valley is called Cali. It is known as the world’s capital of salsa. Cali is crazy about salsa. No matter what part of the city you’re in, you’ll probably hear salsa music coming from some restaurant. There are over 200 salsa schools in the city. There are even more discotecas where people dance every night of the week. \n\nA bit to the west of Cali is the port of Buenaventura. This is the gateway to Colombia’s pacific coast. There are almost no roads going to the Pacific coast. The only way to get to most places here is by boat. This gives the Pacific coast a unique flavor because of its isolation from the rest of the country. Think of long stretches of black beaches and dark jungles with few human inhabitants.\n\nTo the east of Cali, on the other hand, we find towering mountains. Much of the land is above 9000 feet, with the snow-capped Purace volcano reaching above 15000 feet. Many people go to this region to hike and enjoy nature.\n\nFurther east still, the mountains drop off, giving way to an incredibly hot valley. This valley is home to the blindingly hot Tatacoa desert. People come here for the great star-gazing opportunities and the interesting rock formations. \n\nAs you can see, Colombia is home to a great variety of natural landscapes. These were just some highlights of what the country has to offer. I didn’t even mention the Llanos, which are vast ranch-lands in the east of the country. There’s also the Amazon, which covers over 1/3 of the country. And there’s Bogota, the nation’s capital. The list of natural wonders and interesting cities is endless. Maybe one day you will see some of them.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which city is not on the coast?",
+        "options": [
+          "Cabo de la Vela",
+          "Cartagena",
+          "Buenaventura",
+          "Medellin"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does Colombia not have?",
+        "options": [
+          "Jungles",
+          "Beaches",
+          "Mountains",
+          "The Eiffel Tower"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What city is mentioned in the last paragraph?",
+        "options": [
+          "Cali",
+          "Bogota",
+          "Medellin",
+          "Cabo de la Vela"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What dance is Cali known for?",
+        "options": [
+          "Salsa",
+          "Tango",
+          "Bolero",
+          "Bachata"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is the Zona Cafetera known for?",
+        "options": [
+          "Coffee",
+          "Corn",
+          "Rice",
+          "Avocado"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "columbia-1000",
+    "lexile_measure": 1000,
+    "article_id": "columbia",
+    "article_text": "Pristine tropical beaches. Dense untamed jungles. Towering snow-capped mountains. Lush rolling green hills. Steaming hot valleys. Deathly dry deserts. It seems like all of these things couldn’t exist in one single country, right? Wrong. In Colombia, all of this and more can be found. Let’s take a trip around this diverse country and see what we find.\n\nStarting in the north, we have the Caribbean coastal region. This region is very hot and is home to vast stretches of beautiful beaches. The typical dish here is fresh-caught fish, rice with coconut, and pressed plantain. One of the most famous cities of this region is Cartagena. Cartagena is an old colonial city filled with charming, colorful buildings draped with flowers. The city is surrounded on four sides by a great wall from colonial times.\n\nGoing a bit to the east, we have the Guajira desert, a vast expanse of arid land and sand dunes. La Guajira is home to the Wayuu people, well-known for their colorful hand-woven bags. The biggest city here is called Cabo de la Vela. It is situated in a remote region on the coast at the edge of the desert and is famous for its great kite-surfing.\n\nNow going a bit south, we start to climb in elevation and the land becomes much greener and a bit colder. Eventually, we get to the beautiful city of Medellin. One thing that makes Medellin unique is that it is a big city built into the side of mountains. You can take cable-car rides from neighborhood to neighborhood high above the city, just like you would take a bus in a normal city. And at night time, all of the lights of the houses in the mountains look like a million little stars that you can almost touch.\n\nFurther south still, we get to the Zona Cafetera, or coffee-making region. This area is full of lush green rolling hills that will take your breath away. There are also many small, charming towns dotting the region. Among these are Salento, Jardin, and Finlandia. In these towns, people drink tinto, black coffee with sugar, at all times of the day and into the night.\n\nContinuing further south still, we get to the Valle del Cauca, a hot valley with lots of sugar cane farms. These farms give off a sweet, warm smell that welcomes everyone driving through. The capital of the valley is called Cali, known as the world’s capital of salsa. Cali is crazy about salsa. No matter what part of the city you’re in, you’ll probably hear salsa music coming from some restaurant. There are over 200 salsa schools in the city, and even more discotecas where people dance every night of the week. \n\nA bit to the west of Cali is the port of Buenaventura, the gateway to Colombia’s pacific coast. Because of a large, dense jungle in the western part of the country, there are almost no roads going to the Pacific coast. The only way to get to most places here is by boat. This gives the Pacific coast a uniquely raw, untamed flavor because of its isolation from the rest of the country. Think of long stretches of black beaches and dark jungles with few human inhabitants.\n\nTo the east of Cali, on the other hand, we find towering mountains. Much of the land is above 9000 feet, with the snow-capped Purace volcano reaching above 15000 feet. Many people go to this region to hike and enjoy nature.\n\nFurther east still, the mountains drop off, giving way to an incredibly hot valley. This valley is home to the blindingly hot Tatacoa desert. People come here for the great star-gazing opportunities and the interesting rock formations, but you’ve got to be able to stand the heat!\n\nAs you can see, Colombia is home to a great variety of natural landscapes, and these are just some highlights of what the country has to offer. I didn’t even mention the Llanos, which are vast ranch-lands in the east of the country; the Amazon, which covers over 1/3 of the country; or Bogota, the nation’s capital. The list of natural wonders and interesting cities is endless. Maybe one day you will see some of them.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which city is not on the coast?",
+        "options": [
+          "Cabo de la Vela",
+          "Cartagena",
+          "Buenaventura",
+          "Medellin"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does Colombia not have?",
+        "options": [
+          "Jungles",
+          "Beaches",
+          "Mountains",
+          "The Eiffel Tower"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What city is mentioned in the last paragraph?",
+        "options": [
+          "Cali",
+          "Bogota",
+          "Medellin",
+          "Cabo de la Vela"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What dance is Cali known for?",
+        "options": [
+          "Salsa",
+          "Tango",
+          "Bolero",
+          "Bachata"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is the Zona Cafetera known for?",
+        "options": [
+          "Coffee",
+          "Corn",
+          "Rice",
+          "Avocado"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "elon-200",
+    "lexile_measure": 200,
+    "article_id": "elon-musk",
+    "article_text": "Elon Musk is interesting. He has done a lot. He works on important problems.\n\nHe made SpaceX. It started in 2001. Musk had a plan. The plan was called “Mars Oasis.” He wanted to make life possible on Mars. He needed rockets. Rockets were expensive. He made his own. SpaceX made these. SpaceX makes many rockets. It makes space flight cheaper. It makes reusable rockets.\n\nAnother project is Tesla. Musk became CEO in 2008. Tesla is a car company. They make electric cars. Musk hopes we stop using gasoline cars. Gasoline cars pollute the air. They make climate change worse. This is bad.\n\nAnother project involves tunnels. He is digging tunnels. He wants to dig tunnels under cities. This would decrease traffic. But tunnels are expensive. He wants them to be cheaper. Then he will build more.\n\nMusk has many projects. They solve important problems. His accomplishments are amazing. They show what humans can do. Let’s see what he does next.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is not one of Musk’s companies/projects?",
+        "options": [
+          "Tesla",
+          "SpaceX",
+          "Tunnels",
+          "Facebook"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which paragraph talks about cars?",
+        "options": [
+          "1",
+          "3",
+          "4",
+          "5"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is NOT a problem Elon has worked on?",
+        "options": [
+          "Space exploration",
+          "Traffic",
+          "Climate change",
+          "Endangered animals"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What planet is mentioned in the article (besides Earth)?",
+        "options": [
+          "Saturn",
+          "Mars",
+          "Neptune",
+          "Venus"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is Musk’s biggest reason for making electric cars?",
+        "options": [
+          "They are better for the environment than gasoline cars.",
+          "They are more fun to drive than gasoline cars.",
+          "They look nicer than gasoline cars.",
+          "They are faster than gasoline cars."
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "elon-400",
+    "lexile_measure": 400,
+    "article_id": "elon-musk",
+    "article_text": "Elon Musk has led a fascinating life. He has accomplished many things. He works on important problems.\n\nHe made SpaceX. The idea for SpaceX started in 2001. Musk had a plan called “Mars Oasis.” He wanted to make life possible on Mars. He needed rockets to transport supplies. Rockets were expensive. Musk decided to make his own. SpaceX made these. SpaceX is the biggest private producer of rockets. It makes space flight cheaper. It makes rockets reusable. A SpaceX rocket went into space and landed on Earth. This had never been done before. \n\nMusk wants humans to go to other planets. This is why he works on SpaceX. He thinks this will help humans survive.\n\nAnother project is called Tesla. Tesla is an electric car company. Musk became CEO in 2008. It tries to make electric cars better than gasoline cars. Musk hopes we stop using gasoline cars. Gasoline cars put carbon into the atmosphere. This makes climate change worse. This is dangerous.\n\nHe also started a project to solve traffic. He is digging tunnels underground. He wants to build tunnels under cities. This would decrease traffic. However, we need to get better at making tunnels.\n\nMusk has many interesting projects. They try to solve important problems. He may also do more in the future. His accomplishments are amazing. This shows what humans can achieve. It will be fascinating to see what he does next.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is not one of Musk’s companies/projects?",
+        "options": [
+          "Tesla",
+          "SpaceX",
+          "Tunnels",
+          "Facebook"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which paragraph talks about cars?",
+        "options": [
+          "1",
+          "3",
+          "4",
+          "5"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is NOT a problem Elon has worked on?",
+        "options": [
+          "Space exploration",
+          "Traffic",
+          "Climate change",
+          "Endangered animals"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What planet is mentioned in the article (besides Earth)?",
+        "options": [
+          "Saturn",
+          "Mars",
+          "Neptune",
+          "Venus"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is Musk’s biggest reason for making electric cars?",
+        "options": [
+          "They are better for the environment than gasoline cars.",
+          "They are more fun to drive than gasoline cars.",
+          "They look nicer than gasoline cars.",
+          "They are faster than gasoline cars."
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "elon-600",
+    "lexile_measure": 600,
+    "article_id": "elon-musk",
+    "article_text": "Elon Musk has led a fascinating life. He has accomplished so much it seems impossible. He has worked on solving some of the world’s most important problems.\n\nOne of these projects is called SpaceX. The idea for SpaceX started in 2001. Musk came up with a plan called “Mars Oasis.” The plan was to land a small greenhouse on Mars to try making human life possible there. He needed rockets to transport the greenhouse. These rockets were very expensive. Musk decided to make his own rockets. This led to the founding of SpaceX in 2002. SpaceX is the largest private producer of rocket engines in the world. It has also made space flight more affordable. One way is by making rockets reusable. In 2015, a SpaceX rocket called the Falcon went into space and landed back on Earth. This was the first time this had ever been accomplished.\n\nMusk wants to colonize other planets. This is why he works on SpaceX. He thinks this will help the survival of our species.\n\nAnother project is called Tesla. Tesla is an electric car company. Musk became CEO in 2008. It tries to make electric cars that are better than gasoline cars. Eventually, Musk hopes we will stop using gasoline cars. This is because gasoline cars release carbon into the atmosphere. This accelerates climate change. Musk thinks this is very dangerous.\n\nHe also started a project to solve traffic. He plans to do this by digging tunnels underground. His dream is that we could build many tunnels under cities. This would decrease traffic. To do this, we need to get better at making tunnels.\n\nObviously, Musk has many interesting projects underway. They aim to solve many important problems. Musk has other projects not mentioned above. He may also do more in the future. His accomplishments are amazing. This shows what humans can achieve. It will be fascinating to see how these projects develop.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is not one of Musk’s companies/projects?",
+        "options": [
+          "Tesla",
+          "SpaceX",
+          "Tunnels",
+          "Facebook"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which paragraph talks about cars?",
+        "options": [
+          "1",
+          "3",
+          "4",
+          "5"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is NOT a problem Elon has worked on?",
+        "options": [
+          "Space exploration",
+          "Traffic",
+          "Climate change",
+          "Endangered animals"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What planet is mentioned in the article (besides Earth)?",
+        "options": [
+          "Saturn",
+          "Mars",
+          "Neptune",
+          "Venus"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is Musk’s biggest reason for making electric cars?",
+        "options": [
+          "They are better for the environment than gasoline cars.",
+          "They are more fun to drive than gasoline cars.",
+          "They look nicer than gasoline cars.",
+          "They are faster than gasoline cars."
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "elon-800",
+    "lexile_measure": 800,
+    "article_id": "elon-musk",
+    "article_text": "To some, Elon Musk might seem like an alien disguised as a human. He has accomplished so much it seems humanly impossible. Lucky for us, he has focused on solving some of the world’s most important problems.\n\nOne of these projects is called SpaceX. The idea for SpaceX started in 2001, when Musk came up with a plan called “Mars Oasis.” The plan was to land a small greenhouse on Mars to try making human life possible there. However, to do this, he needed rockets to transport the greenhouse. These rockets were very expensive. So, Musk decided to make his own, which led to the founding of SpaceX in 2002. Today, SpaceX is the largest private producer of rocket engines in the world. It has also made great strides in making space flight more affordable. One of the ways it has done this is by making rockets reusable. In 2015, a SpaceX rocket called the Falcon went into space and landed back from where it launched. This was the first time this had ever been accomplished.\n\nMusk’s passion for SpaceX comes from his desire to colonize other planets. He thinks this will help the survival of our species.\n\nAnother project of Elon’s is called Tesla. Tesla is an electric car company of which Musk became CEO in 2008. It aims to make electric cars that are better than gasoline cars. Eventually, Musk hopes that we will stop using gasoline cars. This is because gasoline cars release carbon into the atmosphere, which accelerates climate change. Musk thinks this is very dangerous.\n\nAnother fascinating project of Musk’s is called Neuralink. Founded in 2016, Neuralink seeks to increase the rate at which the human brain can communicate with computers. Eventually, his goal is that the communication will become so good that we will “merge” with the computers. This would in some sense create a new, superhuman species. This is a fascinating idea that might address an important problem: it will be hard to control artificial intelligence if it becomes much more powerful than us. If Musk succeeds, this would probably be easier.\n\nAs if that wasn’t enough, he recently started a project to solve traffic. He plans to do this by digging tunnels underground. In 2017, his “Boring Company” starting drilling a large hole in Los Angeles. His dream is that we could build hundreds of tunnels underground major cities. This would decrease traffic dramatically. However, for this to happen, we need to be able to drill tunnels in a much cheaper way.\n\nAs you can see, Musk has quite a few interesting projects underway. Many aim to solve some of today and tomorrow’s most pressing problems. The projects mentioned above are just highlights of what Musk has worked on. What’s more, there’s no telling what he might do in the future. It seems impossible that a single man could accomplish all of these things. This is another example of what amazing things the human mind can achieve. It will be fascinating to see how these projects develop going forward.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is not one of Musk’s companies/projects?",
+        "options": [
+          "Tesla",
+          "SpaceX",
+          "Tunnels",
+          "Facebook"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which paragraph talks about cars?",
+        "options": [
+          "1",
+          "3",
+          "4",
+          "5"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is NOT a problem Elon has worked on?",
+        "options": [
+          "Space exploration",
+          "Traffic",
+          "Climate change",
+          "Endangered animals"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Elon drill holes?",
+        "options": [
+          "Philadelphia",
+          "Los Angeles",
+          "New York City",
+          "Miami"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is Musk’s biggest reason for making electric cars?",
+        "options": [
+          "They are better for the environment than gasoline cars.",
+          "They are more fun to drive than gasoline cars.",
+          "They look nicer than gasoline cars.",
+          "They are faster than gasoline cars."
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "elon-1000",
+    "lexile_measure": 1000,
+    "article_id": "elon-musk",
+    "article_text": "To some, Elon Musk might seem like an alien from outer space disguised as a human. In his 47 years on this planet, he has accomplished so much it seems humanly impossible. Lucky for us, many of his ventures focus on solving some of the world’s most important problems.\n\nOne of these projects is called SpaceX. The idea for SpaceX started in 2001, when Musk came up with a plan called “Mars Oasis.” The plan was to land a small greenhouse on Mars to try making human life possible there. However, to do this, he needed rockets to transport the greenhouse. These rockets were very expensive, so Musk decided to make his own, which led to the founding of SpaceX in 2002. Today, SpaceX is the largest private producer of rocket engines in the world. It has also made great strides in making space flight more affordable. One of the ways it has done this is by making rockets reusable. In 2015, a SpaceX rocket called the Falcon went into space and landed back from where it launched. This was the first time this had ever been accomplished.\n\nMusk’s passion for SpaceX comes from his conviction that humans must colonize other planets. He thinks that we must spread out to other planets if we want to ensure the survival of our species.\n\nAnother project of Elon’s is called Tesla. Tesla is an electric car company of which Musk became CEO in 2008. It aims to make electric cars that are better, quicker, and more fun to drive than gasoline cars. Eventually, Musk hopes that we will completely transition away from gasoline cars in favor of electric cars. This is because gasoline cars release carbon into the atmosphere, which accelerates climate change. Musk views this polluting of our atmosphere to be very dangerous.\n\nAnother fascinating project of Musk’s is called Neuralink. Founded in 2016, Neuralink seeks to increase the rate at which the human brain can communicate with computers. Eventually, his goal is that the communication will become so good that we will “merge” with the computers. This would in some sense create a new, superhuman species. This is a fascinating idea that might address an important problem: it will be hard to control artificial intelligence if it becomes much more powerful than us. If Musk succeeds, controlling AI might not be so hard after all.\n\nAs if all that wasn’t enough, he has recently started a project to get rid of traffic. He plans to do this by digging tunnels underground. In 2017, his “Boring Company” started drilling a large hole on the grounds of his SpaceX office in Los Angeles. His dream is that we could build hundreds of tunnels underground major cities, in this way decreasing traffic dramatically. However, for this dream to become reality, he acknowledges that we need to be able to drill tunnels in a much cheaper way.\n\nAs you can see, Musk has quite a few interesting projects underway that range widely in their scope. Many aim to solve some of today and tomorrow’s most pressing problems. The projects mentioned above are just highlights of what Musk has worked on. What’s more, there’s no telling what he might do in the future. To mere mortals like the writer of the article, it seems impossible that a single man could accomplish all of these things. This is another example of what amazing things the human mind can achieve. It will be fascinating to see how these projects develop going forward.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is not one of Musk’s companies/projects?",
+        "options": [
+          "Tesla",
+          "SpaceX",
+          "Tunnels",
+          "Facebook"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which paragraph talks about cars?",
+        "options": [
+          "1",
+          "3",
+          "4",
+          "5"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is NOT a problem Elon has worked on?",
+        "options": [
+          "Space exploration",
+          "Traffic",
+          "Climate change",
+          "Endangered animals"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Elon drill holes?",
+        "options": [
+          "Philadelphia",
+          "Los Angeles",
+          "New York City",
+          "Miami"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is Musk’s biggest reason for making electric cars?",
+        "options": [
+          "They are better for the environment than gasoline cars.",
+          "They are more fun to drive than gasoline cars.",
+          "They look nicer than gasoline cars.",
+          "They are faster than gasoline cars."
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "waitzkin-300",
+    "lexile_measure": 300,
+    "article_id": "josh-waitzkin",
+    "article_text": "Josh Waitzkin played chess. He first saw chess when he was 6. Josh loved chess. He started practicing. He practiced a lot. He was very good. He was the best 9-year-old in the United States. At 11, he tied Garry Kasparov. Some people think Kasparov is the best player ever. Josh kept playing chess. He was the best player his age in the United States. He played until he was 21. Then he stopped. What happened? The answer is interesting.\n\nIt started when Josh was 16. A movie came out. The movie was called Searching for Bobby Fischer. It was based on a book. Josh’s dad wrote the book. It was about Josh. Josh was famous. He didn’t like it. He wanted to play chess. Something else happened. Josh was 18. He got a new coach. Josh played aggressively. This coach made him play differently. He played less aggressively. Josh didn’t like this. It felt bad. He liked chess less.\n\nThen he started Tai Chi. He was 21. This was important. His life changed. He fell in love with it. He started competing. He became a national champion.  He won 5 national championships. He won a world championship. \n\nJosh learned from chess and Tai Chi. He wrote a book. The book is called The Art of Learning.\n\nHe also helps people learn. He helps adults. He helps kids. He helps schools make programs. These programs use his ideas. Kids learn similar things in different areas. Kids learn something in writing. Then, they learn it in basketball. This helps them learn. The programs help kids love learning. They help kids be themselves.\n\nJosh lives in New York. He has a wife. He has two kids. He has an interesting life. We can learn from him.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which of these is not a reason Josh left chess?",
+        "options": [
+          "He felt pressure after the movie Searching for Bobbie Fischer came out.",
+          "His parents didn’t want him to play chess.",
+          "His chess teacher made him play less aggressively.",
+          "He started doing Tai Chi."
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which art did Josh NOT do?",
+        "options": [
+          "Tai Chi Chuan",
+          "Brazilian Jiu Jitsu",
+          "Tennis",
+          "Chess"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which would Josh not agree with?",
+        "options": [
+          "We should only do things we’re good at.",
+          "We should love learning",
+          "Something we learn in chemistry could help us in soccer.",
+          "We compete well when being ourselves."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which term least applies to Josh?",
+        "options": [
+          "Competitor",
+          "Teacher",
+          "Writer",
+          "Chef"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which paragraph talks the most about Tai Chi?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "5"
+        ],
+        "answer_index": 2
+      }
+    ]
+  },
+  {
+    "_id": "waitzkin-400",
+    "lexile_measure": 400,
+    "article_id": "josh-waitzkin",
+    "article_text": "Josh Waitzkin first saw chess in a park. He was 6. Josh loved chess. It was love at first sight. He started practicing. He practiced a lot. He became very good. By 9, he was the best player his age in the country. At 11, he tied Garry Kasparov. Some people think Kasparov is the best player ever. Josh kept playing chess. He was the best player his age in the United States. He played until he was 21. Then he stopped. What happened? The answer is interesting.\n\nIt started when Josh was 16. A movie came out. The movie was called Searching for Bobby Fischer. This movie was based on a book. Josh’s dad wrote the book. The book was about Josh’s chess career. Josh became famous. He felt pressure. He didn’t like it. He just wanted to play chess. Something else happened. Josh was 18. He got a new coach. Josh was an aggressive player. This coach made him play differently. He played more defensively. Josh didn’t like this. It felt strange to him. He liked chess less. Then he started practicing Tai Chi. He was 21.\n\nThis was important. His life started to change. He fell in love with this art. He also started studying Tai Chi Push Hands. Tai Chi Push Hands is similar to Tai Chi Chuan. In Tai Chi Chuan you do not fight. In Tai Chi Push hands you fight someone. He became a national champion.  He won 5 national championships. He also won a world championship. \n\nJosh learned many things while studying chess and Tai Chi. He explained these ideas in a book. The book is called The Art of Learning. \n\nHe also helps others to learn. He helps schools make learning programs. These programs use his ideas. Kids learn similar things in different areas. One day, kids learn something in writing class. The next day, they learn it in basketball. The programs help kids love learning. They also help kids be themselves.\n\nJosh lives in New York. He has a wife and two boys. He has an interesting life. He has something to teach us.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which of these is not a reason Josh left chess?",
+        "options": [
+          "He felt pressure after the movie Searching for Bobbie Fischer came out.",
+          "His parents didn’t want him to play chess.",
+          "His chess teacher made him play less aggressively.",
+          "He started doing Tai Chi."
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which art did Josh NOT do?",
+        "options": [
+          "Tai Chi Chuan",
+          "Brazilian Jiu Jitsu",
+          "Tennis",
+          "Chess"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which would Josh not agree with?",
+        "options": [
+          "We should only do things we’re good at.",
+          "We should love learning",
+          "Something we learn in chemistry could help us in soccer.",
+          "We compete well when being ourselves."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which term least applies to Josh?",
+        "options": [
+          "Competitor",
+          "Teacher",
+          "Writer",
+          "Chef"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which paragraph talks the most about Tai Chi?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "5"
+        ],
+        "answer_index": 2
+      }
+    ]
+  },
+  {
+    "_id": "waitzkin-600",
+    "lexile_measure": 600,
+    "article_id": "josh-waitzkin",
+    "article_text": "Josh Waitzkin first saw chess boards in Washington square park. He was 6 years old. From that day, Josh was hooked on chess. It was love at first sight. By the time he was 9, he was the best chess player in the country for his age. At 11, he drew a game with Garry Kasparov. Some people think Kasparov is the best chess player of all time. Throughout his youth, Waitzkin was the best chess player in the United States for his age. At age 21, he left competitive chess forever. What happened? The answer leads to an interesting story.\n\nIt started when Josh was about 16. At this time, the film Searching for Bobby Fischer was released. This film was based on a book by Josh’s father. The book was about Josh’s early chess career. The film’s release created pressure for Josh to win. This began to separate Josh from his love for chess. Then, at around 18, his chess education took an important turn. By nature, Josh was an aggressive player. At 18, Josh got a new teacher. This teacher forced him to play more defensively. Josh didn’t like playing this way. It felt strange to him. He began to feel distant from the game. Then, at 21, he began to practice Tai Chi Chuan. This was a critical turning point in his life.\n\nHe quickly fell in love with this new art. He also began to study the martial side of the art, Tai Chi Push Hands. Amazingly, he quickly became a national champion.  He eventually won 5 national championships. He also won a world championship. \n\nInteresting things happened as he continued to study Tai Chi. He started to notice similarities between chess and Tai Chi Chuan. This connection fascinated him. It became important in his approach to learning and life. Josh learned many things while studying chess and Tai Chi. He explained these ideas in his book The Art of Learning. He has since applied these ideas to new arts. He has learned Brazilian Jui Jitsu and stand-up paddle-surfing. \n\nHe also helps others to learn. For example, he has recently helped schools to create learning programs. These programs use some of his ideas. For example, kids learn similar principles in different areas. One day, kids may learn a principle in writing class. The next day, they may learn it in basketball. The programs also help kids love the learning process. They also help kids express themselves through what they are learning.\n\nToday, Josh Waitzkin lives in New York with his wife and two boys. His life is a fascinating and deep one which has something to teach all of us.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which of these is not a reason Josh left chess?",
+        "options": [
+          "He felt pressure after the movie Searching for Bobbie Fischer came out.",
+          "His parents didn’t want him to play chess.",
+          "His chess teacher made him play less aggressively.",
+          "He started doing Tai Chi."
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which art did Josh NOT do?",
+        "options": [
+          "Tai Chi Chuan",
+          "Brazilian Jiu Jitsu",
+          "Tennis",
+          "Chess"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which would Josh not agree with?",
+        "options": [
+          "We should only do things we’re good at.",
+          "We should love learning",
+          "Something we learn in chemistry could help us in soccer.",
+          "We compete well when being ourselves."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which term least applies to Josh?",
+        "options": [
+          "Competitor",
+          "Teacher",
+          "Writer",
+          "Chef"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which paragraph talks the most about Josh’s ideas about learning?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "5"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "waitzkin-800",
+    "lexile_measure": 800,
+    "article_id": "josh-waitzkin",
+    "article_text": "From the day he noticed the boards in Washington Square Park, 6-year-old Josh Waitzkin was hooked on chess. It was love at first sight. By the time he was 9, he was the best chess player in the country for his age. At 11, he drew a game with Garry Kasparov. Garry was thought by some to be the greatest chess player of all time. Throughout his childhood and adolescence, Waitzkin was consistently the best chess player in the United States and one of the best in the world for his age. Then, at age 21, he left competitive chess forever. What happened? The answer is tied up in a fascinating journey that has much to teach us.\n\nIt started when Josh was about 16. At this time, the film Searching for Bobby Fischer was released. This film was based on Josh’s father’s book about Josh’s early chess career. It’s release created mobs of fans, angry opponents, and more pressure. This began to separate Josh from his first love. Then, at around 18, his chess education took an important turn. By nature, Josh was an aggressive player. He liked to make the game wild and complicated. At 18, Josh took on a teacher who forced him to study the more defensive masters of the game. Being forced to play in this unnatural way felt strange to him. He began to feel more alienated from the game. Then, at 21, he began to practice the meditative form of Tai Chi Chuan. This would be a critical turning point in his life.\n\nHe quickly became hooked by the beauty of this new art. He deepened the time and intensity of his practice. About 6 months after beginning his practice, he switched to the martial side of the art, Tai Chi Push Hands. Amazingly, he quickly became a national champion.  He eventually won 5 national titles and a world championship. \n\nAs he got deeper into his study of this new art, interesting things began to happen. He started to notice many similarities between chess and Tai Chi. This connection fascinated him and became important in his approach to learning and life. He wrote about this and similar ideas in his book The Art of Learning. He has since applied these ideas to new arts like Brazilian Jui Jitsu and stand-up paddle-surfing.\n\nMore recently, he has begun to help others with their learnings processes. For example, he has recently partnered with several elementary and middle schools to create learning programs. One focus of these programs is the interdisciplinary learning of core principles. In other words, kids may learn some principle via writing. The next day, they’ll see how it works in basketball. This helps the kids internalize the principle. The programs also focus a lot on the love of the learning process. Josh thinks this is very important to keep in mind. To help with this, the programs try to help kids express themselves through what they are learning. According to Josh, this self-expression is important not only for kids but also for performers at the highest level.\n\nToday, Josh lives in New York with his wife and two boys. His life is a fascinating and deep one which has something to teach all of us.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which is probably not a reason Josh left chess?",
+        "options": [
+          "The release of Searching for Bobby Fischer created pressure that separated him from his boyhood love of chess.",
+          "His parents discouraged him from pursuing chess.",
+          "His chess teacher encouraged a style which was opposed to Josh’s natural personality.",
+          "He discovered beauty in other pursuits, particularly Tai Chi."
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which art did Josh NOT do?",
+        "options": [
+          "Tai Chi Chuan",
+          "Brazilian Jiu Jitsu",
+          "Tennis",
+          "Stand-up paddle surfing"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which statement about the learning process would Josh not agree with?",
+        "options": [
+          "It is important to practice only the arts the we are best at.",
+          "We should strive to love the learning process.",
+          "Things we learn in one pursuit might enhance our understanding of another.",
+          "We are at our best when we expressing ourselves through our art."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which term least applies to Josh?",
+        "options": [
+          "Competitor",
+          "Teacher",
+          "Writer",
+          "Chef"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which paragraph talks the most about Josh’s ideas about learning?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "5"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "waitzkin-1000",
+    "lexile_measure": 1000,
+    "article_id": "josh-waitzkin",
+    "article_text": "From the day he noticed the checkered boards alive with strange figurines in Washington Square Park, 6-year-old Josh Waitzkin was hooked on chess. It was love at first sight. When he played his first game, his body and mind came alive with an electricity that made him feel as if he knew the game from another life. By the time he was 9, he was the best chess player in the country for his age. At 11, he drew a game with Garry Kasparov, thought by some to be the greatest chess player of all time. Throughout his childhood and adolescence, Waitzkin was consistently the best chess player in the United States for his age and one of the best in the world. Then, at age 21, he left competitive chess forever. What happened? The answer is tied up in a fascinating journey that has much to teach us about how to learn and how to live. \n\nIt started when Josh was about 16 when the film Searching for Bobby Fischer was released. This film was based on Josh’s father’s book about Josh’s early chess career. It’s release created mobs of fans, envious opponents, and mounting pressure. This began to separate Josh from his first love. Then, at around 18, his chess education took an important turn. By nature, Josh was an aggressive player who thrived on creating chaos on the board and then navigating through the chaos. At 18, Josh took on a teacher who forced him to study the more defensive masters of the game. Unable to express himself through the art of chess, he felt restricted and became further alienated from his first love. Then, at 21, he began to practice the meditative form of Tai Chi Chuan. This would be a critical turning point in his life.\n\nHe became hooked by the beauty of this new art and deepened his practice. About 6 months after beginning his practice, he switched to the martial side of the art, Tai Chi Push Hands. Amazingly, he almost immediately became a national champion. He went on to win 5 national titles and a world title. \n\nAs he got deeper into his study of this new art, interesting things began to happen. He started to notice many similarities between chess and Tai Chi. For example, the strategic sequences of moves he would practice in Tai Chi felt like chess strategies. As another example, he would deal with the great complexity in each art similarly. That is, he would focus on small details until they became second-nature to him. Then, he would forget about the details so that he could focus on the larger game. These are just two of many similarities. This interconnectedness fascinated him and became important to his approach to learning and life. He wrote about this and similar ideas in his book The Art of Learning. He has also applied these ideas to new arts such as Brazilian Jui Jitsu and stand-up paddle-surfing. \n\nMore recently, he has begun to help others with their learnings processes. For example, he has recently partnered with several elementary and middle schools to create programs based on his ideas. One focus is the interdisciplinary learning of core principles. In other words, kids may learn some principle via writing. The next day, they’ll see how it works in basketball. This helps the kids internalize the principle. The programs also focus a lot on the love of the learning process. Josh thinks this is very important to keep in mind. To help with this, the programs try to help kids express themselves through what they are learning. According to Josh, this self-expression is important not only for kids but also for performers at the highest level. \n\nToday, Josh lives in New York with his wife and two boys. His life is a fascinating and deep one which has something to teach all of us.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which one of the following does not seem to be an important factor in Josh’s leaving chess?",
+        "options": [
+          "The release of Searching for Bobby Fischer created mounting pressure that separated him from his boyhood love of chess.",
+          "His parents discouraged him from pursuing chess.",
+          "His chess teacher encouraged a style which was opposed to Josh’s natural disposition.",
+          "He discovered beauty in other pursuits, particularly Tai Chi."
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which art did Josh NOT do?",
+        "options": [
+          "Tai Chi Chuan",
+          "Brazilian Jiu Jitsu",
+          "Tennis",
+          "Stand-up paddle surfing"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which statement about the learning process would Josh not agree with?",
+        "options": [
+          "It is important to practice only the arts the we are best at.",
+          "We should strive to love the learning process.",
+          "Things we learn in one pursuit might enhance our understanding of another.",
+          "We are at our best when we expressing ourselves through our art."
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which term least applies to Josh?",
+        "options": [
+          "Competitor",
+          "Teacher",
+          "Writer",
+          "Chef"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which paragraph talks the most about Josh’s ideas about learning?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "5"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "threepoint-200",
+    "lexile_measure": 200,
+    "article_id": "three-pointer",
+    "article_text": "Basketball was created in 1891. First, every shot was worth two points. Things are different now. Some shots are worth three points. These are called “threes”. Threes changed basketball.\n\nThere weren’t always threes. They started in 1945. It was a college game. Then they went to the NBA. This was in 1979. First people didn’t shoot many threes. Now they do.\n\nLet’s see why. The 3-point percentage is 36%. The 2-point percentage is 46%. Imagine a player shoots 100 shots. Let’s say he shoots threes. He’ll make about 36. So, he’ll have 108 points. What if he shoots twos? He’ll make about 46. So, he’ll have 92 points. So, shooting threes is good.\n\nThis has changed basketball. There are more layups and threes. There are fewer big centers. Teams spread out their offenses. They put more people outside. They put less inside. \n\nSome people like threes. They think threes are exciting. Threes make comebacks easier. \n\nOther people don’t like threes. They think threes are boring. They think threes aren’t basketball. Greg Popovich doesn’t like threes. He is the Spurs’ coach. He said, “I still hate it. I’ll never like it. I don’t think it’s basketball.”\n\nThrees are important. People will keep shooting threes. They might add 4-pointers. Steph Curry would like this. Would you?",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When did the NBA start using 3-pointers?",
+        "options": [
+          "1979",
+          "2018",
+          "1776",
+          "1946"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "According to the article, what is one reason people don’t like threes?",
+        "options": [
+          "They are too hard.",
+          "They make comebacks easier.",
+          "They make teams score less points.",
+          "They think they are boring."
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where were threes first used?",
+        "options": [
+          "NBA",
+          "WNBA",
+          "High school",
+          "College"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "All of the following are ways basketball has changed because of threes except:",
+        "options": [
+          "More centers who can shoot threes.",
+          "Fewer big centers.",
+          "Fewer point guards.",
+          "Offenses are more spread out."
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What NBA coach is quoted in the article?",
+        "options": [
+          "Phil Jackson",
+          "Greg Popovich",
+          "Steve Kerr",
+          "Doc Rivers"
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "threepoint-400",
+    "lexile_measure": 400,
+    "article_id": "three-pointer",
+    "article_text": "In basketball, shots are worth different amounts of points. It depends where you shoot from. If you make a basket from inside the “3-point line,” it’s worth 2 points. If you make one from outside the 3-point line, it’s worth 3 points. But it wasn’t always this way. In the beginning, every basket was worth two points. Later, the 3-point line was added. This rule change has had a big impact on basketball. It will impact the future of basketball too.\n\nFirst some history. The 3-point shot was first used in a college game in 1945. Then it was used in professional leagues. In 1979, it was used by the NBA. It has stuck ever since.\n\nThe use of threes has increased a lot. In 1979, teams shot just under 3 threes per game. Ten years later, they shot 6.5 per game. Today, they shoot 27 per game. \n\nLet’s see why. The 3-point percentage is 36%. The 2-point percentage is 46%. Imagine a player shoots 100 shots. Let’s say he shoots threes. Then he’ll make 36 on average. So, he’ll have 108 points. What happens if he shoots twos? Then, he’ll make 46 on average. So, he’ll have 92 points. So, it seems like a good idea to shoot threes.\n\nThe best teams realized this. Look at the 4 teams in the Conference Finals last year. The Warriors shot the least threes out of all four teams! They were 6th in the league in threes attempted. The other 3 teams were 1, 2, and 3. \n\nThis has changed the game. People don’t shoot from medium distance anymore. There are more layups and threes. There are fewer big centers. There are more slim big men who can shoot threes. Teams spread out their offenses more. They put more people on the perimeter. They put less people close to the basket. \n\nPeople have different opinions about threes. Some people like threes. They think threes are exciting. Also, threes make comebacks easier. Some people like that.\n\nOther people don’t like threes. Threes cause less teamwork. Threes also take away variety. Just threes and layups, with nothing in-between. Some people think threes aren’t basketball. Spurs coach Greg Popovich said, “I still hate it. I’ll never like it. I don’t think it’s basketball. I think it’s kind of like a circus sort of thing.”\n\nLike it or not, it seems the 3 is here to stay. It’s more important today than ever before. That’s not likely to change. They might even add a 4-point line. I’m sure Steph Curry wouldn’t mind. Would you?",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When did the NBA start using 3-pointers?",
+        "options": [
+          "1979",
+          "2018",
+          "1776",
+          "1946"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "According to the article, what is one reason people don’t like threes?",
+        "options": [
+          "They are too hard.",
+          "They make comebacks easier.",
+          "They make teams score less points.",
+          "They take away variety from the game."
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where were threes first used?",
+        "options": [
+          "NBA",
+          "WNBA",
+          "High school",
+          "College"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "All of the following are ways basketball has changed because of threes except:",
+        "options": [
+          "Fewer shots from medium distance.",
+          "Fewer big centers.",
+          "Fewer point guards.",
+          "Offenses are more spread out."
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What NBA coach is quoted in the article?",
+        "options": [
+          "Phil Jackson",
+          "Greg Popovich",
+          "Steve Kerr",
+          "Doc Rivers"
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "threepoint-600",
+    "lexile_measure": 600,
+    "article_id": "three-pointer",
+    "article_text": "In basketball, shots are worth different amounts of points depending on where you shoot them from. If you make a basket from inside the “3-point line,” it is worth 2 points. If you make one from outside the 3-point line, it’s worth 3 points. But it wasn’t always this way. In the early days, every basket was worth just two points. It wasn’t until recently that the 3-point line was added. This rule change has had a big impact on basketball. It will continue to shape its future going forward.\n\nFirst a little history. The 3-point shot was first tested out in a college game in 1945. In the next few decades, it started being used in professional leagues. Eventually, in 1979, it was adopted by the NBA. It has stuck ever since.\n\nThe use of threes has increased a lot. In 1979, teams shot just under 3 threes per game. Ten years later, they shot 6.5 per game. Today, they shoot 27 per game. \n\nIt’s not hard to understand why teams are shooting more threes. The league-wide 3-point percentage is 36%. The 2-point percentage is 46%. So, on average, players will make 36 out of every 100 threes they take. The will make 46 out of every 100 twos. In other words, they’ll get 108 points for every 100 shots if they shoot threes. They’ll only get 92 points if they shoot twos. So, it seems like a good idea to shoot threes.\n\nThe best teams realized this. Look at the 4 teams in the Conference Finals last year. The Warriors shot the least threes out of all four teams! They were 6th in the league in threes attempted. The other 3 teams were 1, 2, and 3. \n\nThis increase in 3-point attempts has changed the game. The mid-range game (shots from about 15 feet away) has almost disappeared. Players are taking lots of layups and threes. There are fewer big centers. There are more slim big men who can shoot threes. Teams have started spreading out their offenses more. They put more people on the perimeter and less people close to the basket. \n\nReactions to this change in the game are mixed. Some are in favor of the 3. They think it makes basketball more exciting. They also like that it makes last-second comebacks easier.\n\nOthers are against the 3-pointer. Some would even go so far as to say that it’s ruined basketball. These people think it’s led to less teamwork. Some people also think today’s game has less variety. Just threes and layups, with nothing in-between. And then some people think the 3-pointer just isn’t basketball. For example, in a 2015 interview Spurs coach Greg Popovich said, “I still hate it. I’ll never embrace it. I don’t think it’s basketball. I think it’s kind of like a circus sort of thing.”\n\nLike it or not, it seems the 3 is here to stay. It’s more important today than ever before, and that’s not likely to change. In fact, there have even been some rumors of adding a 4-point line. I’m sure Steph Curry wouldn’t mind. Would you?",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When did the NBA start using 3-pointers?",
+        "options": [
+          "1979",
+          "2018",
+          "1776",
+          "1946"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "According to the article, what is one reason people don’t like threes?",
+        "options": [
+          "They are too hard.",
+          "They make comebacks easier.",
+          "They make teams score less points.",
+          "They take away variety from the game."
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where were threes first used?",
+        "options": [
+          "NBA",
+          "WNBA",
+          "High school",
+          "College"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "All of the following are ways basketball has changed because of threes except:",
+        "options": [
+          "Less mid-range game.",
+          "Fewer big centers.",
+          "Fewer point guards.",
+          "Offenses are more spread out."
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What NBA coach is quoted in the article?",
+        "options": [
+          "Phil Jackson",
+          "Greg Popovich",
+          "Steve Kerr",
+          "Doc Rivers"
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "threepoint-800",
+    "lexile_measure": 800,
+    "article_id": "three-pointer",
+    "article_text": "In basketball, shots are worth different amounts of points depending on where you shoot them from. If you make a basket from inside the “3-point line,” it is worth 2 points. If you make one from outside the 3-point line, it’s worth 3 points. But it wasn’t always this way. In the early days, every basket was worth just two points. It wasn’t until fairly recently that the 3-point line was added. This rule change has had a dramatic impact on the game of basketball and will continue to shape its future going forward.\n\nFirst a little history. The 3-point shot was first tested out in a college game between Columbia and Fordham in 1945. In the next few decades, it made its way to several professional leagues, including the ABA. Eventually, in 1979, it was adopted by the NBA, and it’s stuck ever since.\n\nOver the years, the use of the 3-pointer has increased a great deal. In its first season, 1979, teams shot just under three 3-pointers per game. Ten years later, it had increased to 6.5 attempts per game. Today, it has skyrocketed to a whopping 27 attempts per game. \n\nIt’s not hard to understand why teams are shooting more threes. The league-wide 3-point percentage is 36%. The 2-point percentage is 46%. So, on average, players will make 36 out of every 100 threes they take. They will make 46 out of every 100 twos. In other words, they’ll get 108 points for every 100 shots if they shoot threes. They’ll only get 92 points if they shoot twos. So, it seems like a good idea to shoot threes.\n\nThe best teams have realized this. Just look at the 4 teams in the Conference Finals last year. The Warriors actually attempted the least number of threes out of any of the four teams! They ranked 6th in the league in 3’s attempted. The other 3 teams--The Rockets, Cavs, and Celtics--ranked 1, 2, and 3. \n\nThis increase in 3-point attempts has changed the way the game is played. The mid-range game (shots from about 15 feet away) has almost disappeared. Players are taking almost exclusively layups and threes. Big centers are becoming less common. There are more slim big men who can shoot threes. Teams have started spreading out their offenses much more. They put more people on the perimeter and less people close to the basket. \n\nReactions to this change in the game are mixed. Some are in favor of threes. They think that 3-pointers are more exciting than, say, two big buys battling close to the basket. They also like that threes make last-second comebacks easier.\n\nOthers are against the 3-pointer. Some would even go so far as to say that it’s ruined basketball. These people think it’s led to less teamwork. Some people also think today’s game has less variety. Just threes and layups, with nothing in-between. And then some people think the 3-pointer just isn’t basketball. For example, in a 2015 interview Spurs coach Greg Popovich said, “I still hate it. I’ll never embrace it. I don’t think it’s basketball. I think it’s kind of like a circus sort of thing.”\n\nLike it or not, it seems the 3 is here to stay. It’s more important today than ever before, and that’s not likely to change. In fact, there have even been some rumors of adding a 4-point line. I’m sure Steph Curry wouldn’t mind. Would you?",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When did the NBA start using 3-pointers?",
+        "options": [
+          "1979",
+          "2018",
+          "1776",
+          "1946"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "According to the article, what is one reason people don’t like threes?",
+        "options": [
+          "They are too hard.",
+          "They make comebacks easier.",
+          "They make teams score less points.",
+          "They take away variety from the game."
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where were threes first used?",
+        "options": [
+          "NBA",
+          "WNBA",
+          "High school",
+          "College"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "All of the following are ways basketball has changed because of threes except:",
+        "options": [
+          "Less mid-range game.",
+          "Fewer big centers.",
+          "Fewer point guards.",
+          "Offenses are more spread out."
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What NBA coach is quoted in the article?",
+        "options": [
+          "Phil Jackson",
+          "Greg Popovich",
+          "Steve Kerr",
+          "Doc Rivers"
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "threepoint-1000",
+    "lexile_measure": 1000,
+    "article_id": "three-pointer",
+    "article_text": "In basketball, shots are worth different amounts of points depending on where you shoot them from. If you make a basket from inside the “3-point line,” it is worth 2 points. If you make one from outside the 3-point line, it’s worth 3 points. It may seem a little strange, but it wasn’t always this way. In the early days, every basket was worth just two points, and it wasn’t until fairly recently that the 3-point line was added. This rule change has had a dramatic impact on the game of basketball and will continue to shape its future going forward.\n\nFirst a little history. The 3-point shot was first tested out in a college game between Columbia and Fordham in 1945. In the next few decades, it made its way to several professional leagues, including the ABA. Eventually, in 1979, it was adopted by the NBA, and it’s stuck ever since.\n\nOver the years, the use of the 3-pointer has increased a great deal. In its first season, 1979, teams shot just under three 3-pointers per game. Ten years later, it had increased to 6.5 attempts per game. Today, it has skyrocketed to a whopping 27 attempts per game. \n\nIt’s not hard to understand why teams are shooting more and more threes. The league-wide 3-point percentage is 36%, while the 2-point percentage is 46%. This means that, on average, NBA players will make 36 out of every 100 threes they take, or 46 out of every 100 twos. In other words, they’ll get 108 points for every 100 shots if they shoot threes, but only 92 points if they shoot twos. So, it seems like a good idea to shoot threes.\n\nThe best teams have realized this. Just look at the 4 teams in the Conference Finals last year. The Warriors, who are famous for shoot threes, actually attempted the least number of threes out of any of the four teams! They ranked 6th in the league in 3’s attempted. The other 3 teams--The Rockets, Cavs, and Celtics--ranked 1, 2, and 3. \n\nThis increase in 3-point attempts has changed the way the game is played. The mid-range game (shots from about 15 feet away) has almost disappeared, with players taking almost exclusively layups and threes. Big, dominant centers are becoming less common, in favor of slimmer big men who can shoot threes. Teams have started spreading out their offenses much more, putting more people on the perimeter and less people close to the basket. \n\nReactions to this change in the game are mixed. Some are in favor of the 3-pointer. They think that 3-pointers are more exciting than, say, two big buys battling close to the basket. They also like that threes make last-second comebacks easier.\n\nOthers are against the 3-pointer, with some going so far as to say that it’s ruined basketball. These people think it’s led to less teamwork. Some people also think today’s game has less variety since there are lots of threes and layups and not much in-between. And then some people think the 3-pointer just isn’t basketball. For example, in a 2015 interview Spurs coach Greg Popovich said, “I still hate it. I’ll never embrace it. I don’t think it’s basketball. I think it’s kind of like a circus sort of thing.”\n\nLike it or not, it seems the 3 is here to stay. It’s more important today than ever before, and that’s not likely to change. In fact, there have even been some rumors of adding a 4-point line. I’m sure Steph Curry wouldn’t mind. Would you?",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When did the NBA start using 3-pointers?",
+        "options": [
+          "1979",
+          "2018",
+          "1776",
+          "1946"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "According to the article, what is one reason people don’t like threes?",
+        "options": [
+          "They are too hard.",
+          "They make comebacks easier.",
+          "They make teams score less points.",
+          "They take away variety from the game."
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where were threes first used?",
+        "options": [
+          "NBA",
+          "WNBA",
+          "High school",
+          "College"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "All of the following are ways basketball has changed because of threes except:",
+        "options": [
+          "Less mid-range game.",
+          "Fewer big centers.",
+          "Fewer point guards.",
+          "Offenses are more spread out."
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What NBA coach is quoted in the article?",
+        "options": [
+          "Phil Jackson",
+          "Greg Popovich",
+          "Steve Kerr",
+          "Doc Rivers"
+        ],
+        "answer_index": 1
+      }
+    ]
+  }
+]

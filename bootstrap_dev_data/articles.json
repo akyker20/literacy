@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "columbia",
+    "date_created": "2018-11-30T15:41:58.727Z",
+    "title": "Columbia",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/columbia.jpg",
+    "num_pts": 25
+  },
+  {
+    "_id": "elon-musk",
+    "date_created": "2018-11-30T15:41:58.727Z",
+    "title": "Elon Musk",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/elon.jpg",
+    "num_pts": 25
+  },
+  {
+    "_id": "josh-waitzkin",
+    "date_created": "2018-11-30T15:41:58.727Z",
+    "title": "Josh Waitzkin",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/waitzkin.jpg",
+    "num_pts": 25
+  },
+  {
+    "_id": "three-pointer",
+    "date_created": "2018-11-30T15:41:58.727Z",
+    "title": "The Three Pointer",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/3pointer.jpg",
+    "num_pts": 25
+  }
+]
