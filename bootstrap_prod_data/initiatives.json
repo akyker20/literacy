@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "_id": "kind-initiative",
+    "title": "Kids In Need of Desks (KIND)",
+    "description": "Millions of students in Africa spend their days packed into tiny classrooms, sitting on dirt floors for hours at a time. Giving them the most basic tools--a place to sit, read and write--could help them achieve a better education and a brighter future. Our class has decided to donate our reading points to the KIND project!",
+    "photo_urls": [
+      "https://storage.googleapis.com/reading-rewards-initiatives/kind/1.jpg",
+      "https://storage.googleapis.com/reading-rewards-initiatives/kind/2.jpg",
+      "https://storage.googleapis.com/reading-rewards-initiatives/kind/3.jpg"
+    ]
+  }
+]
