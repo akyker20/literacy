@@ -59,7 +59,7 @@
     "_id": "peyton-manning",
     "date_created": "2019-03-14T16:38:35.234Z",
     "title": "Peyton Manning",
-    "cover_photo_url": "",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/peyton.jpg",
     "num_pts": 25
   },
   {
