@@ -1358,5 +1358,2385 @@
         "answer_index": 1
       }
     ]
+  },
+  {
+    "_id": "barack-obama-200",
+    "lexile_measure": 200,
+    "article_id": "barack-obama",
+    "article_text": "Barack Obama was the first African-American president. He wasn’t just a president. He changed America.\n\nObama was born in 1961. He was born in Hawaii. His father was Kenyan. His mother was European.\n\nObama’s parents separated when he was 3. Since then, he only saw his father once.\n\nObama began studying at St. Francis Pre-Education. He was 3. He stayed there until he was 5. Afterwards, he went to Indonesian-language schools in Jakarta. There he spent four years. He learned Indonesian.\n\nHe studied English with his mother. After four years in Jakarta, he returned to Honolulu. He finished high school in Honolulu. This was in 1979.\n\nObama went to Occidental College. In 1981, he made his first speech. South Africa had racist laws. He wanted Occidental to stop investing in South African businesses.\n\nHe switched to Columbia University. He majored in political science. He also studied international relations. He also studied English literature. He graduated in 1983.\n\nObama worked at the Business International Corporation for a year. Then he worked at the New York Public Interest Research Group. He worked there for three months.\n\nObama did a lot before attending Harvard. He wrote a successful book. He did community development projects. He travelled to Europe.\n\nThen he went to Harvard. He was editor of the Harvard Law Review. Later, he became president of the Harvard Law Review. He was the first African-American to do this.\n\nObama graduated in 1991. He was well-known. He helped work for racial equality.\n\nFive years later, Obama was elected to the Senate in Illinois. As senator, he helped improve welfare. He helped improve tax credits for the poor. He helped improve childcare.\n\nObama ran for president in 2008. He gave an announcement speech. He talked about ending the war in Iraq. He also talked about improving energy independence. He talked about changing healthcare.\n\nObama served two terms as president. He did a lot. He legalized same sex marriage. He reformed the healthcare system. He created 11 million jobs. He reduced the number of people in jail.\n\nBarack Obama is not ordinary. He is a Nobel Laureate. He was the most admired man in America. He was ranked the 8’th greatest American president. He is a symbol of hope.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "here did Obama first go to college?",
+        "options": [
+          "UCLA",
+          "Occidental",
+          "USC",
+          "Yale"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which of the following is not mentioned as one of Obama’s achievements as president?",
+        "options": [
+          "Healthcare reform",
+          "Same sex marriage legalization ",
+          "Job creation",
+          "Education reform"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "According to the article, which of the following is not true about Obama?",
+        "options": [
+          "He was the first African-American president of the United States",
+          "He studied at Yale",
+          "He studied at Harvard",
+          "He learned Indonesian"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In what state was Obama a senator?",
+        "options": [
+          "California",
+          "New York",
+          "Hawaii",
+          "Illinois"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "From what country was Obama’s father?",
+        "options": [
+          "Kenya",
+          "Morocco",
+          "Egypt",
+          "Nigeria"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "barack-obama-400",
+    "lexile_measure": 400,
+    "article_id": "barack-obama",
+    "article_text": "Barack Obama was the first African-American president. But he was more than just a president. He gave more meaning to the American values of equality.\n\nObama was born in 1961. He was born in Hawaii. His father was from Kenya. His mother was European.\n\nObama’s parents separated when he was 3. Since then, he only saw his father once.\n\nObama began studying at St. Francis Pre-Education. He was 3. He stayed there until he was 5. Afterwards, he was transferred to Indonesian-language schools in Jakarta. There he spent four years. He learned to speak Indonesian.\n\nHe studied English with his mother. After four years in Jakarta, he returned to Honolulu. He studied in Honolulu until he graduated high school. This was in 1979.\n\nAfter high school, Obama went to Occidental College. In 1981, he made his first public speech. South Africa had racist laws. He wanted Occidental to stop investing in South African businesses.\n\nLater, he switched to Columbia University. He majored in political science. He also studied international relations and English literature. He graduated in 1983.\n\nObama worked at the Business International Corporation for a year. Then he worked at the New York Public Interest Research Group. He worked there for three months.\n\nObama did a lot before attending Harvard Law School. He wrote a successful book. He did community development projects. He travelled to Europe.\n\nThen he went to Harvard. He was editor of the Harvard Law Review. Later, he became president of the Harvard Law Review. He was the first African-American to do this.\n\nObama graduated in 1991. He was well-known. He helped work for racial equality.\n\nFive years later, Obama was elected to the Senate in Illinois. As senator, he helped improve welfare. He helped improve tax credits for the poor. He helped improve childcare.\n\nObama ran for president in 2008. He gave an announcement speech. He talked about ending the war in Iraq. He also talked about improving energy independence. He talked about changing healthcare.\n\nObama served two terms as president. He did a lot. He legalized same sex marriage. He reformed the healthcare system. He created 11 million jobs. He reduced the number of people in jail.\n\nBarack Obama is not ordinary. He is a Nobel Laureate. He was the most admired man in America. He was ranked the 8’th greatest American president. He is a symbol of hope.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "here did Obama first go to college?",
+        "options": [
+          "UCLA",
+          "Occidental",
+          "USC",
+          "Yale"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which of the following is not mentioned as one of Obama’s achievements as president?",
+        "options": [
+          "Healthcare reform",
+          "Same sex marriage legalization ",
+          "Job creation",
+          "Education reform"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "According to the article, which of the following is not true about Obama?",
+        "options": [
+          "He was the first African-American president of the United States",
+          "He studied at Yale",
+          "He studied at Harvard",
+          "He learned Indonesian"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In what state was Obama a senator?",
+        "options": [
+          "California",
+          "New York",
+          "Hawaii",
+          "Illinois"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "From what country was Obama’s father?",
+        "options": [
+          "Kenya",
+          "Morocco",
+          "Egypt",
+          "Nigeria"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "barack-obama-600",
+    "lexile_measure": 600,
+    "article_id": "barack-obama",
+    "article_text": "Barack Obama is not just the 44’th president of the United States. He was the first African-American president.\n\nObama was more than just a president. He gave more meaning to the American values of equality.\n\nObama was born on August 4, 1961. He was born in Honolulu, Hawaii. His father was from Kenya while his mother was European.\n\nObama’s parents separated when he was 3. Since then, he only saw his father once.\n\nObama began studying at St. Francis Pre-Education. He was 3. He stayed there until he was 5. Afterwards, he was transferred to Indonesian-language schools in Jakarta. There he spent four years. He learned how to speak Indonesian.\n\nHe also studied English with his mother. After four years in Jakarta, he returned to Honolulu. He studied in Honolulu until he graduated high school in 1979.\n\nAfter high school, Obama went to Occidental College in Los Angeles. In 1981, he made his first public speech. He wanted Occidental to stop investing in South African businesses. This was because South Africa’s had racist laws.\n\nLater that year, he switched to Columbia University. He majored in political science. He also studied international relations and English literature. He graduated in 1983.\n\nObama first worked at the Business International Corporation for about a year. Then he worked as a project coordinator at the New York Public Interest Research Group. He worked there for three months.\n\nObama did a lot before attending Harvard Law School. He wrote a successful book. He did other community development projects. He travelled to Europe for the first time.\n\nBy the end of his first year at Harvard, he was the editor of the Harvard Law Review. In his second year, he became the first African-American president of the Harvard Law Review.\n\nWhen Obama graduated in 1991, he was already a sort of hero for his work towards racial equality.\n\nFive years later, Obama was elected to the Senate in Illinois. In his time there, he oversaw several reforms. He negotiated better welfare for the people. He improved tax credits for low income earners. He lobbied for increased subsidies in childcare.\n\nHe kept his seat in the Illinois senate in the 1998 election, gaining another re-election in 2002. The only senate election he lost was in 2000.\n\nObama announced his candidacy for president in 2008. In his announcement speech, Obama talked about ending the war in Iraq, increasing the country’s energy independence, and changing the healthcare system.\n\nHe became the first presidential candidate (from a major party) to turn down public financing since the establishment of the presidential system. He also set numerous fundraising records.\n\nObama went on to serve two terms as president. Throughout his time in office, he was able to accomplish a lot. He legalized same sex marriage. He reformed the healthcare system. He created over 11 million jobs over the course of his two tenures. He reduced the number of people in jail.\n\nBarack Obama is not just an ordinary man. He is a Nobel Laureate. He was the most admired man in America for 11 straight years. He was ranked the 8’th greatest American president. Moreover, he is a symbol of hope. He is proof that a man is only as limited as he believes he is.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "here did Obama first go to college?",
+        "options": [
+          "UCLA",
+          "Occidental",
+          "USC",
+          "Yale"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which of the following is not mentioned as one of Obama’s achievements as president?",
+        "options": [
+          "Healthcare reform",
+          "Same sex marriage legalization ",
+          "Job creation",
+          "Education reform"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "According to the article, which of the following is not true about Obama?",
+        "options": [
+          "He was the first African-American president of the United States",
+          "He studied at Yale",
+          "He studied at Harvard",
+          "He learned Indonesian"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In what state was Obama a senator?",
+        "options": [
+          "California",
+          "New York",
+          "Hawaii",
+          "Illinois"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "From what country was Obama’s father?",
+        "options": [
+          "Kenya",
+          "Morocco",
+          "Egypt",
+          "Nigeria"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "barack-obama-800",
+    "lexile_measure": 800,
+    "article_id": "barack-obama",
+    "article_text": "Barack Obama is not just the 44’th president of the United States. He will go down in the history books as the first African-American to attain such a position.\n\nServing for a total of two tenures, he was more than just a president. His ascension to the position gave more meaning to the American values of equality.\n\nHis journey to the White House began when Obama was born on August 4, 1961 in Honolulu, Hawaii. His father was from Kenya while his mother was European.\n\nObama’s parents separated just three years after he was born. Since then, he only saw his father once before his death.\n\nObama began his education at St. Francis Pre-Education at the age of 3. He stayed there until he was five. Afterwards, he was transferred to Indonesian-language schools in Jakarta. There he spent four years and learned how to speak Indonesian.\n\nHis study was supplemented by home schooling (in English) from his mother. At the end of the four-year stint, he returned to Honolulu. He studied in Honolulu until he graduated high school in the year 1979.\n\nWhen he was done with high school, Obama went to the Occidental College in Los Angeles. Two years later (1981), he would make his first ever public speech. He wanted Occidental to stop investing in South African businesses in protest of South Africa’s racist laws.\n\nLater in that year, he switched to the Columbia University. He majored in political science with a side specialty in international relations and English literature. In 1983, he graduated with a BA degree and proceeded into the workforce.\n\nObama first worked at the Business International Corporation for about a year. He later went on to accept a project coordinator position at the New York Public Interest Research Group.\n\nHe would work here for just three months before moving on.\n\nObama did a lot before attending Harvard Law School. He wrote a successful book, took up other community development projects, and travelled to Europe for the first time.\n\nBy the end of his first year at Harvard, he was already the editor of the Harvard Law Review. In his second year, he became the first African-American president of the Harvard Law Review.\n\nWhen Obama graduated in 1991, he was already a sort of hero for his work towards racial equality.\n\nFive years later, Obama was elected to the Senate in Illinois. In his time there, he oversaw many reforms. He negotiated better welfare for the people. He improved tax credits for low income earners. He lobbied for increased subsidies in childcare.\n\nHe kept his seat in the Illinois senate in the 1998 election, gaining another re-election in 2002. The only senate election he lost was in 2000.\n\nObama announced his candidacy for president in 2008. In his announcement speech, Obama talked about ending the war in Iraq, increasing the country’s energy independence, and changing the healthcare system.\n\nHe became the first presidential candidate (from a major party) to turn down public financing since the establishment of the presidential system. He also set numerous fundraising records.\n\nIt is all history now that he went on to serve two terms as president. Throughout his time in office, he was able to accomplish a lot. He legalized same sex marriage and reformed the healthcare system. He pushed the country away from the brink of a recession. He created over 11 million jobs over the course of his two tenures. He reduced the number of inmates sentenced in US federal custody by as much as 5%. He pulled the country’s economy back from a financial regression.\n\nBarack Obama is not just an ordinary man. He is a Nobel Laureate. He was the most admired man in America for 11 straight years. He has been ranked the 8’th greatest America president. Moreover, he is a symbol of hope to many. He is proof that a man is only as limited as he believes he is.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "here did Obama first go to college?",
+        "options": [
+          "UCLA",
+          "Occidental",
+          "USC",
+          "Yale"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which of the following is not mentioned as one of Obama’s achievements as president?",
+        "options": [
+          "Healthcare reform",
+          "Same sex marriage legalization ",
+          "Job creation",
+          "Education reform"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "According to the article, which of the following is not true about Obama?",
+        "options": [
+          "He was the first African-American president of the United States",
+          "He studied at Yale",
+          "He studied at Harvard",
+          "He learned Indonesian"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In what state was Obama a senator?",
+        "options": [
+          "California",
+          "New York",
+          "Hawaii",
+          "Illinois"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "From what country was Obama’s father?",
+        "options": [
+          "Kenya",
+          "Morocco",
+          "Egypt",
+          "Nigeria"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "barack-obama-1000",
+    "lexile_measure": 1000,
+    "article_id": "barack-obama",
+    "article_text": "Barack Obama is not just the 44’th president of the United States. He will go down in the history books as the first African-American to attain such a position.\n\nServing for a total of two tenures, he was more than just a president. His ascension to the position gave more meaning to the American values of equality and gave everyone a voice.\n\nObama’s journey to the White House began when he was born on August 4, 1961 in Honolulu, Hawaii. His father was of African descent (from Kenya) while his mother was European.\n\nObama’s parents separated just three years after he was born. Since then, he only saw his father once before his death.\n\nObama began his education at St. Francis Pre-Education at the age of 3, and was there until he was five. Afterwards, he was transferred to Indonesian-language schools in Jakarta. There he spent four years and learned how to speak fluent Indonesian.\n\nHis study was supplemented by home schooling (in English) from his mother, helping him have a grasp of both languages. At the end of the four-year stint, he returned to Honolulu. He studied in Honolulu until he graduated high school in the year 1979.\n\nAs soon as he was done with high school, Obama went to the Occidental College in Los Angeles. Two years later (1981), he would make his first ever public speech. It was centered around the divestment of Occidental from South Africa due to the nation’s racist laws at the time.\n\nLater in that year, he switched to the Columbia University as a junior – majoring in political science with a side specialty in international relations and English literature. In the year 1983, he graduated with a BA degree and proceeded into the workforce.\n\nObama first worked at the Business International Corporation for about a year. He later went on to accept a project coordinator position at the New York Public Interest Research Group.\n\nHe would work here for just three months before moving on.\n\nThere were a lot of experiences for the soon-to-be president in the years before he entered Harvard Law School. He wrote a book which did brilliantly in the market, took up other community development projects, and even travelled to Europe for the first time.\n\nBy the end of his first year at the Harvard Law School, he had already been appointed the editor of the Harvard Law Review. It was only a matter of time before he rose through the ranks there. He became the first African-American president of the Harvard Law Review in his second year.\n\nWhen Obama graduated in 1991, he was already a sort of hero – mostly for his part in driving racial recognitions in roles where they were usually not acknowledged.\n\n Five years later, Obama was elected to the Senate in Illinois. In his time there, he oversaw many reforms. He negotiated better welfare for the people. He improved tax credits for low income earners. He lobbied for increased subsidies in childcare.\n\n He would retain his seat in the Illinois senate in the 1998 election, gaining another re-election in 2002. That made the year 2000 the only time he ever lost in the race to the senate.\n\n After sponsoring a lot of bills and co-sponsoring others, Obama announced his candidacy for president in 2008. In his announcement speech, Obama made remarks about putting an end to the war in Iraq, increasing the country’s independence around energy, and revamping the healthcare system.\n\n He became the first presidential candidate (from a major party) to turn down public financing since the establishment of the presidential system. He also set numerous fundraising records.\n\n It is all history now that he went on to win the election, contested for a second term in office and won on that occasion too. Throughout his time in office, he accomplished a lot. He legalized same sex marriage and reformed the healthcare system. He pushed the country away from the brink of a recession. He created over 11 million jobs over the course of his two tenures. He reduced the number of inmates sentenced in US federal custody by as much as 5%. He pulled the country’s economy back from a financial regression.\n\n A Nobel Laureate, most admired man in America for 11 straight years and ranked the 8’th greatest American president, Barack Obama is not just an ordinary man. He is a symbol of hope to many, and a proof to many more that a man is only as limited as he believes he is.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "here did Obama first go to college?",
+        "options": [
+          "UCLA",
+          "Occidental",
+          "USC",
+          "Yale"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which of the following is not mentioned as one of Obama’s achievements as president?",
+        "options": [
+          "Healthcare reform",
+          "Same sex marriage legalization ",
+          "Job creation",
+          "Education reform"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "According to the article, which of the following is not true about Obama?",
+        "options": [
+          "He was the first African-American president of the United States",
+          "He studied at Yale",
+          "He studied at Harvard",
+          "He learned Indonesian"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In what state was Obama a senator?",
+        "options": [
+          "California",
+          "New York",
+          "Hawaii",
+          "Illinois"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "From what country was Obama’s father?",
+        "options": [
+          "Kenya",
+          "Morocco",
+          "Egypt",
+          "Nigeria"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "gandhi-200",
+    "lexile_measure": 200,
+    "article_id": "gandhi",
+    "article_text": "Gandhi’s family was middle-class. His dad’s name was Karamchand. Karamchand had 4 wives. Mohandas’ mom was the fourth wife. Her name was Putlibai. Putlibai was religious. She influenced Mohandas. She prayed a lot.\n\nMohandas was an average student. He didn’t have many friends. He got married at 13. His parents arranged the marriage. His wife was 14. Her name was Kasturbai. \n\nAt age 18, Gandhi left India. He went to London. He studied law. He came back to India at age 22. He was a lawyer. He wasn’t very successful. Then he went to South Africa. He was a lawyer there. Gandhi stayed 21 years. These years changed him.  He learned a lot.\n\nIn South Africa, Gandhi did a lot. He thought of “Satyagraha.” This means “soul-force”. In Satyagraha, people marched peacefully.  They protested unfair laws. They got arrested. Gandhi used Satyagraha a lot. It helped Indians get rights. People started calling him “Mahatma.” This means “Great Soul.”\n\nIn 1914, Gandhi went back to India. India was ruled by England. Indians wanted rights. He helped them. He used Satyagraha. He achieved a lot. He helped farmers get more money. He helped people in Kheda. In Kheda, there was a flood. People didn’t have money to pay taxes. Gandhi helped them to not pay taxes. \n\nGandhi thought of another strategy. It was called “non-cooperation.” He told people not to use British goods. He told people to quit government jobs. He told them to give up British titles. He made his own salt. This was to protest the British salt tax. He walked 241 miles to the ocean to make salt. This was called the “Salt March.” It was very famous.\n\nGandhi fought for Indian independence. He started the “Quit India” movement. This was to ask for independence. In 1947, India achieved independence. This was largely due to Gandhi. Gandhi died soon after. He was killed in 1948.\n\nGandhi was a great man. He freed India. He didn’t use force. He used peace. This is a beautiful tool. It can make the world better.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What city was Ghandi born in?",
+        "options": [
+          "Calcutta",
+          "Pordanbar",
+          "Bombay",
+          "Bangalore"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Gandhi’s dad’s name?",
+        "options": [
+          "Arjun",
+          "Karamchand",
+          "Jon",
+          "Muhammad"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What statement does not describe Gandhi’s childhood?",
+        "options": [
+          "He was an okay student.",
+          "He was often alone.",
+          "He got married very young.",
+          "He was very outgoing and had a lot of friends."
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does satyagraha mean (according to this article)?",
+        "options": [
+          "Peaceful protest",
+          "Nonviolence",
+          "Violence",
+          "Soul-force"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What year did Gandhi die?",
+        "options": [
+          "1994",
+          "1948",
+          "2012",
+          "He’s still alive."
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "gandhi-400",
+    "lexile_measure": 400,
+    "article_id": "gandhi",
+    "article_text": "Mohandas Gandhi was born on October 2, 1869. He was born in Pordanbar, India. His life was interesting. He had a very strong spirit. He committed to his goals.\n\nGandhi was born to a middle-class family. His dad’s name was Karamchand. He was chief minister of their state. Karamchand had 4 wives in his life. Mohandas was born to the fourth of these wives. Her name was Putlibai. Putlibai was very religious. She had a big influence on Mohandas. She would often not eat for two or three days at a time. She would never eat without praying.\n\nMohandas was an average student. He didn’t have many friends. He got married at 13. His parents arranged the marriage. His wife was 14. Her name was Kasturbai. Mohandas and Kasturbai had their first child when he was 16. The child survived only a few days. In this same year, Mohandas’ father died. These deaths made Mohandas very sad.\n\nAt age 18, Gandhi left India. He went to London to study law. He came back to India at age 22. He didn’t have much success as a lawyer. A year later, he took a job as a lawyer in South Africa. Gandhi ended up staying 21 years there. These years changed Gandhi.  He learned a lot.\n\nHe made a strategy called “Satyagraha.” This means “soul-force”. In Satyagraha, people went on peaceful marches. They also got arrested. This was to protest unfair laws. Gandhi used Satyagraha to gain many important rights for Indians in South Africa. They started calling him “Mahatma.” This means “Great Soul.”\n\nIn 1914, Gandhi went back to India. India was ruled by Great Britain. He led several peaceful protests for Indian rights against the British. He used Satyagraha. His first major achievement came in 1917. He helped indian farmers win an argument against the British. This was called the “Champaran Agitations.” In 1918, he helped the people of Kheda. Kheda was dealing with a flood and famine. He helped them get relief from taxes.\n\nGandhi thought of another strategy. It was called “non-cooperation.” He told people not to use British goods. He told people to quit government jobs. He told them to give up British titles. In 1930, Gandhi protested against the British tax on salt. He walked 241 miles to the ocean to make salt. This was called the Salt March. It was one of Gandhi’s most famous campaigns.\n\nGandhi fought for Indian independence throughout the 1930s. In 1942 he launched his most famous movement for independence. This was called the Quit India movement. It demanded immediate independence for India. In 1947 India achieved independence. This was largely due to Gandhi’s efforts. However, Gandhi died soon after. He was shot and killed in 1948.\n\nGandhi will be remembered for a long time. He will always be remembered as the man who freed India. Perhaps more important, though, is the way he did it. He didn’t use force to defeat his enemies. He used peace to win their hearts. This is a beautiful tool. It can make our world a better place.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What city was Ghandi born in?",
+        "options": [
+          "Calcutta",
+          "Pordanbar",
+          "Bombay",
+          "Bangalore"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Gandhi’s dad’s name?",
+        "options": [
+          "Arjun",
+          "Karamchand",
+          "Jon",
+          "Muhammad"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What statement does not describe Gandhi’s childhood?",
+        "options": [
+          "He was an okay student.",
+          "He was often alone.",
+          "He got married very young.",
+          "He was very outgoing and had a lot of friends."
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does satyagraha mean (according to this article)?",
+        "options": [
+          "Peaceful protest",
+          "Nonviolence",
+          "Violence",
+          "Soul-force"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What year did Gandhi die?",
+        "options": [
+          "1994",
+          "1948",
+          "2012",
+          "He’s still alive."
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "gandhi-600",
+    "lexile_measure": 600,
+    "article_id": "gandhi",
+    "article_text": "On October 2, 1869, in an Indian town called Porbandar, a baby was born. The baby’s name was Mohandas. But he would become famous under another name: Mahatma Gandhi. Gandhi’s story is a fascinating one. It shows the power of the human spirit. It also shows the amount of good that can be done by commitment to one’s goals.\n\nGhandi was born to a middle-class family. His father, Karamchand, was chief minister of their state. Karamchand had 4 different wives in his life. Mohandas was born to the fourth of these wives, named Putlibai. Putlibai was a very religious woman. She had a great influence on Mohandas. She would often fast for two or three days at a time. She would never eat without praying.\n\nIn school, Mohandas was an average student. He didn’t have many friends. His parents arranged for him to be married at age 13. He got married to a 14-year-old girl named Kasturbai. Mohandas and Kasturbai had their first child when he was 16. The child survived only a few days. In this same year, Mohandas’ father died. These deaths made Mohandas very sad.\n\nAt age 18, Gandhi left India. He went to London to study law. He came back to India at age 22. He didn’t have much success as a lawyer. A year later, in 1893, Gandhi took a job as a lawyer in South Africa. Gandhi ended up staying 21 years there. These years transformed Gandhi. He went from being a shy boy to a confident leader of millions.\n\nIn South Africa, he made a strategy called “Satyagraha.” This is often translated as “soul-force”. In Satyagraha, people went on peaceful marches. They also got arrested to protest unfair laws. Gandhi used Satyagraha to gain many important rights for Indians in South Africa. By the time he left in 1914, he was already known as “Mahatma.” This means “Great Soul.”\n\nIn 1914, Gandhi went back to India. He led several peaceful protests for Indian rights against the British using Satyagraha. His first major achievement came in 1917. He helped Indian farmers win an argument against the British. He did this via nonviolent protest. This was known as the “Champaran Agitations.” In 1918, he helped the people of Kheda. Kheda was dealing with a flood and famine. He helped them get relief from taxes.\n\nGandhi also developed a strategy known as “non-cooperation.” He encouraged people to not use British goods. He also encouraged people to “non-cooperate” in other ways. He urged people to quit government jobs. He told them to give up British titles. In 1930, Gandhi protested against the British tax on salt. He walked 241 miles to the ocean to make salt. This protest was known as the Salt March. It was one of Gandhi’s most famous and successful campaigns.\n\nGandhi fought for Indian independence from the British throughout the 1930s. Then in 1942 he launched his most famous movement for independence. This was called the Quit India movement. In 1947, India achieved independence. This was largely due to Gandhi’s efforts. However, Gandhi was not able to enjoy this independence for long. Only a year later, he was shot and killed.\n\nGandhi will be remembered for a long time. He will be remembered as the man who freed India. Perhaps more important, though, is the way he did it. He didn’t use force to defeat his enemies. He used peace to win their hearts. This is a beautiful and powerful tool. It can make the world a better place.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What city was Ghandi born in?",
+        "options": [
+          "Calcutta",
+          "Pordanbar",
+          "Bombay",
+          "Bangalore"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Gandhi’s dad’s name?",
+        "options": [
+          "Arjun",
+          "Karamchand",
+          "Jon",
+          "Muhammad"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What statement does not describe Gandhi’s childhood?",
+        "options": [
+          "He was an okay student.",
+          "He was often alone.",
+          "He got married very young.",
+          "He was very outgoing and had a lot of friends."
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does satyagraha mean (according to this article)?",
+        "options": [
+          "Peaceful protest",
+          "Nonviolence",
+          "Violence",
+          "Soul-force"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What year did Gandhi die?",
+        "options": [
+          "1994",
+          "1948",
+          "2012",
+          "He’s still alive."
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "gandhi-800",
+    "lexile_measure": 800,
+    "article_id": "gandhi",
+    "article_text": "On October 2, 1869, in an Indian town called Porbandar, a baby was born who would change history. The baby’s name was Mohandas. But he would become famous under another name: Mahatma Gandhi. Gandhi’s story is a fascinating one. It shows the power of the human spirit and the amount of good that can be done by commitment to one’s goals.\n\nGandhi was born to a middle-class family. His father, Karamchand, was chief minister of their state. Karamchand had 4 different wives in his life. Mohandas was born to the fourth of these wives, named Putlibai. Putlibai was a very religious woman who had a great influence on Mohandas. She would often fast for two or three days at a time, and would never eat without praying.\n\nIn school, Mohandas was an average student and didn’t have many friends. His parents arranged for him to be married at age 13. He got married to a 14-year-old girl named Kasturbai. Mohandas and Kasturbai had their first child when he was 16. The child survived only a few days. In this same year, Mohandas’ father died. These deaths greatly anguished the young Mohandas.\n\nAt age 18, Gandhi left India to study law at University College in London. He then came back to India at age 22 and didn’t have much success as a lawyer. A year later, in 1893, Gandhi took a job as a lawyer in South Africa. Gandhi ended up staying 21 years there. These years transformed Gandhi. He went from being a shy boy to an unshakeable leader of millions.\n\nDuring his time in South Africa, he developed the strategy known as Satyagraha.” This is often translated as “soul-force”. In Satyagraha, campaigners went on peaceful marches. They also presented themselves for arrest in protest against unjust laws. Gandhi used this technique successfully to gain many important rights for Indians in South Africa. By the time he left in 1914, he was already known as “Mahatma,” or “Great Soul.”\n\nSoon after returning to India, Gandhi led several peaceful protests for Indian rights against the British using Satyagraha. His first major achievement came in 1917. He helped Indian farmers win concessions against the British via nonviolent protest in what are known as the “Champaran Agitations.” In 1918, he helped the people of Kheda. Kheda was dealing with a flood and famine. He helped them get relief from taxes. At about the same time, Gandhi began developing a strategy known as “non-cooperation.” He encouraged people to boycott foreign British goods. He also encouraged people to “non-cooperate” in other ways. He urged people to resign from government employment and give up British titles. In 1930, Gandhi walked 241 miles to the ocean to make salt in protest of a British tax on salt. This protest was known as the Salt March. It was one of Gandhi’s most famous and successful campaigns.\n\nAfter fighting for Indian independence from the British throughout the 1930s, Gandhi launched his most famous movement for independence in 1942. This was called the Quit India movement. Five years later, in 1947, India finally achieved independence from the British. This was largely due to Gandhi’s efforts. However, Gandhi was not able to enjoy this independence for long. Only a year later, he was shot and killed by a Hindu radical.\n\nAlthough he’s been dead for almost 100 years, his legacy lives on. He will always be remembered as the man who freed India. Perhaps more important, though, is the way he did it. He didn’t use force to defeat his enemies. He used peace to win their hearts. This is a beautiful and powerful tool. It was later used by people who studied Gandhi, such as Dr. Martin Luther King, to make the world a better place.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What city was Ghandi born in?",
+        "options": [
+          "Calcutta",
+          "Pordanbar",
+          "Bombay",
+          "Bangalore"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Gandhi’s dad’s name?",
+        "options": [
+          "Arjun",
+          "Karamchand",
+          "Jon",
+          "Muhammad"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What statement does not describe Gandhi’s childhood?",
+        "options": [
+          "He was an okay student.",
+          "He was often alone.",
+          "He got married very young.",
+          "He was very outgoing and had a lot of friends."
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does satyagraha mean (according to this article)?",
+        "options": [
+          "Peaceful protest",
+          "Nonviolence",
+          "Violence",
+          "Soul-force"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What year did Gandhi die?",
+        "options": [
+          "1994",
+          "1948",
+          "2012",
+          "He’s still alive."
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "gandhi-1000",
+    "lexile_measure": 1000,
+    "article_id": "gandhi",
+    "article_text": "On October 2, 1869, in a coastal town of Western India called Porbandar, a baby was born who would change history. The baby’s name was Mohandas, but it was by another name which he would later become known around the world: Mahatma Gandhi. Gandhi’s story is a fascinating one which shows the power of the human spirit and the amount of good that can be done by unflagging commitment to one’s goals.\n\nGandhi was born to a middle-class family. His father, Karamchand, was chief minister of their state. Karamchand had 4 different wives in his life, and Mohandas was born to the fourth of these wives, named Putlibai. Putlibai was a deeply religious woman who had a great influence on Mohandas. She would often fast for two or three days at a time, and would never eat without praying.\n\nIn school, Mohandas was an average student and didn’t have many friends. His parents arranged for him to be married at the young age of 13 to a 14-year-old girl named Kasturbai. Mohandas and Kasturbai had their first child when he was 16, but the child survived only a few days. In this same year, Mohandas’ father died. These deaths greatly anguished the young Mohandas.\n\nAt age 18, Gandhi left India to study law at University College in London. He then came back to India at age 22 and didn’t have much success as a lawyer. A year later, in 1893, Gandhi took a job as a lawyer in South Africa. Gandhi ended up staying 21 years there. These years would see Gandhi transformed from the timid, average boy to the charismatic, unshakeable leader of millions that the world would come to know.\n\nDuring his time in South Africa, he developed the strategy known as “Satyagraha” (often translated as “soul-force”). In Satyagraha, campaigners went on peaceful marches and presented themselves for arrest in protest against unjust laws. Gandhi used this technique successfully to gain many important rights for Indians in South Africa. By the time he left in 1914, he was already known as “Mahatma,” or “Great Soul.”\n\nSoon after returning to India, Gandhi led several peaceful protests for Indian rights against the British using Satyagraha. His first major achievement came in 1917. He helped Indian farmers win concessions against the British via nonviolent protest in what are known as the “Champaran Agitations.” In 1918, he helped the people of Kheda, a city which had been hit by flood and famine, get relief from taxes. At about the same time, Gandhi began developing a strategy known as “non-cooperation.” He encouraged people to boycott foreign goods, especially those made by the British. He also encouraged people to “non-cooperate” in other ways. For example, he urged people to resign from government employment and give up British titles and honours. In 1930, Gandhi walked 241 miles to the ocean to make salt in protest of a British tax on salt. This protest, known as the Salt March, was one of Gandhi’s most famous and successful campaigns.\n\nAfter fighting for Indian independence from the British throughout the 1930s, Gandhi launched his most famous movement for independence in 1942. This was called the Quit India movement. Five years later, in 1947, India finally achieved independence from the British, largely due to Gandhi’s efforts. However, Gandhi was not able to enjoy this independence for long. Only a year later, while on his way to prayer, he was shot and killed by a Hindu radical.\n\nAlthough he’s been dead for almost 100 years, his legacy lives on. He will always be remembered as the man who freed India. Perhaps more important, though, is the way he did it. He used peaceful methods to win the heart of the adversary, rather than using force to defeat him. This is a beautiful and powerful tool that was later used by people who studied Gandhi, such as Dr. Martin Luther King, to make the world a better place.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What city was Ghandi born in?",
+        "options": [
+          "Calcutta",
+          "Pordanbar",
+          "Bombay",
+          "Bangalore"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Gandhi’s dad’s name?",
+        "options": [
+          "Arjun",
+          "Karamchand",
+          "Jon",
+          "Muhammad"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What statement does not describe Gandhi’s childhood?",
+        "options": [
+          "He was an okay student.",
+          "He was often alone.",
+          "He got married very young.",
+          "He was very outgoing and had a lot of friends."
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does satyagraha mean (according to this article)?",
+        "options": [
+          "Peaceful protest",
+          "Nonviolence",
+          "Violence",
+          "Soul-force"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What year did Gandhi die?",
+        "options": [
+          "1994",
+          "1948",
+          "2012",
+          "He’s still alive."
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "lebron-james-200",
+    "lexile_measure": 200,
+    "article_id": "lebron-james",
+    "article_text": "Lebron James is a superstar. He is known as ‘King James.’ He is the best basketball player in the world. Some believe he’s the greatest ever.\n\nThat isn’t hard to believe. He has done amazing things. He is great.\n\nJames was born in 1984. His mom’s name was Gloria. His childhood was without his father. His father committed many crimes. He couldn’t be around.\n\nLife was hard for James and his mother. She struggled to find a job. They moved a lot.\n\nGloria wanted Lebron to have a stable family. He moved in with another family. This was a turning point in Lebron’s life.\n\nHis started to play basketball in fifth grade. His talent started to show. He earned a spot in the Amateur Athletic Union.\n\nHe formed a group with three friends. They lead their team to success. They promised to attend the same high school.\n\nLebron went to a Catholic high school. He was named Ohio Mr. Basketball three times. He helped his team to multiple undefeated seasons.\n\nHis team had to change stadiums. They needed more room for his fans.\n\nJames also played football. He was very good. His team reached the state semi-finals. His senior year he didn’t play football. He was injured.\n\nJames’ coaches say he could’ve been a football star.\n\nAfter high school, James began playing professional basketball. He started with the Cleveland Cavaliers. He soon made his presence known. He was the NBA Rookie of the Year.\n\nThe next four years he became a star. He set many records.\n\nIn 2010, James changed teams. He went to the Miami Heat. This angered his fans. Lebron said he was sorry.\n\nIn his first season with the Heat, they lost in the finals. Then they won back-to-back championships. Then they lost in the finals.\n\nThat was the end of another phase. Then he returned to the Cavaliers.\n\nHe led them to three more finals. They won once. Then he left the Cavaliers again. He went to the Lakers. He has played well there.\n\nLebron can shoot. He can dribble. He can play defense. He is an all-around player.\n\nHe is King James.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When was Lebron born?",
+        "options": [
+          "1994",
+          "1984",
+          "1979",
+          "1986"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Lebron’s mom’s name?",
+        "options": [
+          "Laura",
+          "Anna",
+          "Sarah",
+          "Gloria"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What other sport (besides basketball) did Lebron play?",
+        "options": [
+          "Tennis",
+          "Soccer",
+          "Football",
+          "Surfing"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Lebron’s first NBA team?",
+        "options": [
+          "Cavaliers",
+          "Lakers",
+          "Heat",
+          "Warriors"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is Lebron’s nickname?",
+        "options": [
+          "The Barber",
+          "The Brow",
+          "Prince James",
+          "King James"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "lebron-james-400",
+    "lexile_measure": 400,
+    "article_id": "lebron-james",
+    "article_text": "Lebron James is a superstar. He is known as ‘King James.’ He is the best basketball player in the world. Some believe he’s the greatest ever.\n\nThat isn’t hard to believe. He has done amazing things. He is great.\n\nJames was born in 1984. His mom’s name was Gloria. His childhood was without his father. His father committed many crimes. He couldn’t be around.\n\nLife was hard for James and his mother. She struggled to find a job. They moved a lot.\n\nGloria wanted Lebron to have a stable family. He moved in with another family. This was a turning point in Lebron’s life.\n\nHis started to play basketball in fifth grade. His talent started to show. He earned a spot in the Amateur Athletic Union.\n\nHe formed a group with three friends. They lead their team to success. They promised to attend the same high school.\n\nLebron went to a Catholic high school. He was named Ohio Mr. Basketball three times. He helped his team to multiple undefeated seasons.\n\nHis team had to change stadiums. They needed more room for his fans.\n\nJames also played football. He was very good. His team reached the state semi-finals. His senior year he didn’t play football. He was injured.\n\nMany of James’ coaches say he could’ve been a football star.\n\nAfter high school, James began his professional basketball career. He started with the Cleveland Cavaliers. He soon made his presence known. He was the NBA Rookie of the Year.\n\nThe next four years he became a star. He set many records.\n\nIn 2010, James changed teams. He went to the Miami Heat. This angered his fans. Lebron said he was sorry.\n\nIn his first season with the Heat, they lost in the finals. Then they won back-to-back championships. Then they lost in the finals.\n\nThat was the end of another phase. Then he returned to the Cavaliers.\n\nHe led them to three more finals. They won once. Then he left the Cavaliers again. He went to the Lakers. He has played well there.\n\nLebron is known for shooting, dribbling, and defense. He is an all-around player.\n\nLittle wonder why he is called King James.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When was Lebron born?",
+        "options": [
+          "1994",
+          "1984",
+          "1979",
+          "1986"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Lebron’s mom’s name?",
+        "options": [
+          "Laura",
+          "Anna",
+          "Sarah",
+          "Gloria"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What other sport (besides basketball) did Lebron play?",
+        "options": [
+          "Tennis",
+          "Soccer",
+          "Football",
+          "Surfing"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Lebron’s first NBA team?",
+        "options": [
+          "Cavaliers",
+          "Lakers",
+          "Heat",
+          "Warriors"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is Lebron’s nickname?",
+        "options": [
+          "The Barber",
+          "The Brow",
+          "Prince James",
+          "King James"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "lebron-james-600",
+    "lexile_measure": 600,
+    "article_id": "lebron-james",
+    "article_text": "It’s hard to talk about basketball without talking about Lebron James. Known as ‘King James,’ he is considered the best basketball player in the world. Some believe he is the greatest to ever play the sport.\n\nThat is not hard to believe. The living legend has accomplished amazing things. Even as he gets older, he still plays at a high level.\n\nJames was born to a 16-year old mother in 1984. His mom’s name was Gloria. His childhood was without his father. His father had an extensive criminal record and couldn’t be around.\n\nSo life was not easy for James and his mother. His mother struggled to find a stable job. They moved from apartment to apartment.\n\nAs time went on, Gloria understood that her child would be better off with a more stable family. She allowed him to move in with the family of a local football coach (Frank Walker).\n\nThis proved to be the turning point in the life of James.\n\nHis non-professional career started in the fifth grade. From that early stage, his talent started to show. He earned a spot in the Amateur Athletic Union.\n\nHe formed a group with three other basketball friends. They lead their team to state and national glories. They all promised to attend the same high school.\n\nJames decided to attend a Catholic high school which was predominantly white. This stirred a lot of controversy. It was soon forgotten when he started showing his talent.\n\nLebron was named Ohio Mr. Basketball for three years running. He helped his team to a series of undefeated seasons.\n\nHis team even had to change stadiums to allow everyone who wanted to see the budding superstar play.\n\nJames also played football. He excelled in this sport too. He helped his team reach the state semi-finals. His senior year he didn’t play football. He had an injury sustained from basketball.\n\nMany of James’ coaches say he could have been a football star, too.\n\nAfter high school, James began his professional basketball career (2003-2004) with the Cleveland Cavaliers. He soon made his presence known. He was the NBA Rookie of the year.\n\nThe next four years would mark his rise to stardom. He set personal records and broke existing ones.\n\nBy the year 2010, James made his first club switch. He went to play for the Miami Heat. This move angered his club management and fans alike. James would later express regret on how he handled that move.\n\nIn his first season with the Miami Heat, they lost in the finals. He turned that around by leading the team to back-to-back championships. In his final season, he led the team to the final again. However, he missed out on some of the action due to cramps. He was not able to inspire a three-peat.\n\nThat marked the end of one phase and opened another at the Cavaliers again.\n\nFor his second time in Cleveland, he led the team to three finals, winning one. At the end of the third season, he left the Cavaliers for a second time. He went to the Los Angeles Lakers.\n\nAlthough he has had his longest stretch of injury here, he has played well when healthy.\n\nKnown for his shooting, dribbling, and defense, LeBron James is an all-around player.\n\nLittle wonder why he is called King James.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When was Lebron born?",
+        "options": [
+          "1994",
+          "1984",
+          "1979",
+          "1986"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Lebron’s mom’s name?",
+        "options": [
+          "Laura",
+          "Anna",
+          "Sarah",
+          "Gloria"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What other sport (besides basketball) did Lebron play?",
+        "options": [
+          "Tennis",
+          "Soccer",
+          "Football",
+          "Surfing"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Lebron’s first NBA team?",
+        "options": [
+          "Cavaliers",
+          "Lakers",
+          "Heat",
+          "Warriors"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is Lebron’s nickname?",
+        "options": [
+          "The Barber",
+          "The Brow",
+          "Prince James",
+          "King James"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "lebron-james-800",
+    "lexile_measure": 800,
+    "article_id": "lebron-james",
+    "article_text": "The game of basketball cannot be fully discussed without talking about Lebron James. Known to many in the game as ‘King James,’ he is considered the best basketball player in the world. Some even believe he is the greatest to have ever played the sport.\n\nThat is not exactly hard to believe.\n\nThe living legend has played on 3 teams and picked up amazing accolades in the process. Even as he advances with age, he has still found a way to stay relevant and turn up in the big games.\n\nJames was born ‘Lebron Raymone James’ to a 16-year old mother on the 30’th of December, 1984. His mom’s name was Gloria. His childhood was without his father who had an extensive criminal record and as such, couldn’t be around.\n\nFor that reason, it was no surprise that life was not easy for James and his mother. While his mother struggled to find a stable job, they moved from apartment to apartment.\n\nAs time went on, Gloria understood that her child would be better off with a more stable family. She, thus, allowed him move in with the family of a local youth football coach (Frank Walker).\n\nThis proved to be the turning point in the life of James.\n\nHis non-professional career started in the fifth grade when he just started playing organized basketball. From that early stage, his prowess and skills with the basketball had started to show. He earned a spot in the Amateur Athletic Union.\n\nHe formed a ‘Fab Four’ group with three other basketball friends, leading their team to state and national glories. Seeing how much they worked well together, they all vowed to attend the same high school.\n\n James decided to attend a Catholic high school which was predominantly white. This stirred a lot of controversy, but that was soon forgotten when he started showing off his stuff on the court again.\n\n So good was Lebron James that he was named Ohio Mr. Basketball for three years running. He was even able to help his high school team to a series of invincible seasons.\n\n His team even had to change stadiums to allow everyone who wanted to see the budding superstar play.\n\n At a time, though, James dabbled in football. He excelled in this sport too, helping his team reach the state semi-finals. Senior year was the only time when he didn’t play football due to an injury sustained from basketball.\n\n Many of James’ coaches still maintain that he could have become a footballing great too, had he opted for the NFL instead.\n\n After high school, James began his professional basketball career (2003-2004) with the Cleveland Cavaliers. It didn’t take long for him to make his presence known. He became the NBA Rookie of the year at the end of that season.\n\n The next four years would mark his rise to stardom. He set personal records and broke existing ones.\n\n By the year 2010, James made his first club switch, going to play for Miami Heat. This move angered his club management and fans alike. James would later express regret on how he handled that move.\n\n His first season with the Miami Heat was marred by a loss in the finals. He turned that around by leading the team to back-to-back championships. In his final season, he led the team to the final but missed out on some of the action due to cramps. He was not able to inspire a three-peat.\n\n That marked the end of one phase and opened another at the Cavaliers again.\n\nFor his second stint in Cleveland, he led the team to three finals, winning one. At the end of the third season, he left the Cavaliers for a second time and went to the Los Angeles Lakers.\n\nAlthough he has had his longest stretch of injury here (missing 17 games), he has played well when healthy.\n\nKnown for his shooting, dribbling, and defense, LeBron James is an all-around player.\n\nLittle wonder why he is called King James on the courts.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When was Lebron born?",
+        "options": [
+          "1994",
+          "1984",
+          "1979",
+          "1986"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Lebron’s mom’s name?",
+        "options": [
+          "Laura",
+          "Anna",
+          "Sarah",
+          "Gloria"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What other sport (besides basketball) did Lebron play?",
+        "options": [
+          "Tennis",
+          "Soccer",
+          "Football",
+          "Surfing"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Lebron’s first NBA team?",
+        "options": [
+          "Cavaliers",
+          "Lakers",
+          "Heat",
+          "Warriors"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is Lebron’s nickname?",
+        "options": [
+          "The Barber",
+          "The Brow",
+          "Prince James",
+          "King James"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "lebron-james-1000",
+    "lexile_measure": 1000,
+    "article_id": "lebron-james",
+    "article_text": "The game of basketball cannot be fully discussed without talking about Lebron James. Known to many in the game as ‘King James,’ he is considered the best basketball player in the world. Some even believe he is the greatest to have ever played the sport.\n\n That is not exactly hard to believe.\n\n The living legend has played on 3 different teams as a professional and picked up amazing accolades in the process. Even as he advances with age, he has still found a way to stay relevant and turn up in the big games.\n\n James was born ‘Lebron Raymone James’ to a 16-year old mother (Gloria Maria James) on the 30’th of December, 1984. His childhood was without his father who had an extensive criminal record and as such couldn’t be around.\n\n For that reason, it was no surprise that life was not easy for James and his mother. While his mother struggled to find a stable job, they moved from apartment to apartment.\n\n As time went on, Gloria understood that her child would be better off with a more stable family. She, thus, allowed him move in with the family of a local youth football coach (Frank Walker).\n\n This proved to be the turning point in the life of James.\n\n His non-professional career started in the fifth grade when he just started playing organized basketball. From that early stage, his prowess and skills with the basketball had started to show. He earned a spot in the Amateur Athletic Union.\n\n He formed a ‘Fab Four’ group with three other basketball friends, leading their team to state and national glories. Seeing how much they worked well together, they all vowed to attend the same high school.\n\n James decided to attend a Catholic high school which was predominantly white. This stirred a lot of controversy, but that was soon forgotten when he started showing off his stuff on the court again.\n\n So good was Lebron James that he was named Ohio Mr. Basketball for three years running. He was even able to help his high school team to a series of invincible seasons.\n\n His team even had to change stadiums to allow everyone who wanted to see the budding superstar play.\n\nFor a time, though, James dabbled in football. He excelled in this sport too, helping his team reach the state semi-finals. Senior year was the only time when he didn’t play football due to an injury sustained from basketball.\n\n Many of James’ coaches still maintain that he could have become a footballing great too, had he opted for the NFL instead.\n\n After high school, James began his professional basketball career (2003-2004) with the Cleveland Cavaliers. It didn’t take long for him to make his presence known. He became the NBA Rookie of the year at the end of that season.\n\n The next four years would mark his rise to stardom, setting personal records and breaking existing ones.\n\n By the year 2010, James made his first club switch, going to play for Miami Heat. This move angered his club management and fans alike. James would later express regret on how he handled that move.\n\n His first season with the Miami Heat was marred by a loss in the finals. He turned that around by leading the team to back-to-back championships, and in style too. In his final season, he led the team to the final but missed out on some of the action due to cramps. He was not able to inspire a three-peat.\n\n That marked the end of one phase and opened another at the Cavaliers again.\n\n For his second stint in Cleveland, he led the team to three finals – winning only one which was sandwiched between the two losses. At the end of the third season, he left the Cavaliers for a second time and found home in the Los Angeles Lakers.\n\n Although he has had his longest stretch of injury here (missing 17 games), James still has an impressive record by all standards.\n\n Known for his shooting prowess from inside and outside the circle, dribbling, and defense, LeBron James is an all around the court player.\n\n Little wonder why he is called King James on the courts.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "When was Lebron born?",
+        "options": [
+          "1994",
+          "1984",
+          "1979",
+          "1986"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Lebron’s mom’s name?",
+        "options": [
+          "Laura",
+          "Anna",
+          "Sarah",
+          "Gloria"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What other sport (besides basketball) did Lebron play?",
+        "options": [
+          "Tennis",
+          "Soccer",
+          "Football",
+          "Surfing"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Lebron’s first NBA team?",
+        "options": [
+          "Cavaliers",
+          "Lakers",
+          "Heat",
+          "Warriors"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is Lebron’s nickname?",
+        "options": [
+          "The Barber",
+          "The Brow",
+          "Prince James",
+          "King James"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "math-200",
+    "lexile_measure": 200,
+    "article_id": "math",
+    "article_text": "Think of the word “math.” What comes to mind? Addition. Subtraction. Complicated equations. These are part of math. But they are not the whole thing. Math is a big field. It deals with many different things. Numbers are just one example.\n\nMath is the study of “mathematical objects.” What is a mathematical object? There are lots of them. Sometimes they come from daily life. Sometimes they come from science. Sometimes they come from math. Mathematicians define these objects. They try to make them simple. This makes them easy to study.\n\n There are many areas of math. One area is “algebra.” Algebra is about “algebraic objects.” Numbers are algebraic objects. There are more. Some have weird names. Groups. Rings. Fields. Often, they come from real life. Then, we study them using math. Eventually, we learn new things.\n\nAlgebra has many parts. One is “linear algebra.” Linear algebra is about “vector spaces.” Vector spaces are like our world. Linear algebra is important. It is used in math. It is used in science.\n\nAnother area of math is “analysis.” Analysis is about functions. Functions “take in” a number and “spit out” another number. There are many functions. Analysis is big. It has many applications. MP3 and JPEG files use analysis.\n\nThere are more areas of math. There is topology. Topology is about topological spaces. These are like our world. There is combinatorics. This is advanced counting. There is also number theory. This is about numbers. The list goes on. It continues to expand. Hopefully you have a better idea of what math is. Remember it is a big subject. If you don’t like one part of math, you might like another.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is not an area of math mentioned in the article?",
+        "options": [
+          "Algebra",
+          "Linear algebra",
+          "Analytic geometry",
+          "Combinatorics"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does combinatorics most have to do with?",
+        "options": [
+          "Prime numbers",
+          "Geometry",
+          "Functions",
+          "Counting"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What paragraph talks about linear algebra?",
+        "options": [
+          "1",
+          "2",
+          "4",
+          "6"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which statement would the author probably not agree with?",
+        "options": [
+          "Math has to do with real life.",
+          "Math is boring.",
+          "Math is a big subject.",
+          "Math has important applications."
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which field of math is not mentioned in the last paragraph?",
+        "options": [
+          "Analysis",
+          "Number theory",
+          "Combinatorics",
+          "Topology"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "math-400",
+    "lexile_measure": 400,
+    "article_id": "math",
+    "article_text": "When you see the word “math,” what do you think? Many people think of adding numbers. Or they think of solving complicated equations. These are certainly part of math. But they are not the whole thing. Math is a very big field. It deals with many different “mathematical objects.” Numbers are just one example.\n\nSo, math is the study of “mathematical objects.” But what is a mathematical object? Sometimes they come from daily life. Sometimes they come from other sciences. Sometimes they come from math itself. Mathematicians try to define them in very simple terms. This makes them easy to study.\n\n There are many areas of math. One big branch of math is “algebra.” In algebra, people study “algebraic objects.” Numbers are algebraic objects. There are more. Some have weird names. Groups. Rings. Fields. Often, they come from real life. Then, we study them using math. Eventually, we learn new things.\n\nOne part of algebra is called “linear algebra.” Linear algebra is the study of “vector spaces.” Vector spaces are like the world we live in. Linear algebra is important. It is used in math. It is used in science.\n\n Another important branch of math is called “analysis.” In math, “analysis” is the study of functions. A function is basically just a thing that takes in a “real number” (something like 2.341) and spits out another real number (like 5.1). There are many functions. So, the field of analysis is big. Since it is so big, it has many applications. For example, MP3 files (for music) and JPEG files (for pictures) use something called Fourier Series. Fourier Series are studied in analysis.\n\nThese are just some of the branches of math. There is also topology. Topology is the study of topological spaces. These are similar to the world we live in. Then there is combinatorics. This is advanced counting. There is also number theory. This is the study of numbers. The list goes on and continues to expand. Hopefully now you have a better idea of what math is. Remember that math is a very broad subject. if you don’t like one branch of math, you might like another.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is not an area of math mentioned in the article?",
+        "options": [
+          "Algebra",
+          "Linear algebra",
+          "Analytic geometry",
+          "Combinatorics"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does combinatorics most have to do with?",
+        "options": [
+          "Prime numbers",
+          "Geometry",
+          "Functions",
+          "Counting"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What paragraph talks about linear algebra?",
+        "options": [
+          "1",
+          "2",
+          "4",
+          "6"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which statement would the author probably not agree with?",
+        "options": [
+          "Math has to do with real life.",
+          "Math is boring.",
+          "Math is a big subject.",
+          "Math has important applications."
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which field of math is not mentioned in the last paragraph?",
+        "options": [
+          "Analysis",
+          "Number theory",
+          "Combinatorics",
+          "Topology"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "math-600",
+    "lexile_measure": 600,
+    "article_id": "math",
+    "article_text": "When you see the word “math,” what do you think? Many people think of adding numbers. Or they think of solving complicated equations. These are certainly part of math. But they are not the whole thing. Math is a very big field. It deals with many different “mathematical objects.” Numbers are just one example.\n\n So, math is the study of “mathematical objects.” But what is a mathematical object? Sometimes they are things that come from daily life. Sometimes they come from other sciences. Sometimes they come from math itself. Mathematicians try to define them in very simple terms. This makes them easy to study.\n\n Let’s see some examples of the different areas of math. One big branch of math is “algebra.” In algebra, people study “algebraic objects.” An algebraic object is basically a bunch of “things” and some rules for how these things “interact” with each other. Some examples of algebraic objects are groups, rings, and vector spaces. Often, we define these objects based on things we know from real life. Then, we study them using math. Eventually, we learn things we didn’t know from everyday life.\n\n One important part of algebra is called “linear algebra.” Linear algebra is the study of “vector spaces.” Vector spaces are kind of like the 3-dimensional space we live in, but a bit more general. Linear algebra is a very important branch of math. It is used in almost every other part of math. It is also used in many branches of science. For example, quantum mechanics is an important theory in physics. It is written using linear algebra.\n\n Another important branch of math is called “analysis.” In math, “analysis” is the study of functions. A function is basically just a thing that takes in a “real number” (something like 2.341) and spits out another real number (like 5.1). There are many functions. So, the field of analysis is big. Since it is so big, it has many applications. For example, MP3 files (for music) and JPEG files (for pictures) use something called Fourier Series. Fourier Series are studied in analysis.\n\n These are just some of the branches of math. There is also topology, which is the study of topological spaces. These are kind of like the 3-dimensional space we live in, but a bit more general. Then there is combinatorics, which is advanced counting. There is also number theory, which is the study of numbers. The list goes on, and continues to expand. Hopefully now you have a better idea of what math is. Remember that math is a very broad subject. if you don’t like one branch of math, you might like another.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is not an area of math mentioned in the article?",
+        "options": [
+          "Algebra",
+          "Linear algebra",
+          "Analytic geometry",
+          "Combinatorics"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does combinatorics most have to do with?",
+        "options": [
+          "Prime numbers",
+          "Geometry",
+          "Functions",
+          "Counting"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What paragraph talks about linear algebra?",
+        "options": [
+          "1",
+          "2",
+          "4",
+          "6"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which statement would the author probably not agree with?",
+        "options": [
+          "Math has to do with real life.",
+          "Math is boring.",
+          "Math is a big subject.",
+          "Math has important applications."
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which field of math is not mentioned in the last paragraph?",
+        "options": [
+          "Analysis",
+          "Number theory",
+          "Combinatorics",
+          "Topology"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "math-800",
+    "lexile_measure": 800,
+    "article_id": "math",
+    "article_text": "When you see the word “math,” what do you think of? Many people think of adding and subtracting numbers. Or the think of solving complicated equations. While these are certainly sometimes part of math, they are by no means the whole thing. Math is a very broad field that deals with the investigation of many different types of “mathematical objects.” Numbers are just one example.\n\nSo, if math is the study of “mathematical objects,” what exactly is a mathematical object? Usually they are just objects of interest that come from daily life, other sciences, or math itself. Then, mathematicians try to define them in very simple terms. They make the definitions simple enough to understand, while complicated enough to still be interesting.\n\nLet’s see some examples of the different areas of math. One big branch of math is “algebra.” In algebra, people study “algebraic objects.” An algebraic object is basically a bunch of “things” and some rules for how these things “interact” with each other. Some examples of algebraic objects are groups, rings, and vector spaces. Often, we define these objects based on things we know from real life. Then, we study them using math. Eventually, we learn things we didn’t know from everyday life.\n\nOne important part of algebra is called “linear algebra.” Linear algebra is the study of objects called “vector spaces” and “linear transformations.” Vector spaces are kind of like the 3-dimensional space we live in, but a bit more general. Linear transformations are things that tell you how to get from one vector space to another. Linear algebra is a very important branch of math. It is used in almost every other part of math and in many other branches of science. For example, quantum mechanics is an important theory in physics. It is written entirely in the language of linear algebra.\n\nAnother important branch of math is called “analysis.” This is a bit of a confusing name. In math, “analysis” is just the study of functions. A function is basically just a thing that takes in a “real number” (something like 2.341) and spits out another real number (like 5.1). As you might expect, there are very many functions, so the field of analysis is a large one. Since it is so big, it has many applications. For example, MP3 files (for music) and JPEG files (for pictures) use something Fourier Series to encode their data. Fourier Series are studied in analysis.\n\nThese are just some of the branches of math. There is also topology, which is the study of topological spaces. These are kind of like the 3-dimensional space we live in, but a bit more general. Then there is combinatorics, which is very advanced counting. There is also number theory, which is the study of numbers, especially primes. The list goes on, and continues to expand. Hopefully now you have a better idea of what math is. Remember that even if you don’t like some part of it, like adding numbers, there might be other branches of math that do interest you.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is not an area of math mentioned in the article?",
+        "options": [
+          "Algebra",
+          "Linear algebra",
+          "Analytic geometry",
+          "Combinatorics"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does combinatorics most have to do with?",
+        "options": [
+          "Prime numbers",
+          "Geometry",
+          "Functions",
+          "Counting"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What paragraph talks about linear algebra?",
+        "options": [
+          "1",
+          "2",
+          "4",
+          "6"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which statement would the author probably not agree with?",
+        "options": [
+          "Math has to do with real life.",
+          "Math is boring.",
+          "Math is a big subject.",
+          "Math has important applications."
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which field of math is not mentioned in the last paragraph?",
+        "options": [
+          "Analysis",
+          "Number theory",
+          "Combinatorics",
+          "Topology"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "math-1000",
+    "lexile_measure": 1000,
+    "article_id": "math",
+    "article_text": "When you see the word “math,” what do you think of? Many people think of adding and subtracting numbers, or of solving complicated equations. While these are certainly sometimes part of math, they are by no means the whole thing. Math is a very broad field that deals with the investigation of many different types of “mathematical objects,” of which numbers are just one example.\n\nSo, if math is the study of “mathematical objects,” what exactly is a mathematical object? While difficult to define, they are usually just objects of interest that come from daily life, other sciences, or math itself. Then, mathematicians try to strip these objects down and define them in very simple terms. They make them simple enough to understand, while complicated enough to still be interesting.\n\nIt’s probably easier to see what math “is” by giving a few examples of the different areas of math. One very broad branch of mathematics is called “abstract algebra” or simply “algebra.” Algebra studies the properties of things called groups, rings, fields, vector spaces, and more. All of these mathematical objects consist of a bunch of “things” and a rule or set of rules for how these things “interact” with each other. Usually, the motivation for defining these objects comes from something familiar from daily life. For example, the “natural numbers” (0, 1, 2, 3, etc) along with the rules “addition” and “multiplication” are a ring. The real numbers (not just 0, 1, 2, and 3, but also 2.11, 6.5334325, etc) along with the rules “addition” and “multiplication” are a field. So, we start out by defining these objects based on the stuff we know from real life. Then, once we have the definitions, we learn things about the objects in general. We also learn about other examples of these objects that don’t come so obviously from real life.\n\nOne important part of algebra is called “linear algebra.” Linear algebra is just the study of objects called “vector spaces” and “linear transformations.” Vector spaces are kind of like the 3-dimensional space we live in, but a bit more general. Linear transformations are things that tell you how to get from one vector space to another. Linear algebra is a very important branch of math that is used in almost every other part of math and in many other branches of science. For example, quantum mechanics is the leading theory of physics explaining how small particles behave. It is written completely in the language of linear algebra.\n\nAnother important branch of math is called “analysis.” This is a bit of a confusing term since we use analysis in our daily language to mean something a bit different. In math, “analysis” is just the study of functions. A function is basically just a thing that takes in a “real number” (something like 2.341) and spits out another real number (like 5.1). As you might expect, there are very many functions, so the field of analysis is a large one. Also because of its large scope, the applications of analysis are many. Just as one example, things like MP3 files (for music) and JPEG files (for pictures) use the theory of Fourier Series, which are studied in analysis, to encode their data.\n\nThese are just some of the branches of math. There is also topology, which is the study of topological spaces. These are kind of like the 3-dimensional space we live in, but a bit more general. Then there is combinatorics, which is very advanced counting. There is also number theory, which is the study of numbers, especially primes. The list goes on, and continues to expand. Hopefully now you have a better idea of what math is, and remember that even if you don’t like some part of it, like adding numbers, there might be other branches of math that do interest you.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What is not an area of math mentioned in the article?",
+        "options": [
+          "Algebra",
+          "Linear algebra",
+          "Analytic geometry",
+          "Combinatorics"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What does combinatorics most have to do with?",
+        "options": [
+          "Prime numbers",
+          "Geometry",
+          "Functions",
+          "Counting"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What paragraph talks about linear algebra?",
+        "options": [
+          "1",
+          "2",
+          "4",
+          "6"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which statement would the author probably not agree with?",
+        "options": [
+          "Math has to do with real life.",
+          "Math is boring.",
+          "Math is a big subject.",
+          "Math has important applications."
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which field of math is not mentioned in the last paragraph?",
+        "options": [
+          "Analysis",
+          "Number theory",
+          "Combinatorics",
+          "Topology"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "peyton-manning-200",
+    "lexile_measure": 200,
+    "article_id": "peyton-manning",
+    "article_text": "Peyton Manning was born into a football family. That helped him. But it wasn’t the only factor. He worked very hard.\n\nPeyton was born in 1976. His dad was Archie Manning. Peyton started throwing a ball very young. His family loved football. Archie was an NFL quarterback. So was his brother Eli.\n\nHis interest in football started at home. It grew on the field.\n\nHe played on his high school team. He was very good. He led his team to a 34-5 record. He wore the No. 18. This was to honor his older brother. His brother quit football due to an injury.\n\nAfter high school, many colleges wanted Peyton. He was recruited by 60 colleges.\n\n Manning chose Tennessee. Many fans expected him to play for Ole Miss. That was where his dad played. He wanted to do something different.\n\nHe did well at Tennessee. He was their best passer. He won 39/45 games. This was a record.\n\nAfter college, Manning was selected by the Indianapolis Colts. He was picked first in the draft. He played for the Colts for 11 years. Then he was injured in 2011.\n\nHe was released by the Colts. He went to the Denver Broncos in 2012. He stayed with them until 2015. Manning played 17 seasons.\n\nHe was one of the best quarterbacks ever. He was better than his father. He broke many records. He was a great player.\n\nHe won 2 super bowls.\n\nHis high school retired his No. 16 jersey. The Colts retired his No. 18 shirt.\n\nManning donated to many charities. He helped improve Indianapolis.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Peyton’s dad’s name?",
+        "options": [
+          "Archie",
+          "Andy",
+          "Alex",
+          "Joe"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Peyton go to college?",
+        "options": [
+          "UCLA",
+          "Duke",
+          "Alabama",
+          "Tennessee"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Peyton’s first professional team?",
+        "options": [
+          "Broncos",
+          "Giants",
+          "Saints",
+          "Colts"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How many super bowls did Peyton win?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Peyton’s dad go to college?",
+        "options": [
+          "Auburn",
+          "Alabama",
+          "Tennessee",
+          "Ole Miss"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "peyton-manning-400",
+    "lexile_measure": 400,
+    "article_id": "peyton-manning",
+    "article_text": "Peyton Manning was born into a great football family. That made his story unique. But it wasn’t the only factor. He worked very hard.\n\n Peyton was born in 1976. He was the second of three boys. His dad was Archie Manning. Peyton started throwing a ball when he was very young.  Manning’s family loved football. Archie was an NFL quarterback. So was his younger brother Eli.\n\n His interest in football started at home. It grew on the field.\n\n He showed his talent from an early age. He led his school to a 34-5 record in 3 seasons. He wore the No. 18 jersey. This was to honor his older brother. His brother gave up football due to a spinal injury.\n\n After high school, many colleges wanted Peyton. He was recruited by more than 60 colleges.\n\n Manning chose Tennessee. Many fans expected him to play for Ole Miss. That was where his dad played. But he wanted to do something different.\n\n He did well at Tennessee. He was their all-time leading passer. He won 39/45 games. This broke the record for career wins in the Southeastern Conference.\n\n After college, Manning was selected by the Indianapolis Colts. He was picked first in the draft. He played for the colts for 11 years. Then he was injured in 2011.\n\n He was released by the Colts. He went to the Denver Broncos in 2012. He stayed with them until 2015. Manning played 17 seasons.\n\nHe became one of the greatest quarterbacks ever. He exemplified the role of a quarterback. He surpassed the achievements of his father. He broke many records.\n\nHowever, Manning wasn’t as successful in the playoffs. Still, he was a great player.\n\nHe won 2 super bowls.\n\nHis high school retired his No. 16 jersey. The Colts did the same with his No. 18 shirt.\n\nManning has donated to many notable causes. He has helped improve Indianapolis.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Peyton’s dad’s name?",
+        "options": [
+          "Archie",
+          "Andy",
+          "Alex",
+          "Joe"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Peyton go to college?",
+        "options": [
+          "UCLA",
+          "Duke",
+          "Alabama",
+          "Tennessee"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Peyton’s first professional team?",
+        "options": [
+          "Broncos",
+          "Giants",
+          "Saints",
+          "Colts"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How many super bowls did Peyton win?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Peyton’s dad go to college?",
+        "options": [
+          "Auburn",
+          "Alabama",
+          "Tennessee",
+          "Ole Miss"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "peyton-manning-600",
+    "lexile_measure": 600,
+    "article_id": "peyton-manning",
+    "article_text": "Peyton Manning was born into a great football family. That might be one of the things which made the story of Peyton Manning unique. But that was surely not the only factor.\n\n It took hard work and determination for him to achieve all that he did.\n\n Peyton was born in 1976. He was the second of three boys born to Archie Manning. Peyton started throwing a ball from the time he was old enough to pick one up.  Manning’s family was heavily built around football. Archie was a former NFL quarterback. His younger brother, Eli, would also become an NFL quarterback.\n\n His interest in football might have started in the home. It grew on the field when he started playing for his high school.\n\n He showed his talent from an early age. He led his school to a 34-5 record in 3 seasons. He wore the No. 18 jersey to honor his older brother. His brother gave up football due to a spinal injury.\n\n After high school, many colleges wanted Peyton on their team. He was recruited by more than 60 colleges.\n\n Manning chose the University of Tennessee. Many fans expected him to play for the same team, Ole Miss, as his father. But he planned to chart out his own course instead.\n\nHe did just that. He was the all-time leading passer of the college. He won 39/45 games. This broke the record for career wins in the Southeastern Conference.\n\n After college, Manning was selected by the Indianapolis Colts with the first pick of the draft. He played for the colts for 11 years. Then he was injured in 2011.\n\n Then he was released by the Colts. He went to the Denver Broncos in 2012. He stayed with them until 2015. Manning played 17 seasons.\n\nHe became one of the greatest quarterbacks ever. He also exemplified the role of a quarterback. He surpassed the achievements of his father. He broke many records.\n\n However, Manning wasn’t as successful in the playoffs. Still, he was a great player.\n\nAfter all, he went on to become a 2-time Super Bowl champion.\n\nHis high school retired the No. 16 jersey in his honor. The Colts did the same with his No. 18 shirt.\n\nManning has donated to many notable causes. He has helped improve Indianapolis.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Peyton’s dad’s name?",
+        "options": [
+          "Archie",
+          "Andy",
+          "Alex",
+          "Joe"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Peyton go to college?",
+        "options": [
+          "UCLA",
+          "Duke",
+          "Alabama",
+          "Tennessee"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Peyton’s first professional team?",
+        "options": [
+          "Broncos",
+          "Giants",
+          "Saints",
+          "Colts"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How many super bowls did Peyton win?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Peyton’s dad go to college?",
+        "options": [
+          "Auburn",
+          "Alabama",
+          "Tennessee",
+          "Ole Miss"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "peyton-manning-800",
+    "lexile_measure": 800,
+    "article_id": "peyton-manning",
+    "article_text": "Peyton Manning was born into a great football family. That might be one of the things which made the story of Peyton Manning unique. But that was surely not the only factor.\n\nIt took hard work and determination for him to achieve all that he did.\n\nBorn in 1976, Manning was the second of three boys born to Archie Manning. Peyton started throwing a ball from the time he was old enough to pick one up.  Manning’s family was heavily built around football due to the influence of his father. Archie was a former NFL quarterback. His younger brother, Eli, would also become an NFL quarterback.\n\nHis interest in football might have developed in the home, but it grew on the field when he started playing for his high school.\n\nHe showed his talent from an early age. He led his school team to a 34-5 record over 3 seasons. There, he wore the No. 18 jersey to honor his older brother. His brother gave up the game due to a spinal injury.\n\nAfter high school, Peyton was the most sought-after player for colleges. He was recruited by more than 60 colleges.\n\nAfter careful consideration, Manning chose the University of Tennessee. Many fans expected him to play for the same team, Ole Miss, that his father did. But he planned to chart out his own course instead.\n\nBy the time he finished college, he had done just that. He had become the all-time leading passer of the college and won 39/45 games. This broke the record for career wins in the Southeastern Conference (SEC).\n\nAfter college, Manning was selected by the Indianapolis Colts with the first overall pick of the year’s draft. He would go on to play for 11 years before being injured in 2011.\n\nWhile recovering from injury, he was released by the Colts. He proceeded to play the 2012 season with the Denver Broncos. He stayed with them until 2015. Combined, Manning played an impressive 17 seasons.\n\nHe became one of the greatest to have ever thrown a football. He also exemplified the role of a quarterback. He surpassed the achievements of his father and broke many records.\n\nHowever, Manning wasn’t as successful in the playoffs as he was in the regular season. Still, he was a great player.\n\nAfter all, he went on to become a 2-time Super Bowl champion.\n\nHis high school retired the No. 16 jersey in his honor. The Colts did the same with his No. 18 shirt.\n\nManning is also a philanthropist who has donated to many notable causes. He has helped improve the entire city of Indianapolis.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Peyton’s dad’s name?",
+        "options": [
+          "Archie",
+          "Andy",
+          "Alex",
+          "Joe"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Peyton go to college?",
+        "options": [
+          "UCLA",
+          "Duke",
+          "Alabama",
+          "Tennessee"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Peyton’s first professional team?",
+        "options": [
+          "Broncos",
+          "Giants",
+          "Saints",
+          "Colts"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How many super bowls did Peyton win?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Peyton’s dad go to college?",
+        "options": [
+          "Auburn",
+          "Alabama",
+          "Tennessee",
+          "Ole Miss"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "peyton-manning-1000",
+    "lexile_measure": 1000,
+    "article_id": "peyton-manning",
+    "article_text": "It is not every time that someone gets born to a family where they would find their passion, continuing in the footsteps of one of their parents. That might be one of the things which made the story of Peyton Manning unique, but that was surely not the only factor.\n\n It took hard work and determination to get the NFL quarterback where he is today.\n\n Born on the 24’th of March, 1976, Manning was the second of three boys born to Archie Manning – also a former NFL quarterback. Manning’s family was one that was heavily built around football due to the influence of their father.\n\n It could even be said that Peyton Manning started throwing a ball from the time he was old enough to pick one up. Being the older brother of Eli Manning – current quarterback for the New York Giants – he was surely not the only one to have walked this path.\n\n His interest in football might have developed in the home, but it fostered on the pitch when he started playing for his high school (Isidore Newman School, New Orleans).\n\n He showed his talent from an early age. He led his school team to an impeccable 34-5 record during all the three seasons he spent there as a starter. There, he was always wearing the No. 18 jersey to honor his older brother who gave up the game due to a spinal injury.\n\n By the time he was done with high school, Peyton became the most sought-after NFL player for colleges. In fact, he went on to be recruited by no less than 60 colleges.\n\n After careful consideration, Manning chose the University of Tennessee Volunteers among all the interested suitors. Many fans expected him to play for the same team his father did, but he planned to chart out his own course instead.\n\n When the time came to graduate college in Tennessee, he had done just that. He had become the all-time leading passer of the college and won 39/45 games. This broke the record for career wins in the Southeastern Conference (SEC).\n\n After college, Manning was selected by the Indianapolis Colts with the first overall pick of the year’s draft. He would go on to play for a full 11 years before being injured in 2011.\n\n On nursing the injury to full recovery, he was released by the Colts. He proceeded to play the 2012 season with the Denver Broncos. He stayed with them until 2015. Combined, Manning played an impressive 17 seasons while excluding the years he lost to his recurrent neck injury.\n\n That time, fortunately, was enough for him to cement his name in the game as one of the greatest to have ever thrown a football. He also exemplified the role of a quarterback. He surpassed the achievements of his father and broke many records.\n\n The only blemish that Manning seems to have on his career was that he didn’t enjoy the same amount of success in the playoffs as he did in the regular season. Still, he has had a huge impact on the game.\n\n After all, he went on to become a 2-time Super Bowl champion.\n\n In honor of his immense contribution to the game, his high school retired the No. 16 jersey in his honor. His first team (Indianapolis Colts) did the same with his No. 18 shirt.\n\n Manning is also a philanthropist who has donated to many notable causes. He has helped improve the entire city of Indianapolis.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Peyton’s dad’s name?",
+        "options": [
+          "Archie",
+          "Andy",
+          "Alex",
+          "Joe"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Peyton go to college?",
+        "options": [
+          "UCLA",
+          "Duke",
+          "Alabama",
+          "Tennessee"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was Peyton’s first professional team?",
+        "options": [
+          "Broncos",
+          "Giants",
+          "Saints",
+          "Colts"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How many super bowls did Peyton win?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Where did Peyton’s dad go to college?",
+        "options": [
+          "Auburn",
+          "Alabama",
+          "Tennessee",
+          "Ole Miss"
+        ],
+        "answer_index": 3
+      }
+    ]
+  },
+  {
+    "_id": "taylor-swift-200",
+    "lexile_measure": 200,
+    "article_id": "taylor-swift",
+    "article_text": "Taylor Swift is a household name. She is a famous singer. But she is more than that.\n\nShe is a songwriter. She is an actor. She is a record producer. She has many fans.\n\nShe has a unique style. She discovered her passion from a young age.\n\nTaylor was born in 1989. Her parents were not musical.\n\nHowever, she was named after James Taylor. He was an American singer-songwriter.\n\nTaylor liked musical theatre. She performed in plays. She travelled to New York City. She got vocal and acting lessons. Later she stopped acting. She focused on music. She liked Shania Twain. She become a country singer.\n\nShe performed at many musical events. She visited studios in Nashville. She met a dead end there. The studios didn’t help her.\n\nAt age 12, Taylor met Ronnie Cremer. He was a musician. He taught her to play guitar. He taught her to write songs. She wrote a song called Lucky You.\n\nHer family moved to Tennessee. She was home-schooled.\n\nAfter high school, Swift worked with more songwriters.\n\nTaylor told personal stories in her music. She became famous for this.\n\nShe left RCA Records. She was 14. Big Machine Records found her. She released her first album. She wrote 3 songs. She co-wrote 8.\n\nThe album was called Taylor Swift. It reached number 5 on the Billboard 200. It was there for 157 weeks. It made her a star. She released her second album in 2008. It was called Fearless. It was more successful. It reached number 4 on the Billboard 100.\n\nShe went on a tour. It was very successful. She made many fans. She made $63 million.\n\nHer next album was Speak Now. It reached number 1 on the Billboard 200. It entered the Guinness World Records.\n\nTaylor’s next album was Red. It explored new genres. It was successful.\n\nHer next album was 1989. It was different. It was her first pop album. It was successful.\n\nTaylor is a good actress. She starred in her own film. It was called Taylor Swift: Journey to Fearless.\n\nShe also donates a lot. She helped with disaster relief in Iowa. She helped develop arts in Henderson High School. She helped build an education center in Nashville. She helped donate to the music departments of six colleges.\n\nShe also influences politics. She has also endorsed many brands.\n\nTaylor has had a great career. She is still making good music.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What year was Taylor born?",
+        "options": [
+          "1999",
+          "1989",
+          "1979",
+          "1980"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which does not describe Taylor Swift?",
+        "options": [
+          "Singer",
+          "Actor",
+          "Song-writer",
+          "Athlete"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was her first album?",
+        "options": [
+          "Taylor Swift",
+          "Red",
+          "Fearless",
+          "Speak Now"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How old was taylor when she left RCA records?",
+        "options": [
+          "14",
+          "16",
+          "18",
+          "24"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What place is not mentioned in the article?",
+        "options": [
+          "Nashville",
+          "Florida",
+          "New York City",
+          "Iowa"
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "taylor-swift-400",
+    "lexile_measure": 400,
+    "article_id": "taylor-swift",
+    "article_text": "Taylor Swift is a household name. She is a famous singer. But she is more than that.\n\nShe is a songwriter. She is an actor. She is a record producer. She has many fans.\n\nShe has a unique style. She discovered her passion from a young age.\n\nTaylor was born in 1989. Her parents were not musical. Her father was a stockbroker. Her mother worked at a mutual fund.\n\nHowever, she was named after James Taylor. He was a popular American singer-songwriter.\n\nAt 9, Taylor liked musical theatre. She performed in the Berks Youth Theatre Academy. She travelled to New York City. She got vocal and acting lessons. Later she stopped acting. She focused on music. She liked Shania Twain. She become a country singer.\n\nShe performed at many musical events. She visited studios in Nashville. She met a dead end there. The studios didn’t want to help her.\n\nAt age 12, Taylor met Ronnie Cremer. He was a local musician. He taught her how to play the guitar. He taught her to write her own songs. She wrote a song called Lucky You. This was one of the small steps to her big break.\n\nTo support her dreams, her family moved to Tennessee. She was home-schooled.\n\nAfter high school, Swift worked with more songwriters from Music Row.\n\nTaylor told personal stories in her music. She became famous for this.\n\nShe left RCA Records when she was 14. Big Machine Records found her. This was where she released her first album. She wrote the first 3 songs herself. She co-wrote the other 8.\n\nThe album was titled Taylor Swift. It reached number 5 on Billboard 200. It was there for 157 weeks. It made her a star. She released her second album in 2008. It was called Fearless. It was even more successful. It reached number 4 on the Billboard 100 list.\n\nShe went on a tour to promote the album. It was very successful. She made many fans. She made $63 million.\n\nThis album was followed by Speak Now. This debuted at the number one spot of the Billboard 200. It entered the Guinness World Records.\n\nTaylor’s next album was called Red. With this album, she explored new genres. The album was very successful.\n\nHer next album was 1989 Secret Sessions. It was different. It was her first pop album. It was very successful.\n\nTaylor is also a talented actress. She acted in Keith Urban’s Escape Together World Tour. She also starred in her own concert film. It was called Taylor Swift: Journey to Fearless.\n\nShe also donates a lot. She helped with disaster relief in Iowa. She helped develop arts in Henderson High School. She helped build an education center in Nashville. She helped donate to the music departments of six colleges.\n\nShe also influences politics. She helped with human and women’s rights campaigns. She has also endorsed many brands.\n\nTaylor has had a great career. It mixes country music with other genres. She is still making good music.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What year was Taylor born?",
+        "options": [
+          "1999",
+          "1989",
+          "1979",
+          "1980"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which does not describe Taylor Swift?",
+        "options": [
+          "Singer",
+          "Actor",
+          "Song-writer",
+          "Athlete"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was her first album?",
+        "options": [
+          "Taylor Swift",
+          "Red",
+          "Fearless",
+          "Speak Now"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How old was taylor when she left RCA records?",
+        "options": [
+          "14",
+          "16",
+          "18",
+          "24"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What place is not mentioned in the article?",
+        "options": [
+          "Nashville",
+          "Florida",
+          "New York City",
+          "Iowa"
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "taylor-swift-600",
+    "lexile_measure": 600,
+    "article_id": "taylor-swift",
+    "article_text": "Taylor Swift is a household name. While many know her to be a singer, she is more than that.\n\n She is a songwriter, an actor, and a record producer. She is also a highly influential individual. She has fans from different walks of life.\n\n She is especially praised for her unique style of singing. Taylor is one of the lucky few who discovered their passion from an early age.\n\n Taylor was born in 1989. Her parents didn’t do anything in the musical line. Her father was a stockbroker. Her mother was a mutual fund marketing executive. There were no strong musical influences in her family.\n\n However, she was named after James Taylor – who was a popular American singer-songwriter.\n\n At the age of nine, Taylor expressed interest in musical theatre. She performed in the Berks Youth Theatre Academy. She travelled to New York City to receive vocal and acting lessons. She later dropped her interest in acting for a more focused music career. She started with interest in Shania Twain’s songs. This inspired her to become a country singer.\n\nShe performed at many musical festivals and events. Then, she decided to take her career to the next level. She visited studios in Nashville. She met a dead end there. The studios thought what she wanted to do was generic.\n\nAt age 12, Taylor met Ronnie Cremer. He was an old computer repairman and local musician. He taught her how to play the guitar and write her own songs. This led to the development of her song titled Lucky You. This was one of the small steps to her big break.\n\nAfter performing at an RCA Records event, she landed an artist development deal. To support her dreams, the family moved to Tennessee. She began to be home-schooled to better focus on her music.\n\nOn graduating high school, Swift started to work with more serious songwriters from Music Row.\n\nTaylor developed a model of country music which involved telling personal stories. She became famous for this.\n\nShe left RCA Records when she was 14. Big Machine Records found Taylor. This was where she released her first album. She wrote the first 3 songs herself and co-wrote the other 8.\n\nThe album was titled Taylor Swift. It reached number five on Billboard 200. It was there for a combined 157 weeks. It shot her into stardom. She released her second album (Fearless) in 2008. It was even more successful. This album peaked at number four on the Billboard 100 list.\n\nShe went on a highly successful tour to promote the album. She made many fans and $63 million.\n\nThis album was followed by Speak Now. This debuted at the number one spot of the Billboard 200. It entered the Guinness World Records.\n\nTaylor’s next album was called Red. With this album, she explored new genres. The album was very successful.\n\nHer next album was 1989 Secret Sessions. It was very different. It was her first pop album. It also was very successful.\n\nTaylor Swift is also a talented actress. She acted in Keith Urban’s Escape Together World Tour. She also starred in her own concert film, Taylor Swift: Journey to Fearless.\n\nShe is also known for her philanthropic efforts. She helped with disaster relief in Iowa. She helped develop arts in Henderson High School. She helped build an education center in Nashville. She helped donate to the music departments of six colleges.\n\nShe also has a hand in politics. She helped with a number of human and women rights campaigns. She has also endorsed many brands.\n\nTaylor has had a great career that mixes country music with other genres. She will likely win more awards before hanging up the guitar.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What year was Taylor born?",
+        "options": [
+          "1999",
+          "1989",
+          "1979",
+          "1980"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which does not describe Taylor Swift?",
+        "options": [
+          "Singer",
+          "Actor",
+          "Song-writer",
+          "Athlete"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was her first album?",
+        "options": [
+          "Taylor Swift",
+          "Red",
+          "Fearless",
+          "Speak Now"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How old was taylor when she left RCA records?",
+        "options": [
+          "14",
+          "16",
+          "18",
+          "24"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What place is not mentioned in the article?",
+        "options": [
+          "Nashville",
+          "Florida",
+          "New York City",
+          "Iowa"
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "taylor-swift-800",
+    "lexile_measure": 800,
+    "article_id": "taylor-swift",
+    "article_text": "Taylor Swift is a household name. While many know her to be a singer, she is so much more than that.\n\n In fact, she is a songwriter, an actor, and a record producer. Beyond that, she is also a highly influential individual, having followers and fans from different walks of life.\n\n Especially praised for her unique style of singing, Taylor is one of the very lucky few who discovered their passion from an early age.\n\n Taylor was born in 1989. Her parents didn’t do anything in the musical line. Her father was a stockbroker and her mother was as a mutual fund marketing executive. There were no strong musical influences in her family.\n\n However, she was named after James Taylor – who was a popular American singer-songwriter.\n\n At the age of nine, Taylor expressed interest in musical theatre. She performed in the Berks Youth Theatre Academy. She would constantly travel to New York City to receive vocal and acting lessons. She later dropped her interest in acting for a more focused music career. She started with interest in Shania Twain’s songs which naturally inspired her to become a country singer.\n\n She performed at numerous musical festivals and events. Then, she decided to take her career to the next level and visited studios in Nashville. She met a dead end there as the studios thought what she wanted to do was generic.\n\n By the age twelve, Taylor made acquaintances with Ronnie Cremer. He was an old computer repairman and local musician. He taught her how to play the guitar and write her own songs. This effort led to the development of her song titled Lucky You. This was one of the small steps to her big break.\n\n After performing at an RCA Records event, she landed an artist development deal. To support her dreams, the family moved to Tennessee. She began to be home-schooled to better focus on her music.\n\n On graduating high school, Swift started to work with more serious songwriters from Music Row.\n\n From that early stage, Taylor had developed a model of country music which involved telling personal stories. Little did she know that this was a form of music she was soon going to be very much known and revered for.\n\n Leaving RCA Records by the time she was 14, Big Machine Records found Taylor. This was where she released her first album – writing the first 3 songs herself and co-writing the other 8.\n\n The album, titled after the singer’s name, reached number five on Billboard 200 and was there for a combined 157 weeks. It shot her into stardom. Releasing her second album (Fearless) in 2008, she enjoyed even better success. This album peaked at the number four on the Billboard 100 list.\n\n She went on a highly successful tour to promote the album, garnering more fans and a massive $63 million in the process.\n\n This album was followed by Speak Now, which debuted at the number one spot of the Billboard 200. It gathered many downloads and even entered the Guinness World Records.\n\n Taylor’s next album was called Red. With this album, she explored new genres. The album was a success with the critics and the public.\n\n Having been experimenting with other genres, she took a totally unconventional approach to her next album--1989 Secret Sessions. Released as her first pop album, it also became an unprecedented success.\n\n Her last album release, titled Reputation, struck much closer to home than many of her others.\n\n Combining her style of writing from personal experiences with a sexual assault case that she recently won, she released the lead single ‘Look What You Made Me Do’. It was very successful. In fact, the song topped charts in five countries.\n\n Besides singing, Taylor Swift is also a talented actress. She showed up in a supporting role in Keith Urban’s Escape Together World Tour. She also starred in her own concert film, Taylor Swift: Journey to Fearless.\n\n Likewise, she is known for her many philanthropic efforts. She has donated several millions to various charitable causes. She helped fund disaster relief through the Red Cross to help Iowa flood victims of 2008. She funded the development of arts in Henderson High School (which she attended) in Nashville. She helped build a new education center in Nashville. She also donated to the music departments of six US colleges.\n\n She also has a hand in politics. She helped with a number of human and women rights campaigns. She has also endorsed many brands. These include Abercrombie and Fitch, Verizon Wireless, the NFL, Diet Coke, Papa John’s Pizza and CoverGirl.\n\n Taylor had an illustrious career that mixed country music with other genres. She is surely going to win more awards before hanging up the guitar.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What year was Taylor born?",
+        "options": [
+          "1999",
+          "1989",
+          "1979",
+          "1980"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which does not describe Taylor Swift?",
+        "options": [
+          "Singer",
+          "Actor",
+          "Song-writer",
+          "Athlete"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was her first album?",
+        "options": [
+          "Taylor Swift",
+          "Red",
+          "Fearless",
+          "Speak Now"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How old was taylor when she left RCA records?",
+        "options": [
+          "14",
+          "16",
+          "18",
+          "24"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What place is not mentioned in the article?",
+        "options": [
+          "Nashville",
+          "Florida",
+          "New York City",
+          "Iowa"
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "taylor-swift-1000",
+    "lexile_measure": 1000,
+    "article_id": "taylor-swift",
+    "article_text": "Taylor Swift is a household name. While many know her to be a singer, she is so much more than that.\n\n In fact, she is a songwriter, an actor, and a record producer. Beyond that, she is also a highly influential individual, having followers and fans from different walks of life.\n\n Especially praised for her unique style of singing, Taylor is one of the very lucky few who discovered their passion from an early age.\n\n Taylor was born in 1989. Her parents didn’t do anything in the musical line. Her father was a stockbroker and her mother was as a mutual fund marketing executive. There were no strong musical influences in her family.\n\n However, she was named after James Taylor – who was a popular American singer- songwriter.\n\n At the age of nine, Taylor expressed interest in musical theatre. She performed in the Berks Youth Theatre Academy. She would constantly travel to New York City to receive vocal and acting lessons. She later dropping her interest in acting for a more focused music career. She started with interest in Shania Twain’s songs which naturally inspired her to become a country singer.\n\n Having performed at numerous musical festivals and events, she decided to take her career to the next level and visited studios in Nashville. She would, however, meet a dead end there as the studios thought what she wanted to do was generic.\n\n By the age twelve, Taylor made acquaintances with Ronnie Cremer – an old computer repairman and local musician – who taught her how to play the guitar and write her own songs. This effort led to the development of her song titled Lucky You, and that was one of the small steps to her big break.\n\n After performing at an RCA Records event, she landed an artist development deal. To support her dreams, the family moved to Tennessee. She began to be home-schooled to better focus on her music.\n\n On graduating high school, Swift started to work with more serious songwriters from Music Row.\n\n From that early stage, Taylor had developed a model of country music which involved telling personal stories. Little did she know that this was a form of music she was soon going to be very much known and revered for.\n\n Leaving RCA Records by the time she was 14, Big Machine Records found Taylor. This was where she released her first album – writing the first 3 songs herself and co-writing the other 8.\n\n The album, titled after the singer’s name, reached number five on Billboard 200 and was there for a combined 157 weeks. It shot her into stardom. Releasing her second album (Fearless) in 2008, she enjoyed even better success. This album peaked at the number four on the Billboard 100 list.\n\n She went on a highly successful tour to promote the album, garnering more fans and a massive $63 million in the process.\n\n This album was soon to be followed (two years later) by Speak Now which debuted at the number one spot of the Billboard 200, gathering multiple downloads in one week and even entering the Guinness World Records.\n\n Following the two-year album release timetable, Red was the next on the list for Taylor Swift. With this album, she delved into newer genres than she was known for – and she excelled there.\n\n In fact, the album was a success with the critics as it was with the public.\n\n Having been experimenting with other genres, she took a totally unconventional approach to her next album – 1989 Secret Sessions. Released as her first pop album, it was little wonder when this became an unprecedented success too.\n\n Her last album release, titled Reputation, struck much closer to home than many of her others. Combining her style of writing from personal experiences with a sexual assault case that she recently won, she released the lead single ‘Look What You Made Me Do’ from the album to much success. In fact, the song topped charts in five countries on release – Australia, Ireland, United Kingdom, New Zealand and the United States.\n\n Besides singing, Taylor Swift is also a talented actress. She showed up in a supporting role in Keith Urban’s Escape Together World Tour and starred in her own concert film, Taylor Swift: Journey to Fearless.\n\n Likewise, she is known for her many philanthropic efforts. She has donated several millions to various charitable causes. She helped fund disaster relief through the Red Cross to help Iowa flood victims of 2008. She funded the development of arts in Henderson High School (which she attended) in Nashville. She helped build a new education center in Nashville. She also donated to the music departments of six US colleges.\n\n She also has a hand in politics, sponsoring and being the face of a number of human and women rights’ campaigns. That is not to forget the fact that she is linked to product endorsements for many brands. These include Abercrombie and Fitch, Verizon Wireless, the NFL, Diet Coke, Papa John’s Pizza and CoverGirl.\n\n Taylor had an illustrious career that mixed country music with other genres. She is surely going to win more awards before hanging up the guitar.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What year was Taylor born?",
+        "options": [
+          "1999",
+          "1989",
+          "1979",
+          "1980"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "Which does not describe Taylor Swift?",
+        "options": [
+          "Singer",
+          "Actor",
+          "Song-writer",
+          "Athlete"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What was her first album?",
+        "options": [
+          "Taylor Swift",
+          "Red",
+          "Fearless",
+          "Speak Now"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How old was taylor when she left RCA records?",
+        "options": [
+          "14",
+          "16",
+          "18",
+          "24"
+        ],
+        "answer_index": 0
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What place is not mentioned in the article?",
+        "options": [
+          "Nashville",
+          "Florida",
+          "New York City",
+          "Iowa"
+        ],
+        "answer_index": 1
+      }
+    ]
+  },
+  {
+    "_id": "wright-brothers-200",
+    "lexile_measure": 200,
+    "article_id": "wright-brothers",
+    "article_text": "The Wright Brothers were important to flight. They were Wilbur and Orville \n\nThey were American. They were born in Ohio. There the story began.\n\nThey didn’t invent planes. However, they did a lot. They made controls. These made flight possible.\n\nAs kids they had a model helicopter. They played with it. It broke. They made a new one. This was important.\n\nThey attended high school. Wilbur finished four years. But he didn’t get a diploma. His family moved before he could. Orville dropped out. He built a printing press business.\n\nIt was successful. Wilbur joined. Their printing press lasted a while. Then it failed.\n\n They made another company. They sold bicycles. They made money. They spent it on flight.\n\nThey built their first aircraft. They did many tests. Then they flew it. It rose 852 feet. It flew for 52 seconds. However, no one believed them.\n\nThey went to Europe. They did test flights. They gave rides to important people. Their fame spread. They started selling planes.\n\nThey sold many planes. They got rich. They worked with many companies.\n\nThey shared credit. They helped each other. Will was the business mind. Orville contributed ideas too.\n\nThey never married. They had no kids. Wilbur died first. He got typhoid. He was 45.\n\nOrville lived longer. He saw more developments. Then he had a heart attack.\n\nThe Wright Brothers thought outside the box. They accomplished a lot. They will always be remembered.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In what state were the Wright Brothers born?",
+        "options": [
+          "Colorado",
+          "California",
+          "Pennsylvania",
+          "Ohio"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What toy did the brothers have as kids?",
+        "options": [
+          "Plane",
+          "Helicopter",
+          "Doll",
+          "Train"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What business did Orville build after dropping out of high school?",
+        "options": [
+          "Pizza",
+          "Printing Press",
+          "Car",
+          "Farming"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How high did their first flight go?",
+        "options": [
+          "8000 feet",
+          "1000 feet",
+          "852 feet",
+          "152 feet"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Wilbur die of?",
+        "options": [
+          "Typhoid",
+          "Influenza",
+          "Measles",
+          "Smallpox"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "wright-brothers-400",
+    "lexile_measure": 400,
+    "article_id": "wright-brothers",
+    "article_text": "The Wright Brothers were important to flight. They were Wilbur and Orville Wright.\n\nThey were American. They were were born four years apart. They were born in Ohio. That was where the story all began.\n\nThey were not the first to invent the aircraft. However, they were pioneers. They developed many controls. These made flight possible.\n\nAs kids they had a model helicopter. It was made from bamboo, paper, cork and rubber. They played with this toy helicopter until it broke. Then they made a new one. This was a defining moment.\n\nThey attended high school. Neither got a diploma. Wilbur finished four years of high school. But he missed out on his diploma. His family moved before he could get it. Orville dropped out of school. He built a printing press business instead.\n\nThis business was successful. Wilbur joined in. Their printing press lasted a while. Then it failed. It was converted to a commercial printing press.\n\nThen they made another company. It handled sales and repairs of bicycle. They made money. They spent it on flight.\n\nThey made their first model. Other inventors did too. However, their approach was different. They focused more on controls than other inventors.\n\nOthers thought the pilot’s body was the best way to control the craft. The Wright brothers preferred mechanical controls.\n\nThis set them apart.\n\nThe Wright brothers built their first aircraft. They did lots of tests. Then they flew it.\n\nThey wanted an engine. They asked different companies. None of them could meet their requirements. Then they asked their own bicycle repair specialist. He made them an aluminum engine. This was not common.\n\nThen came their first flight. Their aircraft rose 852 feet. It spent 52 seconds in the air. However, no one believed the brothers.\n\nThen they went to Europe. They settled in France. They did test flights. They gave rides to important people. Their fame spread. They started selling aircrafts.\n\nThey sold many aircrafts. They became very wealthy businessmen. They worked with European and American companies.\n\nThe brothers took joint credit for their work. This helped them succeed.\n\nThey used each other’s strengths. Will was the business mind. Orville contributed many ideas too.\n\nBoth brothers never married. They had no kids. Wilbur died first. He got typhoid. He was 45.\n\nOrville lived 35 years more. He lived to see many more developments. Then he had a heart attack.\n\nThey helped aviation technology a lot. They thought outside the box. They accomplished a lot.\n\nThe Wright brothers will always be remembered. They laid the template for aviation controls.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In what state were the Wright Brothers born?",
+        "options": [
+          "Colorado",
+          "California",
+          "Pennsylvania",
+          "Ohio"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What toy did the brothers have as kids?",
+        "options": [
+          "Plane",
+          "Helicopter",
+          "Doll",
+          "Train"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What business did Orville build after dropping out of high school?",
+        "options": [
+          "Pizza",
+          "Printing Press",
+          "Car",
+          "Farming"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How high did their first flight go?",
+        "options": [
+          "8000 feet",
+          "1000 feet",
+          "852 feet",
+          "152 feet"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Wilbur die of?",
+        "options": [
+          "Typhoid",
+          "Influenza",
+          "Measles",
+          "Smallpox"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "wright-brothers-600",
+    "lexile_measure": 600,
+    "article_id": "wright-brothers",
+    "article_text": "The Wright Brothers were very important to flight. They were Wilbur and Orville Wright.\n\n The two American inventors were born four years apart. They were born in Ohio. That was where the story all began.\n\n They were not the first to invent the aircraft. However, they were pioneers of aviation technology. They developed many controls. These made flight of fixed-wings aircrafts possible.\n\n Growing up, their father brought home a model helicopter. It was made from bamboo, paper, cork and rubber. They played with this toy helicopter until it broke. Then they made a replica for themselves. The brothers said this was the defining moment in their journey.\n\nThe two brothers attended high school. Neither was awarded a diploma. Wilbur finished four years of high school. But he missed out on his diploma since his family moved before he could get it. Orville dropped out of school. He built a printing press business instead.\n\nThis business was successful. Wilbur joined in on the print shop. Their printing press lasted for a while. Then it failed. Afterwards, it was converted to a commercial printing press.\n\nThen the brothers created a company to handle sales and repairs of bicycle. The proceeds from this shop were spent on their hidden interest in flight.\n\nThe Wright brothers came out with their first model. Other inventors did too. However, their approach was different. They focused more on controls than the other inventors.\n\nOthers thought the pilot’s body was the best way to control the craft in flight. The Wright brothers preferred mechanical controls.\n\nThis set them apart from all the others inventors.\n\nThe Wright brothers built their first ‘heavier than air’ aircraft and flew it. This was after a lot of tests had been done.\n\nThey spoke with different engine manufacturing companies. None of them could meet their requirements for an engine. Then they asked their own bicycle repair specialist. He made them an engine from aluminum. This was not common at the time.\n\nThen came the brothers’ first flight. Their aircraft rose 852 feet off the ground. It spent 52 seconds in the air. However, no one believed the brothers.\n\nThen they went to Europe. They settled in France. They organized a series of test flights. They even gave rides to journalists and important personalities. It didn’t take long for their fame to spread far and wide. They started selling aircrafts.\n\nThey sold many aircrafts. They became very wealthy businessmen in France. They worked with European and American companies.\n\nThe brothers always took joint credit for their work. This helped them succeed.\n\nThey used each other’s strengths. Will was the business mind of the operation. Orville contributed many ideas too.\n\nBoth brothers never married. It is unclear if they had any kids. Wilbur was the first to die after falling ill of typhoid. He died at their family home at the age of 45.\n\nOrville lived on for 35 years. He became an elder statesman of aviation. He lived to see many more aviation developments before falling to a heart attack.\n\nWithout their work, it would be difficult to think of where aviation technology would be today. They thought outside the box and accomplished much.\n\nThe Wright brothers will always be remembered. They laid the template for aviation controls.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In what state were the Wright Brothers born?",
+        "options": [
+          "Colorado",
+          "California",
+          "Pennsylvania",
+          "Ohio"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What toy did the brothers have as kids?",
+        "options": [
+          "Plane",
+          "Helicopter",
+          "Doll",
+          "Train"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What business did Orville build after dropping out of high school?",
+        "options": [
+          "Pizza",
+          "Printing Press",
+          "Car",
+          "Farming"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How high did their first flight go?",
+        "options": [
+          "8000 feet",
+          "1000 feet",
+          "852 feet",
+          "152 feet"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Wilbur die of?",
+        "options": [
+          "Typhoid",
+          "Influenza",
+          "Measles",
+          "Smallpox"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "wright-brothers-800",
+    "lexile_measure": 800,
+    "article_id": "wright-brothers",
+    "article_text": "The concept of flight can never be thoroughly discussed without making reference to the Wright Brothers. Commonly addressed together, this group is made up of two brothers – Wilbur and Orville Wright.\n\n The two American inventors were born four years apart from each other to the Wright family in Ohio. That was where the story all began.\n\n They were not the first to invent the aircraft. However, they were pioneers of aviation technology. They developed many controls that made flight of fixed-wings aircrafts possible.\n\n Growing up, their father brought home a model helicopter. It was made from bamboo, paper, cork and rubber. They played with this toy helicopter until it broke. Then they made a replica for themselves. The brothers said this was the defining moment in their journey.\n\n The two brothers attended high school, but neither was awarded a diploma. Wilbur finished four years of high school but missed out on his diploma since his family moved before he could get it. Orville, on the other hand, dropped out of school. He built a printing press business instead.\n\n This business was successful and Wilbur joined in on the print shop. Their printing press lasted for a while before it failed. Afterwards, it was converted to a commercial printing press.\n\n During the national bicycle craze, the brothers created a company to handle sales and repairs of bicycle. The proceeds from this shop were spent on their hidden interest in flight.\n\n At the time when the Wright brothers came out with their first model, there were other inventors who had working prototypes. However, their approach was different. They focused more on controls than the other inventors.\n\n Others thought the pilot’s body was the best way to control the craft in flight. The Wright brothers worked toward making sure mechanical controls were at the service of the pilot instead.\n\n This set them apart from all the other inventors.\n\n The Wright brothers built their first ‘heavier than air’ aircraft and flew it. This was after a lot of tests had been done with gliders of different shapes, configurations, and sizes.\n\n They had also spoken with different engine manufacturing companies. None of them could meet their requirements for an engine that was powerful yet light. In the end, they had to turn to their in-house bicycle repair specialist. He made them an engine from aluminum (not a common practice at the time) in under six weeks.\n\n At the time of first flight, the Wilbur brothers recorded a success. Their aircraft attained up to 852 feet and spent a combined 52 seconds in the air. However, no one believed the brothers. \n\n To make sure the whole world saw their genius, they left for Europe. Settling in France, the Wright brothers organized a series of test flights. They even gave rides to journalists and important personalities. It didn’t take long for their fame to spread far and wide. They started making the aircrafts for sale.\n\n They sold many aircrafts and became very wealthy businessmen in France. By the time they returned home, they had already secured a place in the hearts of everyone wanting aircrafts. They also had contracts from European and American companies to fill.\n\n Until the time of their death, the brothers notably took joint credit for their work. This is believed to be one of the many reasons for their success.\n\n They each used the strength of one another in making the joint venture work. While Will was the business mind of the operation, Orville contributed many ideas too.\n\n Before their death, both brothers never married. It is unclear if they had any kids. Wilbur was the first to die after falling ill of typhoid. He died at their family home at the age of 45.\n\n Orville, on the other hand, lived to see over 35 years more than his brother. In that time, he transformed from an inventor to an elder statesman of aviation. He lived to see many more developments of his joint invention before falling to a heart attack.\n\n Without their work, it would be difficult to think of where aviation technology would be today. Their willingness to think outside the box led to the development of aviation controls as we know them today.\n\nWith the building of every new aircraft, the Wright brothers will always be remembered. They were the very first ones to lay the template for aviation controls as we know them today.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In what state were the Wright Brothers born?",
+        "options": [
+          "Colorado",
+          "California",
+          "Pennsylvania",
+          "Ohio"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What toy did the brothers have as kids?",
+        "options": [
+          "Plane",
+          "Helicopter",
+          "Doll",
+          "Train"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What business did Orville build after dropping out of high school?",
+        "options": [
+          "Pizza",
+          "Printing Press",
+          "Car",
+          "Farming"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How high did their first flight go?",
+        "options": [
+          "8000 feet",
+          "1000 feet",
+          "852 feet",
+          "152 feet"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Wilbur die of?",
+        "options": [
+          "Typhoid",
+          "Influenza",
+          "Measles",
+          "Smallpox"
+        ],
+        "answer_index": 0
+      }
+    ]
+  },
+  {
+    "_id": "wright-brothers-1000",
+    "lexile_measure": 1000,
+    "article_id": "wright-brothers",
+    "article_text": "The concept of flight can never be thoroughly discussed without making reference to the Wright Brothers. Commonly addressed together, this group is made up of two brothers – Wilbur and Orville Wright.\n\n The two American inventors were born four years apart from each other to the Wright family in Ohio, and that was where the story all began.\n\n They were not the first to invent the aircraft, but they are credited with this feat since they were the pioneers of aviation technology. They developed controls that made flight of fixed-wings aircrafts possible.\n\n Growing up, their father brought home a model helicopter made from bamboo, paper, cork and rubber. They played with this toy helicopter until it broke. Then they made a replica for themselves. The brothers would later point back to this as being the defining moment in their journey.\n\n The two brothers attended high school, but neither was awarded a diploma. Wilbur finished four years of high school but missed out on his diploma since his family moved before he could get it. Orville, on the other hand, dropped out of school in favor of building a printing press business instead.\n\n This business was successful to some point, and Wilbur joined in on the print shop. Their printing press lasted for a while before it failed. Afterwards, it was converted to a commercial printing press.\n\n When the national bicycle craze era kicked in, the brothers sought to cash in and created a company of their own to handle sales and repairs of bicycle. The proceeds from this shop were spent on their hidden interest in flight.\n\n At the time when the Wright brothers will come out with their first model, there were already a series of inventors who had working prototypes. However, they excelled in the kind of approach they took to the entire flight technology – focusing more on controls than the other inventors.\n\n While others thought the pilot’s body would be the best means to control the craft in flight, the Wright brothers worked toward making sure mechanical controls were at the service of the pilot instead.\n\n This set them apart from all the others inventors.\n\n The Wright brothers built their first ‘heavier than air’ aircraft and proceeded to fly it. This was after a lot of tests had been done with gliders of different shapes, configurations, and sizes.\n\n They had also spoken with different engine manufacturing companies. None of them could meet their requirements for an engine that was powerful yet light enough. In the end, they had to turn to their in-house bicycle repair specialist who made them an engine from aluminum (not a common practice at the time) in under six weeks.\n\n At the time of first flight, the Wilbur brothers recorded a success. Their aircraft attained up to 852 feet and spent a combined 52 seconds in the air. As laudable as that feat was, no one believed the brothers.\n\n To make sure the whole world saw them for the geniuses they were, they left for Europe. Settling in France, the Wright brothers organized a series of test flights. They even gave rides to journalists and important personalities. It didn’t take long for their fame to spread far and wide, and they started making the aircrafts for sale.\n\n They sold so many aircrafts, they became very wealthy businessmen in France. By the time they returned home, they had already secured a place in the hearts of everyone wanting aircrafts. They also had contracts from European and American companies to fill.\n\nUntil the time of their death, the brothers notably took joint credit for their work. This is believed to be one of the many reasons for their success.\n\nThey each used the strength of one another in making the joint venture work. While Will was the business mind of the operation, Orville was a brilliant mind in contributing ideas to the overall success of the entire thing too.\n\nBefore their death, both brothers never married, and it was unclear if they had any kids. Wilbur was the first to die after falling ill and being diagnosed of typhoid. He died at their family home at the age of 45.\n\nOrville, on the other hand, lived to see over 35 years more than his brother. In that time, he transformed from an inventor to an elder statesman of aviation. He lived to see many more developments of his joint invention before falling to a heart attack.\n\nWithout their work, it would be difficult to think of where aviation technology would be today. Their willingness to think outside the box led to the development of aviation controls as we know them today.\n\nWith the building of every new aircraft, the Wright brothers will always be remembered. They were the very first ones to lay the template for aviation controls as we know them today.",
+    "questions": [
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "In what state were the Wright Brothers born?",
+        "options": [
+          "Colorado",
+          "California",
+          "Pennsylvania",
+          "Ohio"
+        ],
+        "answer_index": 3
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What toy did the brothers have as kids?",
+        "options": [
+          "Plane",
+          "Helicopter",
+          "Doll",
+          "Train"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What business did Orville build after dropping out of high school?",
+        "options": [
+          "Pizza",
+          "Printing Press",
+          "Car",
+          "Farming"
+        ],
+        "answer_index": 1
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "How high did their first flight go?",
+        "options": [
+          "8000 feet",
+          "1000 feet",
+          "852 feet",
+          "152 feet"
+        ],
+        "answer_index": 2
+      },
+      {
+        "type": "mc",
+        "points": 1,
+        "prompt": "What did Wilbur die of?",
+        "options": [
+          "Typhoid",
+          "Influenza",
+          "Measles",
+          "Smallpox"
+        ],
+        "answer_index": 0
+      }
+    ]
   }
 ]

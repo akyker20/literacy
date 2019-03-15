@@ -26,6 +26,7 @@ export interface IQuizData {
 
   createArticleQuizSubmission: (articleQuizSub: M.IArticleQuizSubmission) => Promise<M.IArticleQuizSubmission>
   getArticleQuizSubmissionsForStudent: (studentId: string) => Promise<M.IArticleQuizSubmission[]>
+  getAllArticleQuizSubmissions: () => Promise<M.IArticleQuizSubmission[]>
   
 }
 
@@ -49,6 +50,10 @@ export class MongoQuizData implements IQuizData {
 
   getArticleQuizSubmissionsForStudent(studentId: string) {
     return this.articleQuizSubmissions.find({ student_id: studentId })
+  }
+
+  getAllArticleQuizSubmissions() {
+    return this.articleQuizSubmissions.find({})
   }
 
   // Quiz Related

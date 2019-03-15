@@ -160,6 +160,7 @@ export function UserRoutes(
         const classes = await userData.getAllClasses()
         const allReadingLogs = await readingLogData.getAllLogs()
         const quizSubmissions = await quizData.getAllBookQuizSubmissions()
+        const allArticleQuizSubmissions = await quizData.getAllArticleQuizSubmissions()
         const allUsers = await userData.getAllUsers()
         const allStudents = _.filter(allUsers, { type: M.UserType.Student }) as M.IStudent[]
 
@@ -167,7 +168,7 @@ export function UserRoutes(
 
         _.forEach(allStudents, student => {
           const studentClass = getStudentClass(student, classes)
-          if (studentClass === null) return
+          if (studentClass === null || (studentClass._id !== 'lou-wallace-mwells' && studentClass._id !== 'rousseau-mcclellan-iharper')) return
           const readingLogsForStudent = _.filter(allReadingLogs, { student_id: student._id })
           const pagesRead = _.sumBy(readingLogsForStudent, log => log.final_page - log.start_page)
           const minutesRead = _.sumBy(readingLogsForStudent, 'duration_min')
@@ -175,6 +176,12 @@ export function UserRoutes(
             student_id: student._id,
             passed: true
           })
+          const articleSubmissionsForStudent = _.filter(allArticleQuizSubmissions, {
+            student_id: student._id
+          })
+          const numPassedArticleQuizzes = _.filter(articleSubmissionsForStudent, { passed: true }).length
+          const numFailedArticleQuizzes = _.filter(articleSubmissionsForStudent, { passed: false }).length
+          const averageQuizScore = _.meanBy(articleSubmissionsForStudent, 'score')
           records.push([
             Helpers.getFullName(student), 
             studentClass._id, 
@@ -182,7 +189,10 @@ export function UserRoutes(
             readingLogsForStudent.length, 
             pagesRead,
             minutesRead,
-            passedQuizzes.length
+            passedQuizzes.length,
+            numPassedArticleQuizzes,
+            numFailedArticleQuizzes,
+            averageQuizScore
           ])
         })
 

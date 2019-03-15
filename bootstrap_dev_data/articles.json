@@ -26,5 +26,54 @@
     "title": "The Three Pointer",
     "cover_photo_url": "https://storage.googleapis.com/rr-articles/3pointer.jpg",
     "num_pts": 25
+  },
+  {
+    "_id": "barack-obama",
+    "date_created": "2019-03-14T16:38:35.234Z",
+    "title": "Barack Obama",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/obama.jpg",
+    "num_pts": 25
+  },
+  {
+    "_id": "gandhi",
+    "date_created": "2019-03-14T16:38:35.234Z",
+    "title": "Mahatma Gandhi",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/ghandi.jpg",
+    "num_pts": 25
+  },
+  {
+    "_id": "lebron-james",
+    "date_created": "2019-03-14T16:38:35.234Z",
+    "title": "Lebron James",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/lebron.jpg",
+    "num_pts": 25
+  },
+  {
+    "_id": "math",
+    "date_created": "2019-03-14T16:38:35.234Z",
+    "title": "Math",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/math.jpg",
+    "num_pts": 25
+  },
+  {
+    "_id": "peyton-manning",
+    "date_created": "2019-03-14T16:38:35.234Z",
+    "title": "Peyton Manning",
+    "cover_photo_url": "",
+    "num_pts": 25
+  },
+  {
+    "_id": "taylor-swift",
+    "date_created": "2019-03-14T16:38:35.234Z",
+    "title": "Taylor Swift",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/taylor-swift.jpg",
+    "num_pts": 25
+  },
+  {
+    "_id": "wright-brothers",
+    "date_created": "2019-03-14T16:38:35.234Z",
+    "title": "Wright Brothers",
+    "cover_photo_url": "https://storage.googleapis.com/rr-articles/wright.jpg",
+    "num_pts": 25
   }
 ]
